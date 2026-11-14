@@ -164,18 +164,24 @@ def load_keywords(raw_dir=RAW):
         return {entry["Accession"]: " ".join((entry.get("Keywords") or "").split()) for entry in json.load(handle)}
 
 
+def load_sub_areas(raw_dir=RAW):
+    with open(Path(raw_dir) / "catalog.json", encoding="utf-8") as handle:
+        return {entry["Accession"]: " ".join((entry.get("SubResearch Area") or "").split()) for entry in json.load(handle)}
+
+
 def clip(text, limit):
     text = " ".join(str(text or "").split())
     return text if len(text) <= limit else text[:limit].rsplit(" ", 1)[0] + " ..."
 
 
-def text_context(metadata, keywords="", max_publications=6):
+def text_context(metadata, keywords="", max_publications=6, sub_area=""):
     """The NASA write-up for one investigation, trimmed so one request stays under free-tier limits."""
     sections = {name: clip(metadata.get(name), limit) for name, limit in TEXT_LIMITS.items()}
     titles = [clip(p.get("title"), 160) for p in metadata.get("publications") or [] if p.get("title")]
     return {
         "title": clip(metadata.get("title"), 200),
         "keywords": clip(keywords, 300),
+        "sub_research_area": clip(sub_area, 120),
         **sections,
         "publication_titles": titles[:max_publications],
     }
@@ -202,8 +208,8 @@ def data_facts(investigation, rows):
     }
 
 
-def extract_one(llm, investigation, rows, metadata, keywords=""):
-    context = text_context(metadata, keywords)
+def extract_one(llm, investigation, rows, metadata, keywords="", sub_area=""):
+    context = text_context(metadata, keywords, sub_area=sub_area)
     facts = data_facts(investigation, rows)
     raw = llm.json(build_prompt(context, facts), system=SYSTEM_PROMPT, max_tokens=2500)
     record = clean_record(raw, facts)
@@ -250,6 +256,7 @@ def main():
     investigations = load_investigations()
     tests = load_tests()
     keywords = load_keywords()
+    sub_areas = load_sub_areas()
     records = load_existing(args.out)
     targets = sorted(args.only or investigations, key=accession_number)
     failures = []
@@ -257,7 +264,7 @@ def main():
     for accession in targets:
         try:
             record = extract_one(llm, investigations[accession], tests.get(accession, []),
-                                 load_metadata(accession), keywords.get(accession, ""))
+                                 load_metadata(accession), keywords.get(accession, ""), sub_areas.get(accession, ""))
         except (LLMError, KeyError) as error:
             failures.append(accession)
             print(f"FAIL {accession}: {error}")
