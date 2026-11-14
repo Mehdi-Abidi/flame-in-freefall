@@ -93,7 +93,7 @@ Known quirks to handle: pressure appears in mmHg (FLEX), atm (FLEX-2, Flame Desi
 
 | ID | Sprint | Task | Done when |
 |---|---|---|---|
-| S1 | S1 | `si/llm.py` with one provider wrapper. Pick whichever key the team already has. Temperature 0 and JSON output. | One test call returns valid JSON. |
+| S1 | S1 | ~~`si/llm.py` with one provider wrapper.~~ **Done 14 Nov.** Groq, `openai/gpt-oss-20b` with `gpt-oss-120b` as fallback, JSON mode, retries, cache. | `python -m si.llm --check` prints OK. |
 | S2 | S1 | Extraction prompt that reads each investigation's objectives, approach, hypothesis, hardware and table headers and returns: fuel and phase, sample shape and size, variables varied, variables held fixed, sensors and measurements, fire-safety pillar, one-paragraph plain summary. Unknown fields stay null. | All 24 investigations extracted into `data/processed/extracted.json`. |
 | S3 | S2 | Ranking engine (formula in section 7) in `si/rank.py`, scored for 5 habitat scenarios. | `rank.py --scenario lunar_base` prints a sensible top 10. |
 | S4 | S2 | Rationale writer: two sentences per investigation per scenario, citing the fields used. | Stored in `investigations.json`. |
@@ -277,7 +277,7 @@ Taha verifies these in T1. Hardware groupings come from the challenge text.
 | Layer | Choice | Why |
 |---|---|---|
 | Data | Python 3.11+, standard library and pandas | Small data, no heavy installs |
-| SI | One LLM provider behind `si/llm.py`, BM25 search | No local models, no GPU, no big downloads |
+| SI | Groq free tier, open-weight GPT-OSS 20B behind `si/llm.py`, BM25 search | No local models, no GPU, no big downloads. Provider is a `.env` setting. |
 | API | FastAPI on Render or a Hugging Face Space | Free tier, quick deploy |
 | Web | React, Vite, TypeScript, Tailwind, Plotly | Fast to build, good charts |
 | Hosting | Vercel for `web/` | Preview link per PR |
