@@ -195,6 +195,8 @@ How it stays honest:
 
 FastAPI service in `api/` (tasks A1 to A5). It reads `data/processed` at startup.
 
+**Live:** <https://flame-in-freefall-api.onrender.com> (interactive docs at [`/docs`](https://flame-in-freefall-api.onrender.com/docs)). It runs on Render's free plan, so it sleeps after 15 minutes without traffic and the first request after that takes about 50 seconds. Open the link a few minutes before a demo.
+
 ```bash
 uvicorn api.main:app --reload     # then open http://127.0.0.1:8000/docs
 python -m unittest tests.test_api -v

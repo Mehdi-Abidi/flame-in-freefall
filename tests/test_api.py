@@ -26,6 +26,11 @@ def fake_chat(reply):
 
 @unittest.skipUnless(HAVE_DEPS, "fastapi, httpx or rank-bm25 not installed")
 class InvestigationTests(unittest.TestCase):
+    def test_root_redirects_to_docs(self):
+        response = client.get("/", follow_redirects=False)
+        self.assertEqual(response.status_code, 307)
+        self.assertEqual(response.headers["location"], "/docs")
+
     def test_health(self):
         body = client.get("/health").json()
         self.assertEqual(body["investigations"], 24)

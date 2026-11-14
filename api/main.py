@@ -10,7 +10,7 @@ from typing import List, Optional
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
+from fastapi.responses import RedirectResponse, Response
 from pydantic import BaseModel, Field
 
 from api import ask as ask_module
@@ -58,6 +58,12 @@ app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", 
 
 def _not_found(accession: str) -> HTTPException:
     return HTTPException(status_code=404, detail=f"Unknown investigation {accession!r}. See /investigations.")
+
+
+@app.get("/", include_in_schema=False)
+def root():
+    """The bare API link opens the interactive docs instead of a 404."""
+    return RedirectResponse(url="/docs")
 
 
 @app.get("/health")
