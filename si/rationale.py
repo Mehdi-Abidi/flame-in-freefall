@@ -128,6 +128,8 @@ def conditions_on_record(investigation):
     o2, pressure = investigation.get("o2_basis"), investigation.get("pressure_basis")
     if not o2 and not pressure:
         return "no oxygen or pressure recorded"
+    if o2 == pressure == "measured":
+        return "oxygen and pressure both measured"
     parts = []
     if o2:
         parts.append(f"oxygen {BASIS_WORDS.get(o2, o2)}")
@@ -268,17 +270,24 @@ def template_rationale(facts):
     return sanitize(f"{lead} {caveat}")
 
 
+MAX_ATTEMPTS = 3
+
+
 def write_one(llm, facts):
-    """Return (text, source, problems). Asks once, repairs once with feedback, then falls back to the template."""
+    """Return (text, source, problems). Up to three attempts: a model error is retried as is,
+    a rejected reply is retried with the exact problems. After that the fact-only template is used."""
     from si.llm import LLMError
 
     prompt = build_prompt(facts)
     problems = []
-    for attempt in range(2):
+    for attempt in range(MAX_ATTEMPTS):
         try:
             reply = llm.json(prompt, system=SYSTEM_PROMPT, max_tokens=400)
         except LLMError as error:
-            return template_rationale(facts), "template", [f"model error: {error}"[:300]]
+            problems = [f"model error: {error}"[:300]]
+            if attempt < MAX_ATTEMPTS - 1:
+                continue
+            return template_rationale(facts), "template", problems
         text = sanitize(reply.get("rationale") if isinstance(reply, dict) else "")
         problems = validate(text, facts)
         if not problems:
