@@ -16,6 +16,7 @@ if HAVE_DEPS:
     from api import ask as ask_module
     from api import main
     from api.data import PROCESSED
+    from api.limits import RateLimiter, visitor_key
 
     client = TestClient(main.app)
 
@@ -142,6 +143,13 @@ class RankAndCompareTests(unittest.TestCase):
 class AskTests(unittest.TestCase):
     QUESTION = "Which diluent put out droplet flames at lower oxygen, CO2 or helium?"
 
+    def setUp(self):
+        self.original_limiter = main.ask_limiter
+        main.ask_limiter = RateLimiter(1000, 1000, 1000, 1000)
+
+    def tearDown(self):
+        main.ask_limiter = self.original_limiter
+
     def test_retrieval_finds_flex(self):
         accessions = {s["accession"] for s in main.retriever.search(self.QUESTION)}
         self.assertTrue(accessions & {"PSI-69", "PSI-68"})
@@ -231,6 +239,79 @@ class AskTests(unittest.TestCase):
 
     def test_question_validation(self):
         self.assertEqual(client.post("/ask", json={"question": "x" * 501}).status_code, 422)
+
+
+
+class FakeClock:
+    def __init__(self):
+        self.now = 1000.0
+
+    def __call__(self):
+        return self.now
+
+
+@unittest.skipUnless(HAVE_DEPS, "fastapi, httpx or rank-bm25 not installed")
+class RateLimiterTests(unittest.TestCase):
+    def test_visitor_minute_limit_and_retry_after(self):
+        clock = FakeClock()
+        limiter = RateLimiter(per_minute=2, per_day=10, global_per_minute=50, global_per_day=500, clock=clock)
+        self.assertEqual(limiter.check("a")[0], True)
+        clock.now += 10
+        self.assertEqual(limiter.check("a")[0], True)
+        allowed, retry_after, scope = limiter.check("a")
+        self.assertEqual((allowed, retry_after, scope), (False, 50, "visitor"))
+        self.assertTrue(limiter.check("b")[0])
+        clock.now += 51
+        self.assertTrue(limiter.check("a")[0])
+
+    def test_visitor_day_limit(self):
+        clock = FakeClock()
+        limiter = RateLimiter(per_minute=100, per_day=3, global_per_minute=100, global_per_day=100, clock=clock)
+        for _ in range(3):
+            self.assertTrue(limiter.check("a")[0])
+            clock.now += 61
+        allowed, retry_after, scope = limiter.check("a")
+        self.assertEqual((allowed, scope), (False, "visitor"))
+        self.assertGreater(retry_after, 80000)
+
+    def test_global_limit_protects_the_quota_across_visitors(self):
+        limiter = RateLimiter(per_minute=5, per_day=50, global_per_minute=3, global_per_day=100, clock=FakeClock())
+        self.assertTrue(all(limiter.check(f"ip{i}")[0] for i in range(3)))
+        self.assertEqual(limiter.check("ip99")[2], "global")
+
+    def test_blocked_requests_do_not_count(self):
+        clock = FakeClock()
+        limiter = RateLimiter(per_minute=1, per_day=10, global_per_minute=10, global_per_day=10, clock=clock)
+        limiter.check("a")
+        for _ in range(5):
+            limiter.check("a")
+        clock.now += 61
+        self.assertTrue(limiter.check("a")[0])
+
+    def test_visitor_key_uses_the_proxy_added_address(self):
+        self.assertEqual(visitor_key("1.2.3.4, 10.0.0.1", "127.0.0.1"), "10.0.0.1")
+        self.assertEqual(visitor_key("", "127.0.0.1"), "127.0.0.1")
+        self.assertEqual(visitor_key(None, None), "unknown")
+
+    def test_env_overrides_and_bad_values_fall_back(self):
+        with mock.patch.dict("os.environ", {"ASK_LIMIT_PER_MINUTE": "2", "ASK_GLOBAL_PER_DAY": "abc", "ASK_LIMIT_PER_DAY": "-5"}):
+            limiter = RateLimiter.from_env()
+        self.assertEqual(limiter.rules["visitor"], ((60.0, 2), (86400.0, 60)))
+        self.assertEqual(limiter.rules["global"], ((60.0, 20), (86400.0, 400)))
+
+    def test_ask_endpoint_answers_429_with_retry_after(self):
+        original = main.ask_limiter
+        main.ask_limiter = RateLimiter(per_minute=1, per_day=10, global_per_minute=10, global_per_day=10)
+        try:
+            with mock.patch.object(main, "llm_chat", return_value=fake_chat("Helium did [PSI-69].")):
+                first = client.post("/ask", json={"question": AskTests.QUESTION})
+                second = client.post("/ask", json={"question": AskTests.QUESTION})
+        finally:
+            main.ask_limiter = original
+        self.assertEqual(first.status_code, 200)
+        self.assertEqual(second.status_code, 429)
+        self.assertTrue(int(second.headers["retry-after"]) >= 1)
+        self.assertIn("Too many questions from you", second.json()["detail"])
 
 
 if __name__ == "__main__":
