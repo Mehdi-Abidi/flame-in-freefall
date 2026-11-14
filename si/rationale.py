@@ -9,6 +9,7 @@ Usage:
 
 import hashlib
 import json
+import re
 from pathlib import Path
 
 from si.rank import PROCESSED, RankError, UsageError, read_json, shown
@@ -98,3 +99,59 @@ def build_facts(entry, scenario, total, summary_record):
 
 def build_prompt(facts):
     return "FACTS:\n" + json.dumps(facts, ensure_ascii=False, indent=1)
+
+
+MAX_WORDS = 70
+NUMBER = re.compile(r"(?<![A-Za-z])\d+(?:\.\d+)?")
+INSIDE_CLAIM = re.compile(r"\b(inside|within|in)\s+(the\s+)?(lunar|habitat|target|box|its|this)?\s*(target|box|habitat'?s? (range|conditions|target))", re.I)
+RANK_CLAIM = re.compile(r"(?:\branks?\s+(?:#|number\s+)?|#|\bno\.\s*)(\d+)|\b(\d+)(?:st|nd|rd|th)\b", re.I)
+
+
+def sanitize(text):
+    text = " ".join(str(text or "").split())
+    text = re.sub(r"\s*[—–]\s*", ", ", text)
+    text = re.sub(r"(?<=\w)\s+-\s+(?=\w)", ", ", text)
+    text = text.replace(";", ",")
+    return text.strip()
+
+
+def sentences(text):
+    return [s for s in re.split(r"(?<=[.!?])\s+", text.strip()) if s]
+
+
+def allowed_numbers(facts):
+    values = set()
+    for token in NUMBER.findall(json.dumps(facts, ensure_ascii=False)):
+        value = float(token)
+        values.update({value, round(value), value * 100, round(value * 100), value / 100})
+    return values
+
+
+def number_is_allowed(token, allowed):
+    value = float(token)
+    return any(abs(value - a) <= 0.05 + 1e-9 for a in allowed)
+
+
+def validate(text, facts):
+    """Return a list of problems; an empty list means the rationale is safe to publish."""
+    problems = []
+    if not text:
+        return ["empty rationale"]
+    count = len(sentences(text))
+    if count != 2:
+        problems.append(f"has {count} sentences, needs exactly 2")
+    words = len(text.split())
+    if words > MAX_WORDS:
+        problems.append(f"has {words} words, limit is {MAX_WORDS}")
+    allowed = allowed_numbers(facts)
+    unknown = sorted({t for t in NUMBER.findall(text) if not number_is_allowed(t, allowed)}, key=float)
+    if unknown:
+        problems.append(f"mentions numbers not in the facts: {', '.join(unknown)}")
+    if not facts.get("n_in_target") and INSIDE_CLAIM.search(text):
+        problems.append("claims tests were inside the target, but none were")
+    for match in RANK_CLAIM.finditer(text):
+        stated = int(match.group(1) or match.group(2))
+        if stated != facts.get("rank") and stated != facts.get("out_of"):
+            problems.append(f"states rank {stated}, real rank is {facts.get('rank')}")
+            break
+    return problems
