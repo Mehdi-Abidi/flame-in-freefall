@@ -64,7 +64,7 @@ Fire safety pillars. Assign a pillar only when it is a main aim of the investiga
 - detection: measuring smoke, soot or aerosol particles to design or test fire detectors, or telling smoke from dust. Observing that a flame went out is NOT detection.
 - suppression: extinguishing flames, diluents or agents such as CO2 or helium, extinction limits
 variables_fixed lists physical test conditions held constant (for example ambient temperature or droplet size). Never list the platform, hardware or facility there.
-For sample_size, use size_mm_range from DATA FACTS when given (it is in millimetres).
+sample_size is a short description of sample size from the TEXT, or null.
 Reply with one JSON object with exactly these keys:
 summary: 2 to 3 plain sentences for an engineer new to the topic
 objective_short: one sentence
@@ -115,6 +115,9 @@ def clean_record(raw, facts):
     record["pillars"] = [p for p in PILLARS if p in {x.lower() for x in clean_list(raw.get("pillars"))}]
     model_phases = [p for p in PHASES if p in {x.lower() for x in clean_list(raw.get("fuel_phase"))}]
     record["fuel_phase"] = list(facts.get("fuel_phase") or []) or model_phases
+    size = facts.get("size_mm_range")
+    if size:
+        record["sample_size"] = f"{size[0]:g} mm" if size[0] == size[1] else f"{size[0]:g} to {size[1]:g} mm"
     return record
 
 
