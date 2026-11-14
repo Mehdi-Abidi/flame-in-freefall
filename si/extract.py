@@ -215,6 +215,26 @@ def enforce_detection_evidence(record, context):
     return []
 
 
+CONSTANT_WORDS = ("constant", "fixed", "held", "unchanged", "same")
+VARYING_WORDS = ("vary", "varied", "varies", "varying", "changed", "changing", "different", "range of")
+
+
+def summary_contradictions(record, facts):
+    """Sentences in the summary that call a varied condition constant, or a constant one varied."""
+    text = " ".join(filter(None, [record.get("summary"), record.get("objective_short")])).lower()
+    warnings = []
+    for sentence in re.split(r"[.;,:]|\b(?:while|but|whereas|although)\b", text):
+        for label in facts.get("varied_in_tables") or []:
+            keys = dict(DIMENSION_WORDS)[label]
+            if any(k in re.findall(r"[a-z0-9]+", sentence) for k in keys) and any(w in sentence for w in CONSTANT_WORDS):
+                warnings.append(f"summary may call {label} constant, but the tables show it varied")
+        for label in facts.get("constant_in_tables") or []:
+            keys = dict(DIMENSION_WORDS)[label]
+            if any(k in re.findall(r"[a-z0-9]+", sentence) for k in keys) and any(w in sentence for w in VARYING_WORDS):
+                warnings.append(f"summary may call {label} varied, but the tables show it constant")
+    return sorted(set(warnings))
+
+
 def grounding_warnings(record, context, facts):
     """Flag anything the model named that does not appear in the text or data it was given."""
     haystack = words(json.dumps(context, ensure_ascii=False) + " " + json.dumps(facts, ensure_ascii=False))
@@ -223,6 +243,7 @@ def grounding_warnings(record, context, facts):
         missing = [item for item in record[field] if not is_grounded(item, haystack)]
         if missing:
             warnings.append(f"{field} not found in source: {', '.join(missing)}")
+    warnings.extend(summary_contradictions(record, facts))
     if not record["pillars"]:
         warnings.append("no fire-safety pillar assigned")
     if not record["summary"]:
