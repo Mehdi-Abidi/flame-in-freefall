@@ -281,3 +281,78 @@ def load_inputs(processed=PROCESSED, domain=DOMAIN):
         "seed": optional["seed"],
         "notes": notes,
     }
+
+
+COMPONENT_WEIGHTS = {"condition_fit": 0.35, "material_relevance": 0.20, "pillar_match": 0.25, "data_richness": 0.20}
+
+
+def get_scenario(scenarios, scenario_id):
+    if scenario_id not in scenarios["scenarios"]:
+        raise RankError(f"unknown scenario '{scenario_id}'. Choose one of: {', '.join(scenarios['scenarios'])}")
+    return scenarios["scenarios"][scenario_id]
+
+
+def _percent(fraction):
+    return f"{fraction * 100:.0f}% O2"
+
+
+def reasons_for(investigation, fit, phases, pillars, pillar_source, scenario):
+    reasons = []
+    if fit["n_in_target"]:
+        reasons.append(f"{fit['n_in_target']} measured test(s) inside the {scenario['label'].lower()} target")
+    best = fit["best"]
+    if best and best["closeness"] >= 0.3:
+        where = _percent(best["o2_mole_fraction"]) + (f" at {best['pressure_kpa']:.0f} kPa" if best["pressure_kpa"] is not None else "")
+        reasons.append(f"closest test: {where}")
+    elif fit["n_considered"]:
+        reasons.append(f"none of its {fit['n_considered']} tests come near this habitat's O2 and pressure")
+    else:
+        reasons.append("no O2 or pressure data to compare with this habitat")
+    if phases:
+        reasons.append(f"burned {', '.join(phases)} fuels")
+    reasons.append(f"fire-safety focus: {', '.join(pillars) or 'fundamentals only'} (from {pillar_source} tags)"
+                   if pillar_source in ("tags", "seed") else
+                   f"fire-safety focus: {', '.join(pillars) or 'not identified'} (model suggestion, not yet checked)")
+    if investigation.get("platform") == "ground":
+        reasons.append("ground study, no flight tests of its own")
+    return reasons
+
+
+def rank(scenario_id, weights=None, inputs=None):
+    """Return every investigation scored for one habitat, best first. Raises RankError on bad input."""
+    inputs = inputs if inputs is not None else load_inputs()
+    scenario = get_scenario(inputs["scenarios"], scenario_id)
+    weights = parse_weights(weights)
+    investigations = inputs["investigations"]
+    maxima = {
+        "n_tests": max((i.get("n_tests") or 0) for i in investigations.values()),
+        "n_files": max((i.get("n_files") or 0) for i in investigations.values()),
+        "publications": max(len(i.get("publications") or []) for i in investigations.values()),
+    }
+    results = []
+    for accession, investigation in investigations.items():
+        fit = condition_fit(inputs["rows"].get(accession, []), scenario, inputs["scenarios"]["tolerance"])
+        phases = investigation.get("fuel_phase") or []
+        pillars, pillar_source = resolve_pillars(accession, inputs["tags"], inputs["seed"], inputs["extracted"])
+        components = {
+            "condition_fit": fit["fit"],
+            "material_relevance": material_relevance(phases),
+            "pillar_match": pillar_match(pillars, weights),
+            "data_richness": data_richness(investigation, maxima),
+        }
+        score = round(sum(COMPONENT_WEIGHTS[name] * value for name, value in components.items()), 4)
+        results.append({
+            "accession": accession,
+            "acronym": investigation.get("acronym"),
+            "title": investigation.get("title"),
+            "score": score,
+            "components": components,
+            "pillars": pillars,
+            "pillar_source": pillar_source,
+            "evidence": {key: fit[key] for key in ("n_considered", "n_in_target", "n_near", "best")},
+            "reasons": reasons_for(investigation, fit, phases, pillars, pillar_source, scenario),
+        })
+    results.sort(key=lambda r: (-r["score"], int(r["accession"].split("-")[1]) if r["accession"].split("-")[-1].isdigit() else 0))
+    for position, result in enumerate(results, start=1):
+        result["rank"] = position
+    return results
