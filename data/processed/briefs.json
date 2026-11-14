@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "prompt_version": "s5-v1",
+  "model": "openai/gpt-oss-120b",
+  "briefs": {
+    "prevention": {
+      "title": "Lunar Habitat Fire Safety Insights",
+      "findings": [
+        {
+          "text": "Solid-fuel microgravity tests measured oxygen up to 22.2% at 101 kPa, showing ignition and flame spread limits for materials like PMMA and Nomex.",
+          "citations": [
+            "PSI-25"
+          ]
+        },
+        {
+          "text": "Gas-fuel diffusion flame experiments in microgravity self-extinguished at oxygen levels as low as 13.5%, indicating strong dependence on oxygen concentration for flame stability.",
+          "citations": [
+            "PSI-159"
+          ]
+        },
+        {
+          "text": "All available microgravity and 1 g combustion data bound possible behavior on the Moon, but no partial-gravity experiments are present in the dataset.",
+          "citations": [
+            "PSI-10",
+            "PSI-159"
+          ]
+        }
+      ],
+      "implication": "Design lunar habitat fire-safety systems assuming that gas-fuel fires may self-extinguish below ~14% O2 and solid-fuel fires can sustain up to ~22% O2 at cabin pressure, while planning for higher O2 levels needed for crew life support.",
+      "gap": "The data do not include any combustion tests performed in lunar-gravity (0.16 g) or Mars-gravity conditions.",
+      "source": "model",
+      "model": "openai/gpt-oss-120b",
+      "members": [
+        "PSI-10",
+        "PSI-159",
+        "PSI-20",
+        "PSI-25",
+        "PSI-26",
+        "PSI-39",
+        "PSI-99",
+        "PSI-98",
+        "PSI-100",
+        "PSI-142",
+        "PSI-62"
+      ],
+      "fingerprint": "bae80fbf885ad9a5",
+      "problems": [],
+      "review": "awaiting expert review"
+    },
+    "detection": {
+      "title": "Lunar Habitat Fire Detection Gaps",
+      "findings": [
+        {
+          "text": "Solid-fuel microgravity tests measured smoke at 21% oxygen and 101 kPa, which differs from the planned lunar base environment of ≥30% oxygen and ≤70.3 kPa.",
+          "citations": [
+            "PSI-101",
+            "PSI-102"
+          ]
+        },
+        {
+          "text": "Gas-fuel microgravity experiments also used 21% oxygen at 101 kPa, providing no data for the lower pressure range expected on the Moon.",
+          "citations": [
+            "PSI-107"
+          ]
+        },
+        {
+          "text": "All cited investigations were conducted in microgravity, indicating that partial-gravity combustion data are not present in the PSI archive.",
+          "citations": [
+            "PSI-101",
+            "PSI-107"
+          ]
+        }
+      ],
+      "implication": "Designers cannot rely on existing PSI data to predict fire behavior under the reduced pressure and higher oxygen conditions of a lunar base.",
+      "gap": "The dataset lacks experimental results for partial-gravity, lower-pressure, and ≥30% oxygen environments.",
+      "source": "model",
+      "model": "openai/gpt-oss-120b",
+      "members": [
+        "PSI-101",
+        "PSI-102",
+        "PSI-98",
+        "PSI-100",
+        "PSI-107",
+        "PSI-47",
+        "PSI-115",
+        "PSI-60"
+      ],
+      "fingerprint": "beac83f6154035ed",
+      "problems": [],
+      "review": "awaiting expert review"
+    },
+    "suppression": {
+      "title": "Fire suppression limits for lunar habitats",
+      "findings": [
+        {
+          "text": "Liquid fuel droplets of methanol and heptane extinguished in microgravity at measured oxygen as low as 12.0% with nitrogen diluent, well below the planned 30% oxygen for a lunar base.",
+          "citations": [
+            "PSI-69"
+          ]
+        },
+        {
+          "text": "Solid fuels such as PMMA and Nomex showed extinction at measured oxygen concentrations between 13.6% and 22.2% in microgravity at 101 kPa cabin pressure.",
+          "citations": [
+            "PSI-25"
+          ]
+        },
+        {
+          "text": "All 66 lunar-base condition tests used gas fuels at 30% oxygen or higher and pressures ≤70.3 kPa, indicating that existing data focus on gas-fuel scenarios rather than liquids or solids at those conditions.",
+          "citations": [
+            "PSI-69"
+          ]
+        }
+      ],
+      "implication": "Designers should expect that both liquid and solid fuels can be extinguished at oxygen levels far below the planned 30% and that suppression strategies can rely on diluents effective at those lower concentrations.",
+      "gap": "The data do not include partial-gravity combustion results or solid-fuel tests at the specific lunar-base pressure limit of 70.3 kPa.",
+      "source": "model",
+      "model": "openai/gpt-oss-120b",
+      "members": [
+        "PSI-69",
+        "PSI-68",
+        "PSI-25",
+        "PSI-26"
+      ],
+      "fingerprint": "2825f2243205a0de",
+      "problems": [],
+      "review": "awaiting expert review"
+    }
+  }
+}
