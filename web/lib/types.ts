@@ -115,11 +115,28 @@ export interface Stats {
   lunarPhases: Phase[];
 }
 
+export interface BriefFinding {
+  text: string;
+  citations: string[];
+}
+
+export interface Brief {
+  pillar: Pillar;
+  title: string;
+  findings: BriefFinding[];
+  implication: string;
+  gap: string;
+  source: "model" | "template";
+  model: string;
+  review: string;
+}
+
 export interface Dataset {
   investigations: Investigation[];
   points: Point[];
   scenarios: Scenario[];
   componentWeights: Components;
   gravity: GravityRow[];
+  briefs: Brief[];
   stats: Stats;
 }

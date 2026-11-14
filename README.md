@@ -58,6 +58,7 @@ Already pulled into this repo:
 | `data/processed/extracted.json` | AI-extracted facts per investigation: plain summary, fuels, geometry, variables varied and held fixed, sensors, measurements, fire-safety pillars, Earth benefits, plus review warnings |
 | `data/processed/rankings.json` | All 24 investigations ranked for each habitat (ISS, lunar base, pressurized rover, Mars habitat, spacesuit) with score breakdown and reasons |
 | `data/processed/rationale.json` | Two-sentence explanation of every rank, per habitat, validated against the score facts |
+| `data/processed/briefs.json` | One cited insight brief per fire-safety pillar, with review status |
 | `data/domain/scenarios.json` | Habitat O2 and pressure targets, each with its source sentence and labelled assumptions |
 | `data/domain/seed_pillars.json` | Seed fire-safety tags from the plan, replaced by hand-checked tags in T1 |
 | `data/processed/saffire2_gravity.csv` | SAFFIRE-II microgravity vs 1 g burn results, sample by sample |
@@ -83,6 +84,7 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | S2 AI extraction of all 24 investigations (`extracted.json`) | Mehdi | Done, Taha to review in T4 |
 | S3 Habitat ranking engine (`si/rank.py`, `rankings.json`) | Mehdi | Done |
 | S4 Rank explanations (`si/rationale.py`, `rationale.json`) | Mehdi | Done |
+| S5 Insight briefs per pillar (`si/briefs.py`, `briefs.json`) | Mehdi | Done, Taha to review in T4 |
 | F1 to F5, V1 to V4 Dashboard (`web/`), live on GitHub Pages | Mehdi | Done, team to polish |
 | A1 to A5 FastAPI service (`api/`), see [API](#api) | Moiz | In review, deploy (A3) next |
 | F1 to F2 React shell and Vercel deploy | Ali Soban | Next |
@@ -151,6 +153,24 @@ The model only turns facts that the ranking already computed into two sentences.
 - it may not say tests were inside the target when none were (negations such as "none were inside" are fine)
 
 A rejected reply is sent back once with the exact problems. If it fails again, a fact-only template is used and labelled as such. Runs resume: entries whose facts did not change are kept, so reruns cost nothing. `--strict` exits 1 if anything fell back. QA fails if a rationale no longer matches the current rank, and the dashboard hides any rationale written for a different rank.
+
+## Insight briefs (S5)
+
+```bash
+python -m si.briefs --model openai/gpt-oss-120b   # three briefs: prevention, detection, suppression
+python -m si.briefs --templates-only               # fact-only briefs, no key needed
+python -m si.briefs --pillar suppression --force   # rewrite one
+```
+
+Each brief has a title, three findings that cite PSI accessions, what it means for a lunar base, and what the data does not cover. Code gathers the facts per pillar (oxygen and pressure ranges with their basis, recorded outcomes such as the lowest oxygen at which droplets went out, the SAFFIRE-II gravity comparison, the 22.2% and 66-test headlines). The model writes. Every brief is checked before it is kept:
+
+- each finding names the investigation it cites, and cites only investigations in that pillar
+- flames are only said to go out where an extinction is recorded
+- assumed or planned oxygen is called assumed or planned next to the number
+- no superlatives (best, most effective) and no reassurance (can rely on, is effective, safe enough)
+- every number comes from the facts, digits only, no field names, word limits
+
+A rejected brief is sent back with the exact problems, up to three attempts, then a fact-only brief is used. Briefs start as "awaiting expert review". A review mark is kept on rerun unless the facts change. QA fails if pillar membership changes, for example when hand-checked tags land, until the briefs are rerun.
 
 ## Team
 

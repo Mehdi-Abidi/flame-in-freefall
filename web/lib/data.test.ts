@@ -52,6 +52,18 @@ describe("loadDataset", () => {
     }
   });
 
+  it("loads one brief per pillar whose citations all point at real investigations", () => {
+    const known = new Set(data.investigations.map((i) => i.accession));
+    expect(data.briefs.map((b) => b.pillar)).toEqual(["prevention", "detection", "suppression"]);
+    for (const brief of data.briefs) {
+      expect(brief.findings).toHaveLength(3);
+      for (const finding of brief.findings) {
+        expect(finding.citations.length).toBeGreaterThan(0);
+        for (const citation of finding.citations) expect(known.has(citation)).toBe(true);
+      }
+    }
+  });
+
   it("keeps component weights summing to one", () => {
     const total = Object.values(data.componentWeights).reduce((sum, value) => sum + value, 0);
     expect(total).toBeCloseTo(1, 9);

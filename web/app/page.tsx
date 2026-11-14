@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BriefCards } from "@/components/BriefCards";
 import { GapMap } from "@/components/GapMap";
 import { GravityTable } from "@/components/GravityTable";
 import { SectionHeader, StatTile } from "@/components/Section";
@@ -62,8 +63,18 @@ export default function OverviewPage() {
         <GravityTable rows={data.gravity} />
       </section>
 
+      {data.briefs.length > 0 && (
+        <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
+          <SectionHeader code="04" title="What the data says">
+            One brief per fire-safety pillar. Each finding cites the NASA investigations it comes from, and code checked every number, citation
+            and claim against the data before it was published. A domain review is still pending.
+          </SectionHeader>
+          <BriefCards briefs={data.briefs} names={names} />
+        </section>
+      )}
+
       <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
-        <SectionHeader code="04" title="Where to next" />
+        <SectionHeader code="05" title="Where to next" />
         <div className="grid gap-4 md:grid-cols-3">
           {[
             { href: "/rank/", title: "Rank for a habitat", body: "Pick ISS, lunar base, rover or Mars, weight prevention, detection and suppression, and watch the list re-order." },

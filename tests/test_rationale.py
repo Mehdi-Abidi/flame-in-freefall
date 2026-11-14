@@ -221,6 +221,7 @@ class CommandLineTests(unittest.TestCase):
             code, _, err = self.run_cli(["--only", "PSI-69"])
         self.assertEqual(code, 1)
         self.assertIn("--templates-only", err)
+        self.assertNotIn("..", err)
         self.assertNotIn("Traceback", err)
 
     def test_corrupt_existing_file_is_reported(self):

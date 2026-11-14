@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "prompt_version": "s5-v3",
+  "model": "openai/gpt-oss-120b",
+  "briefs": {
+    "prevention": {
+      "title": "Lunar Base Fire Safety Insights",
+      "findings": [
+        {
+          "text": "ACME CFI-G observed 183 self-extinguished gas-fuel flames, the lowest at 13.5% oxygen, and 88 flames stopped by ending flow, the lowest at 15.0% oxygen.",
+          "citations": [
+            "PSI-159"
+          ]
+        },
+        {
+          "text": "BASS-II burned solid fuels (PMMA, Nomex, Japan wax) with measured oxygen from 13.6% to 22.2% at 101 kPa, all within Earth-cabin levels.",
+          "citations": [
+            "PSI-25"
+          ]
+        },
+        {
+          "text": "ACME/Flame Design mapped gas-fuel diffusion flames from 19.8% to 85.0% oxygen and 43 to 306 kPa, including a test closest to lunar conditions at 32.0% oxygen and 52 kPa.",
+          "citations": [
+            "PSI-10"
+          ]
+        }
+      ],
+      "implication": "Designers must test flame suppression and detection systems at 30%+ oxygen and ≤70.3 kPa because existing data show flames persist and self-extinguish only at much lower oxygen levels.",
+      "gap": "The dataset lacks partial-gravity fire data and solid-fuel tests at lunar-base oxygen (≥30%) and pressure conditions.",
+      "source": "model",
+      "model": "openai/gpt-oss-120b",
+      "members": [
+        "PSI-10",
+        "PSI-159",
+        "PSI-20",
+        "PSI-25",
+        "PSI-26",
+        "PSI-39",
+        "PSI-99",
+        "PSI-98",
+        "PSI-100",
+        "PSI-142",
+        "PSI-62"
+      ],
+      "fingerprint": "8ae335223ce91442",
+      "problems": [],
+      "review": "awaiting expert review"
+    },
+    "detection": {
+      "title": "Lunar Detection Data Gaps",
+      "findings": [
+        {
+          "text": "SAME-R recorded 109 solid-fuel rows, oxygen assumed 21.0% at 101 kPa, diluent not recorded.",
+          "citations": [
+            "PSI-101"
+          ]
+        },
+        {
+          "text": "SAFFIRE-III recorded 2 solid-fuel rows, oxygen assumed 21.0% at 101 kPa, tests used N2-air mixture.",
+          "citations": [
+            "PSI-100"
+          ]
+        },
+        {
+          "text": "SPICE recorded 435 gas-fuel rows, oxygen assumed 21.0% at 101 kPa, diluent constant across tests.",
+          "citations": [
+            "PSI-107"
+          ]
+        }
+      ],
+      "implication": "Designers must test detection systems at 30% oxygen or higher to ensure performance under lunar-base conditions.",
+      "gap": "The data do not include any partial-gravity combustion or fire-detection results.",
+      "source": "model",
+      "model": "openai/gpt-oss-120b",
+      "members": [
+        "PSI-101",
+        "PSI-102",
+        "PSI-98",
+        "PSI-100",
+        "PSI-107",
+        "PSI-47",
+        "PSI-115",
+        "PSI-60"
+      ],
+      "fingerprint": "42d3f9f79ae799aa",
+      "problems": [],
+      "review": "awaiting expert review"
+    },
+    "suppression": {
+      "title": "Lunar Habitat Fire Suppression Insights",
+      "findings": [
+        {
+          "text": "FLEX observed 88 liquid-fuel rows with N2+CO2 extinguished, the lowest at 14.0% measured oxygen, and 40 rows with N2+He extinguished, the lowest at 13.0% measured oxygen.",
+          "citations": [
+            "PSI-69"
+          ]
+        },
+        {
+          "text": "BASS-II burned solid fuels with measured oxygen from 13.6% to 22.2%, all below the 30% oxygen expected on a lunar base.",
+          "citations": [
+            "PSI-25"
+          ]
+        },
+        {
+          "text": "BASS ran 121 solid-fuel rows with N2 (air) at assumed 21.0% oxygen, the nominal cabin level, under 101 kPa pressure.",
+          "citations": [
+            "PSI-26"
+          ]
+        }
+      ],
+      "implication": "Designers must test and design suppression systems for 30%+ oxygen and up to 70.3 kPa to ensure extinguishment under lunar base conditions.",
+      "gap": "The data lack partial-gravity results and gas-fuel extinction tests at 30% or higher oxygen levels.",
+      "source": "model",
+      "model": "openai/gpt-oss-120b",
+      "members": [
+        "PSI-69",
+        "PSI-68",
+        "PSI-25",
+        "PSI-26"
+      ],
+      "fingerprint": "2aabd3803a4e5ec8",
+      "problems": [],
+      "review": "awaiting expert review"
+    }
+  }
+}
