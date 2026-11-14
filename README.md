@@ -54,6 +54,8 @@ Already pulled into this repo:
 | `data/processed/tests.csv` | 2,127 normalized rows, each with a unique `row_id`: fuel, phase, geometry, size, O2 fraction, pressure in kPa, flow, outcome |
 | `data/processed/investigations.json` | 24 investigation records: metadata, publications, test counts, O2 and pressure ranges with their basis (measured, nominal, planned) |
 | `data/processed/extracted.json` | AI-extracted facts per investigation: plain summary, fuels, geometry, variables varied and held fixed, sensors, measurements, fire-safety pillars, Earth benefits, plus review warnings |
+| `data/processed/rankings.json` | All 24 investigations ranked for each habitat (ISS, lunar base, pressurized rover, Mars habitat, spacesuit) with score breakdown and reasons |
+| `data/domain/scenarios.json` | Habitat O2 and pressure targets, each with its source sentence and labelled assumptions |
 | `data/domain/seed_pillars.json` | Seed fire-safety tags from the plan, replaced by hand-checked tags in T1 |
 | `data/processed/saffire2_gravity.csv` | SAFFIRE-II microgravity vs 1 g burn results, sample by sample |
 
@@ -76,10 +78,33 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | D3 `investigations.json`: one record per investigation with ranges and their basis | Mufeed | Done |
 | S1 `si/llm.py` provider wrapper, 17 unit tests | Mehdi | Done |
 | S2 AI extraction of all 24 investigations (`extracted.json`) | Mehdi | Done, Taha to review in T4 |
+| S3 Habitat ranking engine (`si/rank.py`, `rankings.json`) | Mehdi | Done |
 | A1 FastAPI skeleton | Moiz | Next |
 | F1 to F2 React shell and Vercel deploy | Ali Soban | Next |
 | V1 Flammability map prototype | Ahsan | Next, can start on `tests.csv` now |
 | T1 to T2 Domain tags and habitat scenarios | Taha | Next |
+
+## Habitat ranking (S3)
+
+```bash
+python -m si.rank --scenario lunar_base                    # top 10 for the lunar base
+python -m si.rank --scenario iss --weights detection=2     # favour detection research
+python -m si.rank --scenario mars_habitat --json           # full result as JSON
+python -m si.rank --write                                  # rebuild rankings.json (CI does this too)
+```
+
+Each investigation gets a score from 0 to 1, with every part shown so a judge can see why something ranks first:
+
+| Part | Weight | What it measures |
+|---|---|---|
+| Condition fit | 0.35 | How close its tests came to the habitat's O2 and pressure box. Distance is counted in tolerances (0.05 O2, 20 kPa). Measured values count fully, assumed cabin values half. Half best test, half typical test. |
+| Material relevance | 0.20 | Solid 1.0, liquid 0.7, gas 0.5, dust 0.4. Habitat fires start in solids. |
+| Pillar match | 0.25 | 1.0 if it covers the user's highest-weighted pillar. Uses the best single pillar, so extra tags do not inflate a score. |
+| Data richness | 0.20 | Log-scaled tests, files and publications. |
+
+Pillars come from Taha's hand-checked `data/domain/tags.json` when it exists, then the seed tags, then the model's suggestions, and each result says which one it used.
+
+**For the API (A2):** call `si.rank.rank(scenario_id, weights, inputs)` with `inputs = load_inputs()` loaded once at startup. A `UsageError` (unknown scenario, bad weights) should become HTTP 400 with its message. Any other `RankError` is a data problem and should become HTTP 500. The CLI exits with 2 for usage errors, 1 for data errors and 130 on Ctrl+C. `--debug` shows the full traceback for unexpected errors.
 
 ## Team
 
