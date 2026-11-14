@@ -230,11 +230,9 @@ def load_existing(path):
 
 def write_records(path, records):
     ordered = sorted(records.values(), key=lambda r: accession_number(r["accession"]))
-    with open(path, "w", encoding="utf-8", newline="
-") as handle:
+    with open(path, "w", encoding="utf-8", newline="\n") as handle:
         json.dump(ordered, handle, indent=2, ensure_ascii=False)
-        handle.write("
-")
+        handle.write("\n")
 
 
 def main():
@@ -268,8 +266,7 @@ def main():
         flag = f"  warnings: {record['warnings']}" if record["warnings"] else ""
         print(f"ok   {accession:8} {record['acronym'] or '-':20} pillars={','.join(record['pillars']) or '-'}{flag}")
         write_records(args.out, records)
-    print(f"
-{len(targets) - len(failures)}/{len(targets)} extracted in {time.time() - started:.0f}s, "
+    print(f"\n{len(targets) - len(failures)}/{len(targets)} extracted in {time.time() - started:.0f}s, "
           f"model calls {llm.usage['calls']}, cached {llm.usage['cached']}, tokens {llm.usage['tokens']}")
     sys.exit(1 if failures else 0)
 
