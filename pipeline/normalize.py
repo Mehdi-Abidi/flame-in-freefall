@@ -479,7 +479,7 @@ SKIPPED = {"PSI-142_": "data summary of publications, no per-test conditions"}
 def write_csv(path, rows, columns):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=columns)
+        writer = csv.DictWriter(handle, fieldnames=columns, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
