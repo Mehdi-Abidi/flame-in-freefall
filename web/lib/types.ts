@@ -104,6 +104,13 @@ export interface GravityRow {
   oneGSpread: string;
 }
 
+export interface PhaseOxygen {
+  phase: Phase;
+  min: number;
+  max: number;
+  count: number;
+}
+
 export interface Stats {
   investigations: number;
   records: number;
@@ -113,6 +120,8 @@ export interface Stats {
   solidMaxO2: number;
   lunarTests: number;
   lunarPhases: Phase[];
+  measuredRows: number;
+  oxygenByPhase: PhaseOxygen[];
 }
 
 export interface BriefFinding {
