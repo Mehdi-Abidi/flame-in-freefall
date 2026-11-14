@@ -37,6 +37,8 @@ Cite every claim with that accession number in square brackets, for example [PSI
 The [{OVERVIEW}] source covers many investigations: cite the accession numbers named inside it, never [{OVERVIEW}].
 Keep the answer under 150 words, in plain language for a habitat designer.
 Report numbers as the sources give them. If a difference is small or the data cannot settle the question, say so.
+Do not judge which option is better, safer or more effective unless a source says so in words. Report what was observed,
+for example the lowest oxygen at which a flame went out, and note that this alone does not rank the options.
 If the sources do not answer the question, reply with exactly: {NOT_COVERED}"""
 
 

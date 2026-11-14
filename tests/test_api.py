@@ -150,6 +150,10 @@ class AskTests(unittest.TestCase):
     def tearDown(self):
         main.ask_limiter = self.original_limiter
 
+    def test_prompt_forbids_unsupported_effectiveness_claims(self):
+        self.assertIn("Do not judge which option is better", ask_module.SYSTEM_PROMPT)
+        self.assertIn("does not rank the options", ask_module.SYSTEM_PROMPT)
+
     def test_retrieval_finds_flex(self):
         accessions = {s["accession"] for s in main.retriever.search(self.QUESTION)}
         self.assertTrue(accessions & {"PSI-69", "PSI-68"})
