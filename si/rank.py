@@ -59,3 +59,44 @@ def read_csv(path, required_columns):
             return list(reader)
     except (OSError, UnicodeDecodeError, csv.Error) as error:
         raise RankError(f"cannot read {path}: {error}") from error
+
+
+SCENARIO_KEYS = {"id", "label", "o2_mole_fraction", "pressure_kpa", "context_only", "source", "assumptions"}
+
+
+def _box(scenario_id, name, value, low, high):
+    if (not isinstance(value, list) or len(value) != 2
+            or not all(isinstance(v, (int, float)) and not isinstance(v, bool) for v in value)):
+        raise RankError(f"scenario '{scenario_id}': {name} must be a [min, max] pair of numbers, got {value!r}")
+    if value[0] > value[1]:
+        raise RankError(f"scenario '{scenario_id}': {name} min {value[0]} is larger than max {value[1]}")
+    if value[0] < low or value[1] > high:
+        raise RankError(f"scenario '{scenario_id}': {name} {value} is outside the physical range {low} to {high}")
+    return [float(value[0]), float(value[1])]
+
+
+def validate_scenarios(document):
+    if not isinstance(document, dict) or not isinstance(document.get("scenarios"), list) or not document["scenarios"]:
+        raise RankError("scenarios.json must contain a non-empty 'scenarios' list")
+    tolerance = document.get("tolerance") or {}
+    o2_tol, p_tol = tolerance.get("o2_mole_fraction"), tolerance.get("pressure_kpa")
+    if not all(isinstance(t, (int, float)) and not isinstance(t, bool) and t > 0 for t in (o2_tol, p_tol)):
+        raise RankError("scenarios.json tolerance needs positive numbers for o2_mole_fraction and pressure_kpa")
+    scenarios = {}
+    for index, scenario in enumerate(document["scenarios"]):
+        if not isinstance(scenario, dict):
+            raise RankError(f"scenario #{index + 1} must be an object")
+        missing = sorted(SCENARIO_KEYS - set(scenario))
+        scenario_id = scenario.get("id", f"#{index + 1}")
+        if missing:
+            raise RankError(f"scenario '{scenario_id}' is missing keys {missing}")
+        if not isinstance(scenario_id, str) or not scenario_id.strip():
+            raise RankError(f"scenario #{index + 1} needs a non-empty text id")
+        if scenario_id in scenarios:
+            raise RankError(f"scenario id '{scenario_id}' appears twice")
+        scenarios[scenario_id] = {
+            **scenario,
+            "o2_mole_fraction": _box(scenario_id, "o2_mole_fraction", scenario["o2_mole_fraction"], 0.0, 1.0),
+            "pressure_kpa": _box(scenario_id, "pressure_kpa", scenario["pressure_kpa"], 0.0, 1000.0),
+        }
+    return {"tolerance": {"o2": float(o2_tol), "pressure": float(p_tol)}, "scenarios": scenarios}
