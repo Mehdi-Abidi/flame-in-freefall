@@ -10,6 +10,8 @@ Library:
 
 import csv
 import math
+import os
+import tempfile
 import json
 from pathlib import Path
 
@@ -362,3 +364,42 @@ def rank(scenario_id, weights=None, inputs=None):
     for position, result in enumerate(results, start=1):
         result["rank"] = position
     return results
+
+
+def build_rankings(inputs):
+    """Default-weight rankings for every scenario, ready for the API and the dashboard."""
+    scenarios = {}
+    for scenario_id, scenario in inputs["scenarios"]["scenarios"].items():
+        scenarios[scenario_id] = {
+            "label": scenario["label"],
+            "o2_mole_fraction": scenario["o2_mole_fraction"],
+            "pressure_kpa": scenario["pressure_kpa"],
+            "context_only": bool(scenario["context_only"]),
+            "source": scenario["source"],
+            "assumptions": scenario["assumptions"],
+            "ranking": rank(scenario_id, None, inputs),
+        }
+    return {
+        "version": 1,
+        "component_weights": COMPONENT_WEIGHTS,
+        "default_pillar_weights": DEFAULT_WEIGHTS,
+        "tolerance": inputs["scenarios"]["tolerance"],
+        "notes": inputs["notes"],
+        "scenarios": scenarios,
+    }
+
+
+def write_json_atomic(path, document):
+    """Write to a temporary file in the same folder, then swap it in, so readers never see half a file."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    handle, temporary = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.", suffix=".tmp")
+    try:
+        with os.fdopen(handle, "w", encoding="utf-8", newline="\n") as stream:
+            json.dump(document, stream, indent=2, ensure_ascii=False)
+            stream.write("\n")
+        os.replace(temporary, path)
+    except OSError as error:
+        if os.path.exists(temporary):
+            os.remove(temporary)
+        raise RankError(f"cannot write {path}: {error}") from error
