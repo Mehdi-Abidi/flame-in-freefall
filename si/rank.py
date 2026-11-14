@@ -208,8 +208,10 @@ def material_relevance(phases):
 
 
 def pillar_match(pillars, weights):
-    total = sum(weights.values())
-    return round(sum(weights[p] for p in set(pillars) if p in weights) / total, 4) if total else 0.0
+    """1.0 when the investigation addresses the user's highest-weighted pillar, scaled down for lower priorities.
+    Using the best single pillar, not the sum, stops investigations with many tags from outranking focused ones."""
+    top = max(weights.values()) if weights else 0.0
+    return round(max((weights.get(p, 0.0) for p in pillars), default=0.0) / top, 4) if top else 0.0
 
 
 def data_richness(investigation, maxima):
@@ -299,7 +301,7 @@ def _percent(fraction):
 def reasons_for(investigation, fit, phases, pillars, pillar_source, scenario):
     reasons = []
     if fit["n_in_target"]:
-        reasons.append(f"{fit['n_in_target']} measured test(s) inside the {scenario['label'].lower()} target")
+        reasons.append(f"{fit['n_in_target']} measured test(s) inside the {scenario['label']} target")
     best = fit["best"]
     if best and best["closeness"] >= 0.3:
         where = _percent(best["o2_mole_fraction"]) + (f" at {best['pressure_kpa']:.0f} kPa" if best["pressure_kpa"] is not None else "")
