@@ -116,20 +116,20 @@ Every LLM output is precomputed and committed. The live site calls an LLM only f
 
 | ID | Sprint | Task | Done when |
 |---|---|---|---|
-| F1 | S1 | React + Vite + TypeScript + Tailwind app in `web/`. Layout with nav: Explore, Map, Rank, Compare, Ask, Gravity, Earth. Typed API client with a static JSON fallback copied from `data/processed` at build time. | Runs locally on mock data. |
-| F2 | S1 | Deploy to Vercel from `web/`. | v0 link live by Saturday 23:00. |
-| F3 | S2 | Explorer: cards with filters for pillar, fuel phase, hardware, ISS vs ground, and text search. Detail drawer shows objectives, conditions, sensors, publications and an "Open in PSI" button. | Works on real data. |
-| F4 | S3 | Compare: pick 2 to 4 investigations, side-by-side table. Rows that differ get highlighted. | FLEX vs FLEX-2 reads clearly. |
-| F5 | S3 | Ask page: chat UI, citations rendered as chips that open the detail drawer. | Works against `/ask`. |
+| F1 | S1 | ~~App shell.~~ **Done 14 Nov** as Next.js 16 static export in `web/` (paper and night themes, IBM Plex, Motion). | Live at mehdi-abidi.github.io/flame-in-freefall |
+| F2 | S1 | ~~Deploy.~~ **Done 14 Nov:** GitHub Pages through `.github/workflows/dashboard.yml` (lint, type-check, tests, build on PRs, deploy from main). | Ali: polish and responsive QA |
+| F3 | S2 | ~~Explorer.~~ **Done 14 Nov:** search, pillar, phase and platform filters, plus a static page per investigation. | Ali: copy and empty states |
+| F4 | S3 | ~~Compare.~~ **Done 14 Nov:** up to 4, 16 attributes, differences marked, selection in the URL. | |
+| F5 | S3 | Ask page: chat UI against Moiz's `/ask` endpoint. The static site cannot hold the key, so this waits for A3 and A4. | Works against `/ask`. |
 
 ## Visualization: Ahsan Ali
 
 | ID | Sprint | Task | Done when |
 |---|---|---|---|
-| V1 | S1 | Flammability map prototype in Plotly: x = oxygen mole fraction, y = pressure in kPa, one dot per test, coloured by investigation. Shaded boxes for habitat targets (section 7). | Works on mock data inside the app. |
-| V2 | S2 | Wire V1 to real `tests.csv`. Hover shows test ID, fuel, outcome. Clicking a box filters the ranking. | Real data, readable at laptop and phone width. |
-| V3 | S2 | Habitat ranking view: scenario dropdown, three pillar weight sliders, bar list of top investigations with score breakdown and rationale. | Updates live as sliders move. |
-| V4 | S3 | Gravity bounds panel: SAFFIRE-II has both microgravity and 1 g burn length and spread rate columns. Plot them side by side. Add a note on E-FIELD as a partial-gravity proxy and on future LUCI and FM2 data. | Panel live. |
+| V1 | S1 | ~~Flammability map.~~ **Done 14 Nov** as the gap map: hand-built SVG, log pressure axis, habitat boxes, measured versus assumed dots. | |
+| V2 | S2 | ~~Real data and hover.~~ **Done 14 Nov:** nearest-point tooltips, phase filters, table view. | Ahsan: tune labels and density |
+| V3 | S2 | ~~Habitat ranking view.~~ **Done 14 Nov:** habitat switcher, sliders and presets, animated re-ordering, score bars, evidence. Browser ranking matches Python on all 120 scores. | |
+| V4 | S3 | ~~Gravity panel.~~ **Done 14 Nov** as the SAFFIRE-II table on the overview. Next: add the E-FIELD partial-gravity note and LUCI/FM2 outlook as a chart. | Ahsan |
 
 ## Domain and pitch: Syed Taha Zaidi
 
