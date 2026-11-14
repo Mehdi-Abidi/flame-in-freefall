@@ -11,7 +11,7 @@ export default function RankPage() {
   return (
     <div className="mx-auto max-w-[1240px] px-4 pt-12 sm:px-6">
       <h1 className="mb-6 text-[34px] font-semibold tracking-[-0.02em] sm:text-[44px]">Rank for a habitat</h1>
-      <SectionHeader code="02" title="How to read it">
+      <SectionHeader title="How to read it">
         Pick where the crew will live and how much you care about preventing, detecting or putting out a fire. Every investigation is scored from
         0 to 100 from four visible parts, so you can always see why something ranks first. Move a slider and the list re-orders. Arrows show
         movement against the balanced ranking.

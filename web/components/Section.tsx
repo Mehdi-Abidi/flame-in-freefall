@@ -1,12 +1,10 @@
 import type { ReactNode } from "react";
 
-export function SectionHeader({ code, title, children }: { code: string; title: string; children?: ReactNode }) {
+export function SectionHeader({ title, children }: { title: string; children?: ReactNode }) {
   return (
-    <div className="mb-6 grid gap-3 md:grid-cols-[200px_1fr] md:gap-10">
-      <p className="eyebrow pt-1.5">
-        <span className="text-accent">§{code}</span> · {title}
-      </p>
-      <div className="max-w-3xl text-[15px] leading-relaxed text-ink-2">{children}</div>
+    <div className="mb-6">
+      <h2 className="text-[24px] font-semibold leading-tight tracking-[-0.01em]">{title}</h2>
+      {children && <div className="mt-2 max-w-[68ch] text-[15px] leading-relaxed text-ink-2">{children}</div>}
     </div>
   );
 }

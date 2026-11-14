@@ -10,7 +10,7 @@ export default function InvestigationsPage() {
   return (
     <div className="mx-auto max-w-[1240px] px-4 pt-12 sm:px-6">
       <h1 className="mb-6 text-[34px] font-semibold tracking-[-0.02em] sm:text-[44px]">The 24 investigations</h1>
-      <SectionHeader code="03" title="Catalogue">
+      <SectionHeader title="Catalogue">
         Every combustion investigation in NASA&apos;s Physical Sciences Informatics repository. Summaries were drafted by an open model from
         NASA&apos;s own text and checked against the test tables. Colour dots show the fuel phases each one burned.
       </SectionHeader>

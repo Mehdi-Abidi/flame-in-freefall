@@ -11,7 +11,7 @@ export default function ComparePage() {
   return (
     <div className="mx-auto max-w-[1240px] px-4 pt-12 sm:px-6">
       <h1 className="mb-6 text-[34px] font-semibold tracking-[-0.02em] sm:text-[44px]">Compare investigations</h1>
-      <SectionHeader code="04" title="Side by side">
+      <SectionHeader title="Side by side">
         Put up to four investigations next to each other. Attributes that differ are marked, so you can see at a glance how FLEX-2 changed the
         FLEX recipe, or how BASS-II extended BASS.
       </SectionHeader>

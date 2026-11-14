@@ -45,7 +45,7 @@ export default function OverviewPage() {
       </section>
 
       <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
-        <SectionHeader code="02" title="The gap map">
+        <SectionHeader title="The gap map">
           Every test with a recorded atmosphere, placed by oxygen and pressure. The shaded boxes are where crews will live. Notice how few points
           land in the lunar box, and that none of them are solids.
         </SectionHeader>
@@ -55,7 +55,7 @@ export default function OverviewPage() {
       </section>
 
       <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
-        <SectionHeader code="03" title="Gravity changes the answer">
+        <SectionHeader title="Gravity changes the answer">
           SAFFIRE-II burned the same samples in a departing Cygnus cargo ship that were also tested on the ground. Thin silicone burned completely
           on Earth but barely at all in microgravity, while cotton-fiberglass fabric burned its full length in both. Screening materials at 1 g can
           mislead in both directions.
@@ -65,7 +65,7 @@ export default function OverviewPage() {
 
       {data.briefs.length > 0 && (
         <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
-          <SectionHeader code="04" title="What the data says">
+          <SectionHeader title="What the data says">
             One brief per fire-safety pillar. Each finding cites the NASA investigations it comes from, and code checked every number, citation
             and claim against the data before it was published. A domain review is still pending.
           </SectionHeader>
@@ -74,7 +74,7 @@ export default function OverviewPage() {
       )}
 
       <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
-        <SectionHeader code="05" title="Where to next" />
+        <SectionHeader title="Where to next" />
         <div className="grid gap-4 md:grid-cols-3">
           {[
             { href: "/rank/", title: "Rank for a habitat", body: "Pick ISS, lunar base, rover or Mars, weight prevention, detection and suppression, and watch the list re-order." },

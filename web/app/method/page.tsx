@@ -27,7 +27,7 @@ export default function MethodPage() {
     <div className="mx-auto max-w-[1240px] px-4 pt-12 sm:px-6">
       <h1 className="mb-6 text-[34px] font-semibold tracking-[-0.02em] sm:text-[44px]">Method</h1>
 
-      <SectionHeader code="05" title="Pipeline">
+      <SectionHeader title="Pipeline">
         Four steps turn NASA&apos;s raw repository into this dashboard. Each runs from a script in the repository and is checked automatically on
         every change.
       </SectionHeader>
@@ -41,7 +41,7 @@ export default function MethodPage() {
         ))}
       </ol>
 
-      <SectionHeader code="06" title="The score">
+      <SectionHeader title="The score">
         Each investigation gets a score from 0 to 1 for a habitat, shown as 0 to 100. The parts and their weights:
       </SectionHeader>
       <div className="mb-16 overflow-x-auto rounded-[6px] border border-rule bg-surface">
@@ -70,7 +70,7 @@ export default function MethodPage() {
         </table>
       </div>
 
-      <SectionHeader code="07" title="Habitat targets">
+      <SectionHeader title="Habitat targets">
         Taken from the challenge text. Where we had to assume something, it says so.
       </SectionHeader>
       <div className="mb-16 grid gap-4 md:grid-cols-2">
@@ -92,7 +92,7 @@ export default function MethodPage() {
         ))}
       </div>
 
-      <SectionHeader code="08" title="Honesty rules">
+      <SectionHeader title="Honesty rules">
         The rules that keep a fast hackathon build trustworthy. Each is enforced by an automated check.
       </SectionHeader>
       <ul className="mb-16 grid gap-3 md:grid-cols-2">
@@ -104,7 +104,7 @@ export default function MethodPage() {
         ))}
       </ul>
 
-      <SectionHeader code="09" title="Limits and AI use">
+      <SectionHeader title="Limits and AI use">
         No partial-gravity combustion data is in PSI yet. Microgravity and 1 g results bound what may happen on the Moon or Mars, and future data
         from the Lunar-g Combustion Investigation and Flammability of Materials on the Moon will fill that gap. The E-FIELD experiment mimicked
         partial gravity with electric fields. AI use: GPT-OSS 20B (via Groq) drafted the investigation summaries from NASA&apos;s text, and an AI
