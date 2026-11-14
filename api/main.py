@@ -8,13 +8,14 @@ Then open http://127.0.0.1:8000/docs
 import os
 from typing import List, Optional
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse, Response
 from pydantic import BaseModel, Field
 
 from api import ask as ask_module
 from api.data import Store, parse_accessions
+from api.limits import RateLimiter, visitor_key
 from si import rank as si_rank
 from si.llm import LLM, LLMError
 
@@ -25,6 +26,7 @@ COMPARE_FIELDS = (
 )
 
 store = Store()
+ask_limiter = RateLimiter.from_env()
 retriever = ask_module.Retriever(ask_module.build_chunks(store.investigations, store.raw, store.extracted, store.tests, store.gravity))
 _llm = None
 
@@ -188,8 +190,15 @@ class AskRequest(BaseModel):
 
 
 @app.post("/ask")
-def ask(request: AskRequest):
-    """Answers only from PSI metadata and test data, citing accession numbers. Otherwise 'Not covered in PSI data.'"""
+def ask(request: AskRequest, http_request: Request):
+    """Answers only from PSI metadata and test data, citing accession numbers. Otherwise 'Not covered in PSI data.'
+    Rate limited per visitor and overall; over the limit answers 429 with Retry-After."""
+    visitor = visitor_key(http_request.headers.get("x-forwarded-for"), http_request.client.host if http_request.client else None)
+    allowed, retry_after, scope = ask_limiter.check(visitor)
+    if not allowed:
+        who = "from you" if scope == "visitor" else "from everyone right now"
+        raise HTTPException(status_code=429, detail=f"Too many questions {who}. Try again in {retry_after} s.",
+                            headers={"Retry-After": str(retry_after)})
     try:
         return ask_module.answer(request.question, retriever, llm_chat())
     except (ask_module.ChatUnavailable, LLMError) as error:
