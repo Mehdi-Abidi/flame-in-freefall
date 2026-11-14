@@ -139,6 +139,12 @@ def check_extracted(report, processed_dir):
                  [r["accession"] for r in extracted
                   if investigations.get(r["accession"], {}).get("fuel_phase") and r.get("fuel_phase") != investigations[r["accession"]]["fuel_phase"]])
     report.check("every record has a summary", [r["accession"] for r in extracted if not r.get("summary")])
+    report.check("no condition listed as both varied and fixed",
+                 [f"{r['accession']}: {sorted({v.lower() for v in r.get('variables_varied') or []} & {v.lower() for v in r.get('variables_fixed') or []})}"
+                  for r in extracted
+                  if {v.lower() for v in r.get("variables_varied") or []} & {v.lower() for v in r.get("variables_fixed") or []}])
+    report.check("no summary contradicts the test tables",
+                 [f"{r['accession']}: {w}" for r in extracted for w in r.get("warnings") or [] if w.startswith("summary may call")])
     report.check("one prompt version and model across the file",
                  [] if len({(r.get("prompt_version"), r.get("model")) for r in extracted}) == 1
                  else [sorted({f"{r.get('prompt_version')}/{r.get('model')}" for r in extracted})])
