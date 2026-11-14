@@ -123,6 +123,7 @@ def dataset_facts(all_rows):
                  f"all with {' and '.join(phases) or 'no'} fuels.")
     facts.append("A lunar base is expected to run at 30% oxygen or more and 70.3 kPa (10.2 psi) or less.")
     facts.append("No partial-gravity combustion data is in PSI yet. Microgravity and 1 g results bound what may happen on the Moon or Mars.")
+    facts.append("Challenge context: raising oxygen to 30% or more makes materials much more flammable than in Earth air.")
     return facts
 
 
@@ -163,7 +164,7 @@ def build_facts(pillar, members, investigations, extracted, rows_by_accession, a
     return facts
 
 
-PROMPT_VERSION = "s5-v1"
+PROMPT_VERSION = "s5-v2"
 SYSTEM_PROMPT = """You write a short insight brief for spacecraft and lunar habitat fire-safety engineers.
 Use only the FACTS. Never add knowledge from outside them.
 Reply with JSON only, with exactly these keys:
@@ -172,16 +173,61 @@ findings: a list of exactly 3 objects, each {"text": one or two sentences of at 
 implication: one sentence of at most 40 words on what this means for a lunar base designer
 gap: one sentence of at most 40 words on what the data does not cover
 Rules:
-- Each finding must be supported by the investigations it cites, and cite only accessions listed in the FACTS.
+- Each finding is about specific investigations, names every investigation it cites, and cites only accessions listed in the FACTS.
+  Dataset-wide facts belong in implication or gap, never in a finding.
+- Only say flames went out, were extinguished or self-extinguished when that investigation's observations record it.
+- A flame going out at low oxygen does not show that the same agent works at 30% oxygen, where fires are harder to stop.
+  Never suggest that results at lower oxygen make a lunar base safe. The implication says what must be tested or designed for.
 - Write every number as digits, and only numbers that appear in the FACTS.
 - Never write FACT key names or words joined by underscores.
 - Do not call anything best, most effective, safest, optimal or ideal. Report what was observed.
-- If oxygen or pressure is assumed or planned, say so rather than presenting it as measured.
+- If an investigation's oxygen_basis is not measured, write assumed or planned next to its oxygen values.
+- Avoid overconfident safety language such as can rely on, is sufficient or safe enough.
 - No hype, no dashes, no semicolons."""
 
 
 def build_prompt(facts):
     return "FACTS:\n" + json.dumps(facts, ensure_ascii=False, indent=1)
+
+
+OUTCOME_CLAIM = re.compile(r"\b(extinction|extinguish\w*|went out|put out|self-extinguish\w*)\b", re.I)
+OVERCONFIDENT = re.compile(r"\b(can rely on|rely on|will be effective|is sufficient|are sufficient|safe enough|guarantee\w*)\b", re.I)
+QUALIFIER = re.compile(r"\b(assum\w*|planned|approximate\w*|nominal)\b", re.I)
+UNMEASURED = {"nominal_cabin_air", "planned", "approximate", "test_day_list"}
+PERCENT = re.compile(r"(\d+(?:\.\d+)?)\s*%")
+QUALIFIER_BEFORE = 35
+QUALIFIER_AFTER = 15
+
+
+def _percent_tokens(values):
+    tokens = set()
+    for value in values or []:
+        tokens.update({f"{value:g}", f"{value:.1f}", f"{round(value)}"})
+    return tokens
+
+
+def _evidence_problems(label, finding, by_accession):
+    problems = []
+    text = finding.get("text") or ""
+    lowered = text.lower()
+    cited = [by_accession[c] for c in finding.get("citations") or [] if c in by_accession]
+    unnamed = [inv["name"] for inv in cited if inv["name"].lower() not in lowered]
+    if unnamed:
+        problems.append(f"{label} cites {', '.join(unnamed)} but does not name it, so the citation may not support the claim")
+    if OUTCOME_CLAIM.search(text):
+        recorded = any(("extinction" in obs or "self-extinguished" in obs) for inv in cited for obs in inv.get("observations") or [])
+        if cited and not recorded:
+            problems.append(f"{label} claims flames went out, but no extinction outcome is recorded for what it cites")
+    for inv in cited:
+        if inv.get("oxygen_basis") not in UNMEASURED:
+            continue
+        tokens = _percent_tokens(inv.get("oxygen_percent_range"))
+        for match in PERCENT.finditer(text):
+            window = text[max(0, match.start() - QUALIFIER_BEFORE):match.end() + QUALIFIER_AFTER]
+            if match.group(1) in tokens and not QUALIFIER.search(window):
+                problems.append(f"{label} presents {inv['name']}'s assumed or planned oxygen as measured")
+                break
+    return problems
 
 
 SUPERLATIVE = re.compile(r"\b(best|most effective|safest|optimal|ideal|superior|clearly better)\b", re.I)
@@ -241,9 +287,11 @@ def validate_brief(brief, facts):
     findings = brief.get("findings") or []
     if len(findings) != 3:
         problems.append(f"has {len(findings)} findings, needs exactly 3")
+    by_accession = {inv["accession"]: inv for inv in facts["investigations"]}
     for index, finding in enumerate(findings, start=1):
         label = f"finding {index}"
         problems += _text_problems(label, finding.get("text"), facts, 45, allowed)
+        problems += _evidence_problems(label, finding, by_accession)
         cited = finding.get("citations") or []
         if not cited:
             problems.append(f"{label} cites nothing")
@@ -252,6 +300,10 @@ def validate_brief(brief, facts):
             problems.append(f"{label} cites {', '.join(outside)}, which is not in this pillar")
     for key in ("implication", "gap"):
         problems += _text_problems(key, brief.get(key), facts, 40, allowed)
+    for key, text in [("implication", brief.get("implication") or ""), ("gap", brief.get("gap") or "")] +             [(f"finding {i}", f.get("text") or "") for i, f in enumerate(findings, start=1)]:
+        match = OVERCONFIDENT.search(text)
+        if match:
+            problems.append(f"{key} uses overconfident safety language ({match.group(0)})")
     return problems
 
 
