@@ -469,7 +469,7 @@ def run(argv=None):
             try:
                 llm = LLM(model=args.model)
             except LLMError as error:
-                raise BriefError(f"cannot start the model client: {error}. Use --templates-only to build without a key.") from error
+                raise BriefError(f"cannot start the model client: {str(error).rstrip('.')}. Use --templates-only to build without a key.") from error
             model_id = llm.model
 
             def writer(facts):
