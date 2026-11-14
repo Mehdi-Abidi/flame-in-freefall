@@ -1,0 +1,35 @@
+name: Data checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  data-checks:
+    name: data-checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rebuild tests.csv from the raw tables
+        run: python pipeline/normalize.py
+
+      - name: Committed data matches the code
+        run: |
+          if ! git diff --quiet -- data/processed; then
+            echo "::error::data/processed is out of date. Run 'python pipeline/normalize.py' and commit the result."
+            git diff --stat -- data/processed
+            exit 1
+          fi
+
+      - name: Run data QA
+        run: python pipeline/qa.py

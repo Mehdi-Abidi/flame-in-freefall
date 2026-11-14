@@ -81,10 +81,10 @@ Task IDs are used in branch names and PR titles, for example `mufeed/D2-normaliz
 
 | ID | Sprint | Task | Done when |
 |---|---|---|---|
-| D1 | S1 | Run `python pipeline/fetch_psi.py` (already done once, about 1 MB). Read every CSV in `data/raw/tables` and note units per column. | A units table for all 21 CSVs is in `docs/data-notes.md`. |
-| D2 | S1 | Write `pipeline/normalize.py` that builds `data/processed/tests.csv` in the schema in section 6. | FLEX, FLEX-2, CFI, CFI-G, Flame Design, BASS-II, SAFFIRE-I/II/III rows load with numeric O2 and pressure. |
-| D3 | S2 | Build `data/processed/investigations.json` (schema in section 6) with ranges computed from `tests.csv`. Confirm or correct the "22% vs 30%" pitch claim. | Ranges filled for every investigation that has a table. Claim confirmed in Slack. |
-| D4 | S2 | Data QA script: counts per investigation, missing values, unit sanity checks. | `python pipeline/qa.py` prints a clean report. |
+| D1 | S1 | ~~Run `python pipeline/fetch_psi.py` and note units per column for every CSV.~~ **Done 14 Nov.** | See `docs/data-notes.md`. |
+| D2 | S1 | ~~Write `pipeline/normalize.py` that builds `data/processed/tests.csv`.~~ **Done 14 Nov.** 2,127 rows, plus `saffire2_gravity.csv`. | Mufeed reviews the output and the quirks list in `docs/data-notes.md`. |
+| D3 | S2 | Build `data/processed/investigations.json` (schema in section 6) with ranges computed from `tests.csv`. The pitch claim is already confirmed (no solid test above 22.2% O2). | Ranges filled for every investigation that has a table. |
+| D4 | S2 | ~~Data QA script: counts per investigation, missing values, unit sanity checks.~~ **Done 14 Nov.** 22 checks including spot checks against raw tables. | `python pipeline/qa.py` prints ALL CHECKS PASSED. |
 | D5 | S3 | Help Mehdi run extraction, then merge LLM fields into `investigations.json`. | One file the frontend and API both read. |
 
 Known quirks to handle: pressure appears in mmHg (FLEX), atm (FLEX-2, Flame Design), bar (CFI-G) and text such as "1 atm" (CFI). Oxygen appears as a mole fraction, as a percent, and as "% by vol". Some cells are blank or hold notes. FLEX-2 and the SAFFIRE tables need string cleanup before numbers parse.
@@ -158,6 +158,7 @@ Every LLM output is precomputed and committed. The live site calls an LLM only f
 
 | Column | Type | Notes |
 |---|---|---|
+| row_id | str | unique key, e.g. `PSI-69-0001` |
 | accession | str | e.g. `PSI-69` |
 | acronym | str | e.g. `FLEX` |
 | test_id | str | as given in the source table |
@@ -174,6 +175,13 @@ Every LLM output is precomputed and committed. The live site calls an LLM only f
 | outcome | str | extinction, disruption, ignited, no ignition, self-extinguished |
 | burn_time_s | float | |
 | source_file | str | CSV name in `data/raw/tables` |
+| record_type | enum | `test`, `test_day`, `test_day_condition`, `condition_matrix`, `session` |
+| o2_source | enum | `measured`, `planned`, `approximate`, `test_day_list`, `nominal_cabin_air` |
+| pressure_source | enum | `measured`, `planned`, `nominal_cabin`, `nominal_1atm` |
+| n_flames | float | flames ignited on a test day (ACME day tables) |
+| notes | str | anything that does not fit a column |
+
+Only `measured` values count as evidence. Plot everything else as hollow markers. Details in `docs/data-notes.md`.
 
 ## `data/processed/investigations.json` (one object per investigation)
 

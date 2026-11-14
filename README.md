@@ -51,8 +51,31 @@ Already pulled into this repo:
 | `data/raw/investigations/PSI-*.json` | Full metadata per investigation (objectives, approach, hardware, publications) |
 | `data/raw/tables/*.csv` | 21 experimental tables, about 2,900 test rows |
 | `data/raw/index.json` | Summary per investigation, including raw file counts and sizes on PSI |
+| `data/processed/tests.csv` | 2,127 normalized rows, each with a unique `row_id`: fuel, phase, geometry, size, O2 fraction, pressure in kPa, flow, outcome |
+| `data/processed/saffire2_gravity.csv` | SAFFIRE-II microgravity vs 1 g burn results, sample by sample |
 
-A first look at the tables: of roughly 1,050 tests with a recorded oxygen value, only about 88 sit at lunar-base conditions (30% O2 or more, 70 kPa or less), and they are all gas flames. The solid-material tests in BASS-II top out near 22% O2. This is a preliminary count and the data team is confirming it.
+Every O2 and pressure value carries a source tag (`measured`, `planned`, `nominal_cabin_air` and so on), so assumed cabin values are never mistaken for test conditions. Table-by-table units and cleanup decisions are in [`docs/data-notes.md`](docs/data-notes.md).
+
+### What the data already shows
+
+- **No solid-material fire test in PSI ran above 22.2% oxygen.** That covers 140 tests across BASS-II, SAFFIRE-I and SAFFIRE-II. Lunar habitats are expected to run at 30% or more.
+- **Only 66 tests sit at lunar-base conditions** (30% O2 or more at 70 kPa or less), and all of them are gas flames from ACME CFI-G and Flame Design.
+- **Gravity flips the ranking of materials.** In SAFFIRE-II, thin silicone sheets burned completely at 1 g but barely burned in microgravity, while cotton-fiberglass fabric spread its full 29 cm length in both.
+
+## Progress
+
+| Task | Owner | Status |
+|---|---|---|
+| Repo, architecture, execution plan | Mehdi | Done |
+| D1 Units and quirks of all 21 tables | Mufeed | Done, see `docs/data-notes.md` |
+| D2 `pipeline/normalize.py` and `tests.csv` | Mufeed | Done, Mufeed to review |
+| D4 `pipeline/qa.py`, 22 automated data checks | Mufeed | Done, all passing |
+| D3 `investigations.json` with ranges | Mufeed | Next |
+| S1 to S2 LLM wrapper and extraction | Mehdi | Next |
+| A1 FastAPI skeleton | Moiz | Next |
+| F1 to F2 React shell and Vercel deploy | Ali Soban | Next |
+| V1 Flammability map prototype | Ahsan | Next, can start on `tests.csv` now |
+| T1 to T2 Domain tags and habitat scenarios | Taha | Next |
 
 ## Team
 
@@ -76,9 +99,11 @@ python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 python pipeline/fetch_psi.py
+python pipeline/normalize.py
+python pipeline/qa.py
 ```
 
-The last step is optional because the data is already committed. It downloads under 1 MB.
+The fetch and normalize steps are optional because the data is already committed. The fetch downloads under 1 MB.
 
 ## Repository layout
 
