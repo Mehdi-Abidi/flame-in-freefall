@@ -46,6 +46,36 @@ def numeric_range(rows, field):
     return [min(values), max(values)] if values else None
 
 
+TEXT_LIMITS = {"objective": 1600, "approach": 2000, "hypothesis": 900, "researchImpacts": 900}
+
+
+def load_metadata(accession, raw_dir=RAW):
+    with open(Path(raw_dir) / "investigations" / f"{accession}.json", encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def load_keywords(raw_dir=RAW):
+    with open(Path(raw_dir) / "catalog.json", encoding="utf-8") as handle:
+        return {entry["Accession"]: " ".join((entry.get("Keywords") or "").split()) for entry in json.load(handle)}
+
+
+def clip(text, limit):
+    text = " ".join(str(text or "").split())
+    return text if len(text) <= limit else text[:limit].rsplit(" ", 1)[0] + " ..."
+
+
+def text_context(metadata, keywords="", max_publications=6):
+    """The NASA write-up for one investigation, trimmed so one request stays under free-tier limits."""
+    sections = {name: clip(metadata.get(name), limit) for name, limit in TEXT_LIMITS.items()}
+    titles = [clip(p.get("title"), 160) for p in metadata.get("publications") or [] if p.get("title")]
+    return {
+        "title": clip(metadata.get("title"), 200),
+        "keywords": clip(keywords, 300),
+        **sections,
+        "publication_titles": titles[:max_publications],
+    }
+
+
 def data_facts(investigation, rows):
     """Facts already proven by tests.csv and investigations.json, handed to the model as ground truth."""
     return {
