@@ -205,6 +205,7 @@ class CommandLineTests(unittest.TestCase):
             code, _, err = self.run_cli(["--pillar", "suppression"])
         self.assertEqual(code, 1)
         self.assertIn("--templates-only", err)
+        self.assertNotIn("..", err)
 
     def test_corrupt_existing_file_is_reported(self):
         with tempfile.TemporaryDirectory() as tmp:
