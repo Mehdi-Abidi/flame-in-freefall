@@ -1,35 +1,34 @@
 {
   "version": 1,
-  "prompt_version": "s5-v1",
+  "prompt_version": "s5-v2",
   "model": "openai/gpt-oss-120b",
   "briefs": {
     "prevention": {
-      "title": "Lunar Habitat Fire Safety Insights",
+      "title": "What NASA PSI records show on prevention",
       "findings": [
         {
-          "text": "Solid-fuel microgravity tests measured oxygen up to 22.2% at 101 kPa, showing ignition and flame spread limits for materials like PMMA and Nomex.",
+          "text": "ACME CFI-G recorded 333 tests with gas fuels at 12% to 85% oxygen (measured).",
+          "citations": [
+            "PSI-159"
+          ]
+        },
+        {
+          "text": "ACME/Flame Design recorded 327 tests with gas fuels at 19.8% to 85% oxygen (measured).",
+          "citations": [
+            "PSI-10"
+          ]
+        },
+        {
+          "text": "BASS-II recorded 129 tests with solid fuels at 13.6% to 22.2% oxygen (measured).",
           "citations": [
             "PSI-25"
           ]
-        },
-        {
-          "text": "Gas-fuel diffusion flame experiments in microgravity self-extinguished at oxygen levels as low as 13.5%, indicating strong dependence on oxygen concentration for flame stability.",
-          "citations": [
-            "PSI-159"
-          ]
-        },
-        {
-          "text": "All available microgravity and 1 g combustion data bound possible behavior on the Moon, but no partial-gravity experiments are present in the dataset.",
-          "citations": [
-            "PSI-10",
-            "PSI-159"
-          ]
         }
       ],
-      "implication": "Design lunar habitat fire-safety systems assuming that gas-fuel fires may self-extinguish below ~14% O2 and solid-fuel fires can sustain up to ~22% O2 at cabin pressure, while planning for higher O2 levels needed for crew life support.",
-      "gap": "The data do not include any combustion tests performed in lunar-gravity (0.16 g) or Mars-gravity conditions.",
-      "source": "model",
-      "model": "openai/gpt-oss-120b",
+      "implication": "Solid-material tests in PSI stop below the 30% oxygen expected in a lunar base, so prevention findings need checking at lunar conditions.",
+      "gap": "No partial-gravity combustion data is in PSI yet.",
+      "source": "template",
+      "model": "template",
       "members": [
         "PSI-10",
         "PSI-159",
@@ -43,38 +42,39 @@
         "PSI-142",
         "PSI-62"
       ],
-      "fingerprint": "bae80fbf885ad9a5",
-      "problems": [],
+      "fingerprint": "3d9c70d8425ab222",
+      "problems": [
+        "finding 3 claims flames went out, but no extinction outcome is recorded for what it cites",
+        "implication uses overconfident safety language (rely on)"
+      ],
       "review": "awaiting expert review"
     },
     "detection": {
-      "title": "Lunar Habitat Fire Detection Gaps",
+      "title": "What NASA PSI records show on detection",
       "findings": [
         {
-          "text": "Solid-fuel microgravity tests measured smoke at 21% oxygen and 101 kPa, which differs from the planned lunar base environment of ≥30% oxygen and ≤70.3 kPa.",
+          "text": "SPICE recorded 435 tests with gas fuels at 21% oxygen (assumed cabin air).",
           "citations": [
-            "PSI-101",
+            "PSI-107"
+          ]
+        },
+        {
+          "text": "SAME-R recorded 109 tests with solid fuels at 21% oxygen (assumed cabin air).",
+          "citations": [
+            "PSI-101"
+          ]
+        },
+        {
+          "text": "SAME recorded 20 tests with solid fuels at 21% oxygen (assumed cabin air).",
+          "citations": [
             "PSI-102"
-          ]
-        },
-        {
-          "text": "Gas-fuel microgravity experiments also used 21% oxygen at 101 kPa, providing no data for the lower pressure range expected on the Moon.",
-          "citations": [
-            "PSI-107"
-          ]
-        },
-        {
-          "text": "All cited investigations were conducted in microgravity, indicating that partial-gravity combustion data are not present in the PSI archive.",
-          "citations": [
-            "PSI-101",
-            "PSI-107"
           ]
         }
       ],
-      "implication": "Designers cannot rely on existing PSI data to predict fire behavior under the reduced pressure and higher oxygen conditions of a lunar base.",
-      "gap": "The dataset lacks experimental results for partial-gravity, lower-pressure, and ≥30% oxygen environments.",
-      "source": "model",
-      "model": "openai/gpt-oss-120b",
+      "implication": "Solid-material tests in PSI stop below the 30% oxygen expected in a lunar base, so detection findings need checking at lunar conditions.",
+      "gap": "No partial-gravity combustion data is in PSI yet.",
+      "source": "template",
+      "model": "template",
       "members": [
         "PSI-101",
         "PSI-102",
@@ -85,34 +85,40 @@
         "PSI-115",
         "PSI-60"
       ],
-      "fingerprint": "beac83f6154035ed",
-      "problems": [],
+      "fingerprint": "e74e642fcc7979bd",
+      "problems": [
+        "finding 1 cites SAME-R but does not name it, so the citation may not support the claim",
+        "finding 1 presents SAME-R's assumed or planned oxygen as measured",
+        "finding 2 cites SAFFIRE-I but does not name it, so the citation may not support the claim",
+        "finding 3 cites SPICE but does not name it, so the citation may not support the claim",
+        "finding 3 presents SPICE's assumed or planned oxygen as measured"
+      ],
       "review": "awaiting expert review"
     },
     "suppression": {
-      "title": "Fire suppression limits for lunar habitats",
+      "title": "Liquid fuel droplet extinction limits",
       "findings": [
         {
-          "text": "Liquid fuel droplets of methanol and heptane extinguished in microgravity at measured oxygen as low as 12.0% with nitrogen diluent, well below the planned 30% oxygen for a lunar base.",
+          "text": "In the FLEX experiment, liquid-fuel rows with N2+CO2 extinguished as low as 14 % measured oxygen, showing suppression can work at that level.",
           "citations": [
             "PSI-69"
           ]
         },
         {
-          "text": "Solid fuels such as PMMA and Nomex showed extinction at measured oxygen concentrations between 13.6% and 22.2% in microgravity at 101 kPa cabin pressure.",
+          "text": "FLEX also recorded liquid-fuel rows with N2 extinguishing at the lowest measured 12 % oxygen, indicating nitrogen dilution is effective at very low oxygen.",
           "citations": [
-            "PSI-25"
+            "PSI-69"
           ]
         },
         {
-          "text": "All 66 lunar-base condition tests used gas fuels at 30% oxygen or higher and pressures ≤70.3 kPa, indicating that existing data focus on gas-fuel scenarios rather than liquids or solids at those conditions.",
+          "text": "With N2+He diluent, FLEX observed extinction down to 13 % measured oxygen, demonstrating helium-mixed diluents can also achieve droplet extinction at low oxygen.",
           "citations": [
             "PSI-69"
           ]
         }
       ],
-      "implication": "Designers should expect that both liquid and solid fuels can be extinguished at oxygen levels far below the planned 30% and that suppression strategies can rely on diluents effective at those lower concentrations.",
-      "gap": "The data do not include partial-gravity combustion results or solid-fuel tests at the specific lunar-base pressure limit of 70.3 kPa.",
+      "implication": "Designs must verify that chosen diluent systems can extinguish liquid-fuel droplets at the 30 % oxygen and ≤70.3 kPa conditions expected on a lunar base.",
+      "gap": "The dataset lacks extinction data for solid fuels and for partial-gravity environments.",
       "source": "model",
       "model": "openai/gpt-oss-120b",
       "members": [
@@ -121,7 +127,7 @@
         "PSI-25",
         "PSI-26"
       ],
-      "fingerprint": "2825f2243205a0de",
+      "fingerprint": "c8cd6426ee129e72",
       "problems": [],
       "review": "awaiting expert review"
     }
