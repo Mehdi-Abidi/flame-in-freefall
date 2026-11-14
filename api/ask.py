@@ -17,10 +17,9 @@ TOP_K = 5
 MAX_CHUNK_CHARS = 1500
 MAX_TABLE_CHUNK_CHARS = 3000
 MAX_TABLE_GROUPS = 8
-GRAVITY_ACCESSION = "PSI-99"  # saffire2_gravity.csv holds SAFFIRE-II samples only
-OVERVIEW = "OVERVIEW"         # label of the cross-investigation passage; answers cite the accessions inside it
+GRAVITY_ACCESSION = "PSI-99"
+OVERVIEW = "OVERVIEW"
 
-# Models sometimes write PSI-102 with a non-breaking hyphen, an en dash or spaces. Normalize before reading citations.
 DASHES = "‐‑‒–—―−-"
 CITATION_VARIANTS = re.compile(r"PSI\s*[" + DASHES + r"]\s*(\d+)")
 
@@ -29,7 +28,6 @@ a an and are as at be by can do does for from has have how in is it its of on or
 when where which who why will with into than then there these those their they our we you your about over under
 """.split())
 
-# Plain words next to formulas so a question that says "helium" finds a table that says "He".
 GAS_WORDS = {"N2": "nitrogen", "CO2": "carbon dioxide", "He": "helium"}
 
 SYSTEM_PROMPT = f"""You answer questions about NASA microgravity combustion experiments for spacecraft fire safety.
@@ -113,7 +111,6 @@ def gravity_summary(rows: List[dict]) -> str:
              "and 'Complete' means the same in 1 g. '~ 0' means it barely burned."]
     for row in rows:
         thickness = row.get("thickness") or ""
-        # "037 mm" in the source could be 0.37 or 3.7 mm (docs/data-notes.md), so do not let the model pick one.
         thickness = "thickness unclear in the source" if re.fullmatch(r"0\d+ mm", thickness) else f"{thickness} thick"
         lines.append(
             f"Sample {row.get('sample')}: {row.get('material')}, {thickness}, {row.get('flow_direction')} flow. "
@@ -124,7 +121,6 @@ def gravity_summary(rows: List[dict]) -> str:
     return "\n".join(lines)
 
 
-# Why an investigation has no measured O2, from the o2_source tags in tests.csv (docs/data-notes.md).
 O2_SOURCE_WORDS = {
     "nominal_cabin_air": "ran in cabin air, about 21% O2 assumed",
     "planned": "lists planned O2 levels only",
@@ -278,11 +274,9 @@ def answer(question: str, retriever: Retriever, chat: Optional[Callable[[str, st
     if chat is None:
         raise ChatUnavailable("no LLM_API_KEY is configured on the server")
     prompt = build_prompt(question, sources)
-    # A citation counts if the accession is a retrieved source or is named inside one (the overview names many).
     allowed = {s["accession"] for s in sources} | {a for s in sources for a in re.findall(r"PSI-\d+", s["text"])}
     text = expand_overview(normalize_citations(chat(SYSTEM_PROMPT, prompt).strip()), sources)
     if not _refused(text) and not _valid_citations(text, allowed):
-        # The model answered but cited nothing usable. Ask once more for citations before giving up.
         retry = prompt + CITE_RETRY.format(answer=text, overview=OVERVIEW)
         text = expand_overview(normalize_citations(chat(SYSTEM_PROMPT, retry).strip()), sources)
     cited = _valid_citations(text, allowed)

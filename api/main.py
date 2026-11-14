@@ -28,7 +28,6 @@ store = Store()
 retriever = ask_module.Retriever(ask_module.build_chunks(store.investigations, store.raw, store.extracted, store.tests, store.gravity))
 _llm = None
 
-# Ranking inputs are loaded once (plan A2). A broken input keeps the rest of the API up and makes /rank answer 500.
 try:
     rank_inputs, rank_load_error = si_rank.load_inputs(), None
 except si_rank.RankError as error:

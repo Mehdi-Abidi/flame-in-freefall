@@ -210,7 +210,6 @@ class AskTests(unittest.TestCase):
         self.assertIn("Highest measured oxygen for a solid fuel: 22.2% O2, in BASS-II (PSI-25), burning Nomex, PMMA.", overview)
         self.assertIn("0 solid-fuel rows have measured O2 of 30% or more.", overview)
         self.assertIn("BASS (PSI-26) ran in cabin air", overview)
-        # Not every unmeasured investigation is cabin air: say why, per its o2_source tag.
         self.assertIn("FLEX-2 (PSI-68) lists planned O2 levels only", overview)
         self.assertIn("ACME BRE (PSI-20) lists O2 per test day", overview)
         self.assertNotIn("FLEX-2 (PSI-68) ran in cabin air", overview)
@@ -228,7 +227,7 @@ class AskTests(unittest.TestCase):
         self.assertTrue(body["covered"])
         self.assertNotIn("OVERVIEW", body["answer"])
         self.assertIn("PSI-25", body["citations"])
-        self.assertNotIn("PSI-69", body["citations"])  # FLEX is a liquid-fuel line, not cited for a solids answer
+        self.assertNotIn("PSI-69", body["citations"])
 
     def test_question_validation(self):
         self.assertEqual(client.post("/ask", json={"question": "x" * 501}).status_code, 422)
