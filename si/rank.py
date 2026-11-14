@@ -100,3 +100,42 @@ def validate_scenarios(document):
             "pressure_kpa": _box(scenario_id, "pressure_kpa", scenario["pressure_kpa"], 0.0, 1000.0),
         }
     return {"tolerance": {"o2": float(o2_tol), "pressure": float(p_tol)}, "scenarios": scenarios}
+
+
+PILLARS = ("prevention", "detection", "suppression")
+DEFAULT_WEIGHTS = {pillar: 1.0 for pillar in PILLARS}
+
+
+def parse_weights(value=None):
+    """Accept None, a dict from the API, or text like 'prevention=2,detection=1,suppression=1'."""
+    if value is None or value == "" or value == {}:
+        return dict(DEFAULT_WEIGHTS)
+    if isinstance(value, str):
+        pairs = {}
+        for part in value.split(","):
+            if not part.strip():
+                continue
+            if "=" not in part:
+                raise RankError(f"weight '{part.strip()}' must look like pillar=number, e.g. prevention=2")
+            name, number = part.split("=", 1)
+            pairs[name.strip().lower()] = number.strip()
+        value = pairs
+    if not isinstance(value, dict):
+        raise RankError(f"weights must be a mapping of pillar to number, got {type(value).__name__}")
+    unknown = sorted(set(value) - set(PILLARS))
+    if unknown:
+        raise RankError(f"unknown pillar(s) {unknown}. Use {', '.join(PILLARS)}")
+    weights = dict(DEFAULT_WEIGHTS)
+    for name, number in value.items():
+        try:
+            number = float(number)
+        except (TypeError, ValueError):
+            raise RankError(f"weight for {name} must be a number, got {number!r}") from None
+        if number != number or number in (float("inf"), float("-inf")):
+            raise RankError(f"weight for {name} must be a finite number")
+        if number < 0:
+            raise RankError(f"weight for {name} cannot be negative")
+        weights[name] = number
+    if sum(weights.values()) == 0:
+        raise RankError("at least one pillar weight must be above zero")
+    return weights
