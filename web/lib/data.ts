@@ -255,7 +255,8 @@ export function loadDataset(): Dataset {
       ph: r.fuel_phase as Phase,
       o2,
       kpa,
-      measured: r.o2_source === "measured" && r.pressure_source === "measured",
+      o2Source: r.o2_source,
+      kpaSource: r.pressure_source,
       fuel: r.fuel,
       id: r.row_id,
     });
