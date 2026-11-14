@@ -1,6 +1,8 @@
 # Flame in Freefall
 
 **An SI-powered fire safety dashboard built on NASA's microgravity combustion data.**
+
+**Live dashboard: https://mehdi-abidi.github.io/flame-in-freefall/**
 NASA Space Apps Challenge 2026 · [Flame in Freefall challenge](https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/)
 
 NASA has flown dozens of fire experiments on the International Space Station. The results sit in the [Physical Sciences Informatics (PSI)](https://psi.nasa.gov/physci/repo/search?data_source=psi&data_type=investigation) repository as 24 combustion investigations, about 2,900 logged tests and more than 82,000 raw files. That is a lot to search through when you are designing a lunar habitat and need to know how a fabric burns at 30% oxygen.
@@ -79,10 +81,34 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | S1 `si/llm.py` provider wrapper, 17 unit tests | Mehdi | Done |
 | S2 AI extraction of all 24 investigations (`extracted.json`) | Mehdi | Done, Taha to review in T4 |
 | S3 Habitat ranking engine (`si/rank.py`, `rankings.json`) | Mehdi | Done |
+| F1 to F5, V1 to V4 Dashboard (`web/`), live on GitHub Pages | Mehdi | Done, team to polish |
 | A1 to A5 FastAPI service (`api/`), see [API](#api) | Moiz | In review, deploy (A3) next |
 | F1 to F2 React shell and Vercel deploy | Ali Soban | Next |
 | V1 Flammability map prototype | Ahsan | Next, can start on `tests.csv` now |
 | T1 to T2 Domain tags and habitat scenarios | Taha | Next |
+
+## Dashboard (`web/`)
+
+Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboard.yml` on every push to `main`. Pull requests get lint, type-check, tests and a full build first.
+
+| Page | What it does |
+|---|---|
+| Overview | The 22% versus 30% headline, stat tiles computed from the data, the gap map (every test by O2 and pressure with habitat boxes) and the SAFFIRE-II gravity comparison |
+| Rank | Habitat switcher and pillar sliders. The list re-orders live, arrows show movement, each row opens its evidence. State lives in the URL, so a view can be shared |
+| Investigations | Search and filter all 24, then a page per investigation with summary, conditions, its tests on the map and every publication |
+| Compare | Up to four side by side, differences marked |
+| Method | Pipeline, score parts, habitat sources, honesty rules, limits, AI-use disclosure |
+
+Design: paper and night themes, IBM Plex type, hand-built SVG charts. Chart colours come from a colourblind-validated palette, text never uses data colours, every chart has a table view, and motion respects reduced-motion settings. Ranking runs in the browser with the same formula as `si/rank.py`, and a test checks all 120 scores match.
+
+```bash
+cd web
+npm ci
+npm run dev        # http://localhost:3000
+npm test           # data loader and ranking parity
+```
+
+The site is fully static and needs no API key. The `LLM_API_KEY` repository secret is reserved for build-time AI jobs. A live chat needs a backend that holds the key, never the browser.
 
 ## Habitat ranking (S3)
 
@@ -200,7 +226,7 @@ data/       raw PSI metadata and tables, processed outputs, domain tags
 si/         LLM client, extraction, ranking, insight briefs
 tests/      unit tests (run in CI, no API key needed)
 api/        FastAPI service
-web/        React dashboard
+web/        Next.js dashboard (static export for GitHub Pages)
 docs/       architecture diagram, execution plan
 ```
 
