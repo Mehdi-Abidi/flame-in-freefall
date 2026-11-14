@@ -4,10 +4,13 @@ Usage: python -m si.extract [--only PSI-69 PSI-25] [--model openai/gpt-oss-20b]
 Writes data/processed/extracted.json.
 """
 
+import argparse
 import collections
 import csv
 import json
 import re
+import sys
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -212,3 +215,64 @@ def extract_one(llm, investigation, rows, metadata, keywords=""):
         "model": llm.last_model,
         "prompt_version": PROMPT_VERSION,
     }
+
+
+def accession_number(accession):
+    return int(accession.split("-")[1])
+
+
+def load_existing(path):
+    if Path(path).exists():
+        with open(path, encoding="utf-8") as handle:
+            return {record["accession"]: record for record in json.load(handle)}
+    return {}
+
+
+def write_records(path, records):
+    ordered = sorted(records.values(), key=lambda r: accession_number(r["accession"]))
+    with open(path, "w", encoding="utf-8", newline="
+") as handle:
+        json.dump(ordered, handle, indent=2, ensure_ascii=False)
+        handle.write("
+")
+
+
+def main():
+    from si.llm import LLM, LLMError
+
+    parser = argparse.ArgumentParser(description="Extract structured facts for PSI combustion investigations.")
+    parser.add_argument("--only", nargs="*", help="accessions to (re)extract, default all")
+    parser.add_argument("--model", help="override LLM_MODEL")
+    parser.add_argument("--out", default=str(PROCESSED / "extracted.json"))
+    args = parser.parse_args()
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
+    llm = LLM(model=args.model)
+    investigations = load_investigations()
+    tests = load_tests()
+    keywords = load_keywords()
+    records = load_existing(args.out)
+    targets = sorted(args.only or investigations, key=accession_number)
+    failures = []
+    started = time.time()
+    for accession in targets:
+        try:
+            record = extract_one(llm, investigations[accession], tests.get(accession, []),
+                                 load_metadata(accession), keywords.get(accession, ""))
+        except (LLMError, KeyError) as error:
+            failures.append(accession)
+            print(f"FAIL {accession}: {error}")
+            continue
+        records[accession] = record
+        flag = f"  warnings: {record['warnings']}" if record["warnings"] else ""
+        print(f"ok   {accession:8} {record['acronym'] or '-':20} pillars={','.join(record['pillars']) or '-'}{flag}")
+        write_records(args.out, records)
+    print(f"
+{len(targets) - len(failures)}/{len(targets)} extracted in {time.time() - started:.0f}s, "
+          f"model calls {llm.usage['calls']}, cached {llm.usage['cached']}, tokens {llm.usage['tokens']}")
+    sys.exit(1 if failures else 0)
+
+
+if __name__ == "__main__":
+    main()
