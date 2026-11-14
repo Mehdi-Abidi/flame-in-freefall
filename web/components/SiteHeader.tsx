@@ -54,7 +54,7 @@ export function SiteHeader() {
           <ThemeToggle />
         </div>
       </div>
-      <nav aria-label="Main mobile" className="flex gap-1 overflow-x-auto border-t border-rule px-3 py-1.5 md:hidden">
+      <nav aria-label="Main mobile" className="flex gap-1 overflow-x-auto border-t border-rule px-3 py-1.5 [scrollbar-width:none] md:hidden">
         {NAV.map((item) => {
           const active = isActive(pathname, item.href);
           return (
@@ -62,6 +62,8 @@ export function SiteHeader() {
               key={item.href}
               href={item.href}
               aria-current={active ? "page" : undefined}
+              // Keep the current page in view when the row is wider than the phone.
+              ref={active ? (el) => el?.scrollIntoView({ inline: "nearest", block: "nearest" }) : undefined}
               className={`whitespace-nowrap rounded-[4px] px-2.5 py-1.5 text-[12.5px] ${active ? "bg-ink text-paper" : "text-ink-2"}`}
             >
               {item.label}
