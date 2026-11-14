@@ -69,7 +69,7 @@ Space Apps 2026 runs 14 to 15 November. A third-party listing says submissions c
 | 13:00 | Checkpoint | **v1 deployed** with every page working. |
 | 13:00 to 15:00 | Sprint 4: polish | Copy, empty states, loading states, mobile check, insight text. |
 | **15:00** | **Feature freeze** | Only bug fixes after this point. |
-| 15:00 to 18:00 | Ship the story | Bug bash (all), demo video and slides (Taha, Ahsan), submission text (Taha, Mehdi). |
+| 15:00 to 18:00 | Ship the story | Bug bash (all), demo video and slides (Taha, Ahsan), submission text (Ali drafts, Taha polishes). |
 | 18:00 to 20:00 | **Submit** | Mehdi submits. Everyone checks the live link from their own phone. |
 | 20:00 to 23:59 | Buffer | Emergencies only. |
 
@@ -85,7 +85,7 @@ Task IDs are used in branch names and PR titles, for example `mufeed/D2-normaliz
 | D2 | S1 | ~~Write `pipeline/normalize.py` that builds `data/processed/tests.csv`.~~ **Done 14 Nov.** 2,127 rows, plus `saffire2_gravity.csv`. | Mufeed reviews the output and the quirks list in `docs/data-notes.md`. |
 | D3 | S2 | ~~Build `data/processed/investigations.json` with ranges computed from `tests.csv`.~~ **Done 14 Nov** (Mufeed, review fixes by Mehdi). | `qa.py` investigation checks pass. |
 | D4 | S2 | ~~Data QA script: counts per investigation, missing values, unit sanity checks.~~ **Done 14 Nov.** 22 checks including spot checks against raw tables. | `python pipeline/qa.py` prints ALL CHECKS PASSED. |
-| D5 | S3 | Merge `extracted.json` into `investigations.json`. Pillars come from Taha's `data/domain/tags.json` when present, and the model's pillars are only a fallback. | One file the frontend and API both read. |
+| D5 | S3 | ~~Merge `extracted.json` into `investigations.json`. Pillars come from Taha's `data/domain/tags.json` when present, and the model's pillars are only a fallback.~~ **Done 14 Nov** (Mufeed, PR #9). `pipeline/merge_extraction.py` runs in CI after `build_investigations.py`. | One file the frontend and API both read. |
 
 Known quirks to handle: pressure appears in mmHg (FLEX), atm (FLEX-2, Flame Design), bar (CFI-G) and text such as "1 atm" (CFI). Oxygen appears as a mole fraction, as a percent, and as "% by vol". Some cells are blank or hold notes. FLEX-2 and the SAFFIRE tables need string cleanup before numbers parse.
 
@@ -98,7 +98,7 @@ Known quirks to handle: pressure appears in mmHg (FLEX), atm (FLEX-2, Flame Desi
 | S3 | S2 | ~~Ranking engine in `si/rank.py`, scored for 5 habitat scenarios.~~ **Done 14 Nov.** Habitats live in `data/domain/scenarios.json`, output in `data/processed/rankings.json`, rebuilt and checked in CI. | `python -m si.rank --scenario lunar_base` puts the high-oxygen investigations on top. |
 | S4 | S2 | ~~Rationale writer.~~ **Done 14 Nov:** `python -m si.rationale` writes two sentences per investigation per habitat (GPT-OSS 120B), validated against the score facts, repaired once, template fallback. Shown on the Rank page. | `rationale.json` passes QA. |
 | S5 | S3 | ~~Insight briefs per pillar.~~ **Done 14 Nov:** `python -m si.briefs` (GPT-OSS 120B, prompt s5-v3) with evidence guards against wrong citations, unrecorded extinctions, assumed values shown as measured and false reassurance. Shown on the overview. | Taha reviews in T4. |
-| S6 | S4 | Merge PRs, deploy checks, submission. | Submitted. |
+| S6 | S4 | Merge PRs, deploy checks, submission. Sunday morning: rerun `si.rationale` and `si.briefs` with the model after T1 and T4, because 52 rationales and all 3 briefs are fact-only templates since the Groq daily cap ran out on 14 Nov. | Submitted. |
 
 Every LLM output is precomputed and committed. The live site calls an LLM only for the chat. If the API key dies during judging, everything except chat keeps working.
 
@@ -106,11 +106,11 @@ Every LLM output is precomputed and committed. The live site calls an LLM only f
 
 | ID | Sprint | Task | Done when |
 |---|---|---|---|
-| A1 | S1 | FastAPI skeleton in `api/` that loads `investigations.json` and `tests.csv` at startup. Endpoints `/investigations`, `/investigations/{id}`, `/tests?accession=&o2_min=&o2_max=&p_min=&p_max=`. Mock data until D2 lands. | `uvicorn api.main:app` serves JSON locally. |
-| A2 | S2 | `/rank?scenario=&w_prevent=&w_detect=&w_suppress=` calling `si.rank.rank()` with inputs loaded once at startup. `UsageError` becomes HTTP 400, other `RankError` becomes 500. `/compare?ids=PSI-69,PSI-68`. | Frontend can call both. |
-| A3 | S2 | Deploy to Render or a Hugging Face Space. Add CORS for the frontend domain. | Public API link in the README. |
-| A4 | S3 | `/ask`: BM25 search (`rank-bm25`, tiny install) over objectives, approach, summaries and publication titles. Top 5 chunks go to the LLM with the instruction to answer only from them and cite accession numbers. | Answers show citations. Questions with no answer in the data get "not covered in PSI data". |
-| A5 | S3 | `/export?accession=...` returns filtered rows of `tests.csv` as CSV for modelers. | Download works from the UI. |
+| A1 | S1 | **Done 14 Nov.** FastAPI skeleton in `api/` that loads `investigations.json` and `tests.csv` at startup. Endpoints `/investigations`, `/investigations/{id}`, `/tests?accession=&o2_min=&o2_max=&p_min=&p_max=`. Mock data until D2 lands. | `uvicorn api.main:app` serves JSON locally. |
+| A2 | S2 | **Done 14 Nov.** `/rank?scenario=&w_prevent=&w_detect=&w_suppress=` calling `si.rank.rank()` with inputs loaded once at startup. `UsageError` becomes HTTP 400, other `RankError` becomes 500. `/compare?ids=PSI-69,PSI-68`. | Frontend can call both. |
+| A3 | S2 | **Done 14 Nov:** live at https://flame-in-freefall-api.onrender.com, redeployed on every merge that touches `api/`, `si/` or `data/`. Deploy to Render or a Hugging Face Space. Add CORS for the frontend domain. | Public API link in the README. |
+| A4 | S3 | **Done 14 Nov.** `/ask`: BM25 search (`rank-bm25`, tiny install) over objectives, approach, summaries and publication titles. Top 5 chunks go to the LLM with the instruction to answer only from them and cite accession numbers. | Answers show citations. Questions with no answer in the data get "not covered in PSI data". |
+| A5 | S3 | **Done 14 Nov.** `/export?accession=...` returns filtered rows of `tests.csv` as CSV for modelers. | Download works from the UI. |
 
 ## Frontend: Ali Soban
 
@@ -120,7 +120,8 @@ Every LLM output is precomputed and committed. The live site calls an LLM only f
 | F2 | S1 | ~~Deploy.~~ **Done 14 Nov:** GitHub Pages through `.github/workflows/dashboard.yml` (lint, type-check, tests, build on PRs, deploy from main). | Ali: polish and responsive QA |
 | F3 | S2 | ~~Explorer.~~ **Done 14 Nov:** search, pillar, phase and platform filters, plus a static page per investigation. | Ali: copy and empty states |
 | F4 | S3 | ~~Compare.~~ **Done 14 Nov:** up to 4, 16 attributes, differences marked, selection in the URL. | |
-| F5 | S3 | Ask page: chat UI against Moiz's `/ask` endpoint. The static site cannot hold the key, so this waits for A3 and A4. | Works against `/ask`. |
+| F5 | S3 | Ask page: chat UI against Moiz's `/ask` endpoint. The static site cannot hold the key, A3 and A4 are live, so this is unblocked. | Works against `/ask`. |
+| F6 | S4 | Submission text draft in `docs/submission/submission-text.md`: title, short summary, detailed description (what it does, how it works, benefits, tools), NASA data used with PSI links, references, AI-use disclosure. Use the README, the Method page and the checklist in section 10. | Taha polishes it in T5. |
 
 ## Visualization: Ahsan Ali
 
@@ -135,11 +136,11 @@ Every LLM output is precomputed and committed. The live site calls an LLM only f
 
 | ID | Sprint | Task | Done when |
 |---|---|---|---|
-| T1 | S1 | Hand-check the seed tags in section 8 against the PSI pages and the 2015 Researcher's Guide. Write `data/domain/tags.json`. | All 24 tagged with pillar, hardware and platform. |
-| T2 | S1 | Write `data/domain/scenarios.json` with the habitat targets in section 7, each with its source sentence. | Reviewed by Mehdi. |
+| T1 | S1 | **Draft done 14 Nov** (Mufeed, PR #9). Taha confirms the 7 entries marked REVIEW, starting with SPICE and SAFFIRE-I/III, which lost detection. Hand-check the seed tags in section 8 against the PSI pages and the 2015 Researcher's Guide. Write `data/domain/tags.json`. | All 24 tagged with pillar, hardware and platform. |
+| T2 | S1 | **Done 14 Nov.** Write `data/domain/scenarios.json` with the habitat targets in section 7, each with its source sentence. | Reviewed by Mehdi. |
 | T3 | S2 | Earth spinoffs page content: water mist extinguishers, the shuttle-era smoke detector that tells dust from smoke (link to SAME and DAFT), firefighter clothing, air tanks. Plus a short history strip: Apollo 1, Apollo 13, Mir, Artemis II alarm. | Text in `web/src/content/`. |
 | T4 | S3 | Review the LLM output: `docs/extraction-review.md` (rows not `agree` and warnings) and the three briefs in `data/processed/briefs.json`. Set each brief's `review` to "reviewed by Taha" once checked. | Corrections merged. |
-| T5 | S4 | Demo video and slides (section 10). Submission text draft. | Files in `docs/submission/`. |
+| T5 | S4 | Demo video and slides (section 10). Polish Ali's submission text draft (F6). | Files in `docs/submission/`. |
 
 # 5. Rules that keep us fast
 
