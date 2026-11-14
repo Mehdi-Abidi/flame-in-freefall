@@ -1,0 +1,1097 @@
+{
+  "version": 1,
+  "prompt_version": "s4-v1",
+  "model": "openai/gpt-oss-120b",
+  "rationales": {
+    "iss": {
+      "PSI-69": {
+        "text": "It ranks first because its fire‑safety focus on suppression yields a perfect pillar match, the strongest factor driving the high score. Its main limitation is that it only examines liquid fuel fires, so the findings may not apply to other fire types.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e5fcd9fb59caea2c",
+        "problems": [],
+        "rank": 1,
+        "score": 0.8571
+      },
+      "PSI-39": {
+        "text": "It ranks second out of twenty‑four because its perfect match to the prevention pillar drives its high score. Its main limitation is modest data richness and material relevance combined with only twenty‑five tests inside the ISS and Earth‑normal cabin target.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "1db08acb86ba0048",
+        "problems": [],
+        "rank": 2,
+        "score": 0.8036
+      },
+      "PSI-25": {
+        "text": "It ranks third of twenty‑four because its material relevance is perfect, matching the habitat’s fire‑safety needs. Its main limitation is that none of the tests were conducted inside the ISS or Earth‑normal cabin environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e750c0c6d04d673b",
+        "problems": [],
+        "rank": 3,
+        "score": 0.7655
+      },
+      "PSI-26": {
+        "text": "The BASS investigation ranks fourth out of twenty‑four for the ISS and Earth‑normal cabin because its material relevance is perfect and it directly matches the prevention and suppression pillars. Its main limitation is that none of its tests were conducted inside the actual habitat environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "6b3b61f9089ead51",
+        "problems": [],
+        "rank": 4,
+        "score": 0.7582
+      },
+      "PSI-101": {
+        "text": "The SAME‑R ranking is high because its material relevance scores a perfect one, showing the experiment directly studies smoke from solid fuels relevant to spacecraft fire detection. However it provides no data from tests actually inside the ISS or Earth‑normal cabin.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7e1cd5f619b415fe",
+        "problems": [],
+        "rank": 5,
+        "score": 0.7529
+      },
+      "PSI-10": {
+        "text": "It ranks sixth of twenty‑four because its perfect match to the prevention pillar drives the high score. Its main limitation is the modest material relevance, which lowers the overall assessment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "bfc0b5db0446413f",
+        "problems": [],
+        "rank": 6,
+        "score": 0.7476
+      },
+      "PSI-102": {
+        "text": "It ranks seventh out of twenty‑four because its material relevance scores a perfect one, showing the experiment directly measures smoke from spacecraft materials relevant to detection. Its main limitation is that none of the tests were conducted inside the ISS or Earth‑normal cabin environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "74592d8e4ab39550",
+        "problems": [],
+        "rank": 7,
+        "score": 0.7418
+      },
+      "PSI-99": {
+        "text": "It ranks eighth of twenty‑four because its material relevance is perfect, giving it a strong alignment with the prevention pillar. Its main limitation is that none of the nine tests were conducted inside the ISS or Earth‑normal cabin environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2763d4aebf052d69",
+        "problems": [],
+        "rank": 8,
+        "score": 0.722
+      },
+      "PSI-98": {
+        "text": "It ranks ninth out of twenty‑four mainly because its material relevance is perfect, matching the fire‑prevention and detection pillars with a solid‑fuel burn test at 22 % O₂ and 101 kPa. Its limitation is that none of the tests were conducted inside the habitat’s target environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "5dcf45e5b1d80a47",
+        "problems": [],
+        "rank": 9,
+        "score": 0.7034
+      },
+      "PSI-100": {
+        "text": "It ranks tenth of twenty‑four because its material relevance scores a perfect one, showing the silicone sheet directly matches spacecraft fire‑safety needs. Its main limitation is that none of the tests were conducted inside the actual ISS or Earth‑normal cabin environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "68ace38c76526c59",
+        "problems": [],
+        "rank": 10,
+        "score": 0.6948
+      },
+      "PSI-159": {
+        "text": "It ranks eleventh of twenty‑four because its fire‑safety pillar match is perfect, reflecting a strong prevention focus. Its main limitation is that it only examines gaseous fuels in cool diffusion flames under a narrow range of oxygen and pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "92f951d02c04519f",
+        "problems": [],
+        "rank": 11,
+        "score": 0.6879
+      },
+      "PSI-107": {
+        "text": "The investigation ranks mid‑range because its detection pillar fully matches the fire‑safety focus, giving it the strongest relevance factor. Its main limitation is that none of the tests were conducted inside the ISS or Earth‑normal cabin environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "4ea808b1d6e4b7a4",
+        "problems": [],
+        "rank": 12,
+        "score": 0.6702
+      },
+      "PSI-68": {
+        "text": "It ranks mid‑range because its fire‑safety pillar match is perfect, giving it the highest relevance score. Its main limitation is that none of the tests were conducted inside the habitat’s target environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "055f7e092c177083",
+        "problems": [],
+        "rank": 13,
+        "score": 0.6396
+      },
+      "PSI-20": {
+        "text": "It ranks mid‑range because its fire‑safety focus on prevention matches the pillar perfectly, giving it the highest pillar_match score. Its main limitation is that none of the tests were conducted inside the actual ISS or Earth‑normal cabin environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "4d5f6b31260f8866",
+        "problems": [],
+        "rank": 14,
+        "score": 0.5775
+      },
+      "PSI-47": {
+        "text": "It ranks at fifteen of twenty‑four because its fire‑safety focus on detection, reflected by a perfect pillar match, is its strongest factor. Its main limitation is the lack of oxygen and pressure data to compare with the ISS and Earth‑normal cabin environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "002f09eb2a8679a4",
+        "problems": [],
+        "rank": 15,
+        "score": 0.388
+      },
+      "PSI-142": {
+        "text": "It ranks 16th of 24 mainly because it fully matches the prevention pillar, the strongest factor in the scoring. Its main limitation is the lack of oxygen and pressure data and the absence of any flight‑tested results for the ISS or Earth‑normal cabin.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "9c3060c75112222b",
+        "problems": [],
+        "rank": 16,
+        "score": 0.3062
+      },
+      "PSI-62": {
+        "text": "It ranks seventeenth of twenty‑four because its sole strong point is a perfect match to the prevention pillar, giving it the highest pillar score. Its main limitation is that it provides no oxygen or pressure data for this habitat and is only a ground study with no flight‑level testing.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "c4370c0393fb7d06",
+        "problems": [],
+        "rank": 17,
+        "score": 0.2817
+      },
+      "PSI-115": {
+        "text": "It ranks 18 of 24 because its strongest factor is a perfect match to the detection pillar. Its main limitation is the absence of any oxygen or pressure data and the fact that it is only a ground study with no flight tests.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "1e6f409259d89a01",
+        "problems": [],
+        "rank": 18,
+        "score": 0.2804
+      },
+      "PSI-60": {
+        "text": "It ranks nineteenth of twenty‑four because its sole strong point is a perfect match to the detection pillar. Its main limitation is the lack of any oxygen or pressure data and the absence of flight‑level fire‑safety tests for this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a2e41a9243cf3e8a",
+        "problems": [],
+        "rank": 19,
+        "score": 0.2663
+      },
+      "PSI-23": {
+        "text": "It ranks twentieth of twenty‑four because its data richness (0.63) is the strongest positive factor for the ISS and Earth‑normal cabin habitat. Its main limitation is the lack of oxygen or pressure data to directly compare with this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "575128178ea36728",
+        "problems": [],
+        "rank": 20,
+        "score": 0.2259
+      },
+      "PSI-22": {
+        "text": "It ranks low at twenty‑first of twenty‑four because its data richness is the strongest positive factor, giving it a modest score. Its main limitation is the lack of any oxygen or pressure data to compare with the ISS or Earth‑normal cabin environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a25f07b090a76029",
+        "problems": [],
+        "rank": 21,
+        "score": 0.2086
+      },
+      "PSI-21": {
+        "text": "It ranks low (22 of 24) mainly because its only strong point is modest data richness (0.53). Its main limitation is the lack of any oxygen or pressure data to compare with the ISS or Earth‑normal cabin conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e140acfdbd12ffbb",
+        "problems": [],
+        "rank": 22,
+        "score": 0.2059
+      },
+      "PSI-106": {
+        "text": "It ranks near the bottom because there is no oxygen or pressure data to compare with this habitat, which is the strongest factor driving its low placement. Its main limitation is that it only addresses fundamental fire‑safety aspects with burned‑gas fuels and lacks broader relevance to the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "feaa8c03cfe62aed",
+        "problems": [],
+        "rank": 23,
+        "score": 0.1969
+      },
+      "PSI-117": {
+        "text": "It ranks last (24 of 24) because its only modest strength is a small amount of data richness (0.3) while all other relevance scores are zero. Its main limitation is that it provides no oxygen or pressure data for the ISS/Earth‑normal cabin and is purely a ground‑based CFD study with no flight tests.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "0b005e35ab88da72",
+        "problems": [],
+        "rank": 24,
+        "score": 0.0592
+      }
+    },
+    "lunar_base": {
+      "PSI-69": {
+        "text": "It ranks first because its fire‑safety pillar matches perfectly, giving it the highest pillar_match score. Its main limitation is that none of the tests were conducted inside the actual habitat target.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "766bb9de62abeaf6",
+        "problems": [],
+        "rank": 1,
+        "score": 0.7816
+      },
+      "PSI-10": {
+        "text": "It ranks second out of twenty‑four because its perfect match to the prevention pillar drives the score, and it scores high on condition fit and data richness. Its main limitation is that only two measured tests fall within the lunar base target conditions, reducing confidence for that habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "d6a6e95e61b632ed",
+        "problems": [],
+        "rank": 2,
+        "score": 0.7283
+      },
+      "PSI-159": {
+        "text": "It ranks third out of twenty‑four because its pillar_match of one‑point zero to the prevention pillar is the strongest driver of the score. Its main limitation is the modest condition_fit of 0.59, reflecting limited alignment of test conditions with the habitat environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "320392b8bc5065d3",
+        "problems": [],
+        "rank": 3,
+        "score": 0.6935
+      },
+      "PSI-68": {
+        "text": "The investigation ranks fourth of twenty‑four because its fire‑suppression pillar matches perfectly, giving it the highest pillar_match score. Its main limitation is that none of the tests were conducted inside the habitat’s target environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "37999cb00c4c5091",
+        "problems": [],
+        "rank": 4,
+        "score": 0.6347
+      },
+      "PSI-20": {
+        "text": "It ranks fifth of twenty‑four investigations because its fire‑safety focus on prevention achieves a perfect pillar match. Its main limitation is that no tests were conducted at the habitat’s specific oxygen or pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "c7dc5f72a576994b",
+        "problems": [],
+        "rank": 5,
+        "score": 0.6158
+      },
+      "PSI-25": {
+        "text": "It ranks sixth of twenty‑four because its material relevance is perfect, matching the habitat’s fire‑safety pillars of prevention and suppression. Its main limitation is that none of its one hundred twenty‑nine tests approach the habitat’s oxygen level or pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "128e5b1e22a6b9c1",
+        "problems": [],
+        "rank": 6,
+        "score": 0.6108
+      },
+      "PSI-26": {
+        "text": "It ranks seventh of twenty‑four because its material relevance is perfect, matching the habitat’s fire‑safety pillars of prevention and suppression. Its main limitation is that none of its one hundred twenty‑one tests approach the habitat’s oxygen level or pressure, so applicability is uncertain.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "371ea833bda58331",
+        "problems": [],
+        "rank": 7,
+        "score": 0.5937
+      },
+      "PSI-101": {
+        "text": "It ranks eighth of twenty‑four because its material relevance and detection pillar match are perfect, giving it the strongest relevance factor. Its main limitation is that none of its one hundred nine tests approach the habitat’s oxygen level or pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "1fad2bd9dac3b9b5",
+        "problems": [],
+        "rank": 8,
+        "score": 0.5884
+      },
+      "PSI-102": {
+        "text": "It ranks ninth out of twenty‑four because its material relevance is perfect, matching the detection pillar for fire safety. Its main limitation is that none of its twenty tests approach the habitat’s oxygen level or pressure, so the data may not translate directly.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "faef107db7295917",
+        "problems": [],
+        "rank": 9,
+        "score": 0.5773
+      },
+      "PSI-39": {
+        "text": "It ranks tenth of twenty‑four because none of its seventy‑nine tests approach the habitat’s oxygen level or pressure, despite a perfect match on the prevention pillar. Its main limitation is that it studied burned liquid fuels, which may not reflect the actual fire hazards of this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "53230a3034b2fdca",
+        "problems": [],
+        "rank": 10,
+        "score": 0.572
+      },
+      "PSI-99": {
+        "text": "It ranks eleventh of twenty‑four because its material relevance score is perfect, matching the habitat’s material concerns. Its main limitation is that none of its nine tests approach the habitat’s oxygen level or pressure, so direct applicability is weak.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e5c3252cd3576ea7",
+        "problems": [],
+        "rank": 11,
+        "score": 0.562
+      },
+      "PSI-98": {
+        "text": "The ranking reflects its perfect material relevance, which drives the score despite a low condition fit. Its main limitation is that neither of its two tests matches the habitat’s oxygen level or pressure.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "d9994ad2635e47d9",
+        "problems": [],
+        "rank": 12,
+        "score": 0.5411
+      },
+      "PSI-100": {
+        "text": "It ranks thirteenth of twenty‑four because its material relevance is perfect, showing the tested silicone sheet directly informs material selection for the habitat. Its main limitation is that neither of its two tests approaches the habitat’s oxygen level or pressure, so the data may not fully represent actual fire behavior there.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "cb98c0939f2283f2",
+        "problems": [],
+        "rank": 13,
+        "score": 0.5302
+      },
+      "PSI-107": {
+        "text": "It ranks 14th of 24 because its detection pillar fully matches the habitat’s fire‑safety focus. Its main limitation is that none of its 435 tests approach the habitat’s 30‑40 % O₂ or 29.6‑70.3 kPa pressure range.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e3b5a0c2f4cc2593",
+        "problems": [],
+        "rank": 14,
+        "score": 0.5056
+      },
+      "PSI-47": {
+        "text": "It ranks fifteenth of twenty‑four because its fire‑safety focus on detection, reflected by a perfect pillar match, is its strongest factor. Its main limitation is the lack of any oxygen or pressure data to compare with the habitat conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "81dee3ef5d0aa50f",
+        "problems": [],
+        "rank": 15,
+        "score": 0.388
+      },
+      "PSI-142": {
+        "text": "It ranks mid‑range (sixteenth of twenty‑four) because its pillar match for prevention is perfect, giving it the strongest factor. Its main limitation is that it provides no oxygen or pressure data relevant to the lunar, rover or Mars habitats.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2fc767d59794ce53",
+        "problems": [],
+        "rank": 16,
+        "score": 0.3062
+      },
+      "PSI-62": {
+        "text": "It ranks seventeenth of twenty‑four because its pillar_match score is one, fully matching the prevention pillar. Its main limitation is the lack of any oxygen or pressure data and the fact it is only a ground study with no flight tests for this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a5fb969402c5b2fe",
+        "problems": [],
+        "rank": 17,
+        "score": 0.2817
+      },
+      "PSI-115": {
+        "text": "It ranks eighteenth of twenty‑four because its pillar_match to the detection pillar is perfect, giving it the strongest factor for this habitat. Its main limitation is the lack of any oxygen or pressure data and the fact that it is only a ground study with no flight tests.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7116bce45a7126b8",
+        "problems": [],
+        "rank": 18,
+        "score": 0.2804
+      },
+      "PSI-60": {
+        "text": "It ranks nineteenth of twenty‑four because its detection pillar fully matches the habitat’s fire‑safety focus. Its main limitation is the lack of any oxygen or pressure data and the absence of flight‑level testing for this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "95e800c7fb1341d4",
+        "problems": [],
+        "rank": 19,
+        "score": 0.2663
+      },
+      "PSI-23": {
+        "text": "The investigation ranks low because its strongest factor is the modest data richness of the microgravity flame tests, which only modestly supports fire‑safety modeling for this habitat. Its main limitation is the complete lack of oxygen and pressure data matching the habitat’s environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "00ef2fd70b320f39",
+        "problems": [],
+        "rank": 20,
+        "score": 0.2259
+      },
+      "PSI-22": {
+        "text": "It ranks low because its data richness is the only relatively strong component, giving it a modest score despite overall poor fit. Its main limitation is the complete lack of oxygen and pressure data matching any of the habitats.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "0909d97027a465a8",
+        "problems": [],
+        "rank": 21,
+        "score": 0.2086
+      },
+      "PSI-21": {
+        "text": "It ranks low at twenty‑second of twenty‑four because its data richness (0.53) is the only relatively strong aspect of the study. Its main limitation is the complete lack of oxygen or pressure data matching any of the habitat conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "da247409d152780d",
+        "problems": [],
+        "rank": 22,
+        "score": 0.2059
+      },
+      "PSI-106": {
+        "text": "The SLICE investigation ranks low for this habitat because it provides no oxygen or pressure data to compare with the habitat conditions, which is its strongest limiting factor. Its main caveat is that it only studies methane and ethylene diffusion flames, not the specific fuels or fire scenarios likely in the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "720ac3495ed0749a",
+        "problems": [],
+        "rank": 23,
+        "score": 0.1969
+      },
+      "PSI-117": {
+        "text": "It ranks last because its only modest strength is a small amount of data richness, giving it a score of six out of one hundred. Its main limitation is the complete lack of oxygen and pressure data for the habitats, making it a purely ground‑based CFD study with no relevant fire‑safety testing.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "28cc7e0c757f0901",
+        "problems": [],
+        "rank": 24,
+        "score": 0.0592
+      }
+    },
+    "pressurized_rover": {
+      "PSI-69": {
+        "text": "It ranks first because its fire‑safety pillar matches perfectly, giving it the highest pillar_match score. Its main limitation is that none of the tests were conducted inside the actual habitat target.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "766bb9de62abeaf6",
+        "problems": [],
+        "rank": 1,
+        "score": 0.7816
+      },
+      "PSI-10": {
+        "text": "It ranks second out of twenty‑four because its perfect match to the prevention pillar drives the score, and it scores high on condition fit and data richness. Its main limitation is that only two measured tests fall within the lunar base target conditions, reducing confidence for that habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "d6a6e95e61b632ed",
+        "problems": [],
+        "rank": 2,
+        "score": 0.7283
+      },
+      "PSI-159": {
+        "text": "It ranks third out of twenty‑four because its pillar_match of one‑point zero to the prevention pillar is the strongest driver of the score. Its main limitation is the modest condition_fit of 0.59, reflecting limited alignment of test conditions with the habitat environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "320392b8bc5065d3",
+        "problems": [],
+        "rank": 3,
+        "score": 0.6935
+      },
+      "PSI-68": {
+        "text": "The investigation ranks fourth of twenty‑four because its fire‑suppression pillar matches perfectly, giving it the highest pillar_match score. Its main limitation is that none of the tests were conducted inside the habitat’s target environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "37999cb00c4c5091",
+        "problems": [],
+        "rank": 4,
+        "score": 0.6347
+      },
+      "PSI-20": {
+        "text": "It ranks fifth of twenty‑four investigations because its fire‑safety focus on prevention achieves a perfect pillar match. Its main limitation is that no tests were conducted at the habitat’s specific oxygen or pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "c7dc5f72a576994b",
+        "problems": [],
+        "rank": 5,
+        "score": 0.6158
+      },
+      "PSI-25": {
+        "text": "It ranks sixth of twenty‑four because its material relevance is perfect, matching the habitat’s fire‑safety pillars of prevention and suppression. Its main limitation is that none of its one hundred twenty‑nine tests approach the habitat’s oxygen level or pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "128e5b1e22a6b9c1",
+        "problems": [],
+        "rank": 6,
+        "score": 0.6108
+      },
+      "PSI-26": {
+        "text": "It ranks seventh of twenty‑four because its material relevance is perfect, matching the habitat’s fire‑safety pillars of prevention and suppression. Its main limitation is that none of its one hundred twenty‑one tests approach the habitat’s oxygen level or pressure, so applicability is uncertain.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "371ea833bda58331",
+        "problems": [],
+        "rank": 7,
+        "score": 0.5937
+      },
+      "PSI-101": {
+        "text": "It ranks eighth of twenty‑four because its material relevance and detection pillar match are perfect, giving it the strongest relevance factor. Its main limitation is that none of its one hundred nine tests approach the habitat’s oxygen level or pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "1fad2bd9dac3b9b5",
+        "problems": [],
+        "rank": 8,
+        "score": 0.5884
+      },
+      "PSI-102": {
+        "text": "It ranks ninth out of twenty‑four because its material relevance is perfect, matching the detection pillar for fire safety. Its main limitation is that none of its twenty tests approach the habitat’s oxygen level or pressure, so the data may not translate directly.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "faef107db7295917",
+        "problems": [],
+        "rank": 9,
+        "score": 0.5773
+      },
+      "PSI-39": {
+        "text": "It ranks tenth of twenty‑four because none of its seventy‑nine tests approach the habitat’s oxygen level or pressure, despite a perfect match on the prevention pillar. Its main limitation is that it studied burned liquid fuels, which may not reflect the actual fire hazards of this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "53230a3034b2fdca",
+        "problems": [],
+        "rank": 10,
+        "score": 0.572
+      },
+      "PSI-99": {
+        "text": "It ranks eleventh of twenty‑four because its material relevance score is perfect, matching the habitat’s material concerns. Its main limitation is that none of its nine tests approach the habitat’s oxygen level or pressure, so direct applicability is weak.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e5c3252cd3576ea7",
+        "problems": [],
+        "rank": 11,
+        "score": 0.562
+      },
+      "PSI-98": {
+        "text": "The ranking reflects its perfect material relevance, which drives the score despite a low condition fit. Its main limitation is that neither of its two tests matches the habitat’s oxygen level or pressure.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "d9994ad2635e47d9",
+        "problems": [],
+        "rank": 12,
+        "score": 0.5411
+      },
+      "PSI-100": {
+        "text": "It ranks thirteenth of twenty‑four because its material relevance is perfect, showing the tested silicone sheet directly informs material selection for the habitat. Its main limitation is that neither of its two tests approaches the habitat’s oxygen level or pressure, so the data may not fully represent actual fire behavior there.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "cb98c0939f2283f2",
+        "problems": [],
+        "rank": 13,
+        "score": 0.5302
+      },
+      "PSI-107": {
+        "text": "It ranks 14th of 24 because its detection pillar fully matches the habitat’s fire‑safety focus. Its main limitation is that none of its 435 tests approach the habitat’s 30‑40 % O₂ or 29.6‑70.3 kPa pressure range.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e3b5a0c2f4cc2593",
+        "problems": [],
+        "rank": 14,
+        "score": 0.5056
+      },
+      "PSI-47": {
+        "text": "It ranks fifteenth of twenty‑four because its fire‑safety focus on detection, reflected by a perfect pillar match, is its strongest factor. Its main limitation is the lack of any oxygen or pressure data to compare with the habitat conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "81dee3ef5d0aa50f",
+        "problems": [],
+        "rank": 15,
+        "score": 0.388
+      },
+      "PSI-142": {
+        "text": "It ranks mid‑range (sixteenth of twenty‑four) because its pillar match for prevention is perfect, giving it the strongest factor. Its main limitation is that it provides no oxygen or pressure data relevant to the lunar, rover or Mars habitats.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2fc767d59794ce53",
+        "problems": [],
+        "rank": 16,
+        "score": 0.3062
+      },
+      "PSI-62": {
+        "text": "It ranks seventeenth of twenty‑four because its pillar_match score is one, fully matching the prevention pillar. Its main limitation is the lack of any oxygen or pressure data and the fact it is only a ground study with no flight tests for this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a5fb969402c5b2fe",
+        "problems": [],
+        "rank": 17,
+        "score": 0.2817
+      },
+      "PSI-115": {
+        "text": "It ranks eighteenth of twenty‑four because its pillar_match to the detection pillar is perfect, giving it the strongest factor for this habitat. Its main limitation is the lack of any oxygen or pressure data and the fact that it is only a ground study with no flight tests.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7116bce45a7126b8",
+        "problems": [],
+        "rank": 18,
+        "score": 0.2804
+      },
+      "PSI-60": {
+        "text": "It ranks nineteenth of twenty‑four because its detection pillar fully matches the habitat’s fire‑safety focus. Its main limitation is the lack of any oxygen or pressure data and the absence of flight‑level testing for this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "95e800c7fb1341d4",
+        "problems": [],
+        "rank": 19,
+        "score": 0.2663
+      },
+      "PSI-23": {
+        "text": "The investigation ranks low because its strongest factor is the modest data richness of the microgravity flame tests, which only modestly supports fire‑safety modeling for this habitat. Its main limitation is the complete lack of oxygen and pressure data matching the habitat’s environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "00ef2fd70b320f39",
+        "problems": [],
+        "rank": 20,
+        "score": 0.2259
+      },
+      "PSI-22": {
+        "text": "It ranks low because its data richness is the only relatively strong component, giving it a modest score despite overall poor fit. Its main limitation is the complete lack of oxygen and pressure data matching any of the habitats.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "0909d97027a465a8",
+        "problems": [],
+        "rank": 21,
+        "score": 0.2086
+      },
+      "PSI-21": {
+        "text": "It ranks low at twenty‑second of twenty‑four because its data richness (0.53) is the only relatively strong aspect of the study. Its main limitation is the complete lack of oxygen or pressure data matching any of the habitat conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "da247409d152780d",
+        "problems": [],
+        "rank": 22,
+        "score": 0.2059
+      },
+      "PSI-106": {
+        "text": "The SLICE investigation ranks low for this habitat because it provides no oxygen or pressure data to compare with the habitat conditions, which is its strongest limiting factor. Its main caveat is that it only studies methane and ethylene diffusion flames, not the specific fuels or fire scenarios likely in the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "720ac3495ed0749a",
+        "problems": [],
+        "rank": 23,
+        "score": 0.1969
+      },
+      "PSI-117": {
+        "text": "It ranks last because its only modest strength is a small amount of data richness, giving it a score of six out of one hundred. Its main limitation is the complete lack of oxygen and pressure data for the habitats, making it a purely ground‑based CFD study with no relevant fire‑safety testing.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "28cc7e0c757f0901",
+        "problems": [],
+        "rank": 24,
+        "score": 0.0592
+      }
+    },
+    "mars_habitat": {
+      "PSI-69": {
+        "text": "It ranks first because its fire‑safety pillar matches perfectly, giving it the highest pillar_match score. Its main limitation is that none of the tests were conducted inside the actual habitat target.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "766bb9de62abeaf6",
+        "problems": [],
+        "rank": 1,
+        "score": 0.7816
+      },
+      "PSI-10": {
+        "text": "It ranks second out of twenty‑four because its perfect match to the prevention pillar drives the score, and it scores high on condition fit and data richness. Its main limitation is that only two measured tests fall within the lunar base target conditions, reducing confidence for that habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "d6a6e95e61b632ed",
+        "problems": [],
+        "rank": 2,
+        "score": 0.7283
+      },
+      "PSI-159": {
+        "text": "It ranks third out of twenty‑four because its pillar_match of one‑point zero to the prevention pillar is the strongest driver of the score. Its main limitation is the modest condition_fit of 0.59, reflecting limited alignment of test conditions with the habitat environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "320392b8bc5065d3",
+        "problems": [],
+        "rank": 3,
+        "score": 0.6935
+      },
+      "PSI-68": {
+        "text": "The investigation ranks fourth of twenty‑four because its fire‑suppression pillar matches perfectly, giving it the highest pillar_match score. Its main limitation is that none of the tests were conducted inside the habitat’s target environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "37999cb00c4c5091",
+        "problems": [],
+        "rank": 4,
+        "score": 0.6347
+      },
+      "PSI-20": {
+        "text": "It ranks fifth of twenty‑four investigations because its fire‑safety focus on prevention achieves a perfect pillar match. Its main limitation is that no tests were conducted at the habitat’s specific oxygen or pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "c7dc5f72a576994b",
+        "problems": [],
+        "rank": 5,
+        "score": 0.6158
+      },
+      "PSI-25": {
+        "text": "It ranks sixth of twenty‑four because its material relevance is perfect, matching the habitat’s fire‑safety pillars of prevention and suppression. Its main limitation is that none of its one hundred twenty‑nine tests approach the habitat’s oxygen level or pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "128e5b1e22a6b9c1",
+        "problems": [],
+        "rank": 6,
+        "score": 0.6108
+      },
+      "PSI-26": {
+        "text": "It ranks seventh of twenty‑four because its material relevance is perfect, matching the habitat’s fire‑safety pillars of prevention and suppression. Its main limitation is that none of its one hundred twenty‑one tests approach the habitat’s oxygen level or pressure, so applicability is uncertain.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "371ea833bda58331",
+        "problems": [],
+        "rank": 7,
+        "score": 0.5937
+      },
+      "PSI-101": {
+        "text": "It ranks eighth of twenty‑four because its material relevance and detection pillar match are perfect, giving it the strongest relevance factor. Its main limitation is that none of its one hundred nine tests approach the habitat’s oxygen level or pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "1fad2bd9dac3b9b5",
+        "problems": [],
+        "rank": 8,
+        "score": 0.5884
+      },
+      "PSI-102": {
+        "text": "It ranks ninth out of twenty‑four because its material relevance is perfect, matching the detection pillar for fire safety. Its main limitation is that none of its twenty tests approach the habitat’s oxygen level or pressure, so the data may not translate directly.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "faef107db7295917",
+        "problems": [],
+        "rank": 9,
+        "score": 0.5773
+      },
+      "PSI-39": {
+        "text": "It ranks tenth of twenty‑four because none of its seventy‑nine tests approach the habitat’s oxygen level or pressure, despite a perfect match on the prevention pillar. Its main limitation is that it studied burned liquid fuels, which may not reflect the actual fire hazards of this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "53230a3034b2fdca",
+        "problems": [],
+        "rank": 10,
+        "score": 0.572
+      },
+      "PSI-99": {
+        "text": "It ranks eleventh of twenty‑four because its material relevance score is perfect, matching the habitat’s material concerns. Its main limitation is that none of its nine tests approach the habitat’s oxygen level or pressure, so direct applicability is weak.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e5c3252cd3576ea7",
+        "problems": [],
+        "rank": 11,
+        "score": 0.562
+      },
+      "PSI-98": {
+        "text": "The ranking reflects its perfect material relevance, which drives the score despite a low condition fit. Its main limitation is that neither of its two tests matches the habitat’s oxygen level or pressure.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "d9994ad2635e47d9",
+        "problems": [],
+        "rank": 12,
+        "score": 0.5411
+      },
+      "PSI-100": {
+        "text": "It ranks thirteenth of twenty‑four because its material relevance is perfect, showing the tested silicone sheet directly informs material selection for the habitat. Its main limitation is that neither of its two tests approaches the habitat’s oxygen level or pressure, so the data may not fully represent actual fire behavior there.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "cb98c0939f2283f2",
+        "problems": [],
+        "rank": 13,
+        "score": 0.5302
+      },
+      "PSI-107": {
+        "text": "It ranks 14th of 24 because its detection pillar fully matches the habitat’s fire‑safety focus. Its main limitation is that none of its 435 tests approach the habitat’s 30‑40 % O₂ or 29.6‑70.3 kPa pressure range.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e3b5a0c2f4cc2593",
+        "problems": [],
+        "rank": 14,
+        "score": 0.5056
+      },
+      "PSI-47": {
+        "text": "It ranks fifteenth of twenty‑four because its fire‑safety focus on detection, reflected by a perfect pillar match, is its strongest factor. Its main limitation is the lack of any oxygen or pressure data to compare with the habitat conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "81dee3ef5d0aa50f",
+        "problems": [],
+        "rank": 15,
+        "score": 0.388
+      },
+      "PSI-142": {
+        "text": "It ranks mid‑range (sixteenth of twenty‑four) because its pillar match for prevention is perfect, giving it the strongest factor. Its main limitation is that it provides no oxygen or pressure data relevant to the lunar, rover or Mars habitats.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2fc767d59794ce53",
+        "problems": [],
+        "rank": 16,
+        "score": 0.3062
+      },
+      "PSI-62": {
+        "text": "It ranks seventeenth of twenty‑four because its pillar_match score is one, fully matching the prevention pillar. Its main limitation is the lack of any oxygen or pressure data and the fact it is only a ground study with no flight tests for this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a5fb969402c5b2fe",
+        "problems": [],
+        "rank": 17,
+        "score": 0.2817
+      },
+      "PSI-115": {
+        "text": "It ranks eighteenth of twenty‑four because its pillar_match to the detection pillar is perfect, giving it the strongest factor for this habitat. Its main limitation is the lack of any oxygen or pressure data and the fact that it is only a ground study with no flight tests.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7116bce45a7126b8",
+        "problems": [],
+        "rank": 18,
+        "score": 0.2804
+      },
+      "PSI-60": {
+        "text": "It ranks nineteenth of twenty‑four because its detection pillar fully matches the habitat’s fire‑safety focus. Its main limitation is the lack of any oxygen or pressure data and the absence of flight‑level testing for this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "95e800c7fb1341d4",
+        "problems": [],
+        "rank": 19,
+        "score": 0.2663
+      },
+      "PSI-23": {
+        "text": "The investigation ranks low because its strongest factor is the modest data richness of the microgravity flame tests, which only modestly supports fire‑safety modeling for this habitat. Its main limitation is the complete lack of oxygen and pressure data matching the habitat’s environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "00ef2fd70b320f39",
+        "problems": [],
+        "rank": 20,
+        "score": 0.2259
+      },
+      "PSI-22": {
+        "text": "It ranks low because its data richness is the only relatively strong component, giving it a modest score despite overall poor fit. Its main limitation is the complete lack of oxygen and pressure data matching any of the habitats.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "0909d97027a465a8",
+        "problems": [],
+        "rank": 21,
+        "score": 0.2086
+      },
+      "PSI-21": {
+        "text": "It ranks low at twenty‑second of twenty‑four because its data richness (0.53) is the only relatively strong aspect of the study. Its main limitation is the complete lack of oxygen or pressure data matching any of the habitat conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "da247409d152780d",
+        "problems": [],
+        "rank": 22,
+        "score": 0.2059
+      },
+      "PSI-106": {
+        "text": "The SLICE investigation ranks low for this habitat because it provides no oxygen or pressure data to compare with the habitat conditions, which is its strongest limiting factor. Its main caveat is that it only studies methane and ethylene diffusion flames, not the specific fuels or fire scenarios likely in the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "720ac3495ed0749a",
+        "problems": [],
+        "rank": 23,
+        "score": 0.1969
+      },
+      "PSI-117": {
+        "text": "It ranks last because its only modest strength is a small amount of data richness, giving it a score of six out of one hundred. Its main limitation is the complete lack of oxygen and pressure data for the habitats, making it a purely ground‑based CFD study with no relevant fire‑safety testing.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "28cc7e0c757f0901",
+        "problems": [],
+        "rank": 24,
+        "score": 0.0592
+      }
+    },
+    "spacesuit": {
+      "PSI-25": {
+        "text": "It ranks first because its material relevance is perfect, directly addressing solid fuel behavior relevant to spacesuit fire‑safety. Its main limitation is that none of its 129 tests approach the suit’s high oxygen (95‑100 %) and low pressure (28‑31 kPa) conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "5e9a00fd4bed32ff",
+        "problems": [],
+        "rank": 1,
+        "score": 0.6002
+      },
+      "PSI-26": {
+        "text": "It ranks second because its material relevance is perfect, matching the habitat’s need to understand solid fuel behavior under microgravity. Its main limitation is that none of its 121 tests were conducted at the suit’s high oxygen (95‑100%) and low pressure (28‑31 kPa) conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a12fb38624900e71",
+        "problems": [],
+        "rank": 2,
+        "score": 0.5832
+      },
+      "PSI-69": {
+        "text": "The FLEX investigation ranks third out of twenty‑four because none of its 274 tests approach the suit’s 95‑100 % oxygen and 28‑31 kPa pressure, giving it a condition‑fit of zero. Its main limitation is that it only examines liquid fuel fires, not the solid or polymer materials common in spacesuits.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "3058d2f0fe6ab5db",
+        "problems": [],
+        "rank": 3,
+        "score": 0.5785
+      },
+      "PSI-101": {
+        "text": "It ranks fourth out of twenty‑four because its material relevance is perfect and it directly matches the detection pillar for fire safety. Its main limitation is that none of its one hundred nine tests approach the suit’s high oxygen (95‑100 %) and low pressure (28‑31 kPa) environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7b40018974e2aeb9",
+        "problems": [],
+        "rank": 4,
+        "score": 0.5779
+      },
+      "PSI-102": {
+        "text": "It ranks fifth out of twenty‑four because its fire‑safety focus on detection aligns perfectly with the detection pillar, the strongest factor. Its main limitation is that none of its twenty tests approach the spacesuit’s high oxygen level and low pressure, so relevance to that environment is uncertain.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e2289340d56676b7",
+        "problems": [],
+        "rank": 5,
+        "score": 0.5668
+      },
+      "PSI-10": {
+        "text": "It ranks sixth of twenty‑four because its prevention pillar matches perfectly, giving it a pillar_match of one. Its main limitation is that none of its three hundred sixteen tests approach the suit’s 95‑to‑100 % oxygen and 28‑31 kPa pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "b9dc901a79b49f48",
+        "problems": [],
+        "rank": 6,
+        "score": 0.5479
+      },
+      "PSI-99": {
+        "text": "It ranks seventh of twenty‑four because its material relevance score is perfect, matching the habitat’s fire‑prevention pillar. Its main limitation is that none of its nine tests approach the suit’s 95‑100 % oxygen and 28‑31 kPa pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f9a7ff5809b93838",
+        "problems": [],
+        "rank": 7,
+        "score": 0.547
+      },
+      "PSI-39": {
+        "text": "The Cool Flames Investigation ranks eighth because its fire‑safety focus on prevention aligns perfectly with the habitat’s needs, giving it a full pillar match score. Its main limitation is that none of its seventy‑nine tests approach the suit’s 95‑100 % oxygen and 28‑31 kPa pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "1fa4e2a057ffa634",
+        "problems": [],
+        "rank": 8,
+        "score": 0.5307
+      },
+      "PSI-98": {
+        "text": "It ranks ninth of twenty‑four because its material relevance is perfect, matching the habitat’s fire‑prevention and detection pillars. Its main limitation is that none of its two tests approach the suit’s 95‑100 % oxygen and 28‑31 kPa pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "4473b0191ddb66ad",
+        "problems": [],
+        "rank": 9,
+        "score": 0.5284
+      },
+      "PSI-100": {
+        "text": "It ranks tenth of twenty‑four because its material relevance scores a perfect one, matching the habitat’s fire‑prevention and detection pillars. Its main limitation is that neither of its two tests approaches the suit’s 95‑100 % oxygen or 28‑31 kPa pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "21cea506f17400c8",
+        "problems": [],
+        "rank": 10,
+        "score": 0.5198
+      },
+      "PSI-68": {
+        "text": "It ranks eleventh of twenty‑four because its fire‑safety focus on suppression is the strongest factor. Its main limitation is that none of its one‑hundred‑sixty tests approach the suit’s ninety‑five to one‑hundred percent oxygen and twenty‑eight to thirty‑one kPa pressure.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "578d51ad118b064f",
+        "problems": [],
+        "rank": 11,
+        "score": 0.5171
+      },
+      "PSI-159": {
+        "text": "It ranks mid‑range because its fire‑safety focus on prevention aligns perfectly with the prevention pillar, the strongest factor in the scoring. Its main limitation is that none of its three hundred thirty‑three tests approach the suit’s 95‑100 % oxygen and 28‑31 kPa pressure conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f1dc75226c641efd",
+        "problems": [],
+        "rank": 12,
+        "score": 0.4988
+      },
+      "PSI-107": {
+        "text": "It ranks thirteenth of twenty‑four because its detection pillar fully matches the habitat’s fire‑safety need. Its main limitation is that none of its 435 tests approach the suit’s 95‑100 percent oxygen and 28‑31 kPa pressure.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "9e82c26f0bee23e7",
+        "problems": [],
+        "rank": 13,
+        "score": 0.4952
+      },
+      "PSI-20": {
+        "text": "It ranks low because none of its 43 tests approach the suit’s 95‑100 % oxygen and 28‑31 kPa pressure environment, which is the dominant factor driving the score. Its main limitation is that it only examined burned gas fuels, not the actual suit materials or hardware.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "fadeac7705f3ed61",
+        "problems": [],
+        "rank": 14,
+        "score": 0.4498
+      },
+      "PSI-47": {
+        "text": "The ranking reflects its perfect match to the detection pillar, which is the strongest factor for fire‑safety relevance in a spacesuit habitat. Its main limitation is the lack of oxygen and pressure data to compare with this habitat, leaving the test conditions unverified for the suit environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a6eaa4d732dcdfe2",
+        "problems": [],
+        "rank": 15,
+        "score": 0.388
+      },
+      "PSI-142": {
+        "text": "It ranks 16th of 24 because its pillar_match score is perfect, indicating strong alignment with the prevention pillar. Its main limitation is the lack of oxygen and pressure data for spacesuits and the absence of any flight‑level testing.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7884730df78413db",
+        "problems": [],
+        "rank": 16,
+        "score": 0.3062
+      },
+      "PSI-62": {
+        "text": "It ranks seventeenth of twenty‑four mainly because its pillar_match score is one, the only strong component in the assessment. Its main limitation is the complete lack of oxygen and pressure data and the fact that it is only a ground study with no flight tests for the spacesuit habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "ad26f8896126bbeb",
+        "problems": [],
+        "rank": 17,
+        "score": 0.2817
+      },
+      "PSI-115": {
+        "text": "It ranks 18 of 24 because its detection pillar fully matches the fire‑safety focus for the spacesuit habitat. Its main limitation is the lack of any oxygen or pressure data and the absence of flight‑level tests for this environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "fc5370f5305fcba0",
+        "problems": [],
+        "rank": 18,
+        "score": 0.2804
+      },
+      "PSI-60": {
+        "text": "It ranks nineteenth out of twenty‑four primarily because it fully matches the detection pillar, the strongest factor for this spacesuit habitat. Its main limitation is the lack of oxygen and pressure data relevant to the habitat and the absence of any flight‑level testing.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "21b4644da4b06eea",
+        "problems": [],
+        "rank": 19,
+        "score": 0.2663
+      },
+      "PSI-23": {
+        "text": "It ranks low (twentieth of twenty‑four) mainly because its data richness is the strongest positive factor, giving the only substantive link to fire‑safety fundamentals. Its main limitation is the complete lack of oxygen and pressure data matching the spacesuit environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "9ec06f4ff9b478d0",
+        "problems": [],
+        "rank": 20,
+        "score": 0.2259
+      },
+      "PSI-22": {
+        "text": "It ranks low because its data richness is the only relatively strong component, giving it a modest score despite the overall poor fit. Its main limitation is the complete lack of oxygen and pressure data relevant to the spacesuit environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "09753c40b2d7043d",
+        "problems": [],
+        "rank": 21,
+        "score": 0.2086
+      },
+      "PSI-21": {
+        "text": "It ranks low because there is no oxygen or pressure data to compare with the spacesuit habitat, which is the dominant factor driving its position. Its main limitation is that the study uses burned‑gas fuels, which are not representative of the habitat’s fire‑safety concerns.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f23ea617293949af",
+        "problems": [],
+        "rank": 22,
+        "score": 0.2059
+      },
+      "PSI-106": {
+        "text": "It ranks near the bottom because its material relevance is only half and data richness is low, giving it a rank of twenty‑three out of twenty‑four. The main limitation is that there is no oxygen or pressure data to compare with the spacesuit environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "29fd9de105f74075",
+        "problems": [],
+        "rank": 23,
+        "score": 0.1969
+      },
+      "PSI-117": {
+        "text": "It ranks last because it is a ground‑based CFD study with no oxygen or pressure data that match the spacesuit environment, giving it the lowest overall score. Its main limitation is the complete absence of any fire‑safety testing performed in or near the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f1499b75e1a93f7e",
+        "problems": [],
+        "rank": 24,
+        "score": 0.0592
+      }
+    }
+  }
+}
