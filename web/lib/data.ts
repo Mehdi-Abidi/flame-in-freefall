@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { parseCsv } from "./csv";
-import type { Components, Dataset, GravityRow, Investigation, Phase, Pillar, Point, Range, Rationale, Scenario, ScenarioScore } from "./types";
+import type { Brief, Components, Dataset, GravityRow, Investigation, Phase, Pillar, Point, Range, Rationale, Scenario, ScenarioScore } from "./types";
 
 const DATA_DIR = process.env.FLAME_DATA_DIR ?? path.join(process.cwd(), "..", "data");
 const PHASES: Phase[] = ["solid", "liquid", "gas", "dust"];
@@ -118,6 +118,31 @@ function rationaleFor(raw: RawRationaleFile["rationales"], scenarioId: string, a
   const record = raw[scenarioId]?.[accession];
   if (!record || typeof record.text !== "string" || !record.text || record.rank !== rank) return null;
   return { text: record.text, source: record.source === "model" ? "model" : "template", model: record.model };
+}
+
+interface RawBriefFile {
+  briefs: Record<string, Omit<Brief, "pillar">>;
+}
+
+function loadBriefs(knownAccessions: Set<string>): Brief[] {
+  if (!existsSync(path.join(DATA_DIR, "processed/briefs.json"))) return [];
+  const document = readJson<RawBriefFile>("processed/briefs.json");
+  const order: Pillar[] = ["prevention", "detection", "suppression"];
+  return order
+    .filter((pillar) => document?.briefs?.[pillar])
+    .map((pillar) => {
+      const raw = document.briefs[pillar];
+      return {
+        pillar,
+        title: raw.title,
+        findings: (raw.findings ?? []).map((f) => ({ text: f.text, citations: (f.citations ?? []).filter((c) => knownAccessions.has(c)) })),
+        implication: raw.implication,
+        gap: raw.gap,
+        source: raw.source === "model" ? "model" : "template",
+        model: raw.model,
+        review: raw.review,
+      };
+    });
 }
 
 function shortTitle(title: string): string {
@@ -249,6 +274,7 @@ export function loadDataset(): Dataset {
     scenarios,
     componentWeights: rankings.component_weights,
     gravity: loadGravity(),
+    briefs: loadBriefs(new Set(merged.map((i) => i.accession))),
     stats: {
       investigations: merged.length,
       records: rows.length,
