@@ -1,12 +1,15 @@
 import copy
 import json
+import io
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 from si.rank import (COMPONENT_WEIGHTS, DEFAULT_WEIGHTS, RankError, UsageError, box_distance, condition_fit, data_richness,
-                     material_relevance, parse_weights, pillar_match, rank, read_csv, read_json, resolve_pillars,
-                     validate_scenarios)
+                     build_rankings, load_inputs, material_relevance, parse_weights, pillar_match, rank, read_csv, read_json,
+                     resolve_pillars, run, validate_scenarios, write_json_atomic)
 
 SCENARIOS = {
     "tolerance": {"o2_mole_fraction": 0.05, "pressure_kpa": 20.0},
@@ -133,7 +136,7 @@ class ComponentTests(unittest.TestCase):
         measured = condition_fit([row(0.35, 60)], LUNAR, TOLERANCE)["fit"]
         nominal = condition_fit([row(0.35, 60, "nominal_cabin_air", "nominal_cabin")], LUNAR, TOLERANCE)
         self.assertLess(nominal["fit"], measured)
-        self.assertEqual(nominal["n_in_target"], 0)
+        self.assertEqual((nominal["n_in_target"], nominal["n_near"]), (0, 1))
 
     def test_missing_pressure_is_penalised_not_ignored(self):
         fit = condition_fit([row(0.35, None, pressure_source="")], LUNAR, TOLERANCE)
@@ -218,6 +221,100 @@ class RankTests(unittest.TestCase):
         with self.assertRaises(UsageError) as error:
             rank("moon", None, fixture_inputs())
         self.assertIn("lunar_base", str(error.exception))
+
+
+def run_cli(argv, inputs=None, error=None):
+    out, err = io.StringIO(), io.StringIO()
+    loader = mock.patch("si.rank.load_inputs", side_effect=error) if error else mock.patch("si.rank.load_inputs", return_value=inputs)
+    with loader, redirect_stdout(out), redirect_stderr(err):
+        code = run(argv)
+    return code, out.getvalue(), err.getvalue()
+
+
+class CommandLineTests(unittest.TestCase):
+    def test_success_prints_a_table(self):
+        code, out, _ = run_cli(["--scenario", "lunar_base", "--top", "2"], fixture_inputs())
+        self.assertEqual(code, 0)
+        self.assertIn("HIGH-O2", out)
+        self.assertEqual(len(out.strip().splitlines()), 4)
+
+    def test_json_output_parses(self):
+        code, out, _ = run_cli(["--scenario", "iss", "--json"], fixture_inputs())
+        self.assertEqual((code, json.loads(out)[0]["acronym"]), (0, "CABIN"))
+
+    def test_usage_errors_exit_2(self):
+        for argv in (["--scenario", "moon"], ["--weights", "prevention=-1"], ["--weights", "fire=1"]):
+            with self.subTest(argv=argv):
+                code, _, err = run_cli(argv, fixture_inputs())
+                self.assertEqual(code, 2)
+                self.assertTrue(err.startswith("error: "))
+
+    def test_data_errors_exit_1_without_traceback(self):
+        code, _, err = run_cli([], error=RankError("investigations.json not found."))
+        self.assertEqual(code, 1)
+        self.assertNotIn("Traceback", err)
+
+    def test_unexpected_errors_exit_1_and_point_to_debug(self):
+        code, _, err = run_cli([], error=ZeroDivisionError("boom"))
+        self.assertEqual(code, 1)
+        self.assertIn("--debug", err)
+
+    def test_debug_shows_the_real_exception(self):
+        with self.assertRaises(ZeroDivisionError):
+            run_cli(["--debug"], error=ZeroDivisionError("boom"))
+
+    def test_interrupt_exits_130(self):
+        self.assertEqual(run_cli([], error=KeyboardInterrupt())[0], 130)
+
+    def test_notes_go_to_stderr(self):
+        inputs = fixture_inputs()
+        inputs["notes"] = ["extracted.json not found"]
+        _, out, err = run_cli([], inputs)
+        self.assertIn("note: extracted.json not found", err)
+        self.assertNotIn("note:", out)
+
+
+class WriterTests(unittest.TestCase):
+    def test_atomic_write_leaves_no_temporary_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "rankings.json"
+            write_json_atomic(target, {"a": 1})
+            self.assertEqual(json.loads(target.read_text(encoding="utf-8")), {"a": 1})
+            self.assertEqual([p.name for p in Path(tmp).iterdir()], ["rankings.json"])
+
+    def test_failed_write_keeps_the_old_file_and_cleans_up(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "rankings.json"
+            target.write_text('{"old": true}', encoding="utf-8")
+            with mock.patch("os.replace", side_effect=OSError("disk full")), self.assertRaises(RankError):
+                write_json_atomic(target, {"new": True})
+            self.assertEqual(json.loads(target.read_text(encoding="utf-8")), {"old": True})
+            self.assertEqual([p.name for p in Path(tmp).iterdir()], ["rankings.json"])
+
+    def test_rankings_document_covers_every_scenario(self):
+        document = build_rankings(fixture_inputs())
+        self.assertEqual(set(document["scenarios"]), {"iss", "lunar_base"})
+        self.assertEqual(len(document["scenarios"]["iss"]["ranking"]), 3)
+
+
+class RealDataTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.inputs = load_inputs()
+
+    def test_lunar_top_five_all_tested_at_30_percent_oxygen_or_more(self):
+        for result in rank("lunar_base", None, self.inputs)[:5]:
+            rows = self.inputs["rows"][result["accession"]]
+            best = max(float(r["o2_mole_fraction"]) for r in rows if r["o2_mole_fraction"])
+            self.assertGreaterEqual(best, 0.30, result["acronym"])
+
+    def test_iss_top_three_have_tests_inside_the_iss_box(self):
+        for result in rank("iss", None, self.inputs)[:3]:
+            self.assertGreater(result["evidence"]["n_in_target"] + result["evidence"]["n_near"], 0, result["acronym"])
+
+    def test_every_scenario_ranks_all_investigations(self):
+        for scenario_id in self.inputs["scenarios"]["scenarios"]:
+            self.assertEqual(len(rank(scenario_id, None, self.inputs)), len(self.inputs["investigations"]))
 
 if __name__ == "__main__":
     unittest.main()
