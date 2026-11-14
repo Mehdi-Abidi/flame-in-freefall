@@ -16,11 +16,13 @@ FACTS = {
     "dataset_facts": ["The highest measured oxygen in any solid-material test is 22.2% across 140 solid tests."],
     "investigations": [
         {"accession": "PSI-69", "name": "FLEX", "tests": 274, "fuel_phase": ["liquid"], "oxygen_percent_range": [12.0, 34.0],
-         "oxygen_basis": "measured", "lunar_base_rank": 1, "observations": ["50 liquid-fuel rows with N2+He, the lowest at 13.0% oxygen"]},
+         "oxygen_basis": "measured", "lunar_base_rank": 1, "observations": ["50 liquid-fuel rows with N2+He, 40 ended in extinction, the lowest at 13.0% oxygen"]},
         {"accession": "PSI-68", "name": "FLEX-2", "tests": 0, "fuel_phase": ["liquid"], "oxygen_percent_range": [17.0, 30.0],
          "oxygen_basis": "planned", "lunar_base_rank": 4, "observations": []},
         {"accession": "PSI-25", "name": "BASS-II", "tests": 129, "fuel_phase": ["solid"], "oxygen_percent_range": [13.6, 22.2],
          "oxygen_basis": "measured", "lunar_base_rank": 6, "observations": []},
+        {"accession": "PSI-107", "name": "SPICE", "tests": 435, "fuel_phase": ["gas"], "oxygen_percent_range": [21.0, 21.0],
+         "oxygen_basis": "nominal_cabin_air", "lunar_base_rank": 9, "observations": []},
     ],
 }
 GOOD = {
@@ -62,7 +64,7 @@ class ValidationTests(unittest.TestCase):
             "two findings": (lambda b: b["findings"].pop(), "needs exactly 3"),
             "no citation": (lambda b: b["findings"][0].update(citations=[]), "cites nothing"),
             "other pillar": (lambda b: b["findings"][0].update(citations=["PSI-102"]), "not in this pillar"),
-            "invented number": (lambda b: b["findings"][0].update(text="FLEX went out at 9% oxygen."), "numbers not in the facts: 9"),
+            "invented number": (lambda b: b["findings"][0].update(text="FLEX went out at 7% oxygen."), "numbers not in the facts: 7"),
             "superlative": (lambda b: b["findings"][1].update(text="Helium is the most effective agent."), "superlative"),
             "spelled number": (lambda b: b.update(gap="Twenty tests are missing."), "spells out numbers"),
             "field name": (lambda b: b.update(implication="The oxygen_basis says measured."), "internal field names"),
@@ -86,11 +88,45 @@ class ValidationTests(unittest.TestCase):
         self.assertTrue(validate_brief(clean_brief("not json"), FACTS))
 
 
+class EvidenceGuardTests(unittest.TestCase):
+    def with_finding(self, text, citations, **extra):
+        brief = json.loads(json.dumps(GOOD))
+        brief["findings"][0] = {"text": text, "citations": citations}
+        brief.update(extra)
+        return validate_brief(clean_brief(brief), FACTS)
+
+    def test_cited_investigations_must_be_named(self):
+        problems = self.with_finding("All 66 lunar tests used gas fuels.", ["PSI-69"])
+        self.assertTrue(any("does not name it" in p for p in problems))
+
+    def test_extinction_claims_need_recorded_outcomes(self):
+        problems = self.with_finding("BASS-II samples showed extinction at 13.6% oxygen.", ["PSI-25"])
+        self.assertTrue(any("no extinction outcome is recorded" in p for p in problems))
+        self.assertEqual(self.with_finding("FLEX droplets went out at 13.0% oxygen.", ["PSI-69"]), [])
+
+    def test_assumed_oxygen_must_be_called_assumed_near_the_number(self):
+        problems = self.with_finding("SPICE measured smoke points at 21% oxygen, unlike the planned lunar base.", ["PSI-107"])
+        self.assertTrue(any("assumed or planned oxygen as measured" in p for p in problems))
+        self.assertEqual(self.with_finding("SPICE ran in assumed cabin air of 21% oxygen.", ["PSI-107"]), [])
+
+    def test_overconfident_safety_language_is_rejected(self):
+        problems = self.with_finding(GOOD["findings"][0]["text"], ["PSI-69"],
+                                     implication="Designers can rely on diluents that worked at lower oxygen.")
+        self.assertTrue(any("overconfident" in p for p in problems))
+
+    def test_v1_safety_inversion_is_caught(self):
+        problems = self.with_finding(GOOD["findings"][0]["text"], ["PSI-69"],
+                                     implication="Suppression strategies can rely on diluents effective at those lower concentrations.")
+        self.assertTrue(any("can rely on" in p for p in problems))
+
+
 class TemplateTests(unittest.TestCase):
     def test_template_always_validates_and_labels_the_basis(self):
         brief = template_brief(FACTS)
         self.assertEqual(validate_brief(brief, FACTS), [])
-        self.assertIn("(measured)", brief["findings"][0]["text"])
+        texts = {f["citations"][0]: f["text"] for f in brief["findings"]}
+        self.assertIn("(assumed cabin air)", texts["PSI-107"])
+        self.assertIn("(measured)", texts["PSI-69"])
 
     def test_real_data_templates_validate_for_every_pillar(self):
         for pillar, facts in collect_facts().items():
@@ -126,7 +162,7 @@ class GenerateTests(unittest.TestCase):
     def test_records_carry_members_review_status_and_are_resumable(self):
         output, stats = generate({"suppression": FACTS}, lambda f: (GOOD, "model", []), model_id="m")
         record = output["suppression"]
-        self.assertEqual(record["members"], ["PSI-69", "PSI-68", "PSI-25"])
+        self.assertEqual(record["members"], ["PSI-69", "PSI-68", "PSI-25", "PSI-107"])
         self.assertEqual(record["review"], PENDING_REVIEW)
         record["review"] = "reviewed by Taha"
         _, again = generate({"suppression": FACTS}, lambda f: (GOOD, "model", []), existing=output, model_id="m")
