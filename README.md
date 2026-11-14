@@ -79,7 +79,7 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | S1 `si/llm.py` provider wrapper, 17 unit tests | Mehdi | Done |
 | S2 AI extraction of all 24 investigations (`extracted.json`) | Mehdi | Done, Taha to review in T4 |
 | S3 Habitat ranking engine (`si/rank.py`, `rankings.json`) | Mehdi | Done |
-| A1 FastAPI skeleton | Moiz | Next |
+| A1 to A5 FastAPI service (`api/`), see [API](#api) | Moiz | In review, deploy (A3) next |
 | F1 to F2 React shell and Vercel deploy | Ali Soban | Next |
 | V1 Flammability map prototype | Ahsan | Next, can start on `tests.csv` now |
 | T1 to T2 Domain tags and habitat scenarios | Taha | Next |
@@ -164,6 +164,33 @@ How it stays honest:
 - Any fuel or sensor the model names that does not appear in the source text or data is flagged as a warning.
 - A detection pillar is dropped unless the source mentions smoke, aerosols, particles, dust or detectors.
 - Model pillars are suggestions. [`docs/extraction-review.md`](docs/extraction-review.md) compares them with the seed tags so a person can decide.
+
+## API
+
+FastAPI service in `api/` (tasks A1 to A5). It reads `data/processed` at startup.
+
+```bash
+uvicorn api.main:app --reload     # then open http://127.0.0.1:8000/docs
+python -m unittest tests.test_api -v
+```
+
+| Endpoint | Returns |
+|---|---|
+| `GET /health` | Status and row counts |
+| `GET /investigations` | All 24 records from `investigations.json` |
+| `GET /investigations/{accession}` | One record, for example `PSI-69` (case-insensitive) |
+| `GET /tests?accession=&o2_min=&o2_max=&p_min=&p_max=&measured_only=&record_type=` | Rows of `tests.csv`. `accession` takes a comma-separated list. O2 is a mole fraction (0 to 1), pressure is kPa. A bound drops rows with no value for it. |
+| `GET /export?...` | Same filters as `/tests`, downloaded as CSV |
+| `GET /scenarios` | `tolerance` and the five habitat targets from `data/domain/scenarios.json` |
+| `GET /rank?scenario=lunar_base&w_prevent=1&w_detect=1&w_suppress=1&limit=` | `si.rank.rank()` output: per investigation `score`, `components`, `pillars`, `pillar_source`, `evidence`, `reasons`, `rank`. Unknown scenario or bad weights give 400, data problems give 500. |
+| `GET /compare?ids=PSI-69,PSI-68` | 2 to 4 investigations. `rows` lists each field with its values and a `differs` flag |
+| `POST /ask` `{"question": "..."}` | `answer`, `covered`, `citations` (accessions), `sources` (the retrieved passages). Returns 503 if the server has no `LLM_API_KEY`. |
+
+`/rank` loads the ranking inputs once at startup and calls `si/rank.py` (S3).
+
+`/ask` searches PSI objectives, approaches, hypotheses, publication titles and the S2 summaries from `extracted.json`, plus passages built from the data: a digest of each investigation's tests (O2, pressure and outcomes by fuel and diluent), the SAFFIRE-II microgravity vs 1 g comparison, and a dataset overview by fuel phase. These are needed for data questions such as "CO2 or helium?" and "were solids ever tested at 30% O2?". An answer must cite accessions from the retrieved passages. Otherwise the model gets one retry, then the reply is "Not covered in PSI data."
+
+Deploy: `render.yaml` is a Render blueprint. Set `LLM_API_KEY` in the Render dashboard and `CORS_ORIGINS` to the Vercel URL.
 
 ## Repository layout
 
