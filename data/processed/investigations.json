@@ -18,11 +18,15 @@
       0.198,
       0.85
     ],
+    "o2_basis": "measured",
     "pressure_kpa_range": [
       43.2,
       305.8
     ],
+    "pressure_basis": "measured",
     "n_tests": 327,
+    "n_records": 327,
+    "n_experimental_tables": 2,
     "n_files": 3807,
     "publications": [
       {
@@ -163,506 +167,6 @@
     "rationale": {}
   },
   {
-    "accession": "PSI-100",
-    "acronym": "SAFFIRE-III",
-    "title": "Spacecraft Fire Experiment-III",
-    "project_type": "Microgravity Investigation",
-    "platform": "ISS",
-    "hardware": "Saffire III enclosure in Cygnus",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
-    "fuel_phase": [
-      "solid"
-    ],
-    "o2_range": [
-      0.21,
-      0.21
-    ],
-    "pressure_kpa_range": [
-      101.3,
-      101.3
-    ],
-    "n_tests": 2,
-    "n_files": 177,
-    "publications": [
-      {
-        "title": "Buoyant Effects on the Flammability of Silicone Samples Planned for the Spacecraft Fire Experiment (Saffire), 45th International Conference on Environmental Systems ICES-2015-[293] 12-16 July 2015, Bellevue, Washington",
-        "authors": "JE Niehaus, PV Ferkul, SA Gokoglu, GA Ruff"
-      },
-      {
-        "title": "The Spacecraft Fire Experiment (Saffire) - Objectives, Development and Status",
-        "authors": "W Schoren, GA Ruff, DL Urban"
-      },
-      {
-        "title": "Operation and Development Status of the Spacecraft Fire Experiments (Saffire), 46th International Conference on Environmental Systems (ICES), July 2016",
-        "authors": "https://ntrs.nasa.gov/citations/20170000230"
-      }
-    ],
-    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-100",
-    "scores": {},
-    "rationale": {}
-  },
-  {
-    "accession": "PSI-101",
-    "acronym": "SAME-R",
-    "title": "Smoke Aerosol Measurement Experiment-Reflight",
-    "project_type": "Microgravity Investigation",
-    "platform": "ISS",
-    "hardware": "Comparitive Soot Diagnostic Hardware; Refer to final report",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
-    "fuel_phase": [
-      "solid"
-    ],
-    "o2_range": [
-      0.21,
-      0.21
-    ],
-    "pressure_kpa_range": [
-      101.3,
-      101.3
-    ],
-    "n_tests": 109,
-    "n_files": 714,
-    "publications": [
-      {
-        "title": "Smoke Aerosol Measurement Experiment-2: Comparison of Flight Experiment Results with Ground Test Results",
-        "authors": "Meyer Marit E., Urban David L., Ruff Gary A., Mulholland George, Yuan Zeng-guang, Bryg Victoria, Cleary Thomas, Yang Jiann"
-      },
-      {
-        "title": "Evaluation of Low-Gravity Smoke Particulate for Spacecraft Fire Detection",
-        "authors": "D Urban, G Ruff, G Mulholland, M Meyer, ZG Yuan, T Cleary, J Yang, P Greenberg, V Bryg"
-      },
-      {
-        "title": "Particle Morphology and Size Results from the Smoke Aerosol Measurement Experiment-2",
-        "authors": "Urban David, Ruff Gary, Greenberg Paul, Fischer David, Meyer Marit, Mulholland George, Yuan Zeng-guang, Bryg Victoria, Cleary Thomas, Yang Jiann"
-      },
-      {
-        "title": "Preliminary Results from the Smoke Aerosol Measurement Experiment - Reflight",
-        "authors": "D Urban, G Ruff, M Meyer, T Cleary, J Yang, G Mulholland, ZG Yuan, V Bryg"
-      },
-      {
-        "title": "Detection of Smoke from Microgravity Fires",
-        "authors": "DL Urban, D Griffin, G Ruff, T Cleary, J Yang, G Mulholland, ZG Yuan"
-      },
-      {
-        "title": "Evaluation of spacecraft smoke detector performance in the low-gravity environment",
-        "authors": "Meyer Marit E., Urban David L., Mulholland George W., Bryg Victoria, Yuan Zeng-Guang, Ruff Gary A., Cleary Thomas, Yang Jiann"
-      }
-    ],
-    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-101",
-    "scores": {},
-    "rationale": {}
-  },
-  {
-    "accession": "PSI-102",
-    "acronym": "SAME",
-    "title": "Smoke and Aerosol Measurement Experiment",
-    "project_type": "Microgravity Investigation",
-    "platform": "ISS",
-    "hardware": "Comparitive Soot Diagnostic Hardware",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
-    "fuel_phase": [
-      "solid"
-    ],
-    "o2_range": [
-      0.21,
-      0.21
-    ],
-    "pressure_kpa_range": [
-      101.3,
-      101.3
-    ],
-    "n_tests": 20,
-    "n_files": 216,
-    "publications": [
-      {
-        "title": "Measurement of Smoke Particle Size under Low-Gravity Conditions",
-        "authors": "Urban David L., Ruff Gary A., Mulholland George W., Cleary Thomas G., Yang Jiann C., Yuan Zengguang"
-      },
-      {
-        "title": "Properties of Smoke from Overheated Spacecraft Materials in Low-Gravity",
-        "authors": "DL Urban, GA Ruff, W Sheredy, T Cleary, J Yang, G Mulholland, Z Yuan"
-      },
-      {
-        "title": "Smoke Particle Sizes in Low-Gravity and Implications for Spacecraft Smoke Detector Design",
-        "authors": "Urban David L., Ruff Gary A., Mulholland George W., Cleary Thomas G., Yang Jiann C., Yuan Zengguang, Bryg Victoria"
-      },
-      {
-        "title": "Spacecraft Fire Detection: Smoke Properties and Transport in Low-Gravity",
-        "authors": "Urban David, Ruff Gary, Brooker John, Cleary Thomas, Yang Jiann, Mulholland George, Yuan Zeng-Guang"
-      },
-      {
-        "title": "ISS Destiny Laboratory Smoke Detection Model",
-        "authors": "Brooker John E., Urban David L., Ruff Gary A."
-      },
-      {
-        "title": "Smoke: Characterization of Smoke Particulate for Spacecraft Fire Detection, Seventh International Microgravity Combustion Workshop",
-        "authors": "DL Urban, GW Mulholland, J Yang, TG Cleary, and ZG Yuan"
-      },
-      {
-        "title": "Smoke: Characterization of Smoke Particulate for Spacecraft Fire Detection",
-        "authors": "DL Urban, GW Mulholland, J Yang, TG Cleary, ZG Yuan"
-      },
-      {
-        "title": "Characterization of Nuisance Particulates in the ISS: Space Smoke Aerosols and Lunar Dust Abatement",
-        "authors": "Bryg VM, Yuan Z-G, Urban DL, Ruff G, Mulholland G, Agui J"
-      },
-      {
-        "title": "Combustion Research on the International Space Station",
-        "authors": "Malley, WA Sheredy, DP Stocker"
-      },
-      {
-        "title": "Detection of Smoke from Microgravity Fires",
-        "authors": "DL Urban, D Griffin, G Ruff, T Cleary, J Yang, G Mulholland, ZG Yuan"
-      },
-      {
-        "title": "A Research Plan for Fire Prevention, Detection and Suppression in Crewed Exploration Systems",
-        "authors": "Ruff Gary, Urban David, King Merrill"
-      },
-      {
-        "title": "Pyrolysis Smoke Generated Under Low-Gravity Conditions",
-        "authors": "Mulholland George W., Meyer Marit, Urban David L., Ruff Gary A., Yuan Zeng-guang, Bryg Victoria, Cleary Thomas, Yang Jiann"
-      },
-      {
-        "title": "Smoke Characterization and Feasibility of the Moment Method for Spacecraft Fire Detection",
-        "authors": "Meyer Marit E., Mulholland George W., Bryg Victoria, Urban David L., Yuan Zeng-Guang, Ruff Gary A., Cleary Thomas, Yang Jiann"
-      },
-      {
-        "title": "Evaluation of spacecraft smoke detector performance in the low-gravity environment",
-        "authors": "Meyer Marit E., Urban David L., Mulholland George W., Bryg Victoria, Yuan Zeng-Guang, Ruff Gary A., Cleary Thomas, Yang Jiann"
-      },
-      {
-        "title": "The Microgravity Science Glovebox (MSG), a Resource for Gravity-Dependent Phenomena Research on the International Space Station (ISS)",
-        "authors": "Spivey Reggie, Jeter Linda, Vonk Chris"
-      },
-      {
-        "title": "AN OVERVIEW OF THE MICROGRAVITY SCIENCE GLOVEBOX (MSG) FACILITY, AND THE GRAVITY-DEPENDENT PHENOMENARESEARCH PERFORMED IN THE MSG ON THE INTERNATIONAL SPACE STATION (ISS)",
-        "authors": "Reggie Spivey, Kenneth B. Morris"
-      }
-    ],
-    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-102",
-    "scores": {},
-    "rationale": {}
-  },
-  {
-    "accession": "PSI-106",
-    "acronym": "SLICE",
-    "title": "Structure and Liftoff In Combustion Experiment",
-    "project_type": "Microgravity Investigation",
-    "platform": "ISS",
-    "hardware": null,
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
-    "fuel_phase": [
-      "gas"
-    ],
-    "o2_range": null,
-    "pressure_kpa_range": null,
-    "n_tests": 12,
-    "n_files": 23402,
-    "publications": [
-      {
-        "title": "A computational and experimental study of coflow laminar methane/air diffusion flames: Effects of fuel dilution, inlet velocity, and gravity",
-        "authors": "Cao S., Ma B., Bennett B.A.V., Giassi D., Stocker D.P., Takahashi F., Long M.B., Smooke M.D."
-      },
-      {
-        "title": "A Combined Experimental and Computational Study of Soot Formation in Normal and Microgravity Conditions",
-        "authors": "Dobbins Richard R., Tinjero Jesse, Squeo Joseph, Zhao Xinyu, Hall Robert J., Colket Meredith B., Long Marshall B., Smooke Mitchell D."
-      },
-      {
-        "title": "Effects of Fuel Dilution and Gravity on Laminar Coflow Methane-Air Diffusion Flames: A Computational and Experimental Investigation",
-        "authors": "S Cao, BAV Bennett, B Ma, D Giassi, DP Stocker, F Takahashi, MB Long, MD Smooke"
-      },
-      {
-        "title": "An experimental and computational study of soot formation in a coflow jet flame under microgravity and normal gravity",
-        "authors": "Ma Bin, Cao Su, Giassi Davide, Stocker Dennis P., Takahashi Fumiaki, Bennett Beth Anne V., Smooke Mitchell D., Long Marshall B."
-      },
-      {
-        "title": "Analysis of CH* concentration and flame heat release rate in laminar coflow diffusion flames under microgravity and normal gravity",
-        "authors": "Giassi Davide, Cao Su, Bennett Beth Anne V., Stocker Dennis P., Takahashi Fumiaki, Smooke Mitchell D., Long Marshall B."
-      }
-    ],
-    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-106",
-    "scores": {},
-    "rationale": {}
-  },
-  {
-    "accession": "PSI-107",
-    "acronym": "SPICE",
-    "title": "Smoke Point In Co-flow Experiment",
-    "project_type": "Microgravity Investigation",
-    "platform": "ISS",
-    "hardware": "Microgravity Science Glovebox (MSG)",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
-    "fuel_phase": [
-      "gas"
-    ],
-    "o2_range": [
-      0.21,
-      0.21
-    ],
-    "pressure_kpa_range": [
-      101.3,
-      101.3
-    ],
-    "n_tests": 435,
-    "n_files": 398,
-    "publications": [
-      {
-        "title": "Laminar Smoke Points in Coflow Measured Aboard the International Space Station",
-        "authors": "Dotson Keenan, Sunderland Peter, Yuan Zeng-Guang, Urban David"
-      },
-      {
-        "title": "Scaling of Gas-Jet Flame Lengths in Elevated Gravity",
-        "authors": "Sunderland Peter B., Urban David L., Nayagam Vedha"
-      },
-      {
-        "title": "The Microgravity Science Glovebox (MSG), a Resource for Gravity-Dependent Phenomena Research on the International Space Station (ISS)",
-        "authors": "RA Spivey, LB Jeter, C Vonk"
-      },
-      {
-        "title": "The Microgravity Science Glovebox as a Platform for Exploration Research on the International Space Station",
-        "authors": "Spivey Reggie, Luz Paul"
-      },
-      {
-        "title": "A Combined Experimental and Computational Study of Soot Formation in Normal and Microgravity Conditions",
-        "authors": "Dobbins Richard R., Tinjero Jesse, Squeo Joseph, Zhao Xinyu, Hall Robert J., Colket Meredith B., Long Marshall B., Smooke Mitchell D."
-      },
-      {
-        "title": "Shapes of nonbuoyant round hydrocarbon-fueled laminar-jet diffusion flames in still air",
-        "authors": "Aalburg C., Diez F.J., Faeth G.M., Sunderland P.B., Urban D.L., Yuan Z.-G."
-      },
-      {
-        "title": "Shapes of nonbuoyant round luminous hydrocarbon/air laminar jet diffusion flames",
-        "authors": "LIN K, FAETH G, SUNDERLAND P, URBAN D, YUAN Z"
-      },
-      {
-        "title": "Smoke Points of Microgravity and Normal Gravity Coflow Diffusion",
-        "authors": "KT Dotson"
-      },
-      {
-        "title": "Laminar smoke points of coflowing flames in microgravity",
-        "authors": "Dotson K.T., Sunderland P.B., Yuan Z.-G., Urban D.L."
-      }
-    ],
-    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-107",
-    "scores": {},
-    "rationale": {}
-  },
-  {
-    "accession": "PSI-115",
-    "acronym": null,
-    "title": "Utilization of the Smoke Aerosol Measurement Experiment Data for Advanced Modeling and Simulation of Smoke Generation in Micro-Gravity",
-    "project_type": "Ground Investigation",
-    "platform": "Not Applicable",
-    "hardware": null,
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
-    "fuel_phase": [],
-    "o2_range": null,
-    "pressure_kpa_range": null,
-    "n_tests": 0,
-    "n_files": 98,
-    "publications": [],
-    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-115",
-    "scores": {},
-    "rationale": {}
-  },
-  {
-    "accession": "PSI-117",
-    "acronym": null,
-    "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
-    "project_type": "Ground Investigation",
-    "platform": null,
-    "hardware": null,
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
-    "fuel_phase": [],
-    "o2_range": null,
-    "pressure_kpa_range": null,
-    "n_tests": 0,
-    "n_files": 16,
-    "publications": [
-      {
-        "title": "Extinction characteristics of isolated n-alkane fuel droplets during low temperature cool flame burning in air (2023)",
-        "authors": "Farouk Tanvir I., Dryer Frederick L."
-      },
-      {
-        "title": "Sub-millimeter sized multi-component jet fuel surrogate droplet combustion: Physicochemical preferential vaporization effects (2021)",
-        "authors": "Farouk Tanvir I., Won Sang Hee, Dryer Frederick L."
-      },
-      {
-        "title": "Initial diameter effects on combustion of unsupported equi-volume n-heptane/iso-octane mixture droplets and the transition to cool flame behavior: Experimental observations and detailed numerical modeling (2020)",
-        "authors": "Xu Yuhao, Farouk Tanvir I., Hicks Michael C., Avedisian C. Thomas"
-      },
-      {
-        "title": "Oscillatory cool flame combustion behavior of submillimeter sized n-alkane droplet under near limit conditions (2019)",
-        "authors": "Alam Fahd E., Aghdam Ali Charchi, Dryer Frederick L., Farouk Tanvir I."
-      },
-      {
-        "title": "Investigating the role of preferential vaporization during submillimeter sized multicomponent jet fuel surrogate droplet combustion (2019)",
-        "authors": "Farouk T, Won S, Dryer F."
-      },
-      {
-        "title": "Multi-component jet fuel surrogate droplet combustion: Preferential vaporization behaviors under spray relevant conditions and effects on combustion behaviors (2019)",
-        "authors": "Farouk T, Won S, Dryer F."
-      },
-      {
-        "title": "Cool Flame Combustion of Sub-Millimeter Sized Higher n-Alkane Droplets at Atmospheric Condition (2017)",
-        "authors": "Alam F, Dryer F, Farouk T."
-      },
-      {
-        "title": "Non-Premixed - Partially Premixed to Diffusive Burning: Initial Transient of Direct Cool Flame Burn (2017)",
-        "authors": "Alam F, Dryer F, Farouk T."
-      },
-      {
-        "title": "Oscillatory Cool Flame Combustion Behavior of Submillimeter Sized n-Alkane Droplet under Near Limit Conditions (2018)",
-        "authors": "Alam F, Charchi A, Dryer F, Farouk T."
-      },
-      {
-        "title": "Dynamics of cool flames (2019)",
-        "authors": "Ju Yiguang, Reuter Christopher B., Yehia Omar R., Farouk Tanvir I., Won Sang Hee"
-      }
-    ],
-    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-117",
-    "scores": {},
-    "rationale": {}
-  },
-  {
-    "accession": "PSI-142",
-    "acronym": null,
-    "title": "Quantitative Studies of Cool Flame Transitions at Radiation / Stretch Extinction Using Counterflow Flames",
-    "project_type": "Ground Investigation",
-    "platform": "Not Applicable",
-    "hardware": "Principal Investigator Laboratory Hardware",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
-    "fuel_phase": [],
-    "o2_range": null,
-    "pressure_kpa_range": null,
-    "n_tests": 0,
-    "n_files": 6,
-    "publications": [
-      {
-        "title": "Dynamics of cool flames",
-        "authors": "Ju Yiguang, Reuter Christopher B., Yehia Omar R., Farouk Tanvir I., Won Sang Hee"
-      },
-      {
-        "title": "The radical index and the effect of oxygen concentration on non-premixed cool flame extinction of large n-alkanes",
-        "authors": "Zhou Mengni, Yehia Omar R., Xu Wenbin, Reuter Christopher B., Wang Ziyu, Yan Chao, Jiang Bo, Ju Yiguang"
-      },
-      {
-        "title": "On the propagation limits and speeds of premixed cool flames at elevated pressures",
-        "authors": "Ju Yiguang"
-      },
-      {
-        "title": "Study of the low-temperature reactivity of large n-alkanes through cool diffusion flame extinction",
-        "authors": "Reuter Christopher B., Lee Minhyeok, Won Sang Hee, Ju Yiguang"
-      },
-      {
-        "title": "Counterflow flame experiments and chemical kinetic modeling of dimethyl ether/methane mixtures",
-        "authors": "Reuter Christopher B., Zhang Rui, Yehia Omar R., Rezgui Yacine, Ju Yiguang"
-      },
-      {
-        "title": "Low-temperature multistage warm diffusion flames",
-        "authors": "Yehia Omar R., Reuter Christopher B., Ju Yiguang"
-      },
-      {
-        "title": "Dynamics and burning limits of near-limit hot, warm, and cool diffusion flames of dimethyl ether at elevated pressures",
-        "authors": "Lin Eric, Reuter Christopher B., Ju Yiguang"
-      },
-      {
-        "title": "On the chemical characteristics and dynamics of n-alkane low-temperature multistage diffusion flames",
-        "authors": "Yehia Omar R., Reuter Christopher B., Ju Yiguang"
-      },
-      {
-        "title": "Quantitative measurements of HO 2 /H 2 O 2 and intermediate species in low and intermediate temperature oxidation of dimethyl ether",
-        "authors": "Kurimoto Naoki, Brumfield Brian, Yang Xueliang, Wada Tomoya, Diévart Pascal, Wysocki Gerard, Ju Yiguang"
-      },
-      {
-        "title": "SUPPLEMENTARY MATERIAL\nThe radical index and the effect of oxygen concentration on non-premixed cool flame extinction of large n-alkanes",
-        "authors": "Yiguang Ju, Mengni Zhou, Omar R. Yehia, Wenbin Xu, Christopher B. Reuter, Ziyu Wang,  Chao Yan"
-      },
-      {
-        "title": "Pressure and Radiation Effects on the Dynamics of Hot and Cool Diffusion Flames",
-        "authors": "CB. Reuter, E. Lin, Y. Ju"
-      },
-      {
-        "title": "Transient interactions between a premixed double flame and a vortex",
-        "authors": "Reuter Christopher B., Katta Viswanath R., Yehia Omar R., Ju Yiguang"
-      }
-    ],
-    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-142",
-    "scores": {},
-    "rationale": {}
-  },
-  {
-    "accession": "PSI-159",
-    "acronym": "ACME CFI-G",
-    "title": "Advanced Combustion via Microgravity Experiments / Cool Flames Investigation with Gases",
-    "project_type": "Microgravity Investigation",
-    "platform": "ISS",
-    "hardware": "ACME, Combustion Integrated Rack (CIR)",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
-    "fuel_phase": [
-      "gas"
-    ],
-    "o2_range": [
-      0.12,
-      0.85
-    ],
-    "pressure_kpa_range": [
-      49.5,
-      331.0
-    ],
-    "n_tests": 333,
-    "n_files": 3756,
-    "publications": [
-      {
-        "title": "Spherical gas-fueled cool diffusion flames",
-        "authors": "Kim Minhyeng, Waddell Kendyl A., Sunderland Peter B., Nayagam Vedha, Stocker Dennis P., Dietrich Daniel L., Ju Yiguang, Williams Forman A., Irace Phillip, Axelbaum Richard L."
-      },
-      {
-        "title": "Cool diffusion flames in a stably stratified stagnation flow",
-        "authors": "Waddell Kendyl A., Lee Han Ju, Nayagam Vedha, Axelbaum Richard L., Sunderland Peter B."
-      }
-    ],
-    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-159",
-    "scores": {},
-    "rationale": {}
-  },
-  {
     "accession": "PSI-20",
     "acronym": "ACME BRE",
     "title": "Advanced Combustion via Microgravity Experiments - Burning Rate Emulator",
@@ -681,8 +185,12 @@
       0.21,
       0.4
     ],
+    "o2_basis": "test_day_list",
     "pressure_kpa_range": null,
-    "n_tests": 43,
+    "pressure_basis": null,
+    "n_tests": 0,
+    "n_records": 43,
+    "n_experimental_tables": 1,
     "n_files": 2553,
     "publications": [
       {
@@ -770,8 +278,12 @@
       "gas"
     ],
     "o2_range": null,
+    "o2_basis": null,
     "pressure_kpa_range": null,
-    "n_tests": 32,
+    "pressure_basis": null,
+    "n_tests": 0,
+    "n_records": 32,
+    "n_experimental_tables": 1,
     "n_files": 4852,
     "publications": [
       {
@@ -867,8 +379,12 @@
       "gas"
     ],
     "o2_range": null,
+    "o2_basis": null,
     "pressure_kpa_range": null,
-    "n_tests": 20,
+    "pressure_basis": null,
+    "n_tests": 0,
+    "n_records": 20,
+    "n_experimental_tables": 1,
     "n_files": 3257,
     "publications": [
       {
@@ -995,11 +511,15 @@
       0.21,
       0.3
     ],
+    "o2_basis": "approximate",
     "pressure_kpa_range": [
       101.3,
       101.3
     ],
-    "n_tests": 18,
+    "pressure_basis": "nominal_1atm",
+    "n_tests": 0,
+    "n_records": 18,
+    "n_experimental_tables": 1,
     "n_files": 10965,
     "publications": [
       {
@@ -1202,11 +722,15 @@
       0.136,
       0.222
     ],
+    "o2_basis": "measured",
     "pressure_kpa_range": [
       101.3,
       101.3
     ],
+    "pressure_basis": "nominal_cabin",
     "n_tests": 129,
+    "n_records": 129,
+    "n_experimental_tables": 1,
     "n_files": 1406,
     "publications": [
       {
@@ -1301,11 +825,15 @@
       0.21,
       0.21
     ],
+    "o2_basis": "nominal_cabin_air",
     "pressure_kpa_range": [
       101.3,
       101.3
     ],
+    "pressure_basis": "nominal_cabin",
     "n_tests": 121,
+    "n_records": 121,
+    "n_experimental_tables": 1,
     "n_files": 423,
     "publications": [
       {
@@ -1372,11 +900,15 @@
       0.17,
       0.21
     ],
+    "o2_basis": "measured",
     "pressure_kpa_range": [
       50.7,
       506.6
     ],
+    "pressure_basis": "measured",
     "n_tests": 79,
+    "n_records": 79,
+    "n_experimental_tables": 1,
     "n_files": 5933,
     "publications": [
       {
@@ -1428,8 +960,12 @@
       "dust"
     ],
     "o2_range": null,
+    "o2_basis": null,
     "pressure_kpa_range": null,
-    "n_tests": 2,
+    "pressure_basis": null,
+    "n_tests": 0,
+    "n_records": 2,
+    "n_experimental_tables": 1,
     "n_files": 384,
     "publications": [
       {
@@ -1450,7 +986,7 @@
     "acronym": null,
     "title": "Computational and Experimental Analysis of SPICE Data Sets",
     "project_type": "Ground Investigation",
-    "platform": null,
+    "platform": "ground",
     "hardware": null,
     "pillars": null,
     "summary": null,
@@ -1459,8 +995,12 @@
     "sensors": null,
     "fuel_phase": [],
     "o2_range": null,
+    "o2_basis": null,
     "pressure_kpa_range": null,
+    "pressure_basis": null,
     "n_tests": 0,
+    "n_records": 0,
+    "n_experimental_tables": 0,
     "n_files": 1,
     "publications": [
       {
@@ -1477,7 +1017,7 @@
     "acronym": null,
     "title": "Concurrent Flame Spread Modeling using Flamelet Generated Manifolds in Microgravity with Comparison to BASS Experiments using Two-Color Tomography",
     "project_type": "Ground Investigation",
-    "platform": null,
+    "platform": "ground",
     "hardware": null,
     "pillars": null,
     "summary": null,
@@ -1486,8 +1026,12 @@
     "sensors": null,
     "fuel_phase": [],
     "o2_range": null,
+    "o2_basis": null,
     "pressure_kpa_range": null,
+    "pressure_basis": null,
     "n_tests": 0,
+    "n_records": 0,
+    "n_experimental_tables": 0,
     "n_files": 1,
     "publications": [
       {
@@ -1530,11 +1074,15 @@
       0.17,
       0.3
     ],
+    "o2_basis": "planned",
     "pressure_kpa_range": [
       50.7,
       304.0
     ],
-    "n_tests": 160,
+    "pressure_basis": "planned",
+    "n_tests": 0,
+    "n_records": 160,
+    "n_experimental_tables": 1,
     "n_files": 10703,
     "publications": [
       {
@@ -1753,11 +1301,15 @@
       0.12,
       0.34
     ],
+    "o2_basis": "measured",
     "pressure_kpa_range": [
       70.2,
       309.3
     ],
+    "pressure_basis": "measured",
     "n_tests": 274,
+    "n_records": 274,
+    "n_experimental_tables": 1,
     "n_files": 8853,
     "publications": [
       {
@@ -1988,11 +1540,15 @@
       0.215,
       0.216
     ],
+    "o2_basis": "measured",
     "pressure_kpa_range": [
       101.3,
       101.3
     ],
+    "pressure_basis": "nominal_cabin",
     "n_tests": 2,
+    "n_records": 2,
+    "n_experimental_tables": 1,
     "n_files": 156,
     "publications": [
       {
@@ -2029,7 +1585,7 @@
     "acronym": "SAFFIRE-II",
     "title": "Spacecraft Fire Experiment-II",
     "project_type": "Microgravity Investigation",
-    "platform": "Cygnus Spacecraft",
+    "platform": "Cygnus",
     "hardware": "Cygnus Pressurized Cargo Module, SAFFIRE",
     "pillars": null,
     "summary": null,
@@ -2043,11 +1599,15 @@
       0.215,
       0.221
     ],
+    "o2_basis": "measured",
     "pressure_kpa_range": [
       101.3,
       101.3
     ],
+    "pressure_basis": "nominal_cabin",
     "n_tests": 9,
+    "n_records": 9,
+    "n_experimental_tables": 1,
     "n_files": 253,
     "publications": [
       {
@@ -2080,6 +1640,542 @@
       }
     ],
     "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-99",
+    "scores": {},
+    "rationale": {}
+  },
+  {
+    "accession": "PSI-100",
+    "acronym": "SAFFIRE-III",
+    "title": "Spacecraft Fire Experiment-III",
+    "project_type": "Microgravity Investigation",
+    "platform": "ISS",
+    "hardware": "Saffire III enclosure in Cygnus",
+    "pillars": null,
+    "summary": null,
+    "variables_varied": null,
+    "variables_fixed": null,
+    "sensors": null,
+    "fuel_phase": [
+      "solid"
+    ],
+    "o2_range": [
+      0.21,
+      0.21
+    ],
+    "o2_basis": "nominal_cabin_air",
+    "pressure_kpa_range": [
+      101.3,
+      101.3
+    ],
+    "pressure_basis": "nominal_cabin",
+    "n_tests": 2,
+    "n_records": 2,
+    "n_experimental_tables": 1,
+    "n_files": 177,
+    "publications": [
+      {
+        "title": "Buoyant Effects on the Flammability of Silicone Samples Planned for the Spacecraft Fire Experiment (Saffire), 45th International Conference on Environmental Systems ICES-2015-[293] 12-16 July 2015, Bellevue, Washington",
+        "authors": "JE Niehaus, PV Ferkul, SA Gokoglu, GA Ruff"
+      },
+      {
+        "title": "The Spacecraft Fire Experiment (Saffire) - Objectives, Development and Status",
+        "authors": "W Schoren, GA Ruff, DL Urban"
+      },
+      {
+        "title": "Operation and Development Status of the Spacecraft Fire Experiments (Saffire), 46th International Conference on Environmental Systems (ICES), July 2016",
+        "authors": "https://ntrs.nasa.gov/citations/20170000230"
+      }
+    ],
+    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-100",
+    "scores": {},
+    "rationale": {}
+  },
+  {
+    "accession": "PSI-101",
+    "acronym": "SAME-R",
+    "title": "Smoke Aerosol Measurement Experiment-Reflight",
+    "project_type": "Microgravity Investigation",
+    "platform": "ISS",
+    "hardware": "Comparitive Soot Diagnostic Hardware; Refer to final report",
+    "pillars": null,
+    "summary": null,
+    "variables_varied": null,
+    "variables_fixed": null,
+    "sensors": null,
+    "fuel_phase": [
+      "solid"
+    ],
+    "o2_range": [
+      0.21,
+      0.21
+    ],
+    "o2_basis": "nominal_cabin_air",
+    "pressure_kpa_range": [
+      101.3,
+      101.3
+    ],
+    "pressure_basis": "nominal_cabin",
+    "n_tests": 109,
+    "n_records": 109,
+    "n_experimental_tables": 1,
+    "n_files": 714,
+    "publications": [
+      {
+        "title": "Smoke Aerosol Measurement Experiment-2: Comparison of Flight Experiment Results with Ground Test Results",
+        "authors": "Meyer Marit E., Urban David L., Ruff Gary A., Mulholland George, Yuan Zeng-guang, Bryg Victoria, Cleary Thomas, Yang Jiann"
+      },
+      {
+        "title": "Evaluation of Low-Gravity Smoke Particulate for Spacecraft Fire Detection",
+        "authors": "D Urban, G Ruff, G Mulholland, M Meyer, ZG Yuan, T Cleary, J Yang, P Greenberg, V Bryg"
+      },
+      {
+        "title": "Particle Morphology and Size Results from the Smoke Aerosol Measurement Experiment-2",
+        "authors": "Urban David, Ruff Gary, Greenberg Paul, Fischer David, Meyer Marit, Mulholland George, Yuan Zeng-guang, Bryg Victoria, Cleary Thomas, Yang Jiann"
+      },
+      {
+        "title": "Preliminary Results from the Smoke Aerosol Measurement Experiment - Reflight",
+        "authors": "D Urban, G Ruff, M Meyer, T Cleary, J Yang, G Mulholland, ZG Yuan, V Bryg"
+      },
+      {
+        "title": "Detection of Smoke from Microgravity Fires",
+        "authors": "DL Urban, D Griffin, G Ruff, T Cleary, J Yang, G Mulholland, ZG Yuan"
+      },
+      {
+        "title": "Evaluation of spacecraft smoke detector performance in the low-gravity environment",
+        "authors": "Meyer Marit E., Urban David L., Mulholland George W., Bryg Victoria, Yuan Zeng-Guang, Ruff Gary A., Cleary Thomas, Yang Jiann"
+      }
+    ],
+    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-101",
+    "scores": {},
+    "rationale": {}
+  },
+  {
+    "accession": "PSI-102",
+    "acronym": "SAME",
+    "title": "Smoke and Aerosol Measurement Experiment",
+    "project_type": "Microgravity Investigation",
+    "platform": "ISS",
+    "hardware": "Comparitive Soot Diagnostic Hardware",
+    "pillars": null,
+    "summary": null,
+    "variables_varied": null,
+    "variables_fixed": null,
+    "sensors": null,
+    "fuel_phase": [
+      "solid"
+    ],
+    "o2_range": [
+      0.21,
+      0.21
+    ],
+    "o2_basis": "nominal_cabin_air",
+    "pressure_kpa_range": [
+      101.3,
+      101.3
+    ],
+    "pressure_basis": "nominal_cabin",
+    "n_tests": 20,
+    "n_records": 20,
+    "n_experimental_tables": 1,
+    "n_files": 216,
+    "publications": [
+      {
+        "title": "Measurement of Smoke Particle Size under Low-Gravity Conditions",
+        "authors": "Urban David L., Ruff Gary A., Mulholland George W., Cleary Thomas G., Yang Jiann C., Yuan Zengguang"
+      },
+      {
+        "title": "Properties of Smoke from Overheated Spacecraft Materials in Low-Gravity",
+        "authors": "DL Urban, GA Ruff, W Sheredy, T Cleary, J Yang, G Mulholland, Z Yuan"
+      },
+      {
+        "title": "Smoke Particle Sizes in Low-Gravity and Implications for Spacecraft Smoke Detector Design",
+        "authors": "Urban David L., Ruff Gary A., Mulholland George W., Cleary Thomas G., Yang Jiann C., Yuan Zengguang, Bryg Victoria"
+      },
+      {
+        "title": "Spacecraft Fire Detection: Smoke Properties and Transport in Low-Gravity",
+        "authors": "Urban David, Ruff Gary, Brooker John, Cleary Thomas, Yang Jiann, Mulholland George, Yuan Zeng-Guang"
+      },
+      {
+        "title": "ISS Destiny Laboratory Smoke Detection Model",
+        "authors": "Brooker John E., Urban David L., Ruff Gary A."
+      },
+      {
+        "title": "Smoke: Characterization of Smoke Particulate for Spacecraft Fire Detection, Seventh International Microgravity Combustion Workshop",
+        "authors": "DL Urban, GW Mulholland, J Yang, TG Cleary, and ZG Yuan"
+      },
+      {
+        "title": "Smoke: Characterization of Smoke Particulate for Spacecraft Fire Detection",
+        "authors": "DL Urban, GW Mulholland, J Yang, TG Cleary, ZG Yuan"
+      },
+      {
+        "title": "Characterization of Nuisance Particulates in the ISS: Space Smoke Aerosols and Lunar Dust Abatement",
+        "authors": "Bryg VM, Yuan Z-G, Urban DL, Ruff G, Mulholland G, Agui J"
+      },
+      {
+        "title": "Combustion Research on the International Space Station",
+        "authors": "Malley, WA Sheredy, DP Stocker"
+      },
+      {
+        "title": "Detection of Smoke from Microgravity Fires",
+        "authors": "DL Urban, D Griffin, G Ruff, T Cleary, J Yang, G Mulholland, ZG Yuan"
+      },
+      {
+        "title": "A Research Plan for Fire Prevention, Detection and Suppression in Crewed Exploration Systems",
+        "authors": "Ruff Gary, Urban David, King Merrill"
+      },
+      {
+        "title": "Pyrolysis Smoke Generated Under Low-Gravity Conditions",
+        "authors": "Mulholland George W., Meyer Marit, Urban David L., Ruff Gary A., Yuan Zeng-guang, Bryg Victoria, Cleary Thomas, Yang Jiann"
+      },
+      {
+        "title": "Smoke Characterization and Feasibility of the Moment Method for Spacecraft Fire Detection",
+        "authors": "Meyer Marit E., Mulholland George W., Bryg Victoria, Urban David L., Yuan Zeng-Guang, Ruff Gary A., Cleary Thomas, Yang Jiann"
+      },
+      {
+        "title": "Evaluation of spacecraft smoke detector performance in the low-gravity environment",
+        "authors": "Meyer Marit E., Urban David L., Mulholland George W., Bryg Victoria, Yuan Zeng-Guang, Ruff Gary A., Cleary Thomas, Yang Jiann"
+      },
+      {
+        "title": "The Microgravity Science Glovebox (MSG), a Resource for Gravity-Dependent Phenomena Research on the International Space Station (ISS)",
+        "authors": "Spivey Reggie, Jeter Linda, Vonk Chris"
+      },
+      {
+        "title": "AN OVERVIEW OF THE MICROGRAVITY SCIENCE GLOVEBOX (MSG) FACILITY, AND THE GRAVITY-DEPENDENT PHENOMENARESEARCH PERFORMED IN THE MSG ON THE INTERNATIONAL SPACE STATION (ISS)",
+        "authors": "Reggie Spivey, Kenneth B. Morris"
+      }
+    ],
+    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-102",
+    "scores": {},
+    "rationale": {}
+  },
+  {
+    "accession": "PSI-106",
+    "acronym": "SLICE",
+    "title": "Structure and Liftoff In Combustion Experiment",
+    "project_type": "Microgravity Investigation",
+    "platform": "ISS",
+    "hardware": null,
+    "pillars": null,
+    "summary": null,
+    "variables_varied": null,
+    "variables_fixed": null,
+    "sensors": null,
+    "fuel_phase": [
+      "gas"
+    ],
+    "o2_range": null,
+    "o2_basis": null,
+    "pressure_kpa_range": null,
+    "pressure_basis": null,
+    "n_tests": 0,
+    "n_records": 12,
+    "n_experimental_tables": 1,
+    "n_files": 23402,
+    "publications": [
+      {
+        "title": "A computational and experimental study of coflow laminar methane/air diffusion flames: Effects of fuel dilution, inlet velocity, and gravity",
+        "authors": "Cao S., Ma B., Bennett B.A.V., Giassi D., Stocker D.P., Takahashi F., Long M.B., Smooke M.D."
+      },
+      {
+        "title": "A Combined Experimental and Computational Study of Soot Formation in Normal and Microgravity Conditions",
+        "authors": "Dobbins Richard R., Tinjero Jesse, Squeo Joseph, Zhao Xinyu, Hall Robert J., Colket Meredith B., Long Marshall B., Smooke Mitchell D."
+      },
+      {
+        "title": "Effects of Fuel Dilution and Gravity on Laminar Coflow Methane-Air Diffusion Flames: A Computational and Experimental Investigation",
+        "authors": "S Cao, BAV Bennett, B Ma, D Giassi, DP Stocker, F Takahashi, MB Long, MD Smooke"
+      },
+      {
+        "title": "An experimental and computational study of soot formation in a coflow jet flame under microgravity and normal gravity",
+        "authors": "Ma Bin, Cao Su, Giassi Davide, Stocker Dennis P., Takahashi Fumiaki, Bennett Beth Anne V., Smooke Mitchell D., Long Marshall B."
+      },
+      {
+        "title": "Analysis of CH* concentration and flame heat release rate in laminar coflow diffusion flames under microgravity and normal gravity",
+        "authors": "Giassi Davide, Cao Su, Bennett Beth Anne V., Stocker Dennis P., Takahashi Fumiaki, Smooke Mitchell D., Long Marshall B."
+      }
+    ],
+    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-106",
+    "scores": {},
+    "rationale": {}
+  },
+  {
+    "accession": "PSI-107",
+    "acronym": "SPICE",
+    "title": "Smoke Point In Co-flow Experiment",
+    "project_type": "Microgravity Investigation",
+    "platform": "ISS",
+    "hardware": "Microgravity Science Glovebox (MSG)",
+    "pillars": null,
+    "summary": null,
+    "variables_varied": null,
+    "variables_fixed": null,
+    "sensors": null,
+    "fuel_phase": [
+      "gas"
+    ],
+    "o2_range": [
+      0.21,
+      0.21
+    ],
+    "o2_basis": "nominal_cabin_air",
+    "pressure_kpa_range": [
+      101.3,
+      101.3
+    ],
+    "pressure_basis": "nominal_cabin",
+    "n_tests": 435,
+    "n_records": 435,
+    "n_experimental_tables": 1,
+    "n_files": 398,
+    "publications": [
+      {
+        "title": "Laminar Smoke Points in Coflow Measured Aboard the International Space Station",
+        "authors": "Dotson Keenan, Sunderland Peter, Yuan Zeng-Guang, Urban David"
+      },
+      {
+        "title": "Scaling of Gas-Jet Flame Lengths in Elevated Gravity",
+        "authors": "Sunderland Peter B., Urban David L., Nayagam Vedha"
+      },
+      {
+        "title": "The Microgravity Science Glovebox (MSG), a Resource for Gravity-Dependent Phenomena Research on the International Space Station (ISS)",
+        "authors": "RA Spivey, LB Jeter, C Vonk"
+      },
+      {
+        "title": "The Microgravity Science Glovebox as a Platform for Exploration Research on the International Space Station",
+        "authors": "Spivey Reggie, Luz Paul"
+      },
+      {
+        "title": "A Combined Experimental and Computational Study of Soot Formation in Normal and Microgravity Conditions",
+        "authors": "Dobbins Richard R., Tinjero Jesse, Squeo Joseph, Zhao Xinyu, Hall Robert J., Colket Meredith B., Long Marshall B., Smooke Mitchell D."
+      },
+      {
+        "title": "Shapes of nonbuoyant round hydrocarbon-fueled laminar-jet diffusion flames in still air",
+        "authors": "Aalburg C., Diez F.J., Faeth G.M., Sunderland P.B., Urban D.L., Yuan Z.-G."
+      },
+      {
+        "title": "Shapes of nonbuoyant round luminous hydrocarbon/air laminar jet diffusion flames",
+        "authors": "LIN K, FAETH G, SUNDERLAND P, URBAN D, YUAN Z"
+      },
+      {
+        "title": "Smoke Points of Microgravity and Normal Gravity Coflow Diffusion",
+        "authors": "KT Dotson"
+      },
+      {
+        "title": "Laminar smoke points of coflowing flames in microgravity",
+        "authors": "Dotson K.T., Sunderland P.B., Yuan Z.-G., Urban D.L."
+      }
+    ],
+    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-107",
+    "scores": {},
+    "rationale": {}
+  },
+  {
+    "accession": "PSI-115",
+    "acronym": null,
+    "title": "Utilization of the Smoke Aerosol Measurement Experiment Data for Advanced Modeling and Simulation of Smoke Generation in Micro-Gravity",
+    "project_type": "Ground Investigation",
+    "platform": "ground",
+    "hardware": null,
+    "pillars": null,
+    "summary": null,
+    "variables_varied": null,
+    "variables_fixed": null,
+    "sensors": null,
+    "fuel_phase": [],
+    "o2_range": null,
+    "o2_basis": null,
+    "pressure_kpa_range": null,
+    "pressure_basis": null,
+    "n_tests": 0,
+    "n_records": 0,
+    "n_experimental_tables": 0,
+    "n_files": 98,
+    "publications": [],
+    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-115",
+    "scores": {},
+    "rationale": {}
+  },
+  {
+    "accession": "PSI-117",
+    "acronym": null,
+    "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
+    "project_type": "Ground Investigation",
+    "platform": "ground",
+    "hardware": null,
+    "pillars": null,
+    "summary": null,
+    "variables_varied": null,
+    "variables_fixed": null,
+    "sensors": null,
+    "fuel_phase": [],
+    "o2_range": null,
+    "o2_basis": null,
+    "pressure_kpa_range": null,
+    "pressure_basis": null,
+    "n_tests": 0,
+    "n_records": 0,
+    "n_experimental_tables": 0,
+    "n_files": 16,
+    "publications": [
+      {
+        "title": "Extinction characteristics of isolated n-alkane fuel droplets during low temperature cool flame burning in air (2023)",
+        "authors": "Farouk Tanvir I., Dryer Frederick L."
+      },
+      {
+        "title": "Sub-millimeter sized multi-component jet fuel surrogate droplet combustion: Physicochemical preferential vaporization effects (2021)",
+        "authors": "Farouk Tanvir I., Won Sang Hee, Dryer Frederick L."
+      },
+      {
+        "title": "Initial diameter effects on combustion of unsupported equi-volume n-heptane/iso-octane mixture droplets and the transition to cool flame behavior: Experimental observations and detailed numerical modeling (2020)",
+        "authors": "Xu Yuhao, Farouk Tanvir I., Hicks Michael C., Avedisian C. Thomas"
+      },
+      {
+        "title": "Oscillatory cool flame combustion behavior of submillimeter sized n-alkane droplet under near limit conditions (2019)",
+        "authors": "Alam Fahd E., Aghdam Ali Charchi, Dryer Frederick L., Farouk Tanvir I."
+      },
+      {
+        "title": "Investigating the role of preferential vaporization during submillimeter sized multicomponent jet fuel surrogate droplet combustion (2019)",
+        "authors": "Farouk T, Won S, Dryer F."
+      },
+      {
+        "title": "Multi-component jet fuel surrogate droplet combustion: Preferential vaporization behaviors under spray relevant conditions and effects on combustion behaviors (2019)",
+        "authors": "Farouk T, Won S, Dryer F."
+      },
+      {
+        "title": "Cool Flame Combustion of Sub-Millimeter Sized Higher n-Alkane Droplets at Atmospheric Condition (2017)",
+        "authors": "Alam F, Dryer F, Farouk T."
+      },
+      {
+        "title": "Non-Premixed - Partially Premixed to Diffusive Burning: Initial Transient of Direct Cool Flame Burn (2017)",
+        "authors": "Alam F, Dryer F, Farouk T."
+      },
+      {
+        "title": "Oscillatory Cool Flame Combustion Behavior of Submillimeter Sized n-Alkane Droplet under Near Limit Conditions (2018)",
+        "authors": "Alam F, Charchi A, Dryer F, Farouk T."
+      },
+      {
+        "title": "Dynamics of cool flames (2019)",
+        "authors": "Ju Yiguang, Reuter Christopher B., Yehia Omar R., Farouk Tanvir I., Won Sang Hee"
+      }
+    ],
+    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-117",
+    "scores": {},
+    "rationale": {}
+  },
+  {
+    "accession": "PSI-142",
+    "acronym": null,
+    "title": "Quantitative Studies of Cool Flame Transitions at Radiation / Stretch Extinction Using Counterflow Flames",
+    "project_type": "Ground Investigation",
+    "platform": "ground",
+    "hardware": "Principal Investigator Laboratory Hardware",
+    "pillars": null,
+    "summary": null,
+    "variables_varied": null,
+    "variables_fixed": null,
+    "sensors": null,
+    "fuel_phase": [],
+    "o2_range": null,
+    "o2_basis": null,
+    "pressure_kpa_range": null,
+    "pressure_basis": null,
+    "n_tests": 0,
+    "n_records": 0,
+    "n_experimental_tables": 1,
+    "n_files": 6,
+    "publications": [
+      {
+        "title": "Dynamics of cool flames",
+        "authors": "Ju Yiguang, Reuter Christopher B., Yehia Omar R., Farouk Tanvir I., Won Sang Hee"
+      },
+      {
+        "title": "The radical index and the effect of oxygen concentration on non-premixed cool flame extinction of large n-alkanes",
+        "authors": "Zhou Mengni, Yehia Omar R., Xu Wenbin, Reuter Christopher B., Wang Ziyu, Yan Chao, Jiang Bo, Ju Yiguang"
+      },
+      {
+        "title": "On the propagation limits and speeds of premixed cool flames at elevated pressures",
+        "authors": "Ju Yiguang"
+      },
+      {
+        "title": "Study of the low-temperature reactivity of large n-alkanes through cool diffusion flame extinction",
+        "authors": "Reuter Christopher B., Lee Minhyeok, Won Sang Hee, Ju Yiguang"
+      },
+      {
+        "title": "Counterflow flame experiments and chemical kinetic modeling of dimethyl ether/methane mixtures",
+        "authors": "Reuter Christopher B., Zhang Rui, Yehia Omar R., Rezgui Yacine, Ju Yiguang"
+      },
+      {
+        "title": "Low-temperature multistage warm diffusion flames",
+        "authors": "Yehia Omar R., Reuter Christopher B., Ju Yiguang"
+      },
+      {
+        "title": "Dynamics and burning limits of near-limit hot, warm, and cool diffusion flames of dimethyl ether at elevated pressures",
+        "authors": "Lin Eric, Reuter Christopher B., Ju Yiguang"
+      },
+      {
+        "title": "On the chemical characteristics and dynamics of n-alkane low-temperature multistage diffusion flames",
+        "authors": "Yehia Omar R., Reuter Christopher B., Ju Yiguang"
+      },
+      {
+        "title": "Quantitative measurements of HO 2 /H 2 O 2 and intermediate species in low and intermediate temperature oxidation of dimethyl ether",
+        "authors": "Kurimoto Naoki, Brumfield Brian, Yang Xueliang, Wada Tomoya, Diévart Pascal, Wysocki Gerard, Ju Yiguang"
+      },
+      {
+        "title": "SUPPLEMENTARY MATERIAL\nThe radical index and the effect of oxygen concentration on non-premixed cool flame extinction of large n-alkanes",
+        "authors": "Yiguang Ju, Mengni Zhou, Omar R. Yehia, Wenbin Xu, Christopher B. Reuter, Ziyu Wang,  Chao Yan"
+      },
+      {
+        "title": "Pressure and Radiation Effects on the Dynamics of Hot and Cool Diffusion Flames",
+        "authors": "CB. Reuter, E. Lin, Y. Ju"
+      },
+      {
+        "title": "Transient interactions between a premixed double flame and a vortex",
+        "authors": "Reuter Christopher B., Katta Viswanath R., Yehia Omar R., Ju Yiguang"
+      }
+    ],
+    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-142",
+    "scores": {},
+    "rationale": {}
+  },
+  {
+    "accession": "PSI-159",
+    "acronym": "ACME CFI-G",
+    "title": "Advanced Combustion via Microgravity Experiments / Cool Flames Investigation with Gases",
+    "project_type": "Microgravity Investigation",
+    "platform": "ISS",
+    "hardware": "ACME, Combustion Integrated Rack (CIR)",
+    "pillars": null,
+    "summary": null,
+    "variables_varied": null,
+    "variables_fixed": null,
+    "sensors": null,
+    "fuel_phase": [
+      "gas"
+    ],
+    "o2_range": [
+      0.12,
+      0.85
+    ],
+    "o2_basis": "measured",
+    "pressure_kpa_range": [
+      49.5,
+      331.0
+    ],
+    "pressure_basis": "measured",
+    "n_tests": 333,
+    "n_records": 333,
+    "n_experimental_tables": 2,
+    "n_files": 3756,
+    "publications": [
+      {
+        "title": "Spherical gas-fueled cool diffusion flames",
+        "authors": "Kim Minhyeng, Waddell Kendyl A., Sunderland Peter B., Nayagam Vedha, Stocker Dennis P., Dietrich Daniel L., Ju Yiguang, Williams Forman A., Irace Phillip, Axelbaum Richard L."
+      },
+      {
+        "title": "Cool diffusion flames in a stably stratified stagnation flow",
+        "authors": "Waddell Kendyl A., Lee Han Ju, Nayagam Vedha, Axelbaum Richard L., Sunderland Peter B."
+      }
+    ],
+    "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-159",
     "scores": {},
     "rationale": {}
   }

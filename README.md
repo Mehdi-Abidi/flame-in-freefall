@@ -52,6 +52,7 @@ Already pulled into this repo:
 | `data/raw/tables/*.csv` | 21 experimental tables, about 2,900 test rows |
 | `data/raw/index.json` | Summary per investigation, including raw file counts and sizes on PSI |
 | `data/processed/tests.csv` | 2,127 normalized rows, each with a unique `row_id`: fuel, phase, geometry, size, O2 fraction, pressure in kPa, flow, outcome |
+| `data/processed/investigations.json` | 24 investigation records: metadata, publications, test counts, O2 and pressure ranges with their basis (measured, nominal, planned) |
 | `data/processed/saffire2_gravity.csv` | SAFFIRE-II microgravity vs 1 g burn results, sample by sample |
 
 Every O2 and pressure value carries a source tag (`measured`, `planned`, `nominal_cabin_air` and so on), so assumed cabin values are never mistaken for test conditions. Table-by-table units and cleanup decisions are in [`docs/data-notes.md`](docs/data-notes.md).
@@ -70,7 +71,7 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | D1 Units and quirks of all 21 tables | Mufeed | Done, see `docs/data-notes.md` |
 | D2 `pipeline/normalize.py` and `tests.csv` | Mufeed | Done, Mufeed to review |
 | D4 `pipeline/qa.py`, 22 automated data checks | Mufeed | Done, all passing |
-| D3 `investigations.json` with ranges | Mufeed | Next |
+| D3 `investigations.json`: one record per investigation with ranges and their basis | Mufeed | Done |
 | S1 `si/llm.py` provider wrapper, 17 unit tests | Mehdi | Done |
 | S2 Extraction of all 24 investigations | Mehdi | Next |
 | A1 FastAPI skeleton | Moiz | Next |
@@ -103,6 +104,7 @@ copy .env.example .env
 python -m si.llm --check
 python pipeline/fetch_psi.py
 python pipeline/normalize.py
+python pipeline/build_investigations.py
 python pipeline/qa.py
 ```
 

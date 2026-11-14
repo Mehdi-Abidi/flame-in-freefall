@@ -58,22 +58,22 @@ def clean(text):
     return text or None
 
 
-def platform_from_flight_platform(text):
-    """Catalog says 'International Space Station (ISS)'; the schema wants just 'ISS'.
+PLATFORMS = {"space station": "ISS", "(iss)": "ISS", "cygnus": "Cygnus", "shuttle": "Space Shuttle"}
+O2_BASIS_PRIORITY = ("measured", "approximate", "test_day_list", "planned", "nominal_cabin_air")
+PRESSURE_BASIS_PRIORITY = ("measured", "planned", "nominal_1atm", "nominal_cabin")
 
-    Keep it simple: if the text contains a known short form, use that; otherwise
-    keep the original text rather than guessing.
-    """
-    if not text:
+
+def platform_from_flight_platform(text, project_type=None):
+    """Map PSI's free-text flight platform to ISS, Cygnus, Space Shuttle or ground."""
+    if project_type and "ground" in project_type.lower():
+        return "ground"
+    lowered = (text or "").strip().lower()
+    if not lowered or lowered == "not applicable":
         return None
-    known = {
-        "ISS": "ISS",
-        "Ground": "ground",
-    }
-    for needle, short in known.items():
-        if needle.lower() in text.lower():
+    for needle, short in PLATFORMS.items():
+        if needle in lowered:
             return short
-    return text
+    return text.strip()
 
 
 def extract_publications(detail):
@@ -118,67 +118,63 @@ def to_float(text):
         return None
 
 
-def compute_ranges(rows):
-    """From this investigation's test rows, compute o2_range, pressure_kpa_range,
-    n_tests and the set of fuel phases actually tested.
+def range_with_basis(rows, value_field, source_field, priority, digits):
+    """Return ([min, max], basis) using the most trustworthy source tag present.
 
-    We use every row that has a value, regardless of o2_source/pressure_source
-    (measured vs nominal_cabin_air etc.) -- the range describes what the table
-    covers, same as the map draws both solid and hollow dots. qa.py / the map
-    layer is where "measured only" filtering belongs, not here.
+    Measured values win. If none are measured, the next best tag is used and named in
+    basis, so a nominal or planned range is never mistaken for a tested one.
     """
-    n_tests = len(rows)
-    o2_values = [v for v in (to_float(r["o2_mole_fraction"]) for r in rows) if v is not None]
-    pressure_values = [v for v in (to_float(r["pressure_kpa"]) for r in rows) if v is not None]
-    fuel_phases = sorted({r["fuel_phase"] for r in rows if r.get("fuel_phase")})
+    tagged = [(to_float(r[value_field]), r[source_field]) for r in rows]
+    tagged = [(value, source) for value, source in tagged if value is not None and source]
+    for basis in priority:
+        values = [value for value, source in tagged if source == basis]
+        if values:
+            return [round(min(values), digits), round(max(values), digits)], basis
+    return None, None
 
-    o2_range = [round(min(o2_values), 3), round(max(o2_values), 3)] if o2_values else None
-    pressure_range = (
-        [round(min(pressure_values), 1), round(max(pressure_values), 1)]
-        if pressure_values
-        else None
-    )
+
+def compute_ranges(rows):
+    """Summarize one investigation's tests.csv rows: counts, fuel phases, O2 and pressure ranges."""
+    o2_range, o2_basis = range_with_basis(rows, "o2_mole_fraction", "o2_source", O2_BASIS_PRIORITY, 3)
+    pressure_range, pressure_basis = range_with_basis(rows, "pressure_kpa", "pressure_source", PRESSURE_BASIS_PRIORITY, 1)
     return {
-        "n_tests": n_tests,
+        "n_tests": sum(1 for r in rows if r.get("record_type") == "test"),
+        "n_records": len(rows),
         "o2_range": o2_range,
+        "o2_basis": o2_basis,
         "pressure_kpa_range": pressure_range,
-        "fuel_phase": fuel_phases,
+        "pressure_basis": pressure_basis,
+        "fuel_phase": sorted({r["fuel_phase"] for r in rows if r.get("fuel_phase")}),
     }
 
 
 def build_one(accession, catalog_entry, index_entry, detail, test_rows):
-    ranges = compute_ranges(test_rows) if test_rows else {
-        "n_tests": 0,
-        "o2_range": None,
-        "pressure_kpa_range": None,
-        "fuel_phase": [],
-    }
+    ranges = compute_ranges(test_rows)
+    project_type = clean(index_entry.get("project_type")) or clean(catalog_entry.get("Project Type"))
 
     return {
         "accession": accession,
         "acronym": clean(index_entry.get("acronym")) or clean(catalog_entry.get("Acronym")),
         "title": clean(index_entry.get("title")) or clean(catalog_entry.get("Title")),
-        "project_type": clean(index_entry.get("project_type")) or clean(catalog_entry.get("Project Type")),
-        "platform": platform_from_flight_platform(catalog_entry.get("Flight Platform")),
+        "project_type": project_type,
+        "platform": platform_from_flight_platform(catalog_entry.get("Flight Platform"), project_type),
         "hardware": clean(index_entry.get("hardware")) or clean(detail.get("experimentHardware")),
-
-        # Filled later by S2 (LLM extraction) + D5 (merge). Kept here, as null,
-        # so the file's shape never has to change -- only these values do.
         "pillars": None,
         "summary": None,
         "variables_varied": None,
         "variables_fixed": None,
         "sensors": None,
-
         "fuel_phase": ranges["fuel_phase"],
         "o2_range": ranges["o2_range"],
+        "o2_basis": ranges["o2_basis"],
         "pressure_kpa_range": ranges["pressure_kpa_range"],
+        "pressure_basis": ranges["pressure_basis"],
         "n_tests": ranges["n_tests"],
+        "n_records": ranges["n_records"],
+        "n_experimental_tables": len(index_entry.get("experimental_tables") or []),
         "n_files": index_entry.get("files", {}).get("file_count"),
         "publications": extract_publications(detail),
         "psi_url": psi_url(accession),
-
-        # Filled later by S3/S4 (ranking engine + rationale writer).
         "scores": {},
         "rationale": {},
     }
@@ -195,7 +191,8 @@ def main():
     tests_by_accession = load_tests_by_accession(args.processed)
 
     detail_paths = sorted(glob.glob(os.path.join(args.raw, "investigations", "PSI-*.json")))
-    accessions = [os.path.splitext(os.path.basename(p))[0] for p in detail_paths]
+    accessions = sorted((os.path.splitext(os.path.basename(p))[0] for p in detail_paths),
+                        key=lambda accession: int(accession.split("-")[1]))
 
     investigations = []
     for accession in accessions:
@@ -208,14 +205,16 @@ def main():
         )
 
     out_path = os.path.join(args.processed, "investigations.json")
-    with open(out_path, "w", encoding="utf-8") as handle:
+    with open(out_path, "w", encoding="utf-8", newline="\n") as handle:
         json.dump(investigations, handle, indent=2, ensure_ascii=False)
         handle.write("\n")
 
-    with_ranges = sum(1 for inv in investigations if inv["o2_range"] is not None)
+    with_table = sum(1 for inv in investigations if inv["n_experimental_tables"])
+    with_records = sum(1 for inv in investigations if inv["n_records"])
+    with_measured_o2 = sum(1 for inv in investigations if inv["o2_basis"] == "measured")
     print(f"Wrote {len(investigations)} investigations to {out_path}")
-    print(f"{with_ranges} have o2/pressure ranges filled; "
-          f"{len(investigations) - with_ranges} have no experimental table yet.")
+    print(f"{with_table} have an experimental table, {with_records} have rows in tests.csv, "
+          f"{with_measured_o2} have a measured O2 range")
 
 
 if __name__ == "__main__":
