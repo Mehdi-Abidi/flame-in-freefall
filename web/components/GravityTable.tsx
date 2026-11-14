@@ -19,8 +19,8 @@ function Outcome({ text }: { text: string }) {
   const kind = burned(text);
   return (
     <span className="inline-flex flex-col gap-1">
-      <span className={`mono inline-block w-fit rounded-[3px] px-1.5 py-0.5 text-[10.5px] uppercase tracking-[0.08em] ${MARK[kind].className}`}>{MARK[kind].label}</span>
-      <span className="mono text-[11.5px] text-muted">{text || "n/a"}</span>
+      <span className={`mono inline-block w-fit rounded-[3px] px-1.5 py-0.5 text-[11px] uppercase tracking-[0.08em] ${MARK[kind].className}`}>{MARK[kind].label}</span>
+      <span className="mono text-[12px] text-muted">{text || "n/a"}</span>
     </span>
   );
 }
@@ -45,7 +45,7 @@ export function GravityTable({ rows }: { rows: GravityRow[] }) {
               <td className="mono px-4 py-3 text-ink-2">{row.sample}</td>
               <td className="px-4 py-3">
                 {row.material}
-                <span className="mono block text-[11.5px] text-muted">{row.thickness}</span>
+                <span className="mono block text-[12px] text-muted">{row.thickness}</span>
               </td>
               <td className="px-4 py-3 text-ink-2">{row.flowDirection.toLowerCase()}</td>
               <td className="px-4 py-3">

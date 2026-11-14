@@ -118,7 +118,7 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
           <p className="mt-3 text-[12.5px] leading-relaxed text-ink-2">{scenario.source}</p>
           {scenario.assumptions.map((a) => (
             <p key={a} className="mt-2 border-l-2 border-accent pl-2.5 text-[12px] leading-relaxed text-ink-2">
-              <span className="mono mr-1 text-[10px] uppercase tracking-[0.1em] text-accent">Assumption</span>
+              <span className="mono mr-1 text-[11px] uppercase tracking-[0.1em] text-accent">Assumption</span>
               {a}
             </p>
           ))}
@@ -127,7 +127,7 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
         <div className="panel mt-4 p-5">
           <div className="mb-3 flex items-baseline justify-between">
             <p className="eyebrow">Fire-safety priorities</p>
-            <button type="button" onClick={() => update({ weights: { ...DEFAULT_WEIGHTS } })} className="mono text-[11px] text-ink-2 underline-offset-2 hover:text-ink hover:underline">
+            <button type="button" onClick={() => update({ weights: { ...DEFAULT_WEIGHTS } })} className="mono text-[12px] text-ink-2 underline-offset-2 hover:text-ink hover:underline">
               reset
             </button>
           </div>
@@ -202,7 +202,7 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
               </p>
             )}
           </div>
-          <p className="mono shrink-0 text-[11px] text-muted">{rows.length} investigations</p>
+          <p className="mono shrink-0 text-[12px] text-muted">{rows.length} investigations</p>
         </div>
 
         <LayoutGroup>
@@ -214,6 +214,7 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
                 const expanded = open === inv.accession;
                 const evidence = inv.scores[scenario.id]?.evidence;
                 const reasons = inv.scores[scenario.id]?.reasons ?? [];
+                const rationale = inv.scores[scenario.id]?.rationale ?? null;
                 return (
                   <motion.li
                     key={inv.accession}
@@ -233,7 +234,7 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
                       <span className="mono text-[22px] font-medium leading-none text-ink">
                         {String(row.rank).padStart(2, "0")}
                         {delta !== 0 && (
-                          <span className={`mono ml-1 align-top text-[10px] ${delta > 0 ? "text-[color:var(--good)]" : "text-muted"}`} aria-label={delta > 0 ? `up ${delta}` : `down ${-delta}`}>
+                          <span className={`mono ml-1 align-top text-[11px] ${delta > 0 ? "text-[color:var(--good)]" : "text-muted"}`} aria-label={delta > 0 ? `up ${delta}` : `down ${-delta}`}>
                             {delta > 0 ? `▲${delta}` : `▼${-delta}`}
                           </span>
                         )}
@@ -246,12 +247,12 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
                         <span className="mt-1.5 flex flex-wrap gap-1">
                           {inv.pillars.length ? (
                             inv.pillars.map((p) => (
-                              <span key={p} className={`mono rounded-[3px] border px-1.5 py-px text-[10px] uppercase tracking-[0.08em] ${weights[p] === Math.max(...PILLARS.map((x) => weights[x])) ? "border-ink text-ink" : "border-rule text-muted"}`}>
+                              <span key={p} className={`mono rounded-[3px] border px-1.5 py-px text-[11px] uppercase tracking-[0.08em] ${weights[p] === Math.max(...PILLARS.map((x) => weights[x])) ? "border-ink text-ink" : "border-rule text-muted"}`}>
                                 {p}
                               </span>
                             ))
                           ) : (
-                            <span className="mono rounded-[3px] border border-dashed border-rule px-1.5 py-px text-[10px] uppercase tracking-[0.08em] text-muted">fundamentals</span>
+                            <span className="mono rounded-[3px] border border-dashed border-rule px-1.5 py-px text-[11px] uppercase tracking-[0.08em] text-muted">fundamentals</span>
                           )}
                         </span>
                       </span>
@@ -270,7 +271,7 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
                       </span>
                       <span className="text-right">
                         <span className="block text-[20px] font-semibold leading-none">{Math.round(row.score * 100)}</span>
-                        <span className="mono text-[10px] text-muted">/ 100</span>
+                        <span className="mono text-[11px] text-muted">/ 100</span>
                       </span>
                     </button>
                     <AnimatePresence initial={false}>
@@ -285,6 +286,14 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
                           <div className="grid gap-5 px-4 py-4 md:grid-cols-[1.2fr_1fr]">
                             <div>
                               <p className="eyebrow mb-2">Why it ranks here</p>
+                              {rationale && (
+                                <figure className="mb-3 border-l-2 border-ink pl-3">
+                                  <blockquote className="text-[14.5px] leading-relaxed">{rationale.text}</blockquote>
+                                  <figcaption className="mono mt-1.5 text-[11px] text-muted">
+                                    {rationale.source === "model" ? `Written by ${rationale.model.split("/").pop()} from the score parts` : "Fact-only template"} · for balanced priorities
+                                  </figcaption>
+                                </figure>
+                              )}
                               <ul className="space-y-1.5 text-[13.5px] leading-relaxed">
                                 {reasons.map((r) => (
                                   <li key={r} className="flex gap-2">
@@ -315,7 +324,7 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
                                 </tbody>
                               </table>
                               {evidence && (
-                                <p className="mono mt-3 text-[11.5px] leading-relaxed text-ink-2">
+                                <p className="mono mt-3 text-[12px] leading-relaxed text-ink-2">
                                   {evidence.n_considered} tests compared · {evidence.n_in_target} inside target · {evidence.n_near} near
                                   {inv.o2Basis && inv.o2Basis !== "measured" ? ` · O₂ ${BASIS_LABEL[inv.o2Basis] ?? inv.o2Basis}` : ""}
                                 </p>

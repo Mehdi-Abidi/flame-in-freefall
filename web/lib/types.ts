@@ -28,12 +28,19 @@ export interface Evidence {
   best: { o2_mole_fraction: number; pressure_kpa: number | null; closeness: number } | null;
 }
 
+export interface Rationale {
+  text: string;
+  source: "model" | "template";
+  model: string;
+}
+
 export interface ScenarioScore {
   score: number;
   rank: number;
   components: Components;
   reasons: string[];
   evidence: Evidence;
+  rationale: Rationale | null;
 }
 
 export interface Publication {
@@ -97,6 +104,13 @@ export interface GravityRow {
   oneGSpread: string;
 }
 
+export interface PhaseOxygen {
+  phase: Phase;
+  min: number;
+  max: number;
+  count: number;
+}
+
 export interface Stats {
   investigations: number;
   records: number;
@@ -106,6 +120,24 @@ export interface Stats {
   solidMaxO2: number;
   lunarTests: number;
   lunarPhases: Phase[];
+  measuredRows: number;
+  oxygenByPhase: PhaseOxygen[];
+}
+
+export interface BriefFinding {
+  text: string;
+  citations: string[];
+}
+
+export interface Brief {
+  pillar: Pillar;
+  title: string;
+  findings: BriefFinding[];
+  implication: string;
+  gap: string;
+  source: "model" | "template";
+  model: string;
+  review: string;
 }
 
 export interface Dataset {
@@ -114,5 +146,6 @@ export interface Dataset {
   scenarios: Scenario[];
   componentWeights: Components;
   gravity: GravityRow[];
+  briefs: Brief[];
   stats: Stats;
 }

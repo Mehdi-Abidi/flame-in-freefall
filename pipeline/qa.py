@@ -152,6 +152,78 @@ def check_extracted(report, processed_dir):
     print(f"  {len(flagged)} record(s) carry review warnings (see docs/extraction-review.md): {', '.join(flagged) or 'none'}")
 
 
+def check_briefs(report, processed_dir):
+    path = os.path.join(processed_dir, "briefs.json")
+    if not os.path.exists(path):
+        print("\nbriefs.json not present yet, skipping its checks")
+        return
+    with open(path, encoding="utf-8") as handle:
+        briefs = (json.load(handle) or {}).get("briefs") or {}
+    with open(os.path.join(processed_dir, "rankings.json"), encoding="utf-8") as handle:
+        ranking = json.load(handle)["scenarios"]["lunar_base"]["ranking"]
+    members = collections.defaultdict(list)
+    for entry in sorted(ranking, key=lambda e: e["rank"]):
+        for pillar in entry.get("pillars") or []:
+            members[pillar].append(entry["accession"])
+    print("\nChecks on briefs.json")
+    expected = sorted(p for p in ("prevention", "detection", "suppression") if members.get(p))
+    report.check("one brief per pillar that has investigations", [] if sorted(briefs) == expected else [f"{sorted(briefs)} vs {expected}"])
+    shape, citations, stale, source = [], [], [], []
+    for pillar, brief in briefs.items():
+        findings = brief.get("findings") or []
+        if not brief.get("title") or len(findings) != 3 or not brief.get("implication") or not brief.get("gap"):
+            shape.append(pillar)
+        for finding in findings:
+            cited = finding.get("citations") or []
+            if not cited or any(c not in members.get(pillar, []) for c in cited):
+                citations.append(f"{pillar}: {cited}")
+        if brief.get("members") != members.get(pillar):
+            stale.append(pillar)
+        if brief.get("source") not in {"model", "template"} or not brief.get("review"):
+            source.append(pillar)
+    report.check("briefs have a title, 3 findings, an implication and a gap", shape)
+    report.check("every finding cites investigations from its own pillar", citations)
+    report.check("briefs match current pillar membership (rerun python -m si.briefs if stale)", stale)
+    report.check("briefs carry a source and a review status", source)
+    pending = [p for p, b in briefs.items() if b.get("review") == "awaiting expert review"]
+    print(f"  {len(pending)} brief(s) awaiting expert review: {', '.join(pending) or 'none'}")
+
+
+def check_rationales(report, processed_dir):
+    path = os.path.join(processed_dir, "rationale.json")
+    if not os.path.exists(path):
+        print("\nrationale.json not present yet, skipping its checks")
+        return
+    with open(path, encoding="utf-8") as handle:
+        document = json.load(handle)
+    with open(os.path.join(processed_dir, "rankings.json"), encoding="utf-8") as handle:
+        rankings = json.load(handle)["scenarios"]
+    print("\nChecks on rationale.json")
+    rationales = document.get("rationales") or {}
+    missing, stale, bad_source, bad_text = [], [], [], []
+    for scenario_id, scenario in rankings.items():
+        for entry in scenario["ranking"]:
+            record = (rationales.get(scenario_id) or {}).get(entry["accession"])
+            key = f"{scenario_id}/{entry['accession']}"
+            if not record:
+                missing.append(key)
+                continue
+            if record.get("rank") != entry["rank"] or abs((record.get("score") or 0) - entry["score"]) > 1e-9:
+                stale.append(key)
+            if record.get("source") not in {"model", "template"}:
+                bad_source.append(key)
+            text = record.get("text") or ""
+            sentence_count = len([s for s in re.split(r"(?<=[.!?])\s+", text.strip()) if s])
+            if not text or sentence_count != 2 or "—" in text or "–" in text:
+                bad_text.append(key)
+    report.check("a rationale for every habitat and investigation", missing)
+    report.check("rationales match the current rankings (rerun python -m si.rationale if stale)", stale)
+    report.check("rationale source is model or template", bad_source)
+    report.check("rationales are two sentences without dashes", bad_text)
+    templates = sum(1 for s in rationales.values() for r in s.values() if r.get("source") == "template")
+    print(f"  {templates} rationale(s) fell back to the fact-only template")
+
+
 def check_rankings(report, processed_dir, domain_dir):
     path = os.path.join(processed_dir, "rankings.json")
     if not os.path.exists(path):
@@ -288,6 +360,8 @@ def main():
     check_investigations(report, args.raw, args.processed, tests)
     check_extracted(report, args.processed)
     check_rankings(report, args.processed, os.path.join(os.path.dirname(args.raw.rstrip("/").rstrip(chr(92))) or ".", "domain"))
+    check_rationales(report, args.processed)
+    check_briefs(report, args.processed)
 
     solid = [number(t["o2_mole_fraction"]) for t in tests if t["fuel_phase"] == "solid" and t["o2_source"] == "measured"]
     lunar = [t for t in tests if t["record_type"] == "test" and t["o2_source"] == "measured"

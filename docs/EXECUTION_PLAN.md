@@ -96,8 +96,8 @@ Known quirks to handle: pressure appears in mmHg (FLEX), atm (FLEX-2, Flame Desi
 | S1 | S1 | ~~`si/llm.py` with one provider wrapper.~~ **Done 14 Nov.** Groq, `openai/gpt-oss-20b` with `gpt-oss-120b` as fallback, JSON mode, retries, cache. | `python -m si.llm --check` prints OK. |
 | S2 | S1 | ~~Extraction of all 24 investigations.~~ **Done 14 Nov.** `python -m si.extract` writes `data/processed/extracted.json` (prompt s2-v4, GPT-OSS 20B). Table facts are given as ground truth, varied and fixed conditions come from `tests.csv`, summaries may not contradict them, invented fuels or sensors are flagged, and detection needs smoke, aerosol, particle, dust or detector evidence. | 24/24 extracted, QA checks pass, review list in `docs/extraction-review.md`. |
 | S3 | S2 | ~~Ranking engine in `si/rank.py`, scored for 5 habitat scenarios.~~ **Done 14 Nov.** Habitats live in `data/domain/scenarios.json`, output in `data/processed/rankings.json`, rebuilt and checked in CI. | `python -m si.rank --scenario lunar_base` puts the high-oxygen investigations on top. |
-| S4 | S2 | Rationale writer: two sentences per investigation per scenario, citing the fields used. | Stored in `investigations.json`. |
-| S5 | S3 | Insight briefs per pillar (prevention, detection, suppression) with PSI citations. | Three briefs Taha has reviewed. |
+| S4 | S2 | ~~Rationale writer.~~ **Done 14 Nov:** `python -m si.rationale` writes two sentences per investigation per habitat (GPT-OSS 120B), validated against the score facts, repaired once, template fallback. Shown on the Rank page. | `rationale.json` passes QA. |
+| S5 | S3 | ~~Insight briefs per pillar.~~ **Done 14 Nov:** `python -m si.briefs` (GPT-OSS 120B, prompt s5-v3) with evidence guards against wrong citations, unrecorded extinctions, assumed values shown as measured and false reassurance. Shown on the overview. | Taha reviews in T4. |
 | S6 | S4 | Merge PRs, deploy checks, submission. | Submitted. |
 
 Every LLM output is precomputed and committed. The live site calls an LLM only for the chat. If the API key dies during judging, everything except chat keeps working.
@@ -138,7 +138,7 @@ Every LLM output is precomputed and committed. The live site calls an LLM only f
 | T1 | S1 | Hand-check the seed tags in section 8 against the PSI pages and the 2015 Researcher's Guide. Write `data/domain/tags.json`. | All 24 tagged with pillar, hardware and platform. |
 | T2 | S1 | Write `data/domain/scenarios.json` with the habitat targets in section 7, each with its source sentence. | Reviewed by Mehdi. |
 | T3 | S2 | Earth spinoffs page content: water mist extinguishers, the shuttle-era smoke detector that tells dust from smoke (link to SAME and DAFT), firefighter clothing, air tanks. Plus a short history strip: Apollo 1, Apollo 13, Mir, Artemis II alarm. | Text in `web/src/content/`. |
-| T4 | S3 | Review all 24 LLM extractions and the three insight briefs for factual errors. Start with the rows in `docs/extraction-review.md` that are not `agree` and every warning there. | Corrections merged. |
+| T4 | S3 | Review the LLM output: `docs/extraction-review.md` (rows not `agree` and warnings) and the three briefs in `data/processed/briefs.json`. Set each brief's `review` to "reviewed by Taha" once checked. | Corrections merged. |
 | T5 | S4 | Demo video and slides (section 10). Submission text draft. | Files in `docs/submission/`. |
 
 # 5. Rules that keep us fast
