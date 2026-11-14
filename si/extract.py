@@ -192,3 +192,18 @@ def data_facts(investigation, rows):
         "platform": investigation.get("platform"),
         "hardware": investigation.get("hardware"),
     }
+
+
+def extract_one(llm, investigation, rows, metadata, keywords=""):
+    context = text_context(metadata, keywords)
+    facts = data_facts(investigation, rows)
+    raw = llm.json(build_prompt(context, facts), system=SYSTEM_PROMPT, max_tokens=2500)
+    record = clean_record(raw, facts)
+    return {
+        "accession": investigation["accession"],
+        "acronym": investigation.get("acronym"),
+        **record,
+        "warnings": grounding_warnings(record, context, facts),
+        "model": llm.last_model,
+        "prompt_version": PROMPT_VERSION,
+    }
