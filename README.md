@@ -238,7 +238,20 @@ python -m unittest tests.test_api -v
 
 `/ask` searches PSI objectives, approaches, hypotheses, publication titles and the S2 summaries from `extracted.json`, plus passages built from the data: a digest of each investigation's tests (O2, pressure and outcomes by fuel and diluent), the SAFFIRE-II microgravity vs 1 g comparison, and a dataset overview by fuel phase. These are needed for data questions such as "CO2 or helium?" and "were solids ever tested at 30% O2?". An answer must cite accessions from the retrieved passages. Otherwise the model gets one retry, then the reply is "Not covered in PSI data."
 
-Deploy: `render.yaml` is a Render blueprint. Set `LLM_API_KEY` in the Render dashboard. `CORS_ORIGINS` allows the GitHub Pages dashboard and `http://localhost:3000` for local work on the Ask page (F5).
+Deploy: `render.yaml` is a Render blueprint. Set `LLM_API_KEY` in the Render dashboard, never in Git. `CORS_ORIGINS` allows the GitHub Pages dashboard and `http://localhost:3000` for local work on the Ask page (F5). When it is unset the API falls back to those two origins, never to every site.
+
+`/ask` is rate limited so a public chat cannot drain the shared Groq quota. Over a limit it answers 429 with a `Retry-After` header.
+
+| Variable | Default | Scope |
+|---|---|---|
+| `ASK_LIMIT_PER_MINUTE` | 6 | per visitor |
+| `ASK_LIMIT_PER_DAY` | 60 | per visitor |
+| `ASK_GLOBAL_PER_MINUTE` | 20 | all visitors together |
+| `ASK_GLOBAL_PER_DAY` | 400 | all visitors together |
+
+The visitor is the address the hosting proxy adds to `X-Forwarded-For`, which a client cannot forge. The global caps hold even if someone rotates addresses.
+
+`.github/workflows/api-ops.yml` keeps the live API current and awake. After a merge that touches `api/`, `si/`, `data/` or the requirements it calls the Render deploy hook stored in the `RENDER_DEPLOY_HOOK` secret (Render dashboard > the service > Settings > Deploy Hook). Every 10 minutes it pings `/health` so judges do not wait through a cold start.
 
 ## Repository layout
 
