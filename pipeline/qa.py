@@ -152,6 +152,44 @@ def check_extracted(report, processed_dir):
     print(f"  {len(flagged)} record(s) carry review warnings (see docs/extraction-review.md): {', '.join(flagged) or 'none'}")
 
 
+def check_rankings(report, processed_dir, domain_dir):
+    path = os.path.join(processed_dir, "rankings.json")
+    if not os.path.exists(path):
+        print("\nrankings.json not present yet, skipping its checks")
+        return
+    with open(path, encoding="utf-8") as handle:
+        document = json.load(handle)
+    with open(os.path.join(processed_dir, "investigations.json"), encoding="utf-8") as handle:
+        accessions = sorted(i["accession"] for i in json.load(handle))
+    with open(os.path.join(domain_dir, "scenarios.json"), encoding="utf-8") as handle:
+        scenario_ids = [s["id"] for s in json.load(handle)["scenarios"]]
+    print("\nChecks on rankings.json")
+    rankings = document.get("scenarios") or {}
+    weights = document.get("component_weights") or {}
+    report.check("one ranking per habitat in scenarios.json", [] if sorted(rankings) == sorted(scenario_ids) else [f"{sorted(rankings)} vs {sorted(scenario_ids)}"])
+    report.check("component weights sum to 1", [] if abs(sum(weights.values()) - 1) < 1e-9 else [weights])
+    coverage, order, bounds, sums, sources = [], [], [], [], []
+    for scenario_id, scenario in rankings.items():
+        ranking = scenario.get("ranking") or []
+        if sorted(r["accession"] for r in ranking) != accessions:
+            coverage.append(scenario_id)
+        if [r["rank"] for r in ranking] != list(range(1, len(ranking) + 1)) or any(a["score"] < b["score"] for a, b in zip(ranking, ranking[1:])):
+            order.append(scenario_id)
+        for r in ranking:
+            values = [r["score"], *r["components"].values()]
+            if not all(0.0 <= v <= 1.0 for v in values):
+                bounds.append(f"{scenario_id}/{r['accession']}")
+            if abs(r["score"] - sum(weights.get(k, 0) * v for k, v in r["components"].items())) > 0.001:
+                sums.append(f"{scenario_id}/{r['accession']}")
+            if r.get("pillar_source") not in {"tags", "seed", "model", "none"}:
+                sources.append(f"{scenario_id}/{r['accession']}")
+    report.check("every investigation ranked once per habitat", coverage)
+    report.check("ranks run 1 to N in score order", order)
+    report.check("scores and components between 0 and 1", bounds)
+    report.check("each score equals the weighted sum of its components", sums)
+    report.check("pillar source is tags, seed, model or none", sources)
+
+
 def check_investigations(report, raw_dir, processed_dir, tests):
     path = os.path.join(processed_dir, "investigations.json")
     if not os.path.exists(path):
@@ -249,6 +287,7 @@ def main():
 
     check_investigations(report, args.raw, args.processed, tests)
     check_extracted(report, args.processed)
+    check_rankings(report, args.processed, os.path.join(os.path.dirname(args.raw.rstrip("/").rstrip(chr(92))) or ".", "domain"))
 
     solid = [number(t["o2_mole_fraction"]) for t in tests if t["fuel_phase"] == "solid" and t["o2_source"] == "measured"]
     lunar = [t for t in tests if t["record_type"] == "test" and t["o2_source"] == "measured"

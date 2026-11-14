@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "tolerance": {
+    "o2_mole_fraction": 0.05,
+    "pressure_kpa": 20.0,
+    "source": "Plan section 7: a test counts as near a habitat when it is within 0.05 O2 fraction and 20 kPa of the target box."
+  },
+  "scenarios": [
+    {
+      "id": "iss",
+      "label": "ISS and Earth-normal cabin",
+      "o2_mole_fraction": [0.2, 0.22],
+      "pressure_kpa": [97.0, 105.0],
+      "context_only": false,
+      "source": "Challenge text: Earth's pressure at sea level is 14.7 psi (101.3 kPa). The ISS cabin runs close to sea-level air.",
+      "assumptions": ["The ISS box is sea-level air with a small margin. The challenge does not state the ISS atmosphere directly."]
+    },
+    {
+      "id": "lunar_base",
+      "label": "Lunar base",
+      "o2_mole_fraction": [0.3, 0.4],
+      "pressure_kpa": [29.6, 70.3],
+      "context_only": false,
+      "source": "Challenge text: the intermediate oxygen concentration used on the Moon will likely be 30% or greater, with a corresponding pressure of 10.2 psi (70.3 kPa) or less, between a spacesuit (4.3 psi, 29.6 kPa) and Earth's atmosphere.",
+      "assumptions": ["The 40% upper O2 bound is ours. The challenge only gives the lower bound."]
+    },
+    {
+      "id": "pressurized_rover",
+      "label": "Pressurized rover",
+      "o2_mole_fraction": [0.3, 0.4],
+      "pressure_kpa": [29.6, 70.3],
+      "context_only": false,
+      "source": "Challenge text: the Moon Base and pressurized rover(s) will be at a pressure and oxygen concentration between those in a spacesuit and the Earth's atmosphere.",
+      "assumptions": ["Same box as the lunar base, as the challenge groups them together."]
+    },
+    {
+      "id": "mars_habitat",
+      "label": "Mars habitat",
+      "o2_mole_fraction": [0.3, 0.4],
+      "pressure_kpa": [29.6, 70.3],
+      "context_only": false,
+      "source": "No atmosphere is given for Mars in the challenge.",
+      "assumptions": ["Our assumption: a Mars habitat uses the same reduced-pressure, oxygen-enriched atmosphere as the lunar base. Label this in the UI."]
+    },
+    {
+      "id": "spacesuit",
+      "label": "Spacesuit",
+      "o2_mole_fraction": [0.95, 1.0],
+      "pressure_kpa": [28.0, 31.0],
+      "context_only": true,
+      "source": "Challenge text: spacesuits are filled with 100% oxygen to only 4.3 psi (29.6 kPa).",
+      "assumptions": ["Context only. No PSI test comes close, so this shows the size of the data gap."]
+    }
+  ]
+}
