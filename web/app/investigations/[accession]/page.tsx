@@ -89,9 +89,9 @@ export default async function InvestigationPage({ params }: PageProps<"/investig
       <div className="grid gap-10 pt-8 lg:grid-cols-[1.35fr_1fr]">
         <section>
           <p className="eyebrow mb-3">Summary</p>
-          <p className="text-[17px] leading-relaxed">{inv.summary ?? "No summary available."}</p>
-          {inv.objective && <p className="mt-3 text-[14px] leading-relaxed text-ink-2">Objective: {inv.objective}</p>}
-          <p className="mono mt-3 text-[11px] text-muted">Drafted by GPT-OSS 20B from NASA&apos;s text. Varied and fixed conditions are computed from the test tables.</p>
+          <p className="max-w-[64ch] text-[17px] leading-relaxed">{inv.summary ?? "No summary available."}</p>
+          {inv.objective && <p className="mt-3 max-w-[72ch] text-[14px] leading-relaxed text-ink-2">Objective: {inv.objective}</p>}
+          <p className="mono mt-3 max-w-[72ch] text-[12px] text-muted">Drafted by GPT-OSS 20B from NASA&apos;s text. Varied and fixed conditions are computed from the test tables.</p>
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             <Facts title="Varied between tests" items={inv.varied} />
@@ -191,7 +191,7 @@ export default async function InvestigationPage({ params }: PageProps<"/investig
             {inv.publications.map((pub, index) => (
               <li key={`${pub.title}-${index}`} className="grid gap-1 py-3 sm:grid-cols-[40px_1fr]">
                 <span className="mono text-[12px] text-muted">{String(index + 1).padStart(2, "0")}</span>
-                <span>
+                <span className="max-w-[80ch]">
                   <span className="block text-[14px]">{pub.title}</span>
                   {pub.authors && <span className="block text-[12px] text-ink-2">{pub.authors}</span>}
                 </span>

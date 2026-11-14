@@ -84,7 +84,7 @@ export default function MethodPage() {
                 {pct(s.o2[0])} to {pct(s.o2[1])} · {s.kpa[0]} to {s.kpa[1]} kPa
               </p>
             </div>
-            <p className="mt-2 text-[13px] leading-relaxed text-ink-2">{s.source}</p>
+            <p className="mt-2 max-w-[62ch] text-[13px] leading-relaxed text-ink-2">{s.source}</p>
             {s.assumptions.map((a) => (
               <p key={a} className="mt-2 border-l-2 border-accent pl-2.5 text-[12.5px] text-ink-2">
                 {a}

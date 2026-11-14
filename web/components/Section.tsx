@@ -13,7 +13,7 @@ export function SectionHeader({ title, children }: { title: string; children?: R
   return (
     <div className="mb-6">
       <h2 className="text-[24px] font-semibold leading-tight tracking-[-0.01em]">{title}</h2>
-      {children && <div className="mt-2 max-w-[68ch] text-[15px] leading-relaxed text-ink-2">{children}</div>}
+      {children && <div className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-ink-2">{children}</div>}
     </div>
   );
 }
