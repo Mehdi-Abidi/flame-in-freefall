@@ -1,0 +1,53 @@
+name: API ops
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "api/**"
+      - "si/**"
+      - "data/**"
+      - "requirements.txt"
+      - "render.yaml"
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  redeploy:
+    name: api-redeploy
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Trigger the Render deploy hook
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::notice::RENDER_DEPLOY_HOOK is not set, so the live API was not redeployed. Add it under Settings > Secrets > Actions."
+            exit 0
+          fi
+          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$HOOK")
+          echo "Render answered HTTP $code"
+          if [ "$code" -ge 400 ]; then
+            echo "::error::Render rejected the deploy hook (HTTP $code). Check the hook URL secret."
+            exit 1
+          fi
+
+  keep-warm:
+    name: api-keep-warm
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Ping /health
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 90 https://flame-in-freefall-api.onrender.com/health)
+          echo "health HTTP $code"
+          if [ "$code" != "200" ]; then
+            echo "::warning::The API health check answered HTTP $code."
+          fi

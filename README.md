@@ -84,7 +84,7 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | S3 Habitat ranking engine (`si/rank.py`, `rankings.json`) | Mehdi | Done |
 | S4 Rank explanations (`si/rationale.py`, `rationale.json`) | Mehdi | Done |
 | F1 to F5, V1 to V4 Dashboard (`web/`), live on GitHub Pages | Mehdi | Done, team to polish |
-| A1 FastAPI skeleton | Moiz | Next |
+| A1 to A5 FastAPI service (`api/`), see [API](#api) | Moiz | In review, deploy (A3) next |
 | F1 to F2 React shell and Vercel deploy | Ali Soban | Next |
 | V1 Flammability map prototype | Ahsan | Next, can start on `tests.csv` now |
 | T1 to T2 Domain tags and habitat scenarios | Taha | Next |
@@ -210,6 +210,48 @@ How it stays honest:
 - Any fuel or sensor the model names that does not appear in the source text or data is flagged as a warning.
 - A detection pillar is dropped unless the source mentions smoke, aerosols, particles, dust or detectors.
 - Model pillars are suggestions. [`docs/extraction-review.md`](docs/extraction-review.md) compares them with the seed tags so a person can decide.
+
+## API
+
+FastAPI service in `api/` (tasks A1 to A5). It reads `data/processed` at startup.
+
+**Live:** <https://flame-in-freefall-api.onrender.com> (interactive docs at [`/docs`](https://flame-in-freefall-api.onrender.com/docs)). It runs on Render's free plan, so it sleeps after 15 minutes without traffic and the first request after that takes about 50 seconds. Open the link a few minutes before a demo.
+
+```bash
+uvicorn api.main:app --reload     # then open http://127.0.0.1:8000/docs
+python -m unittest tests.test_api -v
+```
+
+| Endpoint | Returns |
+|---|---|
+| `GET /health` | Status and row counts |
+| `GET /investigations` | All 24 records from `investigations.json` |
+| `GET /investigations/{accession}` | One record, for example `PSI-69` (case-insensitive) |
+| `GET /tests?accession=&o2_min=&o2_max=&p_min=&p_max=&measured_only=&record_type=` | Rows of `tests.csv`. `accession` takes a comma-separated list. O2 is a mole fraction (0 to 1), pressure is kPa. A bound drops rows with no value for it. |
+| `GET /export?...` | Same filters as `/tests`, downloaded as CSV |
+| `GET /scenarios` | `tolerance` and the five habitat targets from `data/domain/scenarios.json` |
+| `GET /rank?scenario=lunar_base&w_prevent=1&w_detect=1&w_suppress=1&limit=` | `si.rank.rank()` output: per investigation `score`, `components`, `pillars`, `pillar_source`, `evidence`, `reasons`, `rank`. Unknown scenario or bad weights give 400, data problems give 500. |
+| `GET /compare?ids=PSI-69,PSI-68` | 2 to 4 investigations. `rows` lists each field with its values and a `differs` flag |
+| `POST /ask` `{"question": "..."}` | `answer`, `covered`, `citations` (accessions), `sources` (the retrieved passages). Returns 503 if the server has no `LLM_API_KEY`. |
+
+`/rank` loads the ranking inputs once at startup and calls `si/rank.py` (S3).
+
+`/ask` searches PSI objectives, approaches, hypotheses, publication titles and the S2 summaries from `extracted.json`, plus passages built from the data: a digest of each investigation's tests (O2, pressure and outcomes by fuel and diluent), the SAFFIRE-II microgravity vs 1 g comparison, and a dataset overview by fuel phase. These are needed for data questions such as "CO2 or helium?" and "were solids ever tested at 30% O2?". An answer must cite accessions from the retrieved passages. Otherwise the model gets one retry, then the reply is "Not covered in PSI data."
+
+Deploy: `render.yaml` is a Render blueprint. Set `LLM_API_KEY` in the Render dashboard, never in Git. `CORS_ORIGINS` allows the GitHub Pages dashboard and `http://localhost:3000` for local work on the Ask page (F5). When it is unset the API falls back to those two origins, never to every site.
+
+`/ask` is rate limited so a public chat cannot drain the shared Groq quota. Over a limit it answers 429 with a `Retry-After` header.
+
+| Variable | Default | Scope |
+|---|---|---|
+| `ASK_LIMIT_PER_MINUTE` | 6 | per visitor |
+| `ASK_LIMIT_PER_DAY` | 60 | per visitor |
+| `ASK_GLOBAL_PER_MINUTE` | 20 | all visitors together |
+| `ASK_GLOBAL_PER_DAY` | 400 | all visitors together |
+
+The visitor is the address the hosting proxy adds to `X-Forwarded-For`, which a client cannot forge. The global caps hold even if someone rotates addresses.
+
+`.github/workflows/api-ops.yml` keeps the live API current and awake. After a merge that touches `api/`, `si/`, `data/` or the requirements it calls the Render deploy hook stored in the `RENDER_DEPLOY_HOOK` secret (Render dashboard > the service > Settings > Deploy Hook). Every 10 minutes it pings `/health` so judges do not wait through a cold start.
 
 ## Repository layout
 
