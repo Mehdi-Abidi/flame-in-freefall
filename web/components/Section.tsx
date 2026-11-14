@@ -1,22 +1,19 @@
 import type { ReactNode } from "react";
 
-export function SectionHeader({ code, title, children }: { code: string; title: string; children?: ReactNode }) {
+export function PageIntro({ title, children }: { title: string; children?: ReactNode }) {
   return (
-    <div className="mb-6 grid gap-3 md:grid-cols-[200px_1fr] md:gap-10">
-      <p className="eyebrow pt-1.5">
-        <span className="text-accent">§{code}</span> · {title}
-      </p>
-      <div className="max-w-3xl text-[15px] leading-relaxed text-ink-2">{children}</div>
-    </div>
+    <header className="mb-8">
+      <h1 className="text-[34px] font-semibold leading-tight tracking-[-0.02em] sm:text-[44px]">{title}</h1>
+      {children && <p className="mt-3 max-w-[66ch] text-[16px] leading-relaxed text-ink-2">{children}</p>}
+    </header>
   );
 }
 
-export function StatTile({ label, value, note }: { label: string; value: string; note: string }) {
+export function SectionHeader({ title, children }: { title: string; children?: ReactNode }) {
   return (
-    <div className="ticks border border-rule bg-surface px-5 py-4">
-      <p className="eyebrow">{label}</p>
-      <p className="mt-2 text-[44px] font-semibold leading-none tracking-tight">{value}</p>
-      <p className="mt-2 text-[13px] text-ink-2">{note}</p>
+    <div className="mb-6">
+      <h2 className="text-[24px] font-semibold leading-tight tracking-[-0.01em]">{title}</h2>
+      {children && <div className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-ink-2">{children}</div>}
     </div>
   );
 }

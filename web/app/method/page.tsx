@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SectionHeader } from "@/components/Section";
+import { PageIntro, SectionHeader } from "@/components/Section";
 import { loadDataset } from "@/lib/data";
 import { pct } from "@/lib/format";
 
@@ -10,6 +10,7 @@ const STEPS = [
   { code: "B", title: "Normalize", body: "21 tables in different units (mmHg, atm, bar, percent, mole fraction) become one table of 2,127 rows. Every oxygen and pressure value carries a tag saying whether it was measured, planned or assumed." },
   { code: "C", title: "Extract", body: "An open model (GPT-OSS 20B on Groq) reads NASA's text for each investigation. Facts the tables already prove are handed to it as ground truth, and anything it names that is not in the source is flagged." },
   { code: "D", title: "Rank", body: "A deterministic score, no AI involved, rates every investigation for each habitat. The same code runs in Python for the data files and in your browser for the sliders, and a test proves they agree." },
+  { code: "E", title: "Explain", body: "The same open model writes a short reason for each ranking and one brief per fire-safety pillar, using only facts the code hands it. Code checks every number and citation, and anything that fails falls back to a fact-only template." },
 ];
 
 const RULES = [
@@ -25,23 +26,24 @@ export default function MethodPage() {
   const w = data.componentWeights;
   return (
     <div className="mx-auto max-w-[1240px] px-4 pt-12 sm:px-6">
-      <h1 className="mb-6 text-[34px] font-semibold tracking-[-0.02em] sm:text-[44px]">Method</h1>
+      <PageIntro title="Method">
+        How NASA&apos;s raw records become the rankings and briefs on this site, and where each number comes from.
+      </PageIntro>
 
-      <SectionHeader code="05" title="Pipeline">
-        Four steps turn NASA&apos;s raw repository into this dashboard. Each runs from a script in the repository and is checked automatically on
+      <SectionHeader title="Pipeline">
+        Five steps turn NASA&apos;s raw repository into this dashboard. Each runs from a script in the repository and is checked automatically on
         every change.
       </SectionHeader>
-      <ol className="mb-16 grid gap-4 md:grid-cols-4">
+      <ol className="mb-16 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-5">
         {STEPS.map((step) => (
-          <li key={step.code} className="ticks border border-rule bg-surface p-5">
-            <p className="mono text-[11px] text-accent">STEP {step.code}</p>
-            <p className="mt-2 text-[17px] font-semibold">{step.title}</p>
+          <li key={step.code} className="border-t-2 border-ink pt-4">
+            <p className="text-[17px] font-semibold">{step.title}</p>
             <p className="mt-2 text-[13px] leading-relaxed text-ink-2">{step.body}</p>
           </li>
         ))}
       </ol>
 
-      <SectionHeader code="06" title="The score">
+      <SectionHeader title="The score">
         Each investigation gets a score from 0 to 1 for a habitat, shown as 0 to 100. The parts and their weights:
       </SectionHeader>
       <div className="mb-16 overflow-x-auto rounded-[6px] border border-rule bg-surface">
@@ -70,7 +72,7 @@ export default function MethodPage() {
         </table>
       </div>
 
-      <SectionHeader code="07" title="Habitat targets">
+      <SectionHeader title="Habitat targets">
         Taken from the challenge text. Where we had to assume something, it says so.
       </SectionHeader>
       <div className="mb-16 grid gap-4 md:grid-cols-2">
@@ -82,7 +84,7 @@ export default function MethodPage() {
                 {pct(s.o2[0])} to {pct(s.o2[1])} · {s.kpa[0]} to {s.kpa[1]} kPa
               </p>
             </div>
-            <p className="mt-2 text-[13px] leading-relaxed text-ink-2">{s.source}</p>
+            <p className="mt-2 max-w-[62ch] text-[13px] leading-relaxed text-ink-2">{s.source}</p>
             {s.assumptions.map((a) => (
               <p key={a} className="mt-2 border-l-2 border-accent pl-2.5 text-[12.5px] text-ink-2">
                 {a}
@@ -92,19 +94,19 @@ export default function MethodPage() {
         ))}
       </div>
 
-      <SectionHeader code="08" title="Honesty rules">
+      <SectionHeader title="Honesty rules">
         The rules that keep a fast hackathon build trustworthy. Each is enforced by an automated check.
       </SectionHeader>
       <ul className="mb-16 grid gap-3 md:grid-cols-2">
         {RULES.map((rule, i) => (
           <li key={rule} className="flex gap-3 border-t border-rule pt-3 text-[14px] leading-relaxed">
-            <span className="mono text-[11px] text-accent">R{i + 1}</span>
+            <span className="mono text-[12px] text-accent">R{i + 1}</span>
             {rule}
           </li>
         ))}
       </ul>
 
-      <SectionHeader code="09" title="Limits and AI use">
+      <SectionHeader title="Limits and AI use">
         No partial-gravity combustion data is in PSI yet. Microgravity and 1 g results bound what may happen on the Moon or Mars, and future data
         from the Lunar-g Combustion Investigation and Flammability of Materials on the Moon will fill that gap. The E-FIELD experiment mimicked
         partial gravity with electric fields. AI use: GPT-OSS 20B (via Groq) drafted the investigation summaries from NASA&apos;s text, and an AI

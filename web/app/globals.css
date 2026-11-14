@@ -82,6 +82,7 @@
   --color-rule-strong: var(--rule-strong);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
+  --color-accent-wash: var(--accent-wash);
   --color-s1: var(--s1);
   --color-s2: var(--s2);
   --color-s3: var(--s3);
@@ -101,6 +102,20 @@ body {
   font-family: var(--font-sans);
   font-feature-settings: "ss02" on;
   text-rendering: optimizeLegibility;
+}
+
+p,
+li,
+dd,
+figcaption,
+blockquote {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
 }
 
 ::selection {
@@ -137,43 +152,6 @@ body {
   border: 1px solid var(--rule);
   border-radius: 6px;
   box-shadow: var(--shadow);
-}
-
-.ticks {
-  position: relative;
-}
-
-.ticks::before,
-.ticks::after {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-color: var(--ink-2);
-  pointer-events: none;
-}
-
-.ticks::before {
-  top: -1px;
-  left: -1px;
-  border-top: 1px solid;
-  border-left: 1px solid;
-}
-
-.ticks::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 1px solid;
-  border-right: 1px solid;
-}
-
-.blueprint {
-  background-image:
-    linear-gradient(var(--rule) 1px, transparent 1px),
-    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
-  background-size: 32px 32px;
-  background-position: -1px -1px;
-  mask-image: radial-gradient(ellipse 70% 60% at 30% 40%, #000 30%, transparent 75%);
 }
 
 .link-underline {

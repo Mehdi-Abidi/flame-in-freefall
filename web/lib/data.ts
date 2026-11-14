@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { parseCsv } from "./csv";
-import type { Brief, Components, Dataset, GravityRow, Investigation, Phase, Pillar, Point, Range, Rationale, Scenario, ScenarioScore } from "./types";
+import type { Brief, Components, Dataset, GravityRow, Investigation, Phase, PhaseOxygen, Pillar, Point, Range, Rationale, Scenario, ScenarioScore } from "./types";
 
 const DATA_DIR = process.env.FLAME_DATA_DIR ?? path.join(process.cwd(), "..", "data");
 const PHASES: Phase[] = ["solid", "liquid", "gas", "dust"];
@@ -268,6 +268,16 @@ export function loadDataset(): Dataset {
     return r.record_type === "test" && r.o2_source === "measured" && o2 !== null && kpa !== null && o2 >= 0.3 && kpa <= 70.3;
   });
 
+  const measured = rows
+    .map((r) => ({ phase: r.fuel_phase as Phase, o2: num(r.o2_mole_fraction), source: r.o2_source }))
+    .filter((r): r is { phase: Phase; o2: number; source: string } => r.source === "measured" && r.o2 !== null);
+  const oxygenByPhase: PhaseOxygen[] = (["solid", "liquid", "gas"] as Phase[])
+    .map((phase) => {
+      const values = measured.filter((r) => r.phase === phase).map((r) => r.o2);
+      return values.length ? { phase, min: Math.min(...values), max: Math.max(...values), count: values.length } : null;
+    })
+    .filter((p): p is PhaseOxygen => p !== null);
+
   cache = {
     investigations: merged,
     points,
@@ -284,6 +294,8 @@ export function loadDataset(): Dataset {
       solidMaxO2: solid.length ? Math.max(...solid) : 0,
       lunarTests: lunar.length,
       lunarPhases: [...new Set(lunar.map((r) => r.fuel_phase as Phase))],
+      measuredRows: measured.length,
+      oxygenByPhase,
     },
   };
   return cache;

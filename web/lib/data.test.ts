@@ -32,6 +32,15 @@ describe("loadDataset", () => {
     expect(data.stats.records).toBe(2127);
   });
 
+  it("gives measured oxygen ranges per phase with solids topping out at 22.2%", () => {
+    const byPhase = Object.fromEntries(data.stats.oxygenByPhase.map((p) => [p.phase, p]));
+    expect(Object.keys(byPhase)).toEqual(["solid", "liquid", "gas"]);
+    expect(byPhase.solid.max).toBeCloseTo(0.222, 3);
+    expect(byPhase.solid.count).toBe(140);
+    expect(byPhase.gas.max).toBeGreaterThan(0.8);
+    expect(data.stats.measuredRows).toBe(data.stats.oxygenByPhase.reduce((s, p) => s + p.count, 0));
+  });
+
   it("only plots points with numeric oxygen and pressure inside physical bounds", () => {
     expect(data.points.length).toBeGreaterThan(1000);
     for (const point of data.points) {
