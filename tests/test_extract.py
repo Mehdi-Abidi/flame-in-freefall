@@ -3,8 +3,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from si.extract import (PILLARS, PROMPT_VERSION, build_prompt, clean_list, clean_record, data_facts, enforce_detection_evidence,
-                        extract_one, grounding_warnings, load_existing, text_context, write_records)
+from si.extract import (PILLARS, PROMPT_VERSION, build_prompt, clean_list, clean_record, data_facts, dimension_of,
+                        enforce_detection_evidence, extract_one, grounding_warnings, load_existing, merge_variables,
+                        summary_contradictions, table_variation, text_context, write_records)
 
 
 class FakeLLM:
@@ -54,6 +55,59 @@ class DataFactsTests(unittest.TestCase):
         self.assertIn("TEXT:", prompt)
         self.assertIn("DATA FACTS:", prompt)
         self.assertIn("methanol", prompt)
+
+
+def test_row(**values):
+    base = {"record_type": "test", "o2_mole_fraction": "", "o2_source": "", "pressure_kpa": "", "pressure_source": "",
+            "flow_cm_s": "", "size_mm": "", "fuel": "", "diluent": "", "geometry": ""}
+    base.update(values)
+    return base
+
+
+class VariationTests(unittest.TestCase):
+    def test_saffire_like_table(self):
+        rows = [test_row(o2_mole_fraction="0.215", o2_source="measured", flow_cm_s="20", size_mm="0.27", fuel="silicone",
+                         geometry="large sheet, concurrent flow", diluent="N2 (air)"),
+                test_row(o2_mole_fraction="0.221", o2_source="measured", flow_cm_s="20", size_mm="10", fuel="PMMA",
+                         geometry="large sheet, opposed flow", diluent="N2 (air)")]
+        self.assertEqual(table_variation(rows), {"varied": ["sample size", "fuel", "sample geometry"],
+                                                 "fixed": ["oxygen concentration", "flow velocity", "diluent"]})
+
+    def test_nominal_values_are_not_evidence(self):
+        rows = [test_row(o2_mole_fraction="0.21", o2_source="nominal_cabin_air", pressure_kpa="101.3",
+                         pressure_source="nominal_cabin")] * 3
+        self.assertEqual(table_variation(rows), {"varied": [], "fixed": []})
+
+    def test_or_in_a_cell_means_several_values(self):
+        self.assertEqual(table_variation([test_row(diluent="N2 or He")])["varied"], ["diluent"])
+
+    def test_test_day_rows_are_ignored(self):
+        self.assertEqual(table_variation([test_row(record_type="test_day", fuel="methane"),
+                                          test_row(record_type="test_day", fuel="ethylene")]), {"varied": [], "fixed": []})
+
+    def test_dimension_matching(self):
+        self.assertEqual([dimension_of(x) for x in ["flow direction", "droplet diameter", "O2 mole fraction", "ambient temperature"]],
+                         ["sample geometry", "sample size", "oxygen concentration", None])
+
+    def test_data_wins_over_model_variables(self):
+        varied, fixed = merge_variables(["flow velocity", "electric field voltage"], ["fuel type", "ambient temperature"],
+                                        ["fuel"], ["flow velocity"])
+        self.assertEqual(varied, ["fuel", "electric field voltage"])
+        self.assertEqual(fixed, ["flow velocity", "ambient temperature"])
+
+    def test_summary_contradictions_are_found_clause_by_clause(self):
+        facts = {"varied_in_tables": ["pressure", "sample size"], "constant_in_tables": ["flow velocity"]}
+        record = {"summary": "It varies pressure while keeping droplet size constant. Flow velocity was varied between runs.",
+                  "objective_short": None}
+        self.assertEqual(summary_contradictions(record, facts), [
+            "summary may call flow velocity varied, but the tables show it constant",
+            "summary may call sample size constant, but the tables show it varied"])
+
+    def test_correct_summary_has_no_contradiction(self):
+        facts = {"varied_in_tables": ["flow velocity"], "constant_in_tables": ["oxygen concentration", "pressure"]}
+        record = {"summary": "By varying the flow field while keeping oxygen and pressure constant, smoke was measured.",
+                  "objective_short": None}
+        self.assertEqual(summary_contradictions(record, facts), [])
 
 
 class CleanRecordTests(unittest.TestCase):
