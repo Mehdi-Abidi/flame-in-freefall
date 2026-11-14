@@ -231,3 +231,53 @@ def resolve_pillars(accession, tags, seed, extracted):
             if source != "seed" or pillars or entry.get("role"):
                 return pillars, source
     return [], "none"
+
+
+TEST_COLUMNS = ("accession", "record_type", "o2_mole_fraction", "o2_source", "pressure_kpa", "pressure_source")
+
+
+def _index(records, path):
+    if not isinstance(records, list):
+        raise RankError(f"{path} must contain a list of records")
+    indexed = {}
+    for position, record in enumerate(records):
+        accession = record.get("accession") if isinstance(record, dict) else None
+        if not isinstance(accession, str) or not accession:
+            raise RankError(f"{path}: record #{position + 1} has no accession")
+        indexed[accession] = record
+    return indexed
+
+
+def load_inputs(processed=PROCESSED, domain=DOMAIN):
+    """Read and validate every input. Optional files that are missing become notes, not errors."""
+    processed, domain = Path(processed), Path(domain)
+    investigations = _index(read_json(processed / "investigations.json"), processed / "investigations.json")
+    if not investigations:
+        raise RankError(f"{processed / 'investigations.json'} has no investigations")
+    rows_by_accession = {}
+    for row in read_csv(processed / "tests.csv", TEST_COLUMNS):
+        rows_by_accession.setdefault(row["accession"], []).append(row)
+    notes = []
+    optional = {}
+    for name, path in (("extracted", processed / "extracted.json"), ("tags", domain / "tags.json"),
+                       ("seed", domain / "seed_pillars.json")):
+        if not path.is_file():
+            optional[name] = {}
+            if name != "tags":
+                notes.append(f"{path.name} not found, so pillars fall back to the next source")
+            continue
+        document = read_json(path)
+        records = document.get("investigations") if isinstance(document, dict) else document
+        optional[name] = _index(records, path)
+    unknown = sorted(set(rows_by_accession) - set(investigations))
+    if unknown:
+        notes.append(f"tests.csv has rows for accessions missing from investigations.json: {', '.join(unknown)}")
+    return {
+        "investigations": investigations,
+        "rows": rows_by_accession,
+        "scenarios": validate_scenarios(read_json(domain / "scenarios.json")),
+        "extracted": optional["extracted"],
+        "tags": optional["tags"],
+        "seed": optional["seed"],
+        "notes": notes,
+    }
