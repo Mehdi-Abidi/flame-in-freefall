@@ -242,10 +242,13 @@ def accession_number(accession):
 
 
 def load_existing(path):
-    if Path(path).exists():
-        with open(path, encoding="utf-8") as handle:
-            return {record["accession"]: record for record in json.load(handle)}
-    return {}
+    path = Path(path)
+    if not path.is_file() or not path.read_text(encoding="utf-8").strip():
+        return {}
+    try:
+        return {record["accession"]: record for record in json.loads(path.read_text(encoding="utf-8"))}
+    except (json.JSONDecodeError, TypeError, KeyError) as error:
+        raise SystemExit(f"{path} is not a valid extraction file ({error}). Fix or delete it, then rerun.")
 
 
 def write_records(path, records):

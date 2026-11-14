@@ -136,6 +136,20 @@ class OutputFileTests(unittest.TestCase):
             self.assertEqual(set(load_existing(path)), {"PSI-25", "PSI-100"})
             self.assertEqual(load_existing(Path(tmp) / "missing.json"), {})
 
+    def test_empty_output_file_is_treated_as_new(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "extracted.json"
+            path.write_text("", encoding="utf-8")
+            self.assertEqual(load_existing(path), {})
+
+    def test_corrupt_output_file_stops_with_a_clear_message(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "extracted.json"
+            path.write_text("{not json", encoding="utf-8")
+            with self.assertRaises(SystemExit) as stop:
+                load_existing(path)
+            self.assertIn("not a valid extraction file", str(stop.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
