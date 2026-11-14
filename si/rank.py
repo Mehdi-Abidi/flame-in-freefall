@@ -176,7 +176,8 @@ def box_distance(value, box, tolerance):
 
 
 def condition_fit(rows, scenario, tolerance):
-    """How close an investigation's tested O2 and pressure come to a habitat, from 0 (nowhere near) to 1."""
+    """How close an investigation's tested O2 and pressure come to a habitat, from 0 (nowhere near) to 1.
+    n_near counts tests whose conditions are close, whatever their evidence. The fit itself is scaled by evidence strength."""
     scored = []
     for row in rows:
         if row.get("record_type") not in CONDITION_RECORD_TYPES:
@@ -188,12 +189,14 @@ def condition_fit(rows, scenario, tolerance):
         o2_gap = box_distance(o2, scenario["o2_mole_fraction"], tolerance["o2"])
         if pressure is not None and p_basis in BASIS_WEIGHT:
             p_gap = box_distance(pressure, scenario["pressure_kpa"], tolerance["pressure"])
-            closeness = math.exp(-0.5 * (o2_gap ** 2 + p_gap ** 2)) * min(BASIS_WEIGHT[o2_basis], BASIS_WEIGHT[p_basis])
+            nearness = math.exp(-0.5 * (o2_gap ** 2 + p_gap ** 2))
+            closeness = nearness * min(BASIS_WEIGHT[o2_basis], BASIS_WEIGHT[p_basis])
             inside = o2_gap == 0 and p_gap == 0 and o2_basis == "measured" and p_basis == "measured"
         else:
-            closeness = math.exp(-0.5 * o2_gap ** 2) * BASIS_WEIGHT[o2_basis] * MISSING_PRESSURE_FACTOR
+            nearness = math.exp(-0.5 * o2_gap ** 2) * MISSING_PRESSURE_FACTOR
+            closeness = nearness * BASIS_WEIGHT[o2_basis]
             inside = False
-        scored.append((closeness, inside, o2, pressure))
+        scored.append((closeness, inside, o2, pressure, nearness))
     if not scored:
         return {"fit": 0.0, "n_considered": 0, "n_in_target": 0, "n_near": 0, "best": None}
     best = max(scored, key=lambda item: item[0])
@@ -202,7 +205,7 @@ def condition_fit(rows, scenario, tolerance):
         "fit": round(0.5 * best[0] + 0.5 * mean, 4),
         "n_considered": len(scored),
         "n_in_target": sum(1 for item in scored if item[1]),
-        "n_near": sum(1 for item in scored if item[0] >= 0.6),
+        "n_near": sum(1 for item in scored if item[4] >= 0.6),
         "best": {"o2_mole_fraction": best[2], "pressure_kpa": best[3], "closeness": round(best[0], 4)},
     }
 
