@@ -28,7 +28,7 @@ export function SiteHeader() {
           <Logo />
           <span className="leading-none">
             <span className="block text-[13px] font-semibold tracking-tight">Flame in Freefall</span>
-            <span className="eyebrow block pt-1 text-[9.5px]">PSI · Combustion</span>
+            <span className="eyebrow block pt-1 text-[11px]">PSI · Combustion</span>
           </span>
         </Link>
         <nav aria-label="Main" className="hidden flex-1 items-center gap-1 md:flex">
@@ -41,7 +41,7 @@ export function SiteHeader() {
                 aria-current={active ? "page" : undefined}
                 className={`relative rounded-[4px] px-3 py-2 text-[13px] transition-colors ${active ? "text-ink" : "text-ink-2 hover:text-ink"}`}
               >
-                <span className="mono mr-1.5 text-[10px] text-muted">{item.code}</span>
+                <span className="mono mr-1.5 text-[11px] text-muted">{item.code}</span>
                 {item.label}
                 {active && (
                   <motion.span layoutId="nav-underline" className="absolute inset-x-3 -bottom-[11px] h-[2px] bg-accent" transition={{ type: "spring", stiffness: 500, damping: 40 }} />
@@ -51,7 +51,7 @@ export function SiteHeader() {
           })}
         </nav>
         <div className="ml-auto flex items-center gap-3">
-          <span className="mono hidden text-[10.5px] text-muted lg:inline">NASA SPACE APPS 2026</span>
+          <span className="mono hidden text-[11px] text-muted lg:inline">NASA SPACE APPS 2026</span>
           <ThemeToggle />
         </div>
       </div>

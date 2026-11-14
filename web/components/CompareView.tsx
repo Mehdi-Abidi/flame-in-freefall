@@ -71,7 +71,7 @@ export function CompareView({ investigations }: { investigations: Investigation[
       <div className="panel mb-6 p-4">
         <div className="mb-3 flex items-baseline justify-between">
           <p className="eyebrow">Choose up to {MAX}</p>
-          <p className="mono text-[11px] text-muted">{selected.length} selected</p>
+          <p className="mono text-[12px] text-muted">{selected.length} selected</p>
         </div>
         <ul className="flex flex-wrap gap-1.5">
           {investigations.map((inv) => {
@@ -121,7 +121,7 @@ export function CompareView({ investigations }: { investigations: Investigation[
                   {selected.map((inv) => (
                     <th key={inv.accession} className="px-4 py-3 text-left align-bottom">
                       <Link href={`/investigations/${inv.accession}/`} className="group">
-                        <span className="mono block text-[10.5px] font-normal text-muted">{inv.accession}</span>
+                        <span className="mono block text-[11px] font-normal text-muted">{inv.accession}</span>
                         <span className="block text-[16px] font-semibold group-hover:underline">{inv.name}</span>
                       </Link>
                     </th>
@@ -142,9 +142,9 @@ export function CompareView({ investigations }: { investigations: Investigation[
                       <th scope="row" className="px-4 py-2.5 text-left align-top font-normal">
                         <span className="flex items-center gap-2 text-ink-2">
                           {row.differs ? (
-                            <span className="mono rounded-[2px] bg-accent px-1 text-[9px] uppercase tracking-[0.08em] text-accent-ink">diff</span>
+                            <span className="mono rounded-[2px] bg-accent px-1 text-[11px] uppercase tracking-[0.08em] text-accent-ink">diff</span>
                           ) : (
-                            <span className="mono rounded-[2px] border border-rule px-1 text-[9px] uppercase tracking-[0.08em] text-muted">same</span>
+                            <span className="mono rounded-[2px] border border-rule px-1 text-[11px] uppercase tracking-[0.08em] text-muted">same</span>
                           )}
                           {row.label}
                         </span>

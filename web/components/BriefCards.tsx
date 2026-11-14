@@ -11,7 +11,7 @@ export function BriefCards({ briefs, names }: { briefs: Brief[]; names: Record<s
       {briefs.map((brief) => (
         <article key={brief.pillar} className="ticks flex flex-col border border-rule bg-surface p-5" aria-labelledby={`brief-${brief.pillar}`}>
           <p className="eyebrow flex items-center gap-2">
-            <span className="mono inline-flex h-5 w-5 items-center justify-center rounded-[3px] bg-ink text-[10px] text-paper" aria-hidden="true">
+            <span className="mono inline-flex h-5 w-5 items-center justify-center rounded-[3px] bg-ink text-[11px] text-paper" aria-hidden="true">
               {PILLAR_CODE[brief.pillar]}
             </span>
             {PILLAR_LABEL[brief.pillar]}
@@ -22,7 +22,7 @@ export function BriefCards({ briefs, names }: { briefs: Brief[]; names: Record<s
           <ol className="mt-4 space-y-3">
             {brief.findings.map((finding, index) => (
               <li key={index} className="grid grid-cols-[18px_1fr] gap-2 text-[13.5px] leading-relaxed">
-                <span className="mono pt-0.5 text-[11px] text-muted">{index + 1}</span>
+                <span className="mono pt-0.5 text-[12px] text-muted">{index + 1}</span>
                 <span>
                   {finding.text}
                   <span className="mt-1.5 flex flex-wrap gap-1">
@@ -30,7 +30,7 @@ export function BriefCards({ briefs, names }: { briefs: Brief[]; names: Record<s
                       <Link
                         key={citation}
                         href={`/investigations/${citation}/`}
-                        className="mono rounded-[3px] border border-rule px-1.5 py-px text-[10.5px] text-ink-2 transition-colors hover:border-ink hover:text-ink"
+                        className="mono rounded-[3px] border border-rule px-1.5 py-px text-[11px] text-ink-2 transition-colors hover:border-ink hover:text-ink"
                       >
                         {names[citation] ?? citation} · {citation}
                       </Link>
@@ -48,7 +48,7 @@ export function BriefCards({ briefs, names }: { briefs: Brief[]; names: Record<s
             <p className="eyebrow mb-1">Data gap</p>
             <p className="text-[13px] leading-relaxed text-ink-2">{brief.gap}</p>
           </div>
-          <p className="mono mt-auto pt-5 text-[10.5px] text-muted">
+          <p className="mono mt-auto pt-5 text-[11px] text-muted">
             {brief.source === "model" ? `Drafted by ${brief.model.split("/").pop()} from NASA PSI data` : "Fact-only brief"} · {brief.review}
           </p>
         </article>

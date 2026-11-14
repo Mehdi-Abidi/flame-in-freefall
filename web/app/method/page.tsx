@@ -34,7 +34,7 @@ export default function MethodPage() {
       <ol className="mb-16 grid gap-4 md:grid-cols-4">
         {STEPS.map((step) => (
           <li key={step.code} className="ticks border border-rule bg-surface p-5">
-            <p className="mono text-[11px] text-accent">STEP {step.code}</p>
+            <p className="mono text-[12px] text-accent">STEP {step.code}</p>
             <p className="mt-2 text-[17px] font-semibold">{step.title}</p>
             <p className="mt-2 text-[13px] leading-relaxed text-ink-2">{step.body}</p>
           </li>
@@ -98,7 +98,7 @@ export default function MethodPage() {
       <ul className="mb-16 grid gap-3 md:grid-cols-2">
         {RULES.map((rule, i) => (
           <li key={rule} className="flex gap-3 border-t border-rule pt-3 text-[14px] leading-relaxed">
-            <span className="mono text-[11px] text-accent">R{i + 1}</span>
+            <span className="mono text-[12px] text-accent">R{i + 1}</span>
             {rule}
           </li>
         ))}

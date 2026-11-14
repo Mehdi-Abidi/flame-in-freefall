@@ -119,7 +119,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
             >
               <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full" style={{ background: on ? PHASE_COLOR[phase] : "transparent", boxShadow: `inset 0 0 0 1.5px ${PHASE_COLOR[phase]}` }} />
               {PHASE_LABEL[phase]}
-              <span className="mono text-[11px] text-muted">{counts[phase] ?? 0}</span>
+              <span className="mono text-[12px] text-muted">{counts[phase] ?? 0}</span>
             </button>
           );
         })}
@@ -143,7 +143,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
               type="button"
               aria-pressed={view === v}
               onClick={() => setView(v)}
-              className={`mono rounded-[3px] px-2.5 py-1 text-[11px] uppercase tracking-[0.1em] ${view === v ? "bg-ink text-paper" : "text-ink-2"}`}
+              className={`mono rounded-[3px] px-2.5 py-1 text-[12px] uppercase tracking-[0.1em] ${view === v ? "bg-ink text-paper" : "text-ink-2"}`}
             >
               {v}
             </button>
@@ -158,7 +158,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
               {yTicks.map((t) => (
                 <g key={`y${t}`} transform={`translate(0,${y(t)})`}>
                   <line x2={innerW} stroke="var(--rule)" strokeWidth={1} />
-                  <text x={-10} dy="0.32em" textAnchor="end" className="mono" fontSize={10.5} fill="var(--muted)">
+                  <text x={-10} dy="0.32em" textAnchor="end" className="mono" fontSize={11} fill="var(--muted)">
                     {t}
                   </text>
                 </g>
@@ -166,7 +166,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
               {xTicks.map((t) => (
                 <g key={`x${t}`} transform={`translate(${x(t)},${innerH})`}>
                   <line y2={5} stroke="var(--rule-strong)" />
-                  <text y={18} textAnchor="middle" className="mono" fontSize={10.5} fill="var(--muted)">
+                  <text y={18} textAnchor="middle" className="mono" fontSize={11} fill="var(--muted)">
                     {pct(t)}
                   </text>
                 </g>
@@ -197,7 +197,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                       rx={2}
                     />
                     {!compact && (
-                      <text x={Math.min(bx + 4, innerW - 4)} y={by - 6} fontSize={10.5} textAnchor={bx + 4 > innerW - 140 ? "end" : "start"} className="mono" fill={selected ? "var(--accent)" : "var(--ink-2)"} stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
+                      <text x={Math.min(bx + 4, innerW - 4)} y={by - 6} fontSize={11} textAnchor={bx + 4 > innerW - 140 ? "end" : "start"} className="mono" fill={selected ? "var(--accent)" : "var(--ink-2)"} stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
                         {box.label.toUpperCase()}
                       </text>
                     )}
@@ -301,7 +301,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                 <span className="inline-block h-[2px] w-3" style={{ background: PHASE_COLOR[hover.ph] }} />
                 {names[hover.a] ?? hover.a} · {hover.fuel}
               </div>
-              <div className="mt-0.5 text-[11px] text-muted">{hover.measured ? "measured" : "assumed or planned value"}</div>
+              <div className="mt-0.5 text-[12px] text-muted">{hover.measured ? "measured" : "assumed or planned value"}</div>
             </motion.div>
           )}
         </AnimatePresence>

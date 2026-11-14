@@ -76,7 +76,7 @@ export function InvestigationExplorer({ investigations }: { investigations: Inve
         <Chip on={platform === "ground"} onClick={() => setPlatform(platform === "ground" ? null : "ground")}>
           Ground studies
         </Chip>
-        <span className="mono ml-auto text-[11.5px] text-muted" aria-live="polite">
+        <span className="mono ml-auto text-[12px] text-muted" aria-live="polite">
           {filtered.length} of {investigations.length}
           {anyFilter && (
             <button
@@ -109,7 +109,7 @@ export function InvestigationExplorer({ investigations }: { investigations: Inve
               <Link href={`/investigations/${inv.accession}/`} className="group panel flex h-full flex-col p-5 transition-transform hover:-translate-y-0.5">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="mono text-[11px] text-muted">{inv.accession}</p>
+                    <p className="mono text-[12px] text-muted">{inv.accession}</p>
                     <p className="mt-1 text-[17px] font-semibold leading-tight">{inv.name}</p>
                   </div>
                   <span className="flex shrink-0 gap-1 pt-1" aria-label={`Fuel phases: ${inv.phases.join(", ") || "none"}`}>
@@ -120,7 +120,7 @@ export function InvestigationExplorer({ investigations }: { investigations: Inve
                 </div>
                 <p className="mt-1 line-clamp-2 text-[12.5px] text-ink-2">{inv.title}</p>
                 {inv.summary && <p className="mt-3 line-clamp-3 text-[13px] leading-relaxed text-ink">{inv.summary}</p>}
-                <dl className="mono mt-auto grid grid-cols-3 gap-2 border-t border-rule pt-3 text-[11px]">
+                <dl className="mono mt-auto grid grid-cols-3 gap-2 border-t border-rule pt-3 text-[12px]">
                   <div>
                     <dt className="text-muted">{inv.nTests || !inv.nRecords ? "tests" : "records"}</dt>
                     <dd className="mt-0.5 text-[13px] text-ink">{inv.nTests || inv.nRecords || "none"}</dd>
@@ -136,11 +136,11 @@ export function InvestigationExplorer({ investigations }: { investigations: Inve
                 </dl>
                 <div className="mt-3 flex flex-wrap gap-1">
                   {(inv.pillars.length ? inv.pillars : ["fundamentals"]).map((p) => (
-                    <span key={p} className="mono rounded-[3px] border border-rule px-1.5 py-px text-[10px] uppercase tracking-[0.08em] text-ink-2">
+                    <span key={p} className="mono rounded-[3px] border border-rule px-1.5 py-px text-[11px] uppercase tracking-[0.08em] text-ink-2">
                       {p}
                     </span>
                   ))}
-                  {inv.platform === "ground" && <span className="mono rounded-[3px] border border-dashed border-rule px-1.5 py-px text-[10px] uppercase tracking-[0.08em] text-muted">ground</span>}
+                  {inv.platform === "ground" && <span className="mono rounded-[3px] border border-dashed border-rule px-1.5 py-px text-[11px] uppercase tracking-[0.08em] text-muted">ground</span>}
                 </div>
               </Link>
             </motion.li>
