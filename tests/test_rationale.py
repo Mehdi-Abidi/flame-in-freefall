@@ -104,6 +104,7 @@ class PlainLanguageTests(unittest.TestCase):
         self.assertEqual(conditions_on_record({"o2_basis": "nominal_cabin_air", "pressure_basis": "nominal_cabin"}),
                          "oxygen assumed ISS cabin air, not logged, pressure assumed ISS cabin pressure, not logged")
         self.assertEqual(conditions_on_record({"o2_basis": None, "pressure_basis": None}), "no oxygen or pressure recorded")
+        self.assertEqual(conditions_on_record({"o2_basis": "measured", "pressure_basis": "measured"}), "oxygen and pressure both measured")
         self.assertEqual(conditions_on_record(None), "not known")
 
 
@@ -137,16 +138,28 @@ class WriteOneTests(unittest.TestCase):
         self.assertIn("rejected for these reasons", llm.prompts[1])
         self.assertIn("41", llm.prompts[1])
 
-    def test_two_bad_replies_fall_back_to_template(self):
-        text, source, problems = write_one(FakeLLM([{"rationale": "Bad."}, {"wrong_key": 1}]), FACTS)
+    def test_bad_replies_fall_back_to_template(self):
+        text, source, problems = write_one(FakeLLM([{"rationale": "Bad."}, {"wrong_key": 1}, {"rationale": "Still bad."}]), FACTS)
         self.assertEqual(source, "template")
         self.assertEqual(validate(text, FACTS), [])
         self.assertTrue(problems)
 
-    def test_model_error_falls_back_without_crashing(self):
-        text, source, problems = write_one(FakeLLM([LLMError("HTTP 429")]), FACTS)
+    def test_model_error_is_retried_before_falling_back(self):
+        llm = FakeLLM([LLMError("HTTP 400 Failed to generate JSON"), {"rationale": GOOD}])
+        self.assertEqual(write_one(llm, FACTS), (GOOD, "model", []))
+        self.assertEqual(len(llm.prompts), 2)
+
+    def test_repeated_model_errors_fall_back_without_crashing(self):
+        llm = FakeLLM([LLMError("HTTP 400"), LLMError("HTTP 400"), LLMError("HTTP 400")])
+        text, source, problems = write_one(llm, FACTS)
         self.assertEqual(source, "template")
         self.assertIn("model error", problems[0])
+        self.assertEqual(validate(text, FACTS), [])
+
+    def test_attempts_are_capped(self):
+        llm = FakeLLM([{"rationale": "Bad."}] * 3)
+        self.assertEqual(write_one(llm, FACTS)[1], "template")
+        self.assertEqual(len(llm.prompts), 3)
 
 
 class GenerateTests(unittest.TestCase):
