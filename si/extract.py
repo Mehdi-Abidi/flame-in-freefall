@@ -147,6 +147,33 @@ def clean_list(value, limit=12):
     return out[:limit]
 
 
+DIMENSION_WORDS = (
+    ("sample geometry", ("geometry", "shape", "direction", "orientation", "configuration")),
+    ("sample size", ("size", "diameter", "thickness")),
+    ("oxygen concentration", ("oxygen", "o2")),
+    ("pressure", ("pressure",)),
+    ("diluent", ("diluent", "nitrogen", "helium", "co2", "suppressant", "inert")),
+    ("flow velocity", ("flow", "velocity", "airflow")),
+    ("fuel", ("fuel", "material")),
+)
+
+
+def dimension_of(item):
+    tokens = set(re.findall(r"[a-z0-9]+", item.lower()))
+    for label, keys in DIMENSION_WORDS:
+        if tokens & set(keys):
+            return label
+    return None
+
+
+def merge_variables(model_varied, model_fixed, data_varied, data_fixed):
+    """Table-proven conditions always win. Model items are kept only for conditions the tables cannot judge."""
+    judged = set(data_varied) | set(data_fixed)
+    varied = list(data_varied) + [item for item in model_varied if dimension_of(item) not in judged]
+    fixed = list(data_fixed) + [item for item in model_fixed if dimension_of(item) not in judged]
+    return clean_list(varied), clean_list(fixed)
+
+
 def clean_record(raw, facts):
     """Coerce a model reply into the extracted.json schema. Data-proven values override the model."""
     raw = raw if isinstance(raw, dict) else {}
@@ -155,6 +182,9 @@ def clean_record(raw, facts):
     record["pillars"] = [p for p in PILLARS if p in {x.lower() for x in clean_list(raw.get("pillars"))}]
     model_phases = [p for p in PHASES if p in {x.lower() for x in clean_list(raw.get("fuel_phase"))}]
     record["fuel_phase"] = list(facts.get("fuel_phase") or []) or model_phases
+    record["variables_varied"], record["variables_fixed"] = merge_variables(
+        record["variables_varied"], record["variables_fixed"],
+        facts.get("varied_in_tables") or [], facts.get("constant_in_tables") or [])
     size = facts.get("size_mm_range")
     if size:
         record["sample_size"] = f"{size[0]:g} mm" if size[0] == size[1] else f"{size[0]:g} to {size[1]:g} mm"
