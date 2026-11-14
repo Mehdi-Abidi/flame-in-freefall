@@ -95,7 +95,7 @@ Known quirks to handle: pressure appears in mmHg (FLEX), atm (FLEX-2, Flame Desi
 |---|---|---|---|
 | S1 | S1 | ~~`si/llm.py` with one provider wrapper.~~ **Done 14 Nov.** Groq, `openai/gpt-oss-20b` with `gpt-oss-120b` as fallback, JSON mode, retries, cache. | `python -m si.llm --check` prints OK. |
 | S2 | S1 | ~~Extraction of all 24 investigations.~~ **Done 14 Nov.** `python -m si.extract` writes `data/processed/extracted.json` (prompt s2-v4, GPT-OSS 20B). Table facts are given as ground truth, varied and fixed conditions come from `tests.csv`, summaries may not contradict them, invented fuels or sensors are flagged, and detection needs smoke, aerosol, particle, dust or detector evidence. | 24/24 extracted, QA checks pass, review list in `docs/extraction-review.md`. |
-| S3 | S2 | Ranking engine (formula in section 7) in `si/rank.py`, scored for 5 habitat scenarios. | `rank.py --scenario lunar_base` prints a sensible top 10. |
+| S3 | S2 | ~~Ranking engine in `si/rank.py`, scored for 5 habitat scenarios.~~ **Done 14 Nov.** Habitats live in `data/domain/scenarios.json`, output in `data/processed/rankings.json`, rebuilt and checked in CI. | `python -m si.rank --scenario lunar_base` puts the high-oxygen investigations on top. |
 | S4 | S2 | Rationale writer: two sentences per investigation per scenario, citing the fields used. | Stored in `investigations.json`. |
 | S5 | S3 | Insight briefs per pillar (prevention, detection, suppression) with PSI citations. | Three briefs Taha has reviewed. |
 | S6 | S4 | Merge PRs, deploy checks, submission. | Submitted. |
@@ -107,7 +107,7 @@ Every LLM output is precomputed and committed. The live site calls an LLM only f
 | ID | Sprint | Task | Done when |
 |---|---|---|---|
 | A1 | S1 | FastAPI skeleton in `api/` that loads `investigations.json` and `tests.csv` at startup. Endpoints `/investigations`, `/investigations/{id}`, `/tests?accession=&o2_min=&o2_max=&p_min=&p_max=`. Mock data until D2 lands. | `uvicorn api.main:app` serves JSON locally. |
-| A2 | S2 | `/rank?scenario=&w_prevent=&w_detect=&w_suppress=` using `si/rank.py`. `/compare?ids=PSI-69,PSI-68`. | Frontend can call both. |
+| A2 | S2 | `/rank?scenario=&w_prevent=&w_detect=&w_suppress=` calling `si.rank.rank()` with inputs loaded once at startup. `UsageError` becomes HTTP 400, other `RankError` becomes 500. `/compare?ids=PSI-69,PSI-68`. | Frontend can call both. |
 | A3 | S2 | Deploy to Render or a Hugging Face Space. Add CORS for the frontend domain. | Public API link in the README. |
 | A4 | S3 | `/ask`: BM25 search (`rank-bm25`, tiny install) over objectives, approach, summaries and publication titles. Top 5 chunks go to the LLM with the instruction to answer only from them and cite accession numbers. | Answers show citations. Questions with no answer in the data get "not covered in PSI data". |
 | A5 | S3 | `/export?accession=...` returns filtered rows of `tests.csv` as CSV for modelers. | Download works from the UI. |
@@ -224,7 +224,7 @@ Rules (checked by `qa.py`):
 
 # 7. Habitat scenarios and ranking
 
-## Targets (from the challenge text)
+## Targets (from the challenge text, stored in `data/domain/scenarios.json`)
 
 | Scenario | O2 | Pressure | Note |
 |---|---|---|---|
@@ -244,9 +244,9 @@ For each investigation *i* and scenario *s*:
 
 | Part | How it is computed |
 |---|---|
-| Condition fit | Share of the investigation's tests within ±0.05 O2 fraction and ±20 kPa of the target, softened with a distance decay so near misses still count. Investigations without a table fall back to the ranges the LLM extracted. |
+| Condition fit | Distance from each test to the habitat box, counted in tolerances (0.05 O2 fraction, 20 kPa), turned into a closeness from 0 to 1. Measured values count fully, approximate 0.7, planned 0.6, assumed cabin values 0.5, missing pressure 0.75. Fit is half the best test and half the typical test. |
 | Material relevance | 1.0 for solid cabin materials (fabrics, plastics), 0.7 for liquids, 0.5 for gas flames. Habitat fires start in solids. |
-| Pillar match | Dot product of the investigation's pillar tags with the user's three slider weights. |
+| Pillar match | The investigation's best single pillar divided by the user's top slider weight. **Changed from the first draft** (a dot product), which let investigations with more tags outrank focused ones even with no tests near the habitat. |
 | Data richness | Log-scaled count of tests, files and publications, normalized to 0 to 1. |
 
 Weights are shown in the UI so a judge can see exactly why something ranks first. The LLM writes the explanation. It does not set the score.
