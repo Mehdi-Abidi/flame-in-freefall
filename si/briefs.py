@@ -164,7 +164,7 @@ def build_facts(pillar, members, investigations, extracted, rows_by_accession, a
     return facts
 
 
-PROMPT_VERSION = "s5-v2"
+PROMPT_VERSION = "s5-v3"
 SYSTEM_PROMPT = """You write a short insight brief for spacecraft and lunar habitat fire-safety engineers.
 Use only the FACTS. Never add knowledge from outside them.
 Reply with JSON only, with exactly these keys:
@@ -172,7 +172,10 @@ title: at most 10 words, plain, no colon
 findings: a list of exactly 3 objects, each {"text": one or two sentences of at most 45 words, "citations": list of accession numbers such as "PSI-69"}
 implication: one sentence of at most 40 words on what this means for a lunar base designer
 gap: one sentence of at most 40 words on what the data does not cover
+Example of a valid finding:
+{"text": "BASS-II burned PMMA and Nomex samples with measured oxygen from 13.6% to 22.2%, all below lunar base levels.", "citations": ["PSI-25"]}
 Rules:
+- Start each finding with the name of the one investigation it cites, exactly as written in the FACTS, and cite only that accession.
 - Each finding is about specific investigations, names every investigation it cites, and cites only accessions listed in the FACTS.
   Dataset-wide facts belong in implication or gap, never in a finding.
 - Only say flames went out, were extinguished or self-extinguished when that investigation's observations record it.
@@ -182,7 +185,8 @@ Rules:
 - Never write FACT key names or words joined by underscores.
 - Do not call anything best, most effective, safest, optimal or ideal. Report what was observed.
 - If an investigation's oxygen_basis is not measured, write assumed or planned next to its oxygen values.
-- Avoid overconfident safety language such as can rely on, is sufficient or safe enough.
+- Avoid overconfident language such as can rely on, is effective, can work, is sufficient or safe enough.
+- Write the implication with must test or must design for, never as reassurance.
 - No hype, no dashes, no semicolons."""
 
 
@@ -191,7 +195,7 @@ def build_prompt(facts):
 
 
 OUTCOME_CLAIM = re.compile(r"\b(extinction|extinguish\w*|went out|put out|self-extinguish\w*)\b", re.I)
-OVERCONFIDENT = re.compile(r"\b(can rely on|rely on|will be effective|is sufficient|are sufficient|safe enough|guarantee\w*)\b", re.I)
+OVERCONFIDENT = re.compile(r"\b(can rely on|rely on|will be effective|is effective|are effective|can work|works well|is sufficient|are sufficient|safe enough|guarantee\w*)\b", re.I)
 QUALIFIER = re.compile(r"\b(assum\w*|planned|approximate\w*|nominal)\b", re.I)
 UNMEASURED = {"nominal_cabin_air", "planned", "approximate", "test_day_list"}
 PERCENT = re.compile(r"(\d+(?:\.\d+)?)\s*%")

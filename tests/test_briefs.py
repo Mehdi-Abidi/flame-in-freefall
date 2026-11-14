@@ -114,6 +114,10 @@ class EvidenceGuardTests(unittest.TestCase):
                                      implication="Designers can rely on diluents that worked at lower oxygen.")
         self.assertTrue(any("overconfident" in p for p in problems))
 
+    def test_effectiveness_claims_are_overconfident(self):
+        problems = self.with_finding("FLEX droplets went out at 13.0% oxygen, so helium is effective.", ["PSI-69"])
+        self.assertTrue(any("overconfident" in p for p in problems))
+
     def test_v1_safety_inversion_is_caught(self):
         problems = self.with_finding(GOOD["findings"][0]["text"], ["PSI-69"],
                                      implication="Suppression strategies can rely on diluents effective at those lower concentrations.")
