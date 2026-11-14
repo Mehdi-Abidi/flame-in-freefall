@@ -103,6 +103,20 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+p,
+li,
+dd,
+figcaption,
+blockquote {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
 ::selection {
   background: var(--accent);
   color: var(--accent-ink);
