@@ -74,21 +74,21 @@ export default function OverviewPage() {
       )}
 
       <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
-        <SectionHeader title="Where to next" />
-        <div className="grid gap-4 md:grid-cols-3">
-          {[
-            { href: "/rank/", title: "Rank for a habitat", body: "Pick ISS, lunar base, rover or Mars, weight prevention, detection and suppression, and watch the list re-order." },
-            { href: "/investigations/", title: "Read the investigations", body: "Plain-language summaries, what was varied, what was held fixed, sensors, and every publication." },
-            { href: "/compare/", title: "Compare side by side", body: "Put up to four investigations next to each other. Rows that differ are marked." },
-          ].map((card) => (
-            <Link key={card.href} href={card.href} className="group panel block p-5 transition-transform hover:-translate-y-0.5">
-              <p className="text-[16px] font-semibold">
-                {card.title} <span className="inline-block text-accent transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
-              </p>
-              <p className="mt-2 text-[14px] leading-relaxed text-ink-2">{card.body}</p>
-            </Link>
-          ))}
-        </div>
+        <p className="max-w-[62ch] border-t border-rule pt-8 text-[17px] leading-relaxed text-ink-2">
+          From here you can{" "}
+          <Link href="/rank/" className="link-underline font-medium text-ink">
+            rank the investigations for ISS, a lunar base, a rover or Mars
+          </Link>
+          ,{" "}
+          <Link href="/investigations/" className="link-underline font-medium text-ink">
+            read each one in plain language
+          </Link>
+          , or{" "}
+          <Link href="/compare/" className="link-underline font-medium text-ink">
+            compare up to four side by side
+          </Link>
+          .
+        </p>
       </section>
     </>
   );
