@@ -136,6 +136,18 @@ def is_grounded(item, haystack_words):
     return not item_words or bool(item_words & haystack_words)
 
 
+DETECTION_TERMS = ("smoke", "aerosol", "particle", "particulate", "detector", "detection", "dust")
+
+
+def enforce_detection_evidence(record, context):
+    """Drop a detection pillar the source text gives no evidence for, and say so."""
+    text = json.dumps(context, ensure_ascii=False).lower()
+    if "detection" in record["pillars"] and not any(term in text for term in DETECTION_TERMS):
+        record["pillars"] = [p for p in record["pillars"] if p != "detection"]
+        return ["detection pillar removed: no smoke, aerosol, particle, dust or detector terms in source"]
+    return []
+
+
 def grounding_warnings(record, context, facts):
     """Flag anything the model named that does not appear in the text or data it was given."""
     haystack = words(json.dumps(context, ensure_ascii=False) + " " + json.dumps(facts, ensure_ascii=False))
@@ -213,11 +225,12 @@ def extract_one(llm, investigation, rows, metadata, keywords="", sub_area=""):
     facts = data_facts(investigation, rows)
     raw = llm.json(build_prompt(context, facts), system=SYSTEM_PROMPT, max_tokens=2500)
     record = clean_record(raw, facts)
+    guard_warnings = enforce_detection_evidence(record, context)
     return {
         "accession": investigation["accession"],
         "acronym": investigation.get("acronym"),
         **record,
-        "warnings": grounding_warnings(record, context, facts),
+        "warnings": guard_warnings + grounding_warnings(record, context, facts),
         "model": llm.last_model,
         "prompt_version": PROMPT_VERSION,
     }

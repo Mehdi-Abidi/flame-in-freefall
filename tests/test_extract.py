@@ -3,8 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from si.extract import (PILLARS, PROMPT_VERSION, build_prompt, clean_list, clean_record, data_facts, extract_one,
-                        grounding_warnings, load_existing, text_context, write_records)
+from si.extract import (PILLARS, PROMPT_VERSION, build_prompt, clean_list, clean_record, data_facts, enforce_detection_evidence,
+                        extract_one, grounding_warnings, load_existing, text_context, write_records)
 
 
 class FakeLLM:
@@ -91,6 +91,24 @@ class GroundingTests(unittest.TestCase):
     def test_missing_pillar_and_summary_are_flagged(self):
         warnings = grounding_warnings(clean_record({}, {}), {}, {})
         self.assertEqual(warnings, ["no fire-safety pillar assigned", "no summary"])
+
+
+class DetectionGuardTests(unittest.TestCase):
+    def test_detection_without_evidence_is_removed_with_warning(self):
+        record = clean_record({"pillars": ["prevention", "detection"]}, {})
+        warnings = enforce_detection_evidence(record, {"objective": "cool flames of propane at high oxygen"})
+        self.assertEqual(record["pillars"], ["prevention"])
+        self.assertEqual(len(warnings), 1)
+
+    def test_detection_with_smoke_evidence_is_kept(self):
+        record = clean_record({"pillars": ["detection"]}, {})
+        self.assertEqual(enforce_detection_evidence(record, {"sub_research_area": "Smoke Distribution"}), [])
+        self.assertEqual(record["pillars"], ["detection"])
+
+    def test_soot_alone_is_not_detection_evidence(self):
+        record = clean_record({"pillars": ["detection"]}, {})
+        enforce_detection_evidence(record, {"objective": "soot formation in coflow flames"})
+        self.assertEqual(record["pillars"], [])
 
 
 class ExtractOneTests(unittest.TestCase):
