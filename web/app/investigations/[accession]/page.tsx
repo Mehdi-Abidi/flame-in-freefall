@@ -55,11 +55,12 @@ export default async function InvestigationPage({ params }: PageProps<"/investig
 
       <header className="grid gap-6 border-b border-rule pb-8 md:grid-cols-[1fr_auto]">
         <div>
-          <p className="eyebrow">
-            {inv.accession} · {inv.projectType ?? "Investigation"} · {inv.platform ?? "platform not stated"}
-          </p>
-          <h1 className="mt-3 text-[36px] font-semibold leading-tight tracking-[-0.02em] sm:text-[48px]">{inv.name}</h1>
+          <h1 className="text-[36px] font-semibold leading-tight tracking-[-0.02em] sm:text-[48px]">{inv.name}</h1>
           <p className="mt-2 max-w-3xl text-[16px] text-ink-2">{inv.title}</p>
+          <p className="mt-1 text-[14px] text-muted">
+            {inv.projectType ?? "Investigation"}
+            {inv.platform && inv.platform !== "ground" && ` aboard ${inv.platform === "ISS" ? "the ISS" : inv.platform}`}
+          </p>
           <div className="mt-4 flex flex-wrap items-center gap-2">
             {inv.phases.map((p) => (
               <span key={p} className="inline-flex items-center gap-1.5 rounded-[3px] border border-rule px-2 py-0.5 text-[12.5px]">
