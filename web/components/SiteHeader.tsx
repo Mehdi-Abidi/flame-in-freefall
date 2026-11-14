@@ -7,11 +7,11 @@ import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 
 const NAV = [
-  { href: "/", label: "Overview", code: "01" },
-  { href: "/rank/", label: "Rank", code: "02" },
-  { href: "/investigations/", label: "Investigations", code: "03" },
-  { href: "/compare/", label: "Compare", code: "04" },
-  { href: "/method/", label: "Method", code: "05" },
+  { href: "/", label: "Overview" },
+  { href: "/rank/", label: "Rank" },
+  { href: "/investigations/", label: "Investigations" },
+  { href: "/compare/", label: "Compare" },
+  { href: "/method/", label: "Method" },
 ];
 
 function isActive(pathname: string, href: string) {
@@ -41,7 +41,6 @@ export function SiteHeader() {
                 aria-current={active ? "page" : undefined}
                 className={`relative rounded-[4px] px-3 py-2 text-[13px] transition-colors ${active ? "text-ink" : "text-ink-2 hover:text-ink"}`}
               >
-                <span className="mono mr-1.5 text-[11px] text-muted">{item.code}</span>
                 {item.label}
                 {active && (
                   <motion.span layoutId="nav-underline" className="absolute inset-x-3 -bottom-[11px] h-[2px] bg-accent" transition={{ type: "spring", stiffness: 500, damping: 40 }} />
