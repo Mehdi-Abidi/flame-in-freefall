@@ -8,6 +8,7 @@ import argparse
 import collections
 import csv
 import io
+import json
 import os
 import re
 import sys
@@ -85,6 +86,66 @@ def close(a, b, tolerance):
     return abs(a - b) <= tolerance
 
 
+INVESTIGATION_KEYS = {
+    "accession", "acronym", "title", "project_type", "platform", "hardware", "pillars", "summary",
+    "variables_varied", "variables_fixed", "sensors", "fuel_phase", "o2_range", "o2_basis",
+    "pressure_kpa_range", "pressure_basis", "n_tests", "n_records", "n_experimental_tables", "n_files",
+    "publications", "psi_url", "scores", "rationale",
+}
+PLATFORMS = {"ISS", "Cygnus", "Space Shuttle", "ground"}
+
+
+def expected_range(rows, value_field, source_field):
+    measured = [number(r[value_field]) for r in rows if r[source_field] == "measured" and r[value_field]]
+    if measured:
+        return [min(measured), max(measured)], "measured"
+    others = {r[source_field] for r in rows if r[value_field] and r[source_field]}
+    return None, others
+
+
+def check_investigations(report, raw_dir, processed_dir, tests):
+    path = os.path.join(processed_dir, "investigations.json")
+    if not os.path.exists(path):
+        report.check("investigations.json exists", [path])
+        return
+    with open(path, encoding="utf-8") as handle:
+        investigations = json.load(handle)
+    print("\nChecks on investigations.json")
+    raw_accessions = sorted(os.path.splitext(n)[0] for n in os.listdir(os.path.join(raw_dir, "investigations")))
+    accessions = [i["accession"] for i in investigations]
+    report.check("one record per PSI investigation", [] if sorted(accessions) == raw_accessions and len(set(accessions)) == len(accessions)
+                 else [f"{len(accessions)} records vs {len(raw_accessions)} raw files"])
+    report.check("fields match the data contract", [f"{i['accession']}: {sorted(set(i) ^ INVESTIGATION_KEYS)}" for i in investigations if set(i) != INVESTIGATION_KEYS])
+    report.check("platform values allowed", [f"{i['accession']}={i.get('platform')}" for i in investigations if i.get("platform") not in PLATFORMS])
+    report.check("psi_url points at the accession", [i["accession"] for i in investigations if not str(i.get("psi_url")).endswith("/" + i["accession"])])
+
+    rows_by_accession = collections.defaultdict(list)
+    for t in tests:
+        rows_by_accession[t["accession"]].append(t)
+    count_problems, range_problems, basis_problems = [], [], []
+    for inv in investigations:
+        rows = rows_by_accession.get(inv["accession"], [])
+        real_tests = sum(1 for r in rows if r["record_type"] == "test")
+        if inv.get("n_tests") != real_tests or inv.get("n_records") != len(rows):
+            count_problems.append(f"{inv['accession']}: n_tests {inv.get('n_tests')} vs {real_tests}, n_records {inv.get('n_records')} vs {len(rows)}")
+        for value_field, source_field, range_key, basis_key in (("o2_mole_fraction", "o2_source", "o2_range", "o2_basis"),
+                                                                 ("pressure_kpa", "pressure_source", "pressure_kpa_range", "pressure_basis")):
+            got_range, got_basis = inv.get(range_key), inv.get(basis_key)
+            want_range, want_basis = expected_range(rows, value_field, source_field)
+            if (got_range is None) != (got_basis is None):
+                basis_problems.append(f"{inv['accession']}: {range_key} and {basis_key} disagree on being empty")
+            if want_basis == "measured":
+                if got_basis != "measured" or not got_range or not (close(got_range[0], want_range[0], 0.06) and close(got_range[1], want_range[1], 0.06)):
+                    range_problems.append(f"{inv['accession']}: {range_key} {got_range} ({got_basis}) vs measured {want_range}")
+            elif got_basis == "measured":
+                basis_problems.append(f"{inv['accession']}: {basis_key} says measured but no measured rows exist")
+            elif got_basis is not None and got_basis not in want_basis:
+                basis_problems.append(f"{inv['accession']}: {basis_key} {got_basis} not among source tags {sorted(want_basis)}")
+    report.check("n_tests counts only real tests, n_records counts all rows", count_problems)
+    report.check("ranges use measured values whenever they exist", range_problems)
+    report.check("range basis matches the source tags in tests.csv", basis_problems)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--raw", default="data/raw")
@@ -136,6 +197,8 @@ def main():
     report.check("Flame Design normal pressure", compare(
         tests, args.raw, "PSI-10_Experimental table_Flame Design_Normal Flame.csv", lambda r: True,
         lambda r, o: o["test_id"] == r[3] and (not number(o["pressure_kpa"]) or close(number(o["pressure_kpa"]), float(r[12]) * 101.325, 0.01))))
+
+    check_investigations(report, args.raw, args.processed, tests)
 
     solid = [number(t["o2_mole_fraction"]) for t in tests if t["fuel_phase"] == "solid" and t["o2_source"] == "measured"]
     lunar = [t for t in tests if t["record_type"] == "test" and t["o2_source"] == "measured"

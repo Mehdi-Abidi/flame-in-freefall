@@ -26,10 +26,13 @@ jobs:
       - name: Rebuild tests.csv from the raw tables
         run: python pipeline/normalize.py
 
+      - name: Rebuild investigations.json from tests.csv and metadata
+        run: python pipeline/build_investigations.py
+
       - name: Committed data matches the code
         run: |
           if ! git diff --quiet -- data/processed; then
-            echo "::error::data/processed is out of date. Run 'python pipeline/normalize.py' and commit the result."
+            echo "::error::data/processed is out of date. Run 'python pipeline/normalize.py' then 'python pipeline/build_investigations.py' and commit the result."
             git diff --stat -- data/processed
             exit 1
           fi
