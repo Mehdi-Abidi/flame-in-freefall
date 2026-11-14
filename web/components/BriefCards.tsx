@@ -2,21 +2,14 @@ import Link from "next/link";
 import { PILLAR_LABEL } from "@/lib/format";
 import type { Brief } from "@/lib/types";
 
-const PILLAR_CODE: Record<string, string> = { prevention: "P", detection: "D", suppression: "S" };
-
 export function BriefCards({ briefs, names }: { briefs: Brief[]; names: Record<string, string> }) {
   if (!briefs.length) return null;
   return (
-    <div className="grid gap-4 lg:grid-cols-3">
+    <div className="grid gap-x-10 gap-y-12 lg:grid-cols-3">
       {briefs.map((brief) => (
-        <article key={brief.pillar} className="ticks flex flex-col border border-rule bg-surface p-5" aria-labelledby={`brief-${brief.pillar}`}>
-          <p className="eyebrow flex items-center gap-2">
-            <span className="mono inline-flex h-5 w-5 items-center justify-center rounded-[3px] bg-ink text-[11px] text-paper" aria-hidden="true">
-              {PILLAR_CODE[brief.pillar]}
-            </span>
-            {PILLAR_LABEL[brief.pillar]}
-          </p>
-          <h3 id={`brief-${brief.pillar}`} className="mt-3 text-[18px] font-semibold leading-snug">
+        <article key={brief.pillar} className="flex flex-col border-t-2 border-ink pt-4" aria-labelledby={`brief-${brief.pillar}`}>
+          <p className="text-[13px] font-medium text-ink-2">{PILLAR_LABEL[brief.pillar]}</p>
+          <h3 id={`brief-${brief.pillar}`} className="mt-2 text-[19px] font-semibold leading-snug">
             {brief.title}
           </h3>
           <ol className="mt-4 space-y-3">
