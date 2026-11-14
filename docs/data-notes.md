@@ -45,7 +45,7 @@ The plan's schema (section 6) still holds. Six columns were added so every row h
 | PSI-20 | ACME BRE | 43 | list in percent, "21; 26.5; 40" | not listed | burner mm | One cell reads "3400%", an Excel artifact for 34. Each listed O2 becomes one `test_day_condition` row. Source says pressure was varied but not recorded here. |
 | PSI-21 | ACME CLD Flame | 32 | none | none | | Test days only. Fuel cells were drag-filled in Excel ("40% CH5", "CH6"...), corrected to CH4. |
 | PSI-22 | ACME E-FIELD Flames | 20 | none | none | | Test days only. Mesh polarity kept in notes. 8 exact duplicate rows dropped. |
-| PSI-23 | ACME s-Flame | 18 | text "~21% O2 with N2" | about 1 atm per source note | | Same drag-fill typos ("N3", "N4"), corrected. Values tagged `approximate`. |
+| PSI-23 | ACME s-Flame | 18 | text "~21% O2 with N2" | about 1 atm per source note | spherical porous burner | Same drag-fill typos ("N3", "N4"), corrected. Values tagged `approximate`. |
 | PSI-106 | SLICE | 12 | none | none | | Test days with free-text fuel descriptions. |
 | PSI-107 | SPICE | 435 | cabin air | cabin | nozzle mm, air cm/s, fuel sccm | 34 exact duplicate rows dropped. Some rows say "Ku LOS" (lost signal) instead of a time. Date is a GMT day of year with no year, kept in notes. 8 rows log negative air flow (-0.28 and -5.92 cm/s), blanked. |
 | PSI-26 | BASS | 121 | cabin air | cabin | sample size in cm | Material is free text ("2 cm sphere", "pmma slab oppsed"). Parsed into material, geometry and size. Spheres with no material named are inferred as PMMA and flagged "verify" in notes. One "SOOT Cleaning" row dropped. |
