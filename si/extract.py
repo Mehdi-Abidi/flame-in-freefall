@@ -223,6 +223,7 @@ VARYING_WORDS = ("vary", "varied", "varies", "varying", "changed", "changing", "
 def summary_contradictions(record, facts):
     """Sentences in the summary that call a varied condition constant, or a constant one varied."""
     text = " ".join(filter(None, [record.get("summary"), record.get("objective_short")])).lower()
+    text = re.sub(r"\bco[^a-z0-9]?flow", "coflow", text)
     warnings = []
     for sentence in re.split(r"[.;,:]|\b(?:while|but|whereas|although)\b", text):
         for label in facts.get("varied_in_tables") or []:

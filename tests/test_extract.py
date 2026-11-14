@@ -103,6 +103,11 @@ class VariationTests(unittest.TestCase):
             "summary may call flow velocity varied, but the tables show it constant",
             "summary may call sample size constant, but the tables show it varied"])
 
+    def test_coflow_burner_is_not_flow_velocity(self):
+        facts = {"varied_in_tables": ["flow velocity"], "constant_in_tables": []}
+        record = {"summary": "Fuel and flow velocity varied while keeping the co‑flow geometry constant.", "objective_short": None}
+        self.assertEqual(summary_contradictions(record, facts), [])
+
     def test_correct_summary_has_no_contradiction(self):
         facts = {"varied_in_tables": ["flow velocity"], "constant_in_tables": ["oxygen concentration", "pressure"]}
         record = {"summary": "By varying the flow field while keeping oxygen and pressure constant, smoke was measured.",
