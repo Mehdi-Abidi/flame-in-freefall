@@ -76,20 +76,20 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | Task | Owner | Status |
 |---|---|---|
 | Repo, architecture, execution plan | Mehdi | Done |
-| D1 Units and quirks of all 21 tables | Mufeed | Done, see `docs/data-notes.md` |
-| D2 `pipeline/normalize.py` and `tests.csv` | Mufeed | Done, Mufeed to review |
-| D4 `pipeline/qa.py`, 22 automated data checks | Mufeed | Done, all passing |
-| D3 `investigations.json`: one record per investigation with ranges and their basis | Mufeed | Done |
-| S1 `si/llm.py` provider wrapper, 17 unit tests | Mehdi | Done |
-| S2 AI extraction of all 24 investigations (`extracted.json`) | Mehdi | Done, Taha to review in T4 |
-| S3 Habitat ranking engine (`si/rank.py`, `rankings.json`) | Mehdi | Done |
-| S4 Rank explanations (`si/rationale.py`, `rationale.json`) | Mehdi | Done |
-| S5 Insight briefs per pillar (`si/briefs.py`, `briefs.json`) | Mehdi | Done, Taha to review in T4 |
-| F1 to F5, V1 to V4 Dashboard (`web/`), live on GitHub Pages | Mehdi | Done, team to polish |
-| A1 to A5 FastAPI service (`api/`), see [API](#api) | Moiz | In review, deploy (A3) next |
-| F1 to F2 React shell and Vercel deploy | Ali Soban | Next |
-| V1 Flammability map prototype | Ahsan | Next, can start on `tests.csv` now |
-| T1 to T2 Domain tags and habitat scenarios | Taha | Next |
+| D1 to D4 Units, `normalize.py`, `tests.csv`, `qa.py` | Mufeed | Done |
+| D5 Merge extraction and hand-checked tags into `investigations.json` | Mufeed | Done |
+| S1 to S3 LLM client, AI extraction, habitat ranking engine | Mehdi | Done |
+| S4 to S5 Rank explanations and insight briefs | Mehdi | Done. Template entries get a model rerun on Sunday after T1 and T4 |
+| S6 Merges, deploy checks, submission | Mehdi | Sunday |
+| A1 to A5 FastAPI service, live on Render, see [API](#api) | Moiz | Done |
+| F1 to F4, V1 to V4 Dashboard (`web/`), live on GitHub Pages | Mehdi | Done |
+| F5 Ask page against `/ask` | Ali Soban | Next |
+| F6 Submission text draft | Ali Soban | Next |
+| V2 and V4 Gap map label tuning, partial-gravity note | Ahsan | Next |
+| T1 Hand-checked pillar tags | Taha | Draft merged, 7 entries marked REVIEW for Taha |
+| T2 Habitat scenarios | Taha | Done |
+| T4 Review of the extraction and the briefs | Taha | Sunday morning |
+| T5 Demo video and slides, polish of the submission text | Taha | Sunday afternoon |
 
 ## Dashboard (`web/`)
 
@@ -97,7 +97,7 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 
 | Page | What it does |
 |---|---|
-| Overview | The 22% versus 30% headline, stat tiles computed from the data, the gap map (every test by O2 and pressure with habitat boxes) and the SAFFIRE-II gravity comparison |
+| Overview | The 22% versus 30% headline, an oxygen ruler of measured oxygen per fuel phase against the lunar band, the gap map (every test by O2 and pressure with habitat boxes) and the SAFFIRE-II gravity comparison |
 | Rank | Habitat switcher and pillar sliders. The list re-orders live, arrows show movement, each row opens its evidence. State lives in the URL, so a view can be shared |
 | Investigations | Search and filter all 24, then a page per investigation with summary, conditions, its tests on the map and every publication |
 | Compare | Up to four side by side, differences marked |
