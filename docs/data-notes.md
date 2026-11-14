@@ -60,6 +60,20 @@ The plan's schema (section 6) still holds. Six columns were added so every row h
 
 Investigations with no experimental table: PSI-60, PSI-62, PSI-115, PSI-117 (all ground studies). Their conditions must come from the LLM extraction of their metadata (task S2).
 
+## investigations.json (task D3)
+
+`pipeline/build_investigations.py` joins the raw PSI metadata with `tests.csv` into one record per investigation (24 in total).
+
+| Count | Value |
+|---|---|
+| Investigations with an experimental table | 20 |
+| Investigations with rows in `tests.csv` | 19 (PSI-142's table lists publications, not tests) |
+| Investigations with a measured O2 range | 7: FLEX, CFI, CFI-G, Flame Design, BASS-II, SAFFIRE-I, SAFFIRE-II |
+| Investigations whose O2 range is nominal cabin air | 5: SPICE, BASS, SAME, SAME-R, SAFFIRE-III |
+| Investigations with test days or a planned matrix only (`n_tests` = 0) | FLEX-2, ACME BRE, CLD, E-FIELD, s-Flame, SLICE, DAFT |
+
+Platform comes from PSI metadata. PSI lists SAFFIRE-I and SAFFIRE-III as ISS even though every Saffire burn ran inside a departing Cygnus vehicle. Taha should decide in T1 whether to override that.
+
 ## Check of the pitch claim (task D3)
 
 Confirmed on the normalized data, 14 Nov 2026:

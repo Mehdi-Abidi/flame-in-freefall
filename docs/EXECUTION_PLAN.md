@@ -83,7 +83,7 @@ Task IDs are used in branch names and PR titles, for example `mufeed/D2-normaliz
 |---|---|---|---|
 | D1 | S1 | ~~Run `python pipeline/fetch_psi.py` and note units per column for every CSV.~~ **Done 14 Nov.** | See `docs/data-notes.md`. |
 | D2 | S1 | ~~Write `pipeline/normalize.py` that builds `data/processed/tests.csv`.~~ **Done 14 Nov.** 2,127 rows, plus `saffire2_gravity.csv`. | Mufeed reviews the output and the quirks list in `docs/data-notes.md`. |
-| D3 | S2 | Build `data/processed/investigations.json` (schema in section 6) with ranges computed from `tests.csv`. The pitch claim is already confirmed (no solid test above 22.2% O2). | Ranges filled for every investigation that has a table. |
+| D3 | S2 | ~~Build `data/processed/investigations.json` with ranges computed from `tests.csv`.~~ **Done 14 Nov** (Mufeed, review fixes by Mehdi). | `qa.py` investigation checks pass. |
 | D4 | S2 | ~~Data QA script: counts per investigation, missing values, unit sanity checks.~~ **Done 14 Nov.** 22 checks including spot checks against raw tables. | `python pipeline/qa.py` prints ALL CHECKS PASSED. |
 | D5 | S3 | Help Mehdi run extraction, then merge LLM fields into `investigations.json`. | One file the frontend and API both read. |
 
@@ -200,8 +200,12 @@ Only `measured` values count as evidence. Plot everything else as hollow markers
   "variables_fixed": ["quiescent atmosphere"],
   "sensors": ["color camera", "radiometer"],
   "o2_range": [0.12, 0.34],
-  "pressure_kpa_range": [70, 309],
+  "o2_basis": "measured",
+  "pressure_kpa_range": [70.2, 309.3],
+  "pressure_basis": "measured",
   "n_tests": 274,
+  "n_records": 274,
+  "n_experimental_tables": 1,
   "n_files": 8853,
   "publications": [{"title": "...", "authors": "..."}],
   "psi_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
@@ -210,7 +214,13 @@ Only `measured` values count as evidence. Plot everything else as hollow markers
 }
 ```
 
-The FLEX values above are illustrative. Real values come from D3 and S2.
+Summary fields (pillars, summary, variables, sensors) come from S2. Scores and rationale come from S3 and S4.
+
+Rules (checked by `qa.py`):
+
+- `n_tests` counts only rows with `record_type = test`. `n_records` counts every row, including test days and FLEX-2's planned matrix.
+- Ranges use measured values whenever any exist. Otherwise they use the next best tag, and `o2_basis` / `pressure_basis` name it (`nominal_cabin_air`, `planned`, `approximate` and so on). The UI must show the basis next to any range that is not measured.
+- `platform` is one of `ISS`, `Cygnus`, `Space Shuttle`, `ground`.
 
 # 7. Habitat scenarios and ranking
 
