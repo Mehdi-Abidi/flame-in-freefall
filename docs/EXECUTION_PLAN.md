@@ -94,7 +94,7 @@ Known quirks to handle: pressure appears in mmHg (FLEX), atm (FLEX-2, Flame Desi
 | ID | Sprint | Task | Done when |
 |---|---|---|---|
 | S1 | S1 | ~~`si/llm.py` with one provider wrapper.~~ **Done 14 Nov.** Groq, `openai/gpt-oss-20b` with `gpt-oss-120b` as fallback, JSON mode, retries, cache. | `python -m si.llm --check` prints OK. |
-| S2 | S1 | ~~Extraction of all 24 investigations.~~ **Done 14 Nov.** `python -m si.extract` writes `data/processed/extracted.json` (prompt s2-v3, GPT-OSS 20B). Table facts are given as ground truth, invented fuels or sensors are flagged, and detection needs smoke, aerosol, particle, dust or detector evidence. | 24/24 extracted, QA checks pass, review list in `docs/extraction-review.md`. |
+| S2 | S1 | ~~Extraction of all 24 investigations.~~ **Done 14 Nov.** `python -m si.extract` writes `data/processed/extracted.json` (prompt s2-v4, GPT-OSS 20B). Table facts are given as ground truth, varied and fixed conditions come from `tests.csv`, summaries may not contradict them, invented fuels or sensors are flagged, and detection needs smoke, aerosol, particle, dust or detector evidence. | 24/24 extracted, QA checks pass, review list in `docs/extraction-review.md`. |
 | S3 | S2 | Ranking engine (formula in section 7) in `si/rank.py`, scored for 5 habitat scenarios. | `rank.py --scenario lunar_base` prints a sensible top 10. |
 | S4 | S2 | Rationale writer: two sentences per investigation per scenario, citing the fields used. | Stored in `investigations.json`. |
 | S5 | S3 | Insight briefs per pillar (prevention, detection, suppression) with PSI citations. | Three briefs Taha has reviewed. |
