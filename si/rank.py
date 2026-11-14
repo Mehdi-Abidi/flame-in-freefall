@@ -30,6 +30,10 @@ class RankError(Exception):
     """A problem with ranking inputs or arguments, with a message meant for the person running it."""
 
 
+class UsageError(RankError):
+    """The caller asked for something invalid (unknown scenario, bad weights). An API should answer 400."""
+
+
 def _missing(path):
     hint = PRODUCERS.get(Path(path).name)
     return RankError(f"{path} not found." + (f" Create it with: {hint}" if hint else ""))
@@ -117,28 +121,28 @@ def parse_weights(value=None):
             if not part.strip():
                 continue
             if "=" not in part:
-                raise RankError(f"weight '{part.strip()}' must look like pillar=number, e.g. prevention=2")
+                raise UsageError(f"weight '{part.strip()}' must look like pillar=number, e.g. prevention=2")
             name, number = part.split("=", 1)
             pairs[name.strip().lower()] = number.strip()
         value = pairs
     if not isinstance(value, dict):
-        raise RankError(f"weights must be a mapping of pillar to number, got {type(value).__name__}")
+        raise UsageError(f"weights must be a mapping of pillar to number, got {type(value).__name__}")
     unknown = sorted(set(value) - set(PILLARS))
     if unknown:
-        raise RankError(f"unknown pillar(s) {unknown}. Use {', '.join(PILLARS)}")
+        raise UsageError(f"unknown pillar(s) {unknown}. Use {', '.join(PILLARS)}")
     weights = dict(DEFAULT_WEIGHTS)
     for name, number in value.items():
         try:
             number = float(number)
         except (TypeError, ValueError):
-            raise RankError(f"weight for {name} must be a number, got {number!r}") from None
+            raise UsageError(f"weight for {name} must be a number, got {number!r}") from None
         if number != number or number in (float("inf"), float("-inf")):
-            raise RankError(f"weight for {name} must be a finite number")
+            raise UsageError(f"weight for {name} must be a finite number")
         if number < 0:
-            raise RankError(f"weight for {name} cannot be negative")
+            raise UsageError(f"weight for {name} cannot be negative")
         weights[name] = number
     if sum(weights.values()) == 0:
-        raise RankError("at least one pillar weight must be above zero")
+        raise UsageError("at least one pillar weight must be above zero")
     return weights
 
 
@@ -290,7 +294,7 @@ COMPONENT_WEIGHTS = {"condition_fit": 0.35, "material_relevance": 0.20, "pillar_
 
 def get_scenario(scenarios, scenario_id):
     if scenario_id not in scenarios["scenarios"]:
-        raise RankError(f"unknown scenario '{scenario_id}'. Choose one of: {', '.join(scenarios['scenarios'])}")
+        raise UsageError(f"unknown scenario '{scenario_id}'. Choose one of: {', '.join(scenarios['scenarios'])}")
     return scenarios["scenarios"][scenario_id]
 
 
