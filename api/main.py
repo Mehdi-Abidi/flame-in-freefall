@@ -53,8 +53,17 @@ app = FastAPI(
     version="0.1.0",
 )
 
-origins = [origin.strip() for origin in os.environ.get("CORS_ORIGINS", "*").split(",") if origin.strip()]
-app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", "POST"], allow_headers=["*"])
+DEFAULT_ORIGINS = "https://mehdi-abidi.github.io,http://localhost:3000"
+
+
+def cors_origins(value: Optional[str]) -> List[str]:
+    """Allowed browser origins. Unset or empty falls back to the dashboard and local dev, never to every site."""
+    origins = [origin.strip() for origin in (value or "").split(",") if origin.strip()]
+    return origins or DEFAULT_ORIGINS.split(",")
+
+
+app.add_middleware(CORSMiddleware, allow_origins=cors_origins(os.environ.get("CORS_ORIGINS")),
+                   allow_methods=["GET", "POST"], allow_headers=["*"])
 
 
 def _not_found(accession: str) -> HTTPException:
