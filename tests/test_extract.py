@@ -139,3 +139,23 @@ class OutputFileTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ExtractionReportTests(unittest.TestCase):
+    def test_compare_statuses(self):
+        from si.extraction_report import compare
+        self.assertEqual(compare(["prevention"], ["prevention"]), "agree")
+        self.assertEqual(compare(["prevention", "detection"], ["prevention"]), "partial")
+        self.assertEqual(compare(["detection"], ["suppression"]), "disagree")
+        self.assertEqual(compare(["prevention"], []), "seed has no pillar")
+
+    def test_report_lists_every_investigation_and_warning(self):
+        from si.extraction_report import build_rows, render
+        extracted = [{"accession": "PSI-69", "acronym": "FLEX", "pillars": ["suppression"], "warnings": []},
+                     {"accession": "PSI-21", "acronym": "ACME CLD Flame", "pillars": ["prevention"], "warnings": ["no summary"]}]
+        seed = {"investigations": [{"accession": "PSI-69", "pillars": ["suppression"]},
+                                   {"accession": "PSI-21", "pillars": [], "role": "fundamentals"}]}
+        text = render(build_rows(extracted, seed), "s2-v3", "fake/model")
+        self.assertIn("| PSI-69 | FLEX | suppression | suppression | agree |", text)
+        self.assertIn("none (fundamentals)", text)
+        self.assertIn("no summary", text)
