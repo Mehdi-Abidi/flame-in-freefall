@@ -86,7 +86,7 @@ def table_variation(rows):
     return {"varied": varied, "fixed": fixed}
 
 
-PROMPT_VERSION = "s2-v3"
+PROMPT_VERSION = "s2-v4"
 PILLARS = ("prevention", "detection", "suppression")
 PHASES = ("solid", "liquid", "gas", "dust")
 LIST_FIELDS = ("fuels", "sample_geometry", "variables_varied", "variables_fixed", "sensors", "measurements", "earth_benefits")
@@ -96,6 +96,7 @@ SYSTEM_PROMPT = """You turn NASA microgravity combustion investigation records i
 Rules:
 - Use only the TEXT and DATA FACTS given. Never add knowledge from outside them.
 - DATA FACTS come from the experiment tables and are correct. Prefer them over the text when they disagree.
+- varied_in_tables lists conditions that changed between tests and constant_in_tables lists conditions that did not. Your summary and variable lists must agree with them. Never call a condition from varied_in_tables constant.
 - If something is not stated, use null for strings and [] for lists.
 - Keep list items short (1 to 6 words), lowercase except chemical formulas and acronyms.
 - Write plain words such as "oxygen concentration", never DATA FACTS key names such as o2_range.
