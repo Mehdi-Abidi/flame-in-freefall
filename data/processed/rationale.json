@@ -1,23 +1,23 @@
 {
   "version": 1,
   "prompt_version": "s4-v2",
-  "model": "openai/gpt-oss-120b",
+  "model": "openai/gpt-oss-20b",
   "rationales": {
     "iss": {
       "PSI-69": {
-        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. Its main caveat is that while 49 tests were inside the target and 127 near it, only oxygen and pressure were measured, leaving other variables untested.",
+        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. Its main caveat is that testing was largely confined to the ISS and Earth-normal cabin target, with only limited tests near the target range.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "def4e287598dfc4d",
+        "fingerprint": "a5f1b65eb9f9f465",
         "problems": [],
         "rank": 1,
         "score": 0.8571
       },
       "PSI-39": {
-        "text": "CFI ranks second because its oxygen and pressure fit stands out among others. Its main caveat is that it did not test other atmospheric compositions or pressures beyond the measured oxygen and pressure.",
+        "text": "CFI ranks second because its oxygen and pressure fit stands out among others. Its main caveat is that it did not test conditions outside the ISS and Earth-normal cabin target despite 25 tests inside and 39 near the target, though oxygen and pressure were measured.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "e863acc5e09c1d58",
+        "fingerprint": "7976e2ced19dbc3d",
         "problems": [],
         "rank": 2,
         "score": 0.8036
@@ -50,10 +50,10 @@
         "score": 0.7529
       },
       "PSI-10": {
-        "text": "ACME/Flame Design ranks sixth out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that it has relatively few tests outside the ISS and Earth-normal cabin target, with only 65 inside and 77 near-target measurements, and the recorded conditions only include measured oxygen and pressure.",
+        "text": "ACME/Flame Design ranks 6 out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that while 65 tests were inside the target and 77 near it, the study did not cover other habitat conditions beyond measured oxygen and pressure.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "365bf99f9e1e03d1",
+        "fingerprint": "01cf279c459b05ab",
         "problems": [],
         "rank": 6,
         "score": 0.7476
@@ -95,10 +95,10 @@
         "score": 0.6948
       },
       "PSI-159": {
-        "text": "ACME CFI-G ranks 11th out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that it did not test beyond the measured oxygen and pressure range, with only 27 tests inside and 44 near the target.",
+        "text": "ACME CFI-G ranks 11th out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that while 27 tests were inside the target and 44 near it, the study did not cover other habitat conditions beyond the measured oxygen and pressure.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "6d7ae41ecd688059",
+        "fingerprint": "e0f6f5754609d0ea",
         "problems": [],
         "rank": 11,
         "score": 0.6879
@@ -122,13 +122,11 @@
         "score": 0.6396
       },
       "PSI-20": {
-        "text": "ACME BRE ranks 14th of 24 for the ISS and Earth-normal cabin with a score of 58, mainly on closest test: 21% O2. 11 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
-        "source": "template",
-        "model": "template",
+        "text": "ACME BRE ranks 14 out of 24 because its closest test had 21% O2, burned gas fuels, and its fire-safety focus matches prevention. Its main caveat is that oxygen and pressure fit is weakest, and tests only near target, with oxygen listed per test day.",
+        "source": "model",
+        "model": "openai/gpt-oss-20b",
         "fingerprint": "3e018353d14a5f27",
-        "problems": [
-          "model error: openai/gpt-oss-120b: HTTP 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n"
-        ],
+        "problems": [],
         "rank": 14,
         "score": 0.5775
       },
@@ -196,13 +194,11 @@
         "score": 0.2086
       },
       "PSI-21": {
-        "text": "ACME CLD Flame ranks 22nd of 24 for the ISS and Earth-normal cabin with a score of 21, mainly on burned gas fuels. It has no recorded oxygen and pressure to compare with this habitat.",
-        "source": "template",
-        "model": "template",
+        "text": "ACME CLD Flame ranks 22 out of 24 because no O2 or pressure data to compare with this habitat, burned gas fuels, and fire-safety focus fundamentals only. Its main caveat is a weak fire-safety focus match and the tests did not cover any conditions inside or near the target habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
         "fingerprint": "ad0cec5cf858d246",
-        "problems": [
-          "model error: openai/gpt-oss-120b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid doc"
-        ],
+        "problems": [],
         "rank": 22,
         "score": 0.2059
       },
@@ -216,41 +212,39 @@
         "score": 0.1969
       },
       "PSI-117": {
-        "text": "PSI-117 ranks 24th of 24 for the ISS and Earth-normal cabin with a score of 6, mainly on fire-safety focus: fundamentals only (from seed tags). It has no recorded oxygen and pressure to compare with this habitat.",
-        "source": "template",
-        "model": "template",
+        "text": "PSI-117 ranks last because it lacks oxygen or pressure data for this habitat, its fire-safety focus is only fundamentals, and it is a ground study with no flight tests. Its weakest aspect is the fire-safety focus match and the study provides no oxygen or pressure measurements, so the habitat conditions were not tested.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
         "fingerprint": "3699b1048a98b556",
-        "problems": [
-          "model error: openai/gpt-oss-120b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid doc"
-        ],
+        "problems": [],
         "rank": 24,
         "score": 0.0592
       }
     },
     "lunar_base": {
       "PSI-69": {
-        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. Its main caveat is that it lacks inside-target testing, relying on 23 near-target tests while only oxygen and pressure were measured.",
+        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. The main caveat is that only 23 near-target tests were performed and, while oxygen and pressure were measured, other conditions were not covered.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "ddf9ce5c895c8e1c",
+        "fingerprint": "63620ffce73c942f",
         "problems": [],
         "rank": 1,
         "score": 0.7816
       },
       "PSI-10": {
-        "text": "ACME/Flame Design ranks second out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that only 2 tests were inside the habitat target while 26 were near target, and conditions beyond oxygen and pressure were not recorded.",
+        "text": "ACME/Flame Design ranks second out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that only 2 tests were inside the habitat target while 26 were near target, though oxygen and pressure were measured.",
         "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "abed4d89a67704f0",
+        "model": "openai/gpt-oss-20b",
+        "fingerprint": "bc81335c951b4453",
         "problems": [],
         "rank": 2,
         "score": 0.7283
       },
       "PSI-159": {
-        "text": "ACME CFI-G ranks third out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that testing was limited to 29 measurements inside and 29 near the target, leaving other habitat conditions untested despite oxygen and pressure being measured.",
+        "text": "ACME CFI-G ranks third out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that it only includes 29 tests inside and 29 near the target, leaving other pressure-oxygen ranges untested.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "4f5c293dbfbc88b8",
+        "fingerprint": "be40eaacd18dded7",
         "problems": [],
         "rank": 3,
         "score": 0.6935
@@ -312,10 +306,10 @@
         "score": 0.5773
       },
       "PSI-39": {
-        "text": "CFI ranks 10 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests match the habitat’s oxygen and pressure range.",
+        "text": "CFI ranks 10 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests approached the habitat’s oxygen and pressure range.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "ce48240da3a0fc84",
+        "fingerprint": "3fd119070274370d",
         "problems": [],
         "rank": 10,
         "score": 0.572
@@ -438,41 +432,39 @@
         "score": 0.1969
       },
       "PSI-117": {
-        "text": "PSI-117 ranks 24th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 6, mainly on fire-safety focus: fundamentals only (from seed tags). It has no recorded oxygen and pressure to compare with this habitat.",
-        "source": "template",
-        "model": "template",
+        "text": "PSI-117 ranks last because no O2 or pressure data to compare, fire-safety focus is only fundamentals, and it is a ground study with no flight tests. Its main caveat is a weak fire-safety focus match and no oxygen or pressure was recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
         "fingerprint": "9402e7040ce7d068",
-        "problems": [
-          "model error: openai/gpt-oss-120b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid doc"
-        ],
+        "problems": [],
         "rank": 24,
         "score": 0.0592
       }
     },
     "pressurized_rover": {
       "PSI-69": {
-        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. Its main caveat is that it lacks inside-target testing, relying on 23 near-target tests while only oxygen and pressure were measured.",
+        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. The main caveat is that only 23 near-target tests were performed and, while oxygen and pressure were measured, other conditions were not covered.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "ddf9ce5c895c8e1c",
+        "fingerprint": "63620ffce73c942f",
         "problems": [],
         "rank": 1,
         "score": 0.7816
       },
       "PSI-10": {
-        "text": "ACME/Flame Design ranks second out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that only 2 tests were inside the habitat target while 26 were near target, and conditions beyond oxygen and pressure were not recorded.",
+        "text": "ACME/Flame Design ranks second out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that only 2 tests were inside the habitat target while 26 were near target, though oxygen and pressure were measured.",
         "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "abed4d89a67704f0",
+        "model": "openai/gpt-oss-20b",
+        "fingerprint": "bc81335c951b4453",
         "problems": [],
         "rank": 2,
         "score": 0.7283
       },
       "PSI-159": {
-        "text": "ACME CFI-G ranks third out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that testing was limited to 29 measurements inside and 29 near the target, leaving other habitat conditions untested despite oxygen and pressure being measured.",
+        "text": "ACME CFI-G ranks third out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that it only includes 29 tests inside and 29 near the target, leaving other pressure-oxygen ranges untested.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "4f5c293dbfbc88b8",
+        "fingerprint": "be40eaacd18dded7",
         "problems": [],
         "rank": 3,
         "score": 0.6935
@@ -534,10 +526,10 @@
         "score": 0.5773
       },
       "PSI-39": {
-        "text": "CFI ranks 10 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests match the habitat’s oxygen and pressure range.",
+        "text": "CFI ranks 10 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests approached the habitat’s oxygen and pressure range.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "ce48240da3a0fc84",
+        "fingerprint": "3fd119070274370d",
         "problems": [],
         "rank": 10,
         "score": 0.572
@@ -660,41 +652,39 @@
         "score": 0.1969
       },
       "PSI-117": {
-        "text": "PSI-117 ranks 24th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 6, mainly on fire-safety focus: fundamentals only (from seed tags). It has no recorded oxygen and pressure to compare with this habitat.",
-        "source": "template",
-        "model": "template",
+        "text": "PSI-117 ranks last because no O2 or pressure data to compare, fire-safety focus is only fundamentals, and it is a ground study with no flight tests. Its main caveat is a weak fire-safety focus match and no oxygen or pressure was recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
         "fingerprint": "9402e7040ce7d068",
-        "problems": [
-          "model error: openai/gpt-oss-120b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid doc"
-        ],
+        "problems": [],
         "rank": 24,
         "score": 0.0592
       }
     },
     "mars_habitat": {
       "PSI-69": {
-        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. Its main caveat is that it lacks inside-target testing, relying on 23 near-target tests while only oxygen and pressure were measured.",
+        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. The main caveat is that only 23 near-target tests were performed and, while oxygen and pressure were measured, other conditions were not covered.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "ddf9ce5c895c8e1c",
+        "fingerprint": "63620ffce73c942f",
         "problems": [],
         "rank": 1,
         "score": 0.7816
       },
       "PSI-10": {
-        "text": "ACME/Flame Design ranks second out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that only 2 tests were inside the habitat target while 26 were near target, and conditions beyond oxygen and pressure were not recorded.",
+        "text": "ACME/Flame Design ranks second out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that only 2 tests were inside the habitat target while 26 were near target, though oxygen and pressure were measured.",
         "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "abed4d89a67704f0",
+        "model": "openai/gpt-oss-20b",
+        "fingerprint": "bc81335c951b4453",
         "problems": [],
         "rank": 2,
         "score": 0.7283
       },
       "PSI-159": {
-        "text": "ACME CFI-G ranks third out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that testing was limited to 29 measurements inside and 29 near the target, leaving other habitat conditions untested despite oxygen and pressure being measured.",
+        "text": "ACME CFI-G ranks third out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that it only includes 29 tests inside and 29 near the target, leaving other pressure-oxygen ranges untested.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "4f5c293dbfbc88b8",
+        "fingerprint": "be40eaacd18dded7",
         "problems": [],
         "rank": 3,
         "score": 0.6935
@@ -756,10 +746,10 @@
         "score": 0.5773
       },
       "PSI-39": {
-        "text": "CFI ranks 10 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests match the habitat’s oxygen and pressure range.",
+        "text": "CFI ranks 10 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests approached the habitat’s oxygen and pressure range.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "ce48240da3a0fc84",
+        "fingerprint": "3fd119070274370d",
         "problems": [],
         "rank": 10,
         "score": 0.572
@@ -882,13 +872,11 @@
         "score": 0.1969
       },
       "PSI-117": {
-        "text": "PSI-117 ranks 24th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 6, mainly on fire-safety focus: fundamentals only (from seed tags). It has no recorded oxygen and pressure to compare with this habitat.",
-        "source": "template",
-        "model": "template",
+        "text": "PSI-117 ranks last because no O2 or pressure data to compare, fire-safety focus is only fundamentals, and it is a ground study with no flight tests. Its main caveat is a weak fire-safety focus match and no oxygen or pressure was recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
         "fingerprint": "9402e7040ce7d068",
-        "problems": [
-          "model error: openai/gpt-oss-120b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid doc"
-        ],
+        "problems": [],
         "rank": 24,
         "score": 0.0592
       }
@@ -904,21 +892,19 @@
         "score": 0.6002
       },
       "PSI-26": {
-        "text": "BASS ranks 2nd of 24 for the Spacesuit with a score of 58, mainly on none of its 121 tests come near this habitat's O2 and pressure. None of its tests came near this habitat's oxygen and pressure.",
-        "source": "template",
-        "model": "template",
+        "text": "BASS ranks second out of 24 because its material relevance stands out among others. Its main caveat is that oxygen and pressure were assumed rather than measured, and no tests were conducted inside or near the habitat conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
         "fingerprint": "441350958a5d09f2",
-        "problems": [
-          "model error: openai/gpt-oss-120b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid doc"
-        ],
+        "problems": [],
         "rank": 2,
         "score": 0.5832
       },
       "PSI-69": {
-        "text": "FLEX ranks third out of 24 because its amount of data stands out among others. Its main caveat is that none of its 274 tests approach the suit’s 95-100 % oxygen and 28-31 kPa pressure, though oxygen and pressure were measured.",
+        "text": "FLEX ranks third out of 24 because its amount of data stands out among others. Its main caveat is that none of its 274 tests approach the habitat’s oxygen and pressure, which were measured.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "b092f07b3dce3683",
+        "fingerprint": "d16ecec8a190f482",
         "problems": [],
         "rank": 3,
         "score": 0.5785
@@ -942,13 +928,11 @@
         "score": 0.5668
       },
       "PSI-10": {
-        "text": "ACME/Flame Design ranks 6th of 24 for the Spacesuit with a score of 55, mainly on none of its 316 tests come near this habitat's O2 and pressure. None of its tests came near this habitat's oxygen and pressure.",
-        "source": "template",
-        "model": "template",
-        "fingerprint": "2950c095497315e0",
-        "problems": [
-          "model error: openai/gpt-oss-120b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid doc"
-        ],
+        "text": "ACME/Flame Design ranks 6 out of 24 because its amount of data stands out among others. Its main caveat is that none of its 316 tests approach the suit’s 95-100 % oxygen and 28-31 kPa pressure, so those conditions were not covered.",
+        "source": "model",
+        "model": "openai/gpt-oss-20b",
+        "fingerprint": "47726f4288c916cf",
+        "problems": [],
         "rank": 6,
         "score": 0.5479
       },
@@ -962,10 +946,10 @@
         "score": 0.547
       },
       "PSI-39": {
-        "text": "CFI ranks eighth out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests approach the suit’s 95-100% oxygen and 28-31 kPa pressure conditions.",
+        "text": "CFI ranks eighth out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests approach the suit’s 95-100% oxygen and 28-31 kPa pressure, though those parameters were measured.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "ea51323755249b51",
+        "fingerprint": "11eb8fdc4fa0c61d",
         "problems": [],
         "rank": 8,
         "score": 0.5307
@@ -998,10 +982,10 @@
         "score": 0.5171
       },
       "PSI-159": {
-        "text": "ACME CFI-G ranks 12 out of 24 because its amount of data stands out among others. Its main caveat is that none of its 333 tests approach the suit’s 95-100% oxygen and 28-31 kPa pressure, though oxygen and pressure were measured.",
+        "text": "ACME CFI-G ranks mid-range because its amount of data stands out among others. Its main caveat is that none of its 333 tests approach the suit’s 95-100 % oxygen and 28-31 kPa pressure, though those values were measured.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "9b41d230007ba8f6",
+        "fingerprint": "a3f7e1123da5fbbf",
         "problems": [],
         "rank": 12,
         "score": 0.4988
@@ -1088,13 +1072,11 @@
         "score": 0.2086
       },
       "PSI-21": {
-        "text": "ACME CLD Flame ranks 22nd of 24 for the Spacesuit with a score of 21, mainly on burned gas fuels. It has no recorded oxygen and pressure to compare with this habitat.",
-        "source": "template",
-        "model": "template",
+        "text": "ACME CLD Flame ranks 22 out of 24 because no O2 or pressure data to compare with this habitat, burned gas fuels, and fire-safety focus fundamentals only. Its main caveat is a weak fire-safety focus match and no oxygen or pressure was recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
         "fingerprint": "2add99b9a936e94f",
-        "problems": [
-          "model error: openai/gpt-oss-120b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid doc"
-        ],
+        "problems": [],
         "rank": 22,
         "score": 0.2059
       },
@@ -1108,13 +1090,11 @@
         "score": 0.1969
       },
       "PSI-117": {
-        "text": "PSI-117 ranks 24th of 24 for the Spacesuit with a score of 6, mainly on fire-safety focus: fundamentals only (from seed tags). It has no recorded oxygen and pressure to compare with this habitat.",
-        "source": "template",
-        "model": "template",
+        "text": "PSI-117 ranks last because there is no O2 or pressure data to compare with this habitat, its fire-safety focus is only fundamentals, and it is a ground study with no flight tests of its own. Its main caveat is a weak fire-safety focus match and the lack of recorded oxygen or pressure data for the spacesuit environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
         "fingerprint": "5e61875ade8e3934",
-        "problems": [
-          "model error: openai/gpt-oss-120b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid doc"
-        ],
+        "problems": [],
         "rank": 24,
         "score": 0.0592
       }
