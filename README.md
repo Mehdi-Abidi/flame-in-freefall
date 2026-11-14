@@ -57,6 +57,7 @@ Already pulled into this repo:
 | `data/processed/investigations.json` | 24 investigation records: metadata, publications, test counts, O2 and pressure ranges with their basis (measured, nominal, planned) |
 | `data/processed/extracted.json` | AI-extracted facts per investigation: plain summary, fuels, geometry, variables varied and held fixed, sensors, measurements, fire-safety pillars, Earth benefits, plus review warnings |
 | `data/processed/rankings.json` | All 24 investigations ranked for each habitat (ISS, lunar base, pressurized rover, Mars habitat, spacesuit) with score breakdown and reasons |
+| `data/processed/rationale.json` | Two-sentence explanation of every rank, per habitat, validated against the score facts |
 | `data/domain/scenarios.json` | Habitat O2 and pressure targets, each with its source sentence and labelled assumptions |
 | `data/domain/seed_pillars.json` | Seed fire-safety tags from the plan, replaced by hand-checked tags in T1 |
 | `data/processed/saffire2_gravity.csv` | SAFFIRE-II microgravity vs 1 g burn results, sample by sample |
@@ -81,6 +82,7 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | S1 `si/llm.py` provider wrapper, 17 unit tests | Mehdi | Done |
 | S2 AI extraction of all 24 investigations (`extracted.json`) | Mehdi | Done, Taha to review in T4 |
 | S3 Habitat ranking engine (`si/rank.py`, `rankings.json`) | Mehdi | Done |
+| S4 Rank explanations (`si/rationale.py`, `rationale.json`) | Mehdi | Done |
 | F1 to F5, V1 to V4 Dashboard (`web/`), live on GitHub Pages | Mehdi | Done, team to polish |
 | A1 FastAPI skeleton | Moiz | Next |
 | F1 to F2 React shell and Vercel deploy | Ali Soban | Next |
@@ -131,6 +133,24 @@ Each investigation gets a score from 0 to 1, with every part shown so a judge ca
 Pillars come from Taha's hand-checked `data/domain/tags.json` when it exists, then the seed tags, then the model's suggestions, and each result says which one it used.
 
 **For the API (A2):** call `si.rank.rank(scenario_id, weights, inputs)` with `inputs = load_inputs()` loaded once at startup. A `UsageError` (unknown scenario, bad weights) should become HTTP 400 with its message. Any other `RankError` is a data problem and should become HTTP 500. The CLI exits with 2 for usage errors, 1 for data errors and 130 on Ctrl+C. `--debug` shows the full traceback for unexpected errors.
+
+## Rank explanations (S4)
+
+```bash
+python -m si.rationale --model openai/gpt-oss-120b   # 72 calls: lunar base, rover and Mars share one target box
+python -m si.rationale --templates-only               # no key needed, fact-only sentences
+python -m si.rationale --only PSI-69 --force          # rewrite one investigation
+```
+
+The model only turns facts that the ranking already computed into two sentences. Code works out what is distinctive (the part that lifts an investigation most above the other 23, and any part genuinely below them) and how its conditions were recorded, so the model never has to guess. Each reply is checked before it is kept:
+
+- exactly two sentences, at most 70 words, no dashes or semicolons
+- it names the investigation, uses plain words (no field names) and writes numbers as digits
+- every number must appear in the facts (percent and fraction forms allowed)
+- any stated rank must be the real rank
+- it may not say tests were inside the target when none were (negations such as "none were inside" are fine)
+
+A rejected reply is sent back once with the exact problems. If it fails again, a fact-only template is used and labelled as such. Runs resume: entries whose facts did not change are kept, so reruns cost nothing. `--strict` exits 1 if anything fell back. QA fails if a rationale no longer matches the current rank, and the dashboard hides any rationale written for a different rank.
 
 ## Team
 

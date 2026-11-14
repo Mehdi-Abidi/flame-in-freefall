@@ -1,7 +1,7 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { parseCsv } from "./csv";
-import type { Components, Dataset, GravityRow, Investigation, Phase, Pillar, Point, Range, Scenario, ScenarioScore } from "./types";
+import type { Components, Dataset, GravityRow, Investigation, Phase, Pillar, Point, Range, Rationale, Scenario, ScenarioScore } from "./types";
 
 const DATA_DIR = process.env.FLAME_DATA_DIR ?? path.join(process.cwd(), "..", "data");
 const PHASES: Phase[] = ["solid", "liquid", "gas", "dust"];
@@ -104,6 +104,22 @@ interface RawIndexEntry {
   files: { file_count: number; total_bytes: number };
 }
 
+interface RawRationaleFile {
+  rationales: Record<string, Record<string, { text: string; source: string; model: string; rank: number; score: number }>>;
+}
+
+function loadRationales(): RawRationaleFile["rationales"] {
+  if (!existsSync(path.join(DATA_DIR, "processed/rationale.json"))) return {};
+  const document = readJson<RawRationaleFile>("processed/rationale.json");
+  return document && typeof document.rationales === "object" ? document.rationales : {};
+}
+
+function rationaleFor(raw: RawRationaleFile["rationales"], scenarioId: string, accession: string, rank: number): Rationale | null {
+  const record = raw[scenarioId]?.[accession];
+  if (!record || typeof record.text !== "string" || !record.text || record.rank !== rank) return null;
+  return { text: record.text, source: record.source === "model" ? "model" : "template", model: record.model };
+}
+
 function shortTitle(title: string): string {
   const cleaned = title.replace(/^Advanced Combustion via Microgravity Experiments\s*[-/]\s*/i, "ACME ").trim();
   return cleaned.length > 42 ? `${cleaned.slice(0, 40).trimEnd()}...` : cleaned;
@@ -131,6 +147,7 @@ export function loadDataset(): Dataset {
   const rankings = readJson<RawRankings>("processed/rankings.json");
   const index = readJson<RawIndexEntry[]>("raw/index.json");
   const rows = parseCsv(read("processed/tests.csv"));
+  const rationales = loadRationales();
 
   const scenarios: Scenario[] = Object.entries(rankings.scenarios).map(([id, s]) => ({
     id,
@@ -147,7 +164,14 @@ export function loadDataset(): Dataset {
   for (const [id, scenario] of Object.entries(rankings.scenarios)) {
     for (const entry of scenario.ranking) {
       const scores = scoresByAccession.get(entry.accession) ?? {};
-      scores[id] = { score: entry.score, rank: entry.rank, components: entry.components, reasons: entry.reasons, evidence: entry.evidence };
+      scores[id] = {
+        score: entry.score,
+        rank: entry.rank,
+        components: entry.components,
+        reasons: entry.reasons,
+        evidence: entry.evidence,
+        rationale: rationaleFor(rationales, id, entry.accession, entry.rank),
+      };
       scoresByAccession.set(entry.accession, scores);
       pillarsByAccession.set(entry.accession, {
         pillars: entry.pillars.filter((p): p is Pillar => (PILLARS as string[]).includes(p)),

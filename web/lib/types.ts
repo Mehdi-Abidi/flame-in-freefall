@@ -28,12 +28,19 @@ export interface Evidence {
   best: { o2_mole_fraction: number; pressure_kpa: number | null; closeness: number } | null;
 }
 
+export interface Rationale {
+  text: string;
+  source: "model" | "template";
+  model: string;
+}
+
 export interface ScenarioScore {
   score: number;
   rank: number;
   components: Components;
   reasons: string[];
   evidence: Evidence;
+  rationale: Rationale | null;
 }
 
 export interface Publication {

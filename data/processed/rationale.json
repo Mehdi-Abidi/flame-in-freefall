@@ -1,0 +1,1103 @@
+{
+  "version": 1,
+  "prompt_version": "s4-v2",
+  "model": "openai/gpt-oss-20b",
+  "rationales": {
+    "iss": {
+      "PSI-69": {
+        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. Its main caveat is that testing was largely confined to the ISS and Earth-normal cabin target, with only limited tests near the target range.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a5f1b65eb9f9f465",
+        "problems": [],
+        "rank": 1,
+        "score": 0.8571
+      },
+      "PSI-39": {
+        "text": "CFI ranks second because its oxygen and pressure fit stands out among others. Its main caveat is that it did not test conditions outside the ISS and Earth-normal cabin target despite 25 tests inside and 39 near the target, though oxygen and pressure were measured.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7976e2ced19dbc3d",
+        "problems": [],
+        "rank": 2,
+        "score": 0.8036
+      },
+      "PSI-25": {
+        "text": "BASS-II ranks third out of 24 because its material relevance stands out among others. Its caveat is that testing was only near the target with 124 tests and the pressure was assumed for the ISS cabin.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "daf45c382f4ebfbe",
+        "problems": [],
+        "rank": 3,
+        "score": 0.7655
+      },
+      "PSI-26": {
+        "text": "BASS ranks fourth out of 24 because its material relevance stands out among others. Its main caveat is that testing was only near the target habitat and the oxygen and pressure values were assumed rather than recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a57b0a1a24a00179",
+        "problems": [],
+        "rank": 4,
+        "score": 0.7582
+      },
+      "PSI-101": {
+        "text": "SAME-R ranks 5th out of 24 because its material relevance stands out among others. Its main caveat is that oxygen and pressure were assumed for the ISS cabin and no tests were conducted inside the target habitat, only 109 near-target tests.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "638f771182354f88",
+        "problems": [],
+        "rank": 5,
+        "score": 0.7529
+      },
+      "PSI-10": {
+        "text": "ACME/Flame Design ranks 6 out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that while 65 tests were inside the target and 77 near it, the study did not cover other habitat conditions beyond measured oxygen and pressure.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "01cf279c459b05ab",
+        "problems": [],
+        "rank": 6,
+        "score": 0.7476
+      },
+      "PSI-102": {
+        "text": "SAME ranks seventh out of 24 because its material relevance stands out among others. Its main caveat is that no tests were conducted inside the habitat and the oxygen and pressure values were assumed rather than recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "22cbfe6fceafc753",
+        "problems": [],
+        "rank": 7,
+        "score": 0.7418
+      },
+      "PSI-99": {
+        "text": "SAFFIRE-II ranks 8 out of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with only 9 near-target tests and pressure assumed for the ISS cabin.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7b58cccf2caaf20a",
+        "problems": [],
+        "rank": 8,
+        "score": 0.722
+      },
+      "PSI-98": {
+        "text": "SAFFIRE-I ranks 9 of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with oxygen measured but pressure assumed for the ISS cabin and not logged.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "058653cd66df660b",
+        "problems": [],
+        "rank": 9,
+        "score": 0.7034
+      },
+      "PSI-100": {
+        "text": "SAFFIRE-III ranks 10 out of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with oxygen and pressure values only assumed for the ISS cabin.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "0d1471c5e1e931b0",
+        "problems": [],
+        "rank": 10,
+        "score": 0.6948
+      },
+      "PSI-159": {
+        "text": "ACME CFI-G ranks 11th out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that while 27 tests were inside the target and 44 near it, the study did not cover other habitat conditions beyond the measured oxygen and pressure.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e0f6f5754609d0ea",
+        "problems": [],
+        "rank": 11,
+        "score": 0.6879
+      },
+      "PSI-107": {
+        "text": "SPICE ranks 12 out of 24 because its amount of data stands out among others. Its main caveat is that oxygen and pressure were assumed for the ISS cabin and no direct tests were conducted inside the habitat, only 435 near-target tests.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "0affeb9e7aaf76db",
+        "problems": [],
+        "rank": 12,
+        "score": 0.6702
+      },
+      "PSI-68": {
+        "text": "FLEX-2 ranks 13th out of 24 because its material relevance stands out among others. Its main caveat is the weaker oxygen and pressure fit, with only 24 near-target tests and the oxygen and pressure values assumed from a planned test matrix.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2b1aef9337ad0724",
+        "problems": [],
+        "rank": 13,
+        "score": 0.6396
+      },
+      "PSI-20": {
+        "text": "ACME BRE ranks 14 out of 24 because its closest test had 21% O2, burned gas fuels, and its fire-safety focus matches prevention. Its main caveat is that oxygen and pressure fit is weakest, and tests only near target, with oxygen listed per test day.",
+        "source": "model",
+        "model": "openai/gpt-oss-20b",
+        "fingerprint": "3e018353d14a5f27",
+        "problems": [],
+        "rank": 14,
+        "score": 0.5775
+      },
+      "PSI-47": {
+        "text": "DAFT / DAFT-2 ranks 15 out of 24 because no O2 or pressure data to compare with this habitat, burned dust fuels, and fire-safety focus: detection. Its main caveat is poor oxygen and pressure fit, with no oxygen or pressure recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "3b2c5279ac6a3816",
+        "problems": [],
+        "rank": 15,
+        "score": 0.388
+      },
+      "PSI-142": {
+        "text": "PSI-142 ranks low because there is no O2 or pressure data to compare with this habitat, its fire-safety focus is only prevention and it is a ground study with no flight tests of its own. Its main caveat is poor oxygen and pressure fit as no oxygen or pressure was recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "48b75037fc66622d",
+        "problems": [],
+        "rank": 16,
+        "score": 0.3062
+      },
+      "PSI-62": {
+        "text": "PSI-62 ranks 17 out of 24 because it lacks O2 or pressure data for this habitat, focuses on prevention, and is only a ground study with no flight tests. Its main caveat is the poor oxygen and pressure fit, with no oxygen or pressure recorded for the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "0fd2eae5f21b1902",
+        "problems": [],
+        "rank": 17,
+        "score": 0.2817
+      },
+      "PSI-115": {
+        "text": "PSI-115 ranks 18 out of 24 because no O2 or pressure data to compare, fire-safety focus is detection, and it is a ground study with no flight tests. Its main caveat is poor oxygen and pressure fit for this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2bed7b8a0532957a",
+        "problems": [],
+        "rank": 18,
+        "score": 0.2804
+      },
+      "PSI-60": {
+        "text": "PSI-60 ranks 19 out of 24 because no O2 or pressure data to compare with this habitat, fire-safety focus is detection, and it is a ground study with no flight tests. Its main caveat is poor oxygen and pressure fit, with no oxygen or pressure recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "deb83f4dba1f8c89",
+        "problems": [],
+        "rank": 19,
+        "score": 0.2663
+      },
+      "PSI-23": {
+        "text": "ACME s-Flame ranks 20 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match, with oxygen levels only approximate and pressure assumed about 1 atm.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "525263c1f9bcfcf4",
+        "problems": [],
+        "rank": 20,
+        "score": 0.2259
+      },
+      "PSI-22": {
+        "text": "ACME E-FIELD Flames ranks 21 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match and no oxygen or pressure recorded for the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "866985d427f5a2d6",
+        "problems": [],
+        "rank": 21,
+        "score": 0.2086
+      },
+      "PSI-21": {
+        "text": "ACME CLD Flame ranks 22 out of 24 because no O2 or pressure data to compare with this habitat, burned gas fuels, and fire-safety focus fundamentals only. Its main caveat is a weak fire-safety focus match and the tests did not cover any conditions inside or near the target habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "ad0cec5cf858d246",
+        "problems": [],
+        "rank": 22,
+        "score": 0.2059
+      },
+      "PSI-106": {
+        "text": "SLICE ranks 23 out of 24 because no O2 or pressure data to compare with this habitat, burned gas fuels, and fire-safety focus limited to fundamentals. Its main caveat is a weak fire-safety focus match and no oxygen or pressure were recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f329e9375d272f17",
+        "problems": [],
+        "rank": 23,
+        "score": 0.1969
+      },
+      "PSI-117": {
+        "text": "PSI-117 ranks last because it lacks oxygen or pressure data for this habitat, its fire-safety focus is only fundamentals, and it is a ground study with no flight tests. Its weakest aspect is the fire-safety focus match and the study provides no oxygen or pressure measurements, so the habitat conditions were not tested.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "3699b1048a98b556",
+        "problems": [],
+        "rank": 24,
+        "score": 0.0592
+      }
+    },
+    "lunar_base": {
+      "PSI-69": {
+        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. The main caveat is that only 23 near-target tests were performed and, while oxygen and pressure were measured, other conditions were not covered.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "63620ffce73c942f",
+        "problems": [],
+        "rank": 1,
+        "score": 0.7816
+      },
+      "PSI-10": {
+        "text": "ACME/Flame Design ranks second out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that only 2 tests were inside the habitat target while 26 were near target, though oxygen and pressure were measured.",
+        "source": "model",
+        "model": "openai/gpt-oss-20b",
+        "fingerprint": "bc81335c951b4453",
+        "problems": [],
+        "rank": 2,
+        "score": 0.7283
+      },
+      "PSI-159": {
+        "text": "ACME CFI-G ranks third out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that it only includes 29 tests inside and 29 near the target, leaving other pressure-oxygen ranges untested.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "be40eaacd18dded7",
+        "problems": [],
+        "rank": 3,
+        "score": 0.6935
+      },
+      "PSI-68": {
+        "text": "FLEX-2 ranks 4th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 63, mainly on closest test: 30% O2 at 51 kPa. 16 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "6f4a80051b830175",
+        "problems": [
+          "claims tests were inside the target, but none were"
+        ],
+        "rank": 4,
+        "score": 0.6347
+      },
+      "PSI-20": {
+        "text": "ACME BRE ranks 5 out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is the limited amount of data, with only 23 tests near the target and oxygen recorded per test day.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "579de2855e9e5911",
+        "problems": [],
+        "rank": 5,
+        "score": 0.6158
+      },
+      "PSI-25": {
+        "text": "BASS-II ranks sixth out of 24 because its material relevance stands out among others. Its main caveat is that none of its 129 tests address the habitat’s 30-40 % oxygen and 29.6-70.3 kPa pressure, with pressure only assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "1da8cce9d68d7493",
+        "problems": [],
+        "rank": 6,
+        "score": 0.6108
+      },
+      "PSI-26": {
+        "text": "BASS ranks 7 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 121 tests approach the habitat’s 30-40% oxygen and 29.6-70.3 kPa pressure, and both oxygen and pressure were assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "8d4b70a966ae3416",
+        "problems": [],
+        "rank": 7,
+        "score": 0.5937
+      },
+      "PSI-101": {
+        "text": "SAME-R ranks 8 out of 24 because its material relevance stands out among others. Its main caveat is that oxygen and pressure were assumed ISS cabin conditions and not logged, and no tests were conducted inside or near the habitat target.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7eb0bb1a5a2224a6",
+        "problems": [],
+        "rank": 8,
+        "score": 0.5884
+      },
+      "PSI-102": {
+        "text": "SAME ranks ninth out of 24 because its material relevance stands out among others. Its main caveat is that none of its 20 tests approach the habitat’s 30-40 % oxygen and 29.6-70.3 kPa pressure, and the oxygen and pressure were assumed ISS cabin values.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "5e9a6525bb531053",
+        "problems": [],
+        "rank": 9,
+        "score": 0.5773
+      },
+      "PSI-39": {
+        "text": "CFI ranks 10 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests approached the habitat’s oxygen and pressure range.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "3fd119070274370d",
+        "problems": [],
+        "rank": 10,
+        "score": 0.572
+      },
+      "PSI-99": {
+        "text": "SAFFIRE-II ranks 11 out of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with no tests inside or near the target and pressure only assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7c6bed2c0eb5182f",
+        "problems": [],
+        "rank": 11,
+        "score": 0.562
+      },
+      "PSI-98": {
+        "text": "SAFFIRE-I ranks 12 out of 24 because its material relevance stands out compared with others. Its main caveat is the limited amount of data, with oxygen measured but pressure only assumed and not logged.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a13d567e61cb6d95",
+        "problems": [],
+        "rank": 12,
+        "score": 0.5411
+      },
+      "PSI-100": {
+        "text": "SAFFIRE-III ranks 13th out of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with oxygen and pressure only assumed from ISS cabin conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "d704d80805ba2e6d",
+        "problems": [],
+        "rank": 13,
+        "score": 0.5302
+      },
+      "PSI-107": {
+        "text": "SPICE ranks 14 out of 24 because its amount of data stands out among others. Its main caveat is that none of its 435 tests covered the habitat’s oxygen and pressure, which were assumed ISS cabin values and not logged.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "4df737ebae8eb4f7",
+        "problems": [],
+        "rank": 14,
+        "score": 0.5056
+      },
+      "PSI-47": {
+        "text": "DAFT / DAFT-2 ranks 15 out of 24 because no O2 or pressure data to compare with this habitat, burned dust fuels, fire-safety focus detection. Its main caveat is the limited amount of data, with no oxygen or pressure recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "9ecaaa76495af35d",
+        "problems": [],
+        "rank": 15,
+        "score": 0.388
+      },
+      "PSI-142": {
+        "text": "PSI-142 ranks 16th of 24 because it lacks O2 or pressure data for this habitat, focuses on prevention fire-safety, and is only a ground study with no flight tests. Its main caveat is weak material relevance and the record contains no oxygen or pressure data.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f9023a377a07b676",
+        "problems": [],
+        "rank": 16,
+        "score": 0.3062
+      },
+      "PSI-62": {
+        "text": "PSI-62 ranks 17 out of 24 because there is no O2 or pressure data to compare with this habitat, its fire-safety focus is prevention, and it is only a ground study with no flight tests of its own. Its main caveat is weak material relevance and the study provides no tests inside or near the target habitat, with no oxygen or pressure recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e4f45f25f3c62705",
+        "problems": [],
+        "rank": 17,
+        "score": 0.2817
+      },
+      "PSI-115": {
+        "text": "PSI-115 ranks 18 of 24 because it lacks oxygen and pressure data for this habitat, its fire-safety focus is only detection, and it is a ground study with no flight tests. Its main caveat is weak material relevance, and no oxygen or pressure were recorded for the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2d7d9ac94ef3911f",
+        "problems": [],
+        "rank": 18,
+        "score": 0.2804
+      },
+      "PSI-60": {
+        "text": "PSI-60 ranks 19th of 24 because it provides no oxygen or pressure data for this habitat, its fire-safety focus is detection, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the study did not include any tests inside or near the target environment, with no oxygen or pressure recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "78a948ce8d7fccbf",
+        "problems": [],
+        "rank": 19,
+        "score": 0.2663
+      },
+      "PSI-23": {
+        "text": "ACME s-Flame ranks 20 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match, with oxygen levels only approximate and pressure only assumed about 1 atm.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f2d226db083f0c7f",
+        "problems": [],
+        "rank": 20,
+        "score": 0.2259
+      },
+      "PSI-22": {
+        "text": "ACME E-FIELD Flames ranks 21 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match and no oxygen or pressure data were recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "be551a34ac4b7577",
+        "problems": [],
+        "rank": 21,
+        "score": 0.2086
+      },
+      "PSI-21": {
+        "text": "ACME CLD Flame ranks low because there is no O2 or pressure data to compare with this habitat, the study used burned gas fuels, and its fire-safety focus is only fundamentals. Its main caveat is a weak fire-safety focus match and no oxygen or pressure recorded for the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "46ff8730c9a6b01c",
+        "problems": [],
+        "rank": 22,
+        "score": 0.2059
+      },
+      "PSI-106": {
+        "text": "SLICE ranks 23 out of 24 because no O2 or pressure data to compare with this habitat, burned gas fuels, and fire-safety focus limited to fundamentals. Its main caveat is a weak fire-safety focus match, and no oxygen or pressure were recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2270419dde1d58a8",
+        "problems": [],
+        "rank": 23,
+        "score": 0.1969
+      },
+      "PSI-117": {
+        "text": "PSI-117 ranks last because no O2 or pressure data to compare, fire-safety focus is only fundamentals, and it is a ground study with no flight tests. Its main caveat is a weak fire-safety focus match and no oxygen or pressure was recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "9402e7040ce7d068",
+        "problems": [],
+        "rank": 24,
+        "score": 0.0592
+      }
+    },
+    "pressurized_rover": {
+      "PSI-69": {
+        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. The main caveat is that only 23 near-target tests were performed and, while oxygen and pressure were measured, other conditions were not covered.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "63620ffce73c942f",
+        "problems": [],
+        "rank": 1,
+        "score": 0.7816
+      },
+      "PSI-10": {
+        "text": "ACME/Flame Design ranks second out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that only 2 tests were inside the habitat target while 26 were near target, though oxygen and pressure were measured.",
+        "source": "model",
+        "model": "openai/gpt-oss-20b",
+        "fingerprint": "bc81335c951b4453",
+        "problems": [],
+        "rank": 2,
+        "score": 0.7283
+      },
+      "PSI-159": {
+        "text": "ACME CFI-G ranks third out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that it only includes 29 tests inside and 29 near the target, leaving other pressure-oxygen ranges untested.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "be40eaacd18dded7",
+        "problems": [],
+        "rank": 3,
+        "score": 0.6935
+      },
+      "PSI-68": {
+        "text": "FLEX-2 ranks 4th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 63, mainly on closest test: 30% O2 at 51 kPa. 16 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "6f4a80051b830175",
+        "problems": [
+          "claims tests were inside the target, but none were"
+        ],
+        "rank": 4,
+        "score": 0.6347
+      },
+      "PSI-20": {
+        "text": "ACME BRE ranks 5 out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is the limited amount of data, with only 23 tests near the target and oxygen recorded per test day.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "579de2855e9e5911",
+        "problems": [],
+        "rank": 5,
+        "score": 0.6158
+      },
+      "PSI-25": {
+        "text": "BASS-II ranks sixth out of 24 because its material relevance stands out among others. Its main caveat is that none of its 129 tests address the habitat’s 30-40 % oxygen and 29.6-70.3 kPa pressure, with pressure only assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "1da8cce9d68d7493",
+        "problems": [],
+        "rank": 6,
+        "score": 0.6108
+      },
+      "PSI-26": {
+        "text": "BASS ranks 7 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 121 tests approach the habitat’s 30-40% oxygen and 29.6-70.3 kPa pressure, and both oxygen and pressure were assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "8d4b70a966ae3416",
+        "problems": [],
+        "rank": 7,
+        "score": 0.5937
+      },
+      "PSI-101": {
+        "text": "SAME-R ranks 8 out of 24 because its material relevance stands out among others. Its main caveat is that oxygen and pressure were assumed ISS cabin conditions and not logged, and no tests were conducted inside or near the habitat target.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7eb0bb1a5a2224a6",
+        "problems": [],
+        "rank": 8,
+        "score": 0.5884
+      },
+      "PSI-102": {
+        "text": "SAME ranks ninth out of 24 because its material relevance stands out among others. Its main caveat is that none of its 20 tests approach the habitat’s 30-40 % oxygen and 29.6-70.3 kPa pressure, and the oxygen and pressure were assumed ISS cabin values.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "5e9a6525bb531053",
+        "problems": [],
+        "rank": 9,
+        "score": 0.5773
+      },
+      "PSI-39": {
+        "text": "CFI ranks 10 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests approached the habitat’s oxygen and pressure range.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "3fd119070274370d",
+        "problems": [],
+        "rank": 10,
+        "score": 0.572
+      },
+      "PSI-99": {
+        "text": "SAFFIRE-II ranks 11 out of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with no tests inside or near the target and pressure only assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7c6bed2c0eb5182f",
+        "problems": [],
+        "rank": 11,
+        "score": 0.562
+      },
+      "PSI-98": {
+        "text": "SAFFIRE-I ranks 12 out of 24 because its material relevance stands out compared with others. Its main caveat is the limited amount of data, with oxygen measured but pressure only assumed and not logged.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a13d567e61cb6d95",
+        "problems": [],
+        "rank": 12,
+        "score": 0.5411
+      },
+      "PSI-100": {
+        "text": "SAFFIRE-III ranks 13th out of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with oxygen and pressure only assumed from ISS cabin conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "d704d80805ba2e6d",
+        "problems": [],
+        "rank": 13,
+        "score": 0.5302
+      },
+      "PSI-107": {
+        "text": "SPICE ranks 14 out of 24 because its amount of data stands out among others. Its main caveat is that none of its 435 tests covered the habitat’s oxygen and pressure, which were assumed ISS cabin values and not logged.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "4df737ebae8eb4f7",
+        "problems": [],
+        "rank": 14,
+        "score": 0.5056
+      },
+      "PSI-47": {
+        "text": "DAFT / DAFT-2 ranks 15 out of 24 because no O2 or pressure data to compare with this habitat, burned dust fuels, fire-safety focus detection. Its main caveat is the limited amount of data, with no oxygen or pressure recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "9ecaaa76495af35d",
+        "problems": [],
+        "rank": 15,
+        "score": 0.388
+      },
+      "PSI-142": {
+        "text": "PSI-142 ranks 16th of 24 because it lacks O2 or pressure data for this habitat, focuses on prevention fire-safety, and is only a ground study with no flight tests. Its main caveat is weak material relevance and the record contains no oxygen or pressure data.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f9023a377a07b676",
+        "problems": [],
+        "rank": 16,
+        "score": 0.3062
+      },
+      "PSI-62": {
+        "text": "PSI-62 ranks 17 out of 24 because there is no O2 or pressure data to compare with this habitat, its fire-safety focus is prevention, and it is only a ground study with no flight tests of its own. Its main caveat is weak material relevance and the study provides no tests inside or near the target habitat, with no oxygen or pressure recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e4f45f25f3c62705",
+        "problems": [],
+        "rank": 17,
+        "score": 0.2817
+      },
+      "PSI-115": {
+        "text": "PSI-115 ranks 18 of 24 because it lacks oxygen and pressure data for this habitat, its fire-safety focus is only detection, and it is a ground study with no flight tests. Its main caveat is weak material relevance, and no oxygen or pressure were recorded for the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2d7d9ac94ef3911f",
+        "problems": [],
+        "rank": 18,
+        "score": 0.2804
+      },
+      "PSI-60": {
+        "text": "PSI-60 ranks 19th of 24 because it provides no oxygen or pressure data for this habitat, its fire-safety focus is detection, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the study did not include any tests inside or near the target environment, with no oxygen or pressure recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "78a948ce8d7fccbf",
+        "problems": [],
+        "rank": 19,
+        "score": 0.2663
+      },
+      "PSI-23": {
+        "text": "ACME s-Flame ranks 20 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match, with oxygen levels only approximate and pressure only assumed about 1 atm.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f2d226db083f0c7f",
+        "problems": [],
+        "rank": 20,
+        "score": 0.2259
+      },
+      "PSI-22": {
+        "text": "ACME E-FIELD Flames ranks 21 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match and no oxygen or pressure data were recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "be551a34ac4b7577",
+        "problems": [],
+        "rank": 21,
+        "score": 0.2086
+      },
+      "PSI-21": {
+        "text": "ACME CLD Flame ranks low because there is no O2 or pressure data to compare with this habitat, the study used burned gas fuels, and its fire-safety focus is only fundamentals. Its main caveat is a weak fire-safety focus match and no oxygen or pressure recorded for the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "46ff8730c9a6b01c",
+        "problems": [],
+        "rank": 22,
+        "score": 0.2059
+      },
+      "PSI-106": {
+        "text": "SLICE ranks 23 out of 24 because no O2 or pressure data to compare with this habitat, burned gas fuels, and fire-safety focus limited to fundamentals. Its main caveat is a weak fire-safety focus match, and no oxygen or pressure were recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2270419dde1d58a8",
+        "problems": [],
+        "rank": 23,
+        "score": 0.1969
+      },
+      "PSI-117": {
+        "text": "PSI-117 ranks last because no O2 or pressure data to compare, fire-safety focus is only fundamentals, and it is a ground study with no flight tests. Its main caveat is a weak fire-safety focus match and no oxygen or pressure was recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "9402e7040ce7d068",
+        "problems": [],
+        "rank": 24,
+        "score": 0.0592
+      }
+    },
+    "mars_habitat": {
+      "PSI-69": {
+        "text": "FLEX ranks first because its oxygen and pressure fit stands out among others. The main caveat is that only 23 near-target tests were performed and, while oxygen and pressure were measured, other conditions were not covered.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "63620ffce73c942f",
+        "problems": [],
+        "rank": 1,
+        "score": 0.7816
+      },
+      "PSI-10": {
+        "text": "ACME/Flame Design ranks second out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that only 2 tests were inside the habitat target while 26 were near target, though oxygen and pressure were measured.",
+        "source": "model",
+        "model": "openai/gpt-oss-20b",
+        "fingerprint": "bc81335c951b4453",
+        "problems": [],
+        "rank": 2,
+        "score": 0.7283
+      },
+      "PSI-159": {
+        "text": "ACME CFI-G ranks third out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is that it only includes 29 tests inside and 29 near the target, leaving other pressure-oxygen ranges untested.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "be40eaacd18dded7",
+        "problems": [],
+        "rank": 3,
+        "score": 0.6935
+      },
+      "PSI-68": {
+        "text": "FLEX-2 ranks 4th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 63, mainly on closest test: 30% O2 at 51 kPa. 16 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "6f4a80051b830175",
+        "problems": [
+          "claims tests were inside the target, but none were"
+        ],
+        "rank": 4,
+        "score": 0.6347
+      },
+      "PSI-20": {
+        "text": "ACME BRE ranks 5 out of 24 because its oxygen and pressure fit stands out among others. Its main caveat is the limited amount of data, with only 23 tests near the target and oxygen recorded per test day.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "579de2855e9e5911",
+        "problems": [],
+        "rank": 5,
+        "score": 0.6158
+      },
+      "PSI-25": {
+        "text": "BASS-II ranks sixth out of 24 because its material relevance stands out among others. Its main caveat is that none of its 129 tests address the habitat’s 30-40 % oxygen and 29.6-70.3 kPa pressure, with pressure only assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "1da8cce9d68d7493",
+        "problems": [],
+        "rank": 6,
+        "score": 0.6108
+      },
+      "PSI-26": {
+        "text": "BASS ranks 7 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 121 tests approach the habitat’s 30-40% oxygen and 29.6-70.3 kPa pressure, and both oxygen and pressure were assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "8d4b70a966ae3416",
+        "problems": [],
+        "rank": 7,
+        "score": 0.5937
+      },
+      "PSI-101": {
+        "text": "SAME-R ranks 8 out of 24 because its material relevance stands out among others. Its main caveat is that oxygen and pressure were assumed ISS cabin conditions and not logged, and no tests were conducted inside or near the habitat target.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7eb0bb1a5a2224a6",
+        "problems": [],
+        "rank": 8,
+        "score": 0.5884
+      },
+      "PSI-102": {
+        "text": "SAME ranks ninth out of 24 because its material relevance stands out among others. Its main caveat is that none of its 20 tests approach the habitat’s 30-40 % oxygen and 29.6-70.3 kPa pressure, and the oxygen and pressure were assumed ISS cabin values.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "5e9a6525bb531053",
+        "problems": [],
+        "rank": 9,
+        "score": 0.5773
+      },
+      "PSI-39": {
+        "text": "CFI ranks 10 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests approached the habitat’s oxygen and pressure range.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "3fd119070274370d",
+        "problems": [],
+        "rank": 10,
+        "score": 0.572
+      },
+      "PSI-99": {
+        "text": "SAFFIRE-II ranks 11 out of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with no tests inside or near the target and pressure only assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "7c6bed2c0eb5182f",
+        "problems": [],
+        "rank": 11,
+        "score": 0.562
+      },
+      "PSI-98": {
+        "text": "SAFFIRE-I ranks 12 out of 24 because its material relevance stands out compared with others. Its main caveat is the limited amount of data, with oxygen measured but pressure only assumed and not logged.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a13d567e61cb6d95",
+        "problems": [],
+        "rank": 12,
+        "score": 0.5411
+      },
+      "PSI-100": {
+        "text": "SAFFIRE-III ranks 13th out of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with oxygen and pressure only assumed from ISS cabin conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "d704d80805ba2e6d",
+        "problems": [],
+        "rank": 13,
+        "score": 0.5302
+      },
+      "PSI-107": {
+        "text": "SPICE ranks 14 out of 24 because its amount of data stands out among others. Its main caveat is that none of its 435 tests covered the habitat’s oxygen and pressure, which were assumed ISS cabin values and not logged.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "4df737ebae8eb4f7",
+        "problems": [],
+        "rank": 14,
+        "score": 0.5056
+      },
+      "PSI-47": {
+        "text": "DAFT / DAFT-2 ranks 15 out of 24 because no O2 or pressure data to compare with this habitat, burned dust fuels, fire-safety focus detection. Its main caveat is the limited amount of data, with no oxygen or pressure recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "9ecaaa76495af35d",
+        "problems": [],
+        "rank": 15,
+        "score": 0.388
+      },
+      "PSI-142": {
+        "text": "PSI-142 ranks 16th of 24 because it lacks O2 or pressure data for this habitat, focuses on prevention fire-safety, and is only a ground study with no flight tests. Its main caveat is weak material relevance and the record contains no oxygen or pressure data.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f9023a377a07b676",
+        "problems": [],
+        "rank": 16,
+        "score": 0.3062
+      },
+      "PSI-62": {
+        "text": "PSI-62 ranks 17 out of 24 because there is no O2 or pressure data to compare with this habitat, its fire-safety focus is prevention, and it is only a ground study with no flight tests of its own. Its main caveat is weak material relevance and the study provides no tests inside or near the target habitat, with no oxygen or pressure recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "e4f45f25f3c62705",
+        "problems": [],
+        "rank": 17,
+        "score": 0.2817
+      },
+      "PSI-115": {
+        "text": "PSI-115 ranks 18 of 24 because it lacks oxygen and pressure data for this habitat, its fire-safety focus is only detection, and it is a ground study with no flight tests. Its main caveat is weak material relevance, and no oxygen or pressure were recorded for the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2d7d9ac94ef3911f",
+        "problems": [],
+        "rank": 18,
+        "score": 0.2804
+      },
+      "PSI-60": {
+        "text": "PSI-60 ranks 19th of 24 because it provides no oxygen or pressure data for this habitat, its fire-safety focus is detection, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the study did not include any tests inside or near the target environment, with no oxygen or pressure recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "78a948ce8d7fccbf",
+        "problems": [],
+        "rank": 19,
+        "score": 0.2663
+      },
+      "PSI-23": {
+        "text": "ACME s-Flame ranks 20 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match, with oxygen levels only approximate and pressure only assumed about 1 atm.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f2d226db083f0c7f",
+        "problems": [],
+        "rank": 20,
+        "score": 0.2259
+      },
+      "PSI-22": {
+        "text": "ACME E-FIELD Flames ranks 21 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match and no oxygen or pressure data were recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "be551a34ac4b7577",
+        "problems": [],
+        "rank": 21,
+        "score": 0.2086
+      },
+      "PSI-21": {
+        "text": "ACME CLD Flame ranks low because there is no O2 or pressure data to compare with this habitat, the study used burned gas fuels, and its fire-safety focus is only fundamentals. Its main caveat is a weak fire-safety focus match and no oxygen or pressure recorded for the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "46ff8730c9a6b01c",
+        "problems": [],
+        "rank": 22,
+        "score": 0.2059
+      },
+      "PSI-106": {
+        "text": "SLICE ranks 23 out of 24 because no O2 or pressure data to compare with this habitat, burned gas fuels, and fire-safety focus limited to fundamentals. Its main caveat is a weak fire-safety focus match, and no oxygen or pressure were recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2270419dde1d58a8",
+        "problems": [],
+        "rank": 23,
+        "score": 0.1969
+      },
+      "PSI-117": {
+        "text": "PSI-117 ranks last because no O2 or pressure data to compare, fire-safety focus is only fundamentals, and it is a ground study with no flight tests. Its main caveat is a weak fire-safety focus match and no oxygen or pressure was recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "9402e7040ce7d068",
+        "problems": [],
+        "rank": 24,
+        "score": 0.0592
+      }
+    },
+    "spacesuit": {
+      "PSI-25": {
+        "text": "BASS-II ranks first because its material relevance stands out among others. Its main caveat is that no tests were conducted at the suit’s oxygen level or pressure, and the pressure value is assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "ac86a1cf186fe243",
+        "problems": [],
+        "rank": 1,
+        "score": 0.6002
+      },
+      "PSI-26": {
+        "text": "BASS ranks second out of 24 because its material relevance stands out among others. Its main caveat is that oxygen and pressure were assumed rather than measured, and no tests were conducted inside or near the habitat conditions.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "441350958a5d09f2",
+        "problems": [],
+        "rank": 2,
+        "score": 0.5832
+      },
+      "PSI-69": {
+        "text": "FLEX ranks third out of 24 because its amount of data stands out among others. Its main caveat is that none of its 274 tests approach the habitat’s oxygen and pressure, which were measured.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "d16ecec8a190f482",
+        "problems": [],
+        "rank": 3,
+        "score": 0.5785
+      },
+      "PSI-101": {
+        "text": "SAME-R ranks fourth out of 24 because its material relevance stands out among others. Its main caveat is that none of its 109 tests approach the suit’s 95-100% oxygen and 28-31 kPa pressure, and both oxygen and pressure values were assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "bd5dfed11cc72e9b",
+        "problems": [],
+        "rank": 4,
+        "score": 0.5779
+      },
+      "PSI-102": {
+        "text": "SAME ranks fifth out of 24 because its material relevance stands out among others. Its main caveat is that none of its 20 tests were conducted at the suit’s 95-100% oxygen and 28-31 kPa pressure, and both oxygen and pressure values are only assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "44c378621e7f252c",
+        "problems": [],
+        "rank": 5,
+        "score": 0.5668
+      },
+      "PSI-10": {
+        "text": "ACME/Flame Design ranks 6 out of 24 because its amount of data stands out among others. Its main caveat is that none of its 316 tests approach the suit’s 95-100 % oxygen and 28-31 kPa pressure, so those conditions were not covered.",
+        "source": "model",
+        "model": "openai/gpt-oss-20b",
+        "fingerprint": "47726f4288c916cf",
+        "problems": [],
+        "rank": 6,
+        "score": 0.5479
+      },
+      "PSI-99": {
+        "text": "SAFFIRE-II ranks 7 out of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with oxygen measured but pressure only assumed and not logged.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f7bdf07b1898b90c",
+        "problems": [],
+        "rank": 7,
+        "score": 0.547
+      },
+      "PSI-39": {
+        "text": "CFI ranks eighth out of 24 because its material relevance stands out among others. Its main caveat is that none of its 79 tests approach the suit’s 95-100% oxygen and 28-31 kPa pressure, though those parameters were measured.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "11eb8fdc4fa0c61d",
+        "problems": [],
+        "rank": 8,
+        "score": 0.5307
+      },
+      "PSI-98": {
+        "text": "SAFFIRE-I ranks 9 out of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with oxygen measured but pressure only assumed and not logged.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "9755f37804afe286",
+        "problems": [],
+        "rank": 9,
+        "score": 0.5284
+      },
+      "PSI-100": {
+        "text": "SAFFIRE-III ranks 10 out of 24 because its material relevance stands out among others. Its main caveat is the limited amount of data, with oxygen and pressure values only assumed from ISS cabin conditions and not recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "92bc768f269e1d6b",
+        "problems": [],
+        "rank": 10,
+        "score": 0.5198
+      },
+      "PSI-68": {
+        "text": "FLEX-2 ranks 11th out of 24 because its material relevance stands out among others. Its main caveat is that none of its 160 tests approach the habitat’s oxygen and pressure, which were only assumed from a planned test matrix.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "969eedfd6acdebb4",
+        "problems": [],
+        "rank": 11,
+        "score": 0.5171
+      },
+      "PSI-159": {
+        "text": "ACME CFI-G ranks mid-range because its amount of data stands out among others. Its main caveat is that none of its 333 tests approach the suit’s 95-100 % oxygen and 28-31 kPa pressure, though those values were measured.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "a3f7e1123da5fbbf",
+        "problems": [],
+        "rank": 12,
+        "score": 0.4988
+      },
+      "PSI-107": {
+        "text": "SPICE ranks 13 out of 24 because its amount of data stands out among others. Its main caveat is that none of its 435 tests approach the suit’s 95-100% oxygen and 28-31 kPa pressure, and both oxygen and pressure were assumed rather than recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "806b6387715743ad",
+        "problems": [],
+        "rank": 13,
+        "score": 0.4952
+      },
+      "PSI-20": {
+        "text": "ACME BRE ranks 14 out of 24 because none of its 43 tests come near this habitat's O2 and pressure, it burned gas fuels, and its fire-safety focus is prevention. Its main caveat is the limited amount of data, with oxygen listed per test day.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "44bdbb6f9b4f549d",
+        "problems": [],
+        "rank": 14,
+        "score": 0.4498
+      },
+      "PSI-47": {
+        "text": "DAFT / DAFT-2 ranks 15th of 24 because it lacks oxygen and pressure data, burned dust fuels, and its fire-safety focus is detection. Its main caveat is the limited amount of data and the record contains no oxygen or pressure measurements.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "f906197737e533c1",
+        "problems": [],
+        "rank": 15,
+        "score": 0.388
+      },
+      "PSI-142": {
+        "text": "PSI-142 ranks 16 of 24 because it lacks oxygen and pressure data for this habitat, focuses on prevention, and is a ground study with no flight tests. Its main caveat is weak material relevance and the study provides no tests inside or near the spacesuit environment and no oxygen or pressure was recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "05f127efd34a3cfd",
+        "problems": [],
+        "rank": 16,
+        "score": 0.3062
+      },
+      "PSI-62": {
+        "text": "PSI-62 ranks 17 out of 24 because no O2 or pressure data to compare with this habitat, fire-safety focus is prevention, and it is a ground study with no flight tests. Its main caveat is weak material relevance for this spacesuit habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "db361e2c724d375a",
+        "problems": [],
+        "rank": 17,
+        "score": 0.2817
+      },
+      "PSI-115": {
+        "text": "PSI-115 ranks 18 of 24 because it lacks oxygen and pressure data for this habitat, its fire-safety focus is only detection, and it is a ground study with no flight tests of its own. Its main caveat is weak material relevance and the absence of any tests inside or near the spacesuit environment, with oxygen and pressure values not recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "bda31315e043c759",
+        "problems": [],
+        "rank": 18,
+        "score": 0.2804
+      },
+      "PSI-60": {
+        "text": "PSI-60 ranks 19th of 24 because it lacks O2 or pressure data for this habitat, its fire-safety focus is only detection, and it is a ground study with no flight tests. Its main caveat is weak material relevance and the study provides no oxygen or pressure data, with no tests conducted near the habitat target.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "4985dfba97adeee6",
+        "problems": [],
+        "rank": 19,
+        "score": 0.2663
+      },
+      "PSI-23": {
+        "text": "ACME s-Flame ranks 20 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match, with oxygen levels only approximate and pressure only assumed.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "28f7df32ce1df7c3",
+        "problems": [],
+        "rank": 20,
+        "score": 0.2259
+      },
+      "PSI-22": {
+        "text": "ACME E-FIELD Flames ranks 21 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match and no oxygen or pressure was recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "8bdf61c22d618596",
+        "problems": [],
+        "rank": 21,
+        "score": 0.2086
+      },
+      "PSI-21": {
+        "text": "ACME CLD Flame ranks 22 out of 24 because no O2 or pressure data to compare with this habitat, burned gas fuels, and fire-safety focus fundamentals only. Its main caveat is a weak fire-safety focus match and no oxygen or pressure was recorded.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "2add99b9a936e94f",
+        "problems": [],
+        "rank": 22,
+        "score": 0.2059
+      },
+      "PSI-106": {
+        "text": "SLICE ranks 23 out of 24 because no O2 or pressure data to compare with this habitat, burned gas fuels, and fire-safety focus fundamentals only. Its main caveat is a weak fire-safety focus match, and no oxygen or pressure was recorded for this habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "cc69d1725bb06513",
+        "problems": [],
+        "rank": 23,
+        "score": 0.1969
+      },
+      "PSI-117": {
+        "text": "PSI-117 ranks last because there is no O2 or pressure data to compare with this habitat, its fire-safety focus is only fundamentals, and it is a ground study with no flight tests of its own. Its main caveat is a weak fire-safety focus match and the lack of recorded oxygen or pressure data for the spacesuit environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "5e61875ade8e3934",
+        "problems": [],
+        "rank": 24,
+        "score": 0.0592
+      }
+    }
+  }
+}

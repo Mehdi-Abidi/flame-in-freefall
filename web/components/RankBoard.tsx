@@ -214,6 +214,7 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
                 const expanded = open === inv.accession;
                 const evidence = inv.scores[scenario.id]?.evidence;
                 const reasons = inv.scores[scenario.id]?.reasons ?? [];
+                const rationale = inv.scores[scenario.id]?.rationale ?? null;
                 return (
                   <motion.li
                     key={inv.accession}
@@ -285,6 +286,14 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
                           <div className="grid gap-5 px-4 py-4 md:grid-cols-[1.2fr_1fr]">
                             <div>
                               <p className="eyebrow mb-2">Why it ranks here</p>
+                              {rationale && (
+                                <figure className="mb-3 border-l-2 border-ink pl-3">
+                                  <blockquote className="text-[14.5px] leading-relaxed">{rationale.text}</blockquote>
+                                  <figcaption className="mono mt-1.5 text-[10.5px] text-muted">
+                                    {rationale.source === "model" ? `Written by ${rationale.model.split("/").pop()} from the score parts` : "Fact-only template"} · for balanced priorities
+                                  </figcaption>
+                                </figure>
+                              )}
                               <ul className="space-y-1.5 text-[13.5px] leading-relaxed">
                                 {reasons.map((r) => (
                                   <li key={r} className="flex gap-2">

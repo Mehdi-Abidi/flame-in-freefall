@@ -152,6 +152,41 @@ def check_extracted(report, processed_dir):
     print(f"  {len(flagged)} record(s) carry review warnings (see docs/extraction-review.md): {', '.join(flagged) or 'none'}")
 
 
+def check_rationales(report, processed_dir):
+    path = os.path.join(processed_dir, "rationale.json")
+    if not os.path.exists(path):
+        print("\nrationale.json not present yet, skipping its checks")
+        return
+    with open(path, encoding="utf-8") as handle:
+        document = json.load(handle)
+    with open(os.path.join(processed_dir, "rankings.json"), encoding="utf-8") as handle:
+        rankings = json.load(handle)["scenarios"]
+    print("\nChecks on rationale.json")
+    rationales = document.get("rationales") or {}
+    missing, stale, bad_source, bad_text = [], [], [], []
+    for scenario_id, scenario in rankings.items():
+        for entry in scenario["ranking"]:
+            record = (rationales.get(scenario_id) or {}).get(entry["accession"])
+            key = f"{scenario_id}/{entry['accession']}"
+            if not record:
+                missing.append(key)
+                continue
+            if record.get("rank") != entry["rank"] or abs((record.get("score") or 0) - entry["score"]) > 1e-9:
+                stale.append(key)
+            if record.get("source") not in {"model", "template"}:
+                bad_source.append(key)
+            text = record.get("text") or ""
+            sentence_count = len([s for s in re.split(r"(?<=[.!?])\s+", text.strip()) if s])
+            if not text or sentence_count != 2 or "—" in text or "–" in text:
+                bad_text.append(key)
+    report.check("a rationale for every habitat and investigation", missing)
+    report.check("rationales match the current rankings (rerun python -m si.rationale if stale)", stale)
+    report.check("rationale source is model or template", bad_source)
+    report.check("rationales are two sentences without dashes", bad_text)
+    templates = sum(1 for s in rationales.values() for r in s.values() if r.get("source") == "template")
+    print(f"  {templates} rationale(s) fell back to the fact-only template")
+
+
 def check_rankings(report, processed_dir, domain_dir):
     path = os.path.join(processed_dir, "rankings.json")
     if not os.path.exists(path):
@@ -288,6 +323,7 @@ def main():
     check_investigations(report, args.raw, args.processed, tests)
     check_extracted(report, args.processed)
     check_rankings(report, args.processed, os.path.join(os.path.dirname(args.raw.rstrip("/").rstrip(chr(92))) or ".", "domain"))
+    check_rationales(report, args.processed)
 
     solid = [number(t["o2_mole_fraction"]) for t in tests if t["fuel_phase"] == "solid" and t["o2_source"] == "measured"]
     lunar = [t for t in tests if t["record_type"] == "test" and t["o2_source"] == "measured"
