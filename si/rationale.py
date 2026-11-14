@@ -155,3 +155,43 @@ def validate(text, facts):
             problems.append(f"states rank {stated}, real rank is {facts.get('rank')}")
             break
     return problems
+
+
+def ordinal(n):
+    suffix = "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    return f"{n}{suffix}"
+
+
+def template_rationale(facts):
+    """A plain, always-correct fallback built only from the computed facts."""
+    reasons = facts.get("computed_reasons") or []
+    first = reasons[0] if reasons else "its overall score"
+    lead = (f"{facts['investigation']} ranks {ordinal(facts['rank'])} of {facts['out_of']} for the {facts['habitat']} "
+            f"with a score of {facts['score_out_of_100']}, mainly because of this: {first}.")
+    if facts.get("n_in_target"):
+        caveat = f"{facts['n_in_target']} of its {facts['n_considered']} tests ran inside this habitat's target."
+    elif facts.get("n_considered"):
+        caveat = "None of its tests ran inside this habitat's oxygen and pressure target."
+    else:
+        caveat = "It has no recorded oxygen and pressure to compare with this habitat."
+    return sanitize(f"{lead} {caveat}")
+
+
+def write_one(llm, facts):
+    """Return (text, source, problems). Asks once, repairs once with feedback, then falls back to the template."""
+    from si.llm import LLMError
+
+    prompt = build_prompt(facts)
+    problems = []
+    for attempt in range(2):
+        try:
+            reply = llm.json(prompt, system=SYSTEM_PROMPT, max_tokens=400)
+        except LLMError as error:
+            return template_rationale(facts), "template", [f"model error: {error}"[:300]]
+        text = sanitize(reply.get("rationale") if isinstance(reply, dict) else "")
+        problems = validate(text, facts)
+        if not problems:
+            return text, "model", []
+        prompt = (build_prompt(facts) + "\n\nYour previous answer was rejected for these reasons: " + "; ".join(problems)
+                  + ". Write it again following every rule.")
+    return template_rationale(facts), "template", problems
