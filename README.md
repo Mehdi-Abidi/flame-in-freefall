@@ -71,7 +71,8 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | D2 `pipeline/normalize.py` and `tests.csv` | Mufeed | Done, Mufeed to review |
 | D4 `pipeline/qa.py`, 22 automated data checks | Mufeed | Done, all passing |
 | D3 `investigations.json` with ranges | Mufeed | Next |
-| S1 to S2 LLM wrapper and extraction | Mehdi | Next |
+| S1 `si/llm.py` provider wrapper, 17 unit tests | Mehdi | Done |
+| S2 Extraction of all 24 investigations | Mehdi | Next |
 | A1 FastAPI skeleton | Moiz | Next |
 | F1 to F2 React shell and Vercel deploy | Ali Soban | Next |
 | V1 Flammability map prototype | Ahsan | Next, can start on `tests.csv` now |
@@ -98,19 +99,34 @@ cd flame-in-freefall
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
+copy .env.example .env
+python -m si.llm --check
 python pipeline/fetch_psi.py
 python pipeline/normalize.py
 python pipeline/qa.py
 ```
 
-The fetch and normalize steps are optional because the data is already committed. The fetch downloads under 1 MB.
+Put your own free [Groq](https://console.groq.com/keys) key into `.env` as `LLM_API_KEY` before running `si.llm --check`. Never commit `.env`. The fetch and normalize steps are optional because the data is already committed. The fetch downloads under 1 MB.
+
+### LLM setup
+
+`si/llm.py` talks to any OpenAI-compatible provider. Switching provider or model means editing `.env`, not code.
+
+| Setting | Default | Notes |
+|---|---|---|
+| `LLM_BASE_URL` | `https://api.groq.com/openai/v1` | OpenRouter, Cerebras and NVIDIA also work |
+| `LLM_MODEL` | `openai/gpt-oss-20b` | Open-weight. Scored best in our extraction test (12 of 12 facts present in the text, 0.6 s) |
+| `LLM_FALLBACK_MODEL` | `openai/gpt-oss-120b` | Used automatically if the main model fails |
+
+Replies are cached in `.cache/llm/` so reruns do not spend free-tier quota. Rate limits are retried with backoff.
 
 ## Repository layout
 
 ```
 pipeline/   fetch and normalize scripts
 data/       raw PSI metadata and tables, processed outputs, domain tags
-si/         LLM extraction, ranking, insight briefs
+si/         LLM client, extraction, ranking, insight briefs
+tests/      unit tests (run in CI, no API key needed)
 api/        FastAPI service
 web/        React dashboard
 docs/       architecture diagram, execution plan

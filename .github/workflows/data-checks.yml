@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Unit tests
+        run: python -m unittest discover -s tests -t . -v
+
       - name: Rebuild tests.csv from the raw tables
         run: python pipeline/normalize.py
 
