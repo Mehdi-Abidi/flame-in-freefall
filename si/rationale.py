@@ -62,15 +62,17 @@ def fingerprint(facts):
     return hashlib.sha256(json.dumps(facts, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:16]
 
 
-PROMPT_VERSION = "s4-v1"
+PROMPT_VERSION = "s4-v2"
 SYSTEM_PROMPT = """You explain a fire-safety ranking to an aerospace engineer.
 Write exactly two plain sentences, at most 60 words in total.
-Sentence 1: why this investigation ranks where it does for this habitat, naming its strongest factor.
-Sentence 2: its main limitation or caveat for this habitat.
+Sentence 1 starts with the investigation name and says why it ranks where it does, using standout_strength_vs_others, or computed_reasons when that is null.
+Sentence 2 gives its main caveat for this habitat: use weakest_part_vs_others when present, otherwise what its tests did not cover, using tests_inside_target, tests_near_target and conditions_on_record.
 Rules:
 - Use only the FACTS. Do not add knowledge from outside them.
-- Every number you write must appear in the FACTS. Prefer words over numbers when unsure.
+- Write every number as digits, and only numbers that appear in the FACTS.
+- Never write FACT key names or any words joined by underscores. Use plain words such as oxygen and pressure fit.
 - If tests_inside_target is 0, never say its tests were inside or within the habitat's target.
+- If conditions_on_record says a value was assumed, say it was assumed. Do not say there is no data.
 - No hype, no lists, no dashes, no semicolons.
 Reply with JSON only: {"rationale": "<two sentences>"}"""
 
@@ -171,13 +173,16 @@ def build_prompt(facts):
 MAX_WORDS = 70
 NUMBER = re.compile(r"(?<![A-Za-z])\d+(?:\.\d+)?")
 INSIDE_CLAIM = re.compile(r"\b(inside|within|in)\s+(the\s+)?(lunar|habitat|target|box|its|this)?\s*(target|box|habitat'?s? (range|conditions|target))", re.I)
+NUMBER_WORDS = re.compile(r"\b(two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|point zero)\b", re.I)
+FIELD_NAME = re.compile(r"\b[a-z]+_[a-z_]+\b", re.I)
 NEGATION = re.compile(r"\b(no|none|not|never|neither|without)\b", re.I)
 RANK_CLAIM = re.compile(r"(?:\branks?\s+(?:#|number\s+)?|#|\bno\.\s*)(\d+)|\b(\d+)(?:st|nd|rd|th)\b", re.I)
 
 
 def sanitize(text):
     text = " ".join(str(text or "").split())
-    text = re.sub(r"\s*[—–]\s*", ", ", text)
+    text = re.sub(r"[\u2010\u2011\u2012\u2212]", "-", text)
+    text = re.sub(r"\s*[\u2014\u2013]\s*", ", ", text)
     text = re.sub(r"(?<=\w)\s+-\s+(?=\w)", ", ", text)
     text = text.replace(";", ",")
     return text.strip()
@@ -215,6 +220,15 @@ def validate(text, facts):
     unknown = sorted({t for t in NUMBER.findall(text) if not number_is_allowed(t, allowed)}, key=float)
     if unknown:
         problems.append(f"mentions numbers not in the facts: {', '.join(unknown)}")
+    spelled = sorted({m.group(0).lower() for m in NUMBER_WORDS.finditer(text)})
+    if spelled:
+        problems.append(f"spells out numbers ({', '.join(spelled)}), write digits")
+    fields = sorted({m.group(0) for m in FIELD_NAME.finditer(text)})
+    if fields:
+        problems.append(f"uses internal field names ({', '.join(fields)})")
+    name = str(facts.get("investigation") or "").lower()
+    if name and name not in text.lower():
+        problems.append(f"does not name the investigation ({facts.get('investigation')})")
     if not facts.get("tests_inside_target"):
         for sentence in sentences(text):
             if INSIDE_CLAIM.search(sentence) and not NEGATION.search(sentence):
