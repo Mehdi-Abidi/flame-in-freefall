@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SectionHeader } from "@/components/Section";
+import { PageIntro, SectionHeader } from "@/components/Section";
 import { loadDataset } from "@/lib/data";
 import { pct } from "@/lib/format";
 
@@ -25,7 +25,9 @@ export default function MethodPage() {
   const w = data.componentWeights;
   return (
     <div className="mx-auto max-w-[1240px] px-4 pt-12 sm:px-6">
-      <h1 className="mb-6 text-[34px] font-semibold tracking-[-0.02em] sm:text-[44px]">Method</h1>
+      <PageIntro title="Method">
+        How NASA&apos;s raw records become the rankings and briefs on this site, and where each number comes from.
+      </PageIntro>
 
       <SectionHeader title="Pipeline">
         Four steps turn NASA&apos;s raw repository into this dashboard. Each runs from a script in the repository and is checked automatically on
