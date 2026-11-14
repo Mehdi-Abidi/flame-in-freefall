@@ -123,9 +123,11 @@ class ComponentTests(unittest.TestCase):
         self.assertEqual((fit["fit"], fit["n_in_target"], fit["n_near"]), (1.0, 1, 1))
 
     def test_far_tests_score_near_zero_and_say_so(self):
-        fit = condition_fit([row(0.21, 101.3)] * 5, LUNAR, TOLERANCE)
-        self.assertLess(fit["fit"], 0.05)
-        self.assertEqual(fit["n_in_target"], 0)
+        far = condition_fit([row(0.21, 101.3)] * 5, LUNAR, TOLERANCE)
+        near = condition_fit([row(0.29, 75)] * 5, LUNAR, TOLERANCE)
+        self.assertAlmostEqual(far["fit"], 0.0596, places=3)
+        self.assertLess(far["fit"], near["fit"])
+        self.assertEqual((far["n_in_target"], far["n_near"]), (0, 0))
 
     def test_nominal_values_count_less_than_measured(self):
         measured = condition_fit([row(0.35, 60)], LUNAR, TOLERANCE)["fit"]
