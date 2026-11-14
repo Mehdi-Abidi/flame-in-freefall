@@ -246,6 +246,25 @@ class AskTests(unittest.TestCase):
 
 
 
+@unittest.skipUnless(HAVE_DEPS, "fastapi, httpx or rank-bm25 not installed")
+class CorsTests(unittest.TestCase):
+    def test_default_is_the_dashboard_and_local_dev_not_everyone(self):
+        self.assertEqual(main.cors_origins(None), ["https://mehdi-abidi.github.io", "http://localhost:3000"])
+        self.assertEqual(main.cors_origins("  , "), ["https://mehdi-abidi.github.io", "http://localhost:3000"])
+        self.assertNotIn("*", main.cors_origins(None))
+
+    def test_env_value_is_used_when_set(self):
+        self.assertEqual(main.cors_origins("https://a.example, https://b.example"), ["https://a.example", "https://b.example"])
+
+    def test_unknown_origin_gets_no_cors_header(self):
+        response = client.options("/ask", headers={"Origin": "https://evil.example", "Access-Control-Request-Method": "POST"})
+        self.assertNotIn("access-control-allow-origin", response.headers)
+
+    def test_dashboard_origin_is_allowed(self):
+        response = client.options("/ask", headers={"Origin": "https://mehdi-abidi.github.io", "Access-Control-Request-Method": "POST"})
+        self.assertEqual(response.headers.get("access-control-allow-origin"), "https://mehdi-abidi.github.io")
+
+
 class FakeClock:
     def __init__(self):
         self.now = 1000.0
