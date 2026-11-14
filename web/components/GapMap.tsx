@@ -151,7 +151,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
         </div>
       </div>
 
-      <div ref={ref} className="relative w-full">
+      <div ref={ref} className="relative w-full min-w-0 overflow-hidden">
         {view === "chart" ? (
           <svg width={width} height={height} role="img" aria-label={`Scatter of ${visible.length} tests: oxygen fraction against pressure, with habitat target boxes`} className="block select-none">
             <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
