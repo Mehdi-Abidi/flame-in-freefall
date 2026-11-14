@@ -249,3 +249,69 @@ def validate_brief(brief, facts):
     for key in ("implication", "gap"):
         problems += _text_problems(key, brief.get(key), facts, 40, allowed)
     return problems
+
+
+BASIS_SHORT = {
+    "measured": "measured",
+    "planned": "planned",
+    "approximate": "approximate",
+    "test_day_list": "listed per test day",
+    "nominal_cabin_air": "assumed cabin air",
+}
+MAX_ATTEMPTS = 3
+
+
+def _range_text(values):
+    if not values:
+        return None
+    low, high = values
+    return f"{low:g}%" if low == high else f"{low:g}% to {high:g}%"
+
+
+def template_brief(facts):
+    """A plain, always-valid fallback built only from the computed facts."""
+    pillar = facts["pillar"]
+    candidates = sorted(facts["investigations"], key=lambda inv: (-(inv.get("tests") or 0), inv["lunar_base_rank"]))
+    findings = []
+    for inv in candidates[:3]:
+        parts = [f"{inv['name']} recorded {inv.get('tests') or 'no individual'} tests"]
+        if inv.get("fuel_phase"):
+            parts.append(f"with {' and '.join(inv['fuel_phase'])} fuels")
+        oxygen = _range_text(inv.get("oxygen_percent_range"))
+        if oxygen:
+            parts.append(f"at {oxygen} oxygen ({BASIS_SHORT.get(inv.get('oxygen_basis'), 'basis not stated')})")
+        findings.append({"text": " ".join(parts) + ".", "citations": [inv["accession"]]})
+    solid_fact = next((f for f in facts["dataset_facts"] if f.startswith("The highest measured oxygen")), None)
+    implication = ("Solid-material tests in PSI stop below the 30% oxygen expected in a lunar base, "
+                   f"so {pillar} findings need checking at lunar conditions.") if solid_fact else \
+        f"Lunar {pillar} findings need checking at lunar conditions."
+    return {
+        "title": f"What NASA PSI records show on {pillar}",
+        "findings": findings,
+        "implication": sanitize(implication),
+        "gap": "No partial-gravity combustion data is in PSI yet.",
+    }
+
+
+def write_one(llm, facts):
+    """Return (brief, source, problems). Model errors are retried, rejected briefs are retried with the
+    exact problems, and after three attempts the fact-only brief is used."""
+    from si.llm import LLMError
+
+    prompt = build_prompt(facts)
+    problems = []
+    for attempt in range(MAX_ATTEMPTS):
+        try:
+            reply = llm.json(prompt, system=SYSTEM_PROMPT, max_tokens=1500)
+        except LLMError as error:
+            problems = [f"model error: {error}"[:300]]
+            if attempt < MAX_ATTEMPTS - 1:
+                continue
+            return template_brief(facts), "template", problems
+        brief = clean_brief(reply)
+        problems = validate_brief(brief, facts)
+        if not problems:
+            return brief, "model", []
+        prompt = (build_prompt(facts) + "\n\nYour previous brief was rejected for these reasons: " + "; ".join(problems)
+                  + ". Write it again following every rule.")
+    return template_brief(facts), "template", problems
