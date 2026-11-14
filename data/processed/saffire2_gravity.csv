@@ -1,8 +1,8 @@
 sample,material,thickness,flow_direction,micro_g_burn_length,micro_g_spread_length,one_g_burn_length,one_g_spread_rate
-2-1,Silicone,0.27 mm,Concurrent,~ 0,n/a,Complete,Acceleratory
-2-2,Silicone,0.61 mm,Concurrent,~ 0,n/a,7.6 cm,1.2 mm/s
-2-3,Silicone,1.03 mm,Concurrent,~ 0,n/a,~ 0,n/a
-2-4,Silicone,037 mm,Opposed,~ 0,n/a,Complete,0.6 mm/s
+2-1,Silicone,0.27 mm,Concurrent,~ 0,,Complete,Acceleratory
+2-2,Silicone,0.61 mm,Concurrent,~ 0,,7.6 cm,1.2 mm/s
+2-3,Silicone,1.03 mm,Concurrent,~ 0,,~ 0,
+2-4,Silicone,037 mm,Opposed,~ 0,,Complete,0.6 mm/s
 2-5,Cotton-Fiberglass (SIBAL),037 mm,Concurrent,29 cm,2.1 mm/s,Complete,Acceleratory
 2-6,Cotton-Fiberglass (SIBAL),037 mm,Concurrent,29 cm,2.6 mm/s,Complete,Acceleratory
 2-7,PMMA & Nomex,0.85 and 0.37 mm,Concurrent,5 cm & 0 (note 2),n/a (Nomex),~ 0 (Nomex),n/a (Nomex)

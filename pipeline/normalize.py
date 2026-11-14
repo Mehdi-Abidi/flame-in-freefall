@@ -7,12 +7,13 @@ import argparse
 import csv
 import datetime as dt
 import glob
+import io
 import os
 import re
 import statistics
 
 COLUMNS = [
-    "accession", "acronym", "source_file", "record_type", "test_id", "date",
+    "row_id", "accession", "acronym", "source_file", "record_type", "test_id", "date",
     "fuel", "fuel_phase", "geometry", "size_mm",
     "o2_mole_fraction", "o2_source", "pressure_kpa", "pressure_source",
     "diluent", "flow_cm_s", "gravity", "outcome", "burn_time_s", "n_flames", "notes",
@@ -30,21 +31,43 @@ OUTCOMES = {
     "extinction": "extinction", "disruption": "disruption", "completion": "burned to completion",
     "se": "self-extinguished", "ft": "flow terminated",
 }
+MONTHS = {
+    "january": "Jan", "february": "Feb", "march": "Mar", "april": "Apr", "june": "Jun", "july": "Jul",
+    "august": "Aug", "sept": "Sep", "september": "Sep", "october": "Oct", "november": "Nov", "december": "Dec",
+}
+NOT_AVAILABLE = {"–", "—", "-", "n/a", "na"}
+DUPLICATES_DROPPED = {}
 
 
 def key(text):
     return " ".join(str(text).replace("﻿", "").split()).strip().lower()
 
 
+def decode(raw_bytes):
+    try:
+        return raw_bytes.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        return raw_bytes.decode("cp1252", errors="replace")
+
+
 def read_table(path):
-    with open(path, encoding="utf-8-sig", errors="replace", newline="") as handle:
-        rows = list(csv.reader(handle))
+    with open(path, "rb") as handle:
+        rows = list(csv.reader(io.StringIO(decode(handle.read()), newline="")))
     header = [key(h) for h in rows[0]]
     records = []
+    seen = set()
+    dropped = 0
     for raw in rows[1:]:
         if not any(cell.strip() for cell in raw):
             continue
-        records.append({header[i]: raw[i].strip() for i in range(min(len(header), len(raw)))})
+        signature = tuple(cell.strip() for cell in raw)
+        if signature in seen:
+            dropped += 1
+            continue
+        seen.add(signature)
+        records.append({header[i]: ("" if raw[i].strip().lower() in NOT_AVAILABLE else raw[i].strip())
+                        for i in range(min(len(header), len(raw)))})
+    DUPLICATES_DROPPED[os.path.basename(path)] = dropped
     return records
 
 
@@ -106,17 +129,24 @@ def length_mm(text):
     return None
 
 
+def day_of_year(year, day):
+    return (dt.date(year, 1, 1) + dt.timedelta(days=day - 1)).isoformat()
+
+
 def iso_date(text):
-    text = str(text).strip()
-    for fmt in ("%m/%d/%Y", "%Y-%b-%d", "%d-%b-%y", "%Y-%m-%d"):
+    text = str(text).strip().replace("`", "").rstrip("*")
+    cleaned = re.sub(r"[A-Za-z]+\.?", lambda m: MONTHS.get(m.group(0).rstrip(".").lower(), m.group(0).rstrip(".")), text)
+    for fmt in ("%m/%d/%Y", "%m/%d/%y", "%Y-%b-%d", "%d-%b-%y", "%Y-%m-%d"):
         try:
-            return dt.datetime.strptime(text, fmt).date().isoformat()
+            return dt.datetime.strptime(cleaned, fmt).date().isoformat()
         except ValueError:
             pass
     match = re.match(r"^(\d{2})(\d{3})$", text)
     if match:
-        year, day = 2000 + int(match.group(1)), int(match.group(2))
-        return (dt.date(year, 1, 1) + dt.timedelta(days=day - 1)).isoformat()
+        return day_of_year(2000 + int(match.group(1)), int(match.group(2)))
+    match = re.match(r"^GMT\s+(\d{1,3})\s+\((\d{4})\)$", text)
+    if match:
+        return day_of_year(int(match.group(2)), int(match.group(1)))
     return text
 
 
@@ -237,12 +267,12 @@ def cfi_g(path, name):
         ignited = col(r, "hot ignition").lower()
         termination = OUTCOMES.get(col(r, "self", "ext").lower() or col(r, "self-ext").lower(), "")
         outcome = "no ignition" if ignited == "no" else termination or ("ignited" if ignited == "yes" else "")
-        notes = []
+        notes = [f"ACME test day {col(r, 'day')}"] if col(r, "day") else []
         if not inverse and col(r, "cool flame").lower() == "yes":
             notes.append("cool flame observed")
         if col(r, "comments"):
             notes.append(col(r, "comments"))
-        rows.append(base("PSI-159", "ACME CFI-G", name, test_id=test, date=iso_date(col(r, "day")),
+        rows.append(base("PSI-159", "ACME CFI-G", name, test_id=test,
                          fuel=col(r, "fuel").lower(), fuel_phase="gas",
                          geometry="spherical burner, inverse flame" if inverse else "spherical burner, normal flame",
                          o2_mole_fraction=o2, o2_source="measured",
@@ -258,13 +288,16 @@ def flame_design(path, name):
     for r in read_table(path):
         o2 = first_number(col(r, "xo2")) if inverse else first_number(col(r, "xo2 (init)"))
         pressure = first_number(col(r, "pmean"))
-        rows.append(base("PSI-10", "ACME Flame Design", name, test_id=col(r, "test"), date=iso_date(col(r, "day")),
+        notes = [f"ACME test day {col(r, 'day')}"] if col(r, "day") else []
+        if "ramped" in " ".join(r.values()).lower():
+            notes.append("flow ramped during test")
+        rows.append(base("PSI-10", "ACME Flame Design", name, test_id=col(r, "test"),
                          fuel="ethylene" if inverse else fuel_label(col(r, "fuel")), fuel_phase="gas",
                          geometry="spherical burner, inverse flame" if inverse else "spherical burner, normal flame",
                          o2_mole_fraction=o2, o2_source="measured",
                          pressure_kpa=round(pressure * KPA_PER["atm"], 2) if pressure else None,
                          pressure_source="measured" if pressure else "", diluent="N2",
-                         notes="flow ramped during test" if "ramped" in " ".join(r.values()).lower() else ""))
+                         notes="; ".join(notes)))
     return rows
 
 
@@ -314,19 +347,14 @@ def slice_table(path, name):
 
 def spice(path, name):
     rows = []
-    seen = set()
     for r in read_table(path):
-        signature = tuple(r.values())
-        if signature in seen:
-            continue
-        seen.add(signature)
         rows.append(base("PSI-107", "SPICE", name, test_id=f"{col(r, 'gmt date')}-{col(r, 'gmt ignition')}",
-                         date=col(r, "gmt date"), fuel=col(r, "fuel").lower(), fuel_phase="gas",
+                         fuel=col(r, "fuel").lower(), fuel_phase="gas",
                          geometry="coflow jet nozzle", size_mm=first_number(col(r, "nozzle")),
                          o2_mole_fraction=AIR_O2, o2_source="nominal_cabin_air",
                          pressure_kpa=CABIN_PRESSURE_KPA, pressure_source="nominal_cabin",
                          diluent="N2 (air)", flow_cm_s=first_number(col(r, "air rate")),
-                         notes=f"fuel rate {col(r, 'fuel rate (sccm)')} sccm, GMT day of year"))
+                         notes=f"GMT day {col(r, 'gmt date')} (year not given); fuel rate {col(r, 'fuel rate (sccm)')} sccm"))
     return rows
 
 
@@ -431,7 +459,7 @@ def daft(path, name):
     rows = []
     for r in read_table(path):
         rows.append(base("PSI-47", "DAFT / DAFT-2", name, record_type="session", test_id=col(r, "session name"),
-                         date=col(r, "actual day"), fuel="Arizona road dust", fuel_phase="dust",
+                         date=iso_date(col(r, "actual day")), fuel="Arizona road dust", fuel_phase="dust",
                          geometry="aerosol sampling", notes=f"{col(r, 'hardware')}; {col(r, 'sampled location')}"))
     return rows
 
@@ -477,20 +505,44 @@ def main():
                       ["sample", "material", "thickness", "flow_direction", "micro_g_burn_length",
                        "micro_g_spread_length", "one_g_burn_length", "one_g_spread_rate"])
 
-    for row in all_rows:
-        if isinstance(row["o2_mole_fraction"], float) and not 0 < row["o2_mole_fraction"] <= 1:
-            row["notes"] = "; ".join(filter(None, [row["notes"], f"source O2 value {row['o2_mole_fraction']} out of range, blanked"]))
+    finalize(all_rows)
+    write_csv(os.path.join(args.out, "tests.csv"), all_rows, COLUMNS)
+    dropped = {name: count for name, count in DUPLICATES_DROPPED.items() if count}
+    print(f"dropped exact duplicate source rows: {dropped}")
+    print(f"total  {len(all_rows)} rows -> {os.path.join(args.out, 'tests.csv')}")
+
+
+def add_note(row, text):
+    row["notes"] = "; ".join(filter(None, [row["notes"], text]))
+
+
+def finalize(rows):
+    counters = {}
+    for row in rows:
+        o2, pressure, flow = row["o2_mole_fraction"], row["pressure_kpa"], row["flow_cm_s"]
+        if isinstance(o2, float) and not 0 < o2 <= 1:
+            add_note(row, f"source O2 value {o2} out of range, blanked")
+            row["o2_mole_fraction"] = ""
+        if isinstance(pressure, float) and pressure <= 0:
+            add_note(row, f"source pressure {pressure} out of range, blanked")
+            row["pressure_kpa"] = ""
+        if isinstance(flow, float) and flow < 0:
+            add_note(row, f"source flow {flow} cm/s is negative, blanked")
+            row["flow_cm_s"] = ""
+        if row["o2_mole_fraction"] in ("", None):
             row["o2_mole_fraction"], row["o2_source"] = "", ""
-        if isinstance(row["pressure_kpa"], float) and row["pressure_kpa"] <= 0:
-            row["notes"] = "; ".join(filter(None, [row["notes"], "source pressure 0, blanked"]))
+        if row["pressure_kpa"] in ("", None):
             row["pressure_kpa"], row["pressure_source"] = "", ""
+        if row["date"] and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(row["date"])):
+            add_note(row, f"date as given: {row['date']}")
+            row["date"] = ""
         if row["fuel_phase"] == "solid" and row["fuel"] == "PMMA" and "pmma" not in row["notes"].lower() and row["acronym"].startswith("BASS"):
-            row["notes"] = f"{row['notes']}; material inferred as PMMA, verify"
+            add_note(row, "material inferred as PMMA, verify")
         for field in ("size_mm", "o2_mole_fraction", "pressure_kpa", "flow_cm_s", "burn_time_s", "n_flames"):
             if isinstance(row[field], float):
                 row[field] = round(row[field], 4)
-    write_csv(os.path.join(args.out, "tests.csv"), all_rows, COLUMNS)
-    print(f"total  {len(all_rows)} rows -> {os.path.join(args.out, 'tests.csv')}")
+        counters[row["accession"]] = counters.get(row["accession"], 0) + 1
+        row["row_id"] = f"{row['accession']}-{counters[row['accession']]:04d}"
 
 
 if __name__ == "__main__":
