@@ -172,10 +172,10 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                 </g>
               ))}
               <line y1={innerH} y2={innerH} x2={innerW} stroke="var(--rule-strong)" />
-              <text x={innerW} y={innerH + 36} textAnchor="end" fontSize={11.5} fill="var(--ink-2)">
+              <text x={innerW} y={innerH + 36} textAnchor="end" fontSize={12} fill="var(--ink-2)">
                 Oxygen in the atmosphere (mole fraction)
               </text>
-              <text transform={`translate(${-44},${innerH / 2}) rotate(-90)`} textAnchor="middle" fontSize={11.5} fill="var(--ink-2)">
+              <text transform={`translate(${-44},${innerH / 2}) rotate(-90)`} textAnchor="middle" fontSize={12} fill="var(--ink-2)">
                 Pressure (kPa, log scale)
               </text>
 
@@ -197,7 +197,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                       rx={2}
                     />
                     {!compact && (
-                      <text x={Math.min(bx + 4, innerW - 4)} y={by - 6} fontSize={11} textAnchor={bx + 4 > innerW - 140 ? "end" : "start"} className="mono" fill={selected ? "var(--accent)" : "var(--ink-2)"} stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
+                      <text x={Math.min(bx + 4, innerW - 4)} y={by - 6} fontSize={12} textAnchor={bx + 4 > innerW - 140 ? "end" : "start"} className="mono" fill={selected ? "var(--accent)" : "var(--ink-2)"} stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
                         {box.label.toUpperCase()}
                       </text>
                     )}
@@ -209,7 +209,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                 <g>
                   <line x1={x(solidMaxO2)} x2={x(solidMaxO2)} y1={0} y2={innerH} stroke="var(--s1)" strokeWidth={1} opacity={0.7} />
                   {!compact && (
-                    <text x={x(solidMaxO2) + 6} y={14} fontSize={11} fill="var(--ink)" stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
+                    <text x={x(solidMaxO2) + 6} y={14} fontSize={12} fill="var(--ink)" stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
                       <tspan fontWeight={600}>Solid materials stop here</tspan>
                       <tspan x={x(solidMaxO2) + 6} dy={14} fill="var(--ink-2)">
                         highest measured: {pct(solidMaxO2, 1)} O₂
