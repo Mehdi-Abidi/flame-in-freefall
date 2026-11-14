@@ -2,10 +2,10 @@
   {
     "accession": "PSI-10",
     "acronym": "ACME/Flame Design",
-    "summary": "This microgravity study examined ethylene and propane spherical diffusion flames to determine soot‑inception and extinction limits under varied flow, dilution, and pressure conditions. The experiments measured flame temperature, size, color, and soot volume fraction using cameras, radiometers, photomultiplier tubes, and thermocouples. Findings aim to improve terrestrial combustor efficiency and reduce emissions.",
-    "objective_short": "Determine soot‑inception and extinction limits of ethylene and propane spherical diffusion flames under varied flow, dilution, and pressure.",
+    "summary": "This microgravity study investigates how ethylene and propane flames behave in spherical burners under varying oxygen, pressure, and inert gas conditions. It measures soot formation, flame temperature, size, and extinction limits to understand flammability and suppression in low‑gravity environments. The findings aim to improve terrestrial combustor efficiency and reduce emissions.",
+    "objective_short": "Determine soot limits, flame temperatures, and extinction conditions for ethylene and propane spherical diffusion flames under varied flow, dilution, and pressure.",
     "sample_size": null,
-    "pillar_reason": "The study focuses on flammability limits and extinction behavior, key aspects of fire prevention and suppression.",
+    "pillar_reason": "The experiment seeks to identify conditions that prevent soot formation and to establish extinction limits, directly supporting fire prevention and suppression strategies.",
     "fuels": [
       "ethylene",
       "propane"
@@ -17,9 +17,9 @@
     "variables_varied": [
       "flow rate",
       "Zst",
-      "amount of inert",
+      "amount of inert (N2)",
       "pressure",
-      "O2"
+      "oxygen concentration"
     ],
     "variables_fixed": [],
     "sensors": [
@@ -33,12 +33,13 @@
       "flame size",
       "flame color",
       "soot volume fraction",
-      "extinction limits"
+      "extinction limits",
+      "radiative extinction"
     ],
     "earth_benefits": [
       "improving efficiency of terrestrial combustors",
       "reducing pollutant emissions",
-      "novel designs of future coal power plants"
+      "novel designs for future coal power plants"
     ],
     "pillars": [
       "prevention",
@@ -49,54 +50,55 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-20",
     "acronym": "ACME BRE",
-    "summary": "The BRE flight program investigates how condensed‑phase fuels behave in microgravity by burning them on porous copper burners of 25–50 mm diameter in various O₂/N₂ or O₂/CO₂ atmospheres. The tests vary oxygen concentration, burner size, and fuel flow to map flammability limits and extinction conditions. Results show that microgravity flames can persist in high‑O₂ environments where they would normally extinguish, informing spacecraft fire‑safety design.",
-    "objective_short": "Determine quasi‑steady burning conditions for condensed fuels in microgravity to map flammability and extinction limits.",
+    "summary": "The BRE flight program studied how gaseous fuels burn in microgravity on porous copper burners of 25‑50 mm diameter, varying oxygen concentration and pressure to map flammability and extinction limits. Experiments used methane, ethylene, and ethylene‑N₂ mixtures in a nitrogen diluent, with the goal of understanding quasi‑steady burning for condensed‑phase materials. Results suggest that microgravity flames can persist in high‑oxygen environments, informing spacecraft fire‑safety tests such as the cone calorimeter.",
+    "objective_short": "Map flammability and extinction limits of gaseous fuels in microgravity.",
     "sample_size": "25 to 50 mm",
-    "pillar_reason": "The study focuses on flammability and oxygen limits to prevent ignition and flame spread in spacecraft environments.",
+    "pillar_reason": "The study aimed to define flammability maps and extinction limits, key to preventing and suppressing spacecraft fires.",
     "fuels": [
+      "methane",
       "ethylene",
-      "ethylene 50% in N2",
-      "methane"
+      "ethylene 50% in N2"
     ],
     "sample_geometry": [
       "porous burner (burning rate emulator)"
     ],
     "variables_varied": [
-      "o2_range",
-      "size_mm_range"
+      "oxygen concentration",
+      "pressure",
+      "burner diameter"
     ],
     "variables_fixed": [
-      "diluents_in_tables",
-      "fuel_phase"
+      "diluent N2",
+      "fuel phase gas"
     ],
     "sensors": [],
     "measurements": [],
     "earth_benefits": [
-      "increase use of cone calorimeter for material testing",
-      "measure material properties corresponding to microgravity flames"
+      "use of cone calorimeter for material flammability testing"
     ],
     "pillars": [
-      "prevention"
+      "prevention",
+      "suppression"
     ],
     "fuel_phase": [
       "gas"
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-21",
     "acronym": "ACME CLD Flame",
-    "summary": "This study examined methane and ethylene diffusion flames in microgravity to validate computational models. It varied fuel dilution and inlet velocity while measuring flame shape, lift‑off height, temperatures, extinction limits, and soot characteristics. The data support improved predictions of soot formation and flame extinction for practical combustion devices.",
-    "objective_short": "Validate computational models of weak and sooting coflow diffusion flames by measuring flame characteristics under varied dilution and velocity.",
+    "summary": "This study examined methane and ethylene diffusion flames in microgravity to understand how velocity and fuel dilution affect flame shape, lift‑off, temperature, extinction, and soot formation. The experiments used a coflow burner and measured chemiluminescence, laser extinction, and pyrometry to capture key combustion parameters. Results help validate computational models for safer, more efficient combustion on Earth.",
+    "objective_short": "Characterize weak and sooting coflow diffusion flames of methane and ethylene as functions of velocity and fuel dilution.",
     "sample_size": null,
-    "pillar_reason": "The investigation focused on flame extinction limits and soot formation, key factors for preventing and suppressing fires.",
+    "pillar_reason": "The investigation focused on flame extinction limits and soot behavior, key factors for preventing fire spread and enabling effective suppression.",
     "fuels": [
       "methane",
       "ethylene"
@@ -110,23 +112,24 @@
     ],
     "variables_fixed": [],
     "sensors": [
-      "flame chemiluminesence",
-      "laser extinction",
-      "thin‑filament pyrometry"
+      "chemiluminesence spectrometer",
+      "laser extinction system",
+      "thin‑filament pyrometer"
     ],
     "measurements": [
       "flame shape",
       "lift‑off height",
-      "temperatures",
+      "temperature",
       "extinction limits",
       "soot luminosity",
-      "soot temperatures",
-      "soot volume fractions"
+      "soot temperature",
+      "soot volume fraction",
+      "gas temperature"
     ],
     "earth_benefits": [
-      "modeling turbulent reacting flows",
-      "understanding soot formation",
-      "improving engine efficiency"
+      "improved modeling of turbulent reacting flows",
+      "enhanced engine efficiency",
+      "better fire suppression strategies"
     ],
     "pillars": [
       "prevention",
@@ -137,34 +140,36 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-22",
     "acronym": "ACME E-FIELD Flames",
-    "summary": "The E‑FIELD Flames experiment studies how high‑voltage electric fields alter laminar diffusion flames in microgravity. Methane and ethylene, diluted with nitrogen, are burned in a coflow or gas‑jet burner while ion currents, flame shape, soot, and chemiluminescence are recorded. Findings may help design cleaner, more efficient terrestrial combustion systems.",
-    "objective_short": "Investigate electric field effects on laminar diffusion flames to understand ion‑driven convection and soot behavior.",
+    "summary": "This study examined how electric fields affect laminar diffusion flames of methane and ethylene in microgravity. By varying field strength, fuel dilution, and fuel type, researchers measured ion currents, flame response times, and soot characteristics to understand ion‑driven convection. The data suggest electric fields could improve combustion efficiency and reduce pollutants on Earth.",
+    "objective_short": "Investigate electric field effects on laminar diffusion flames.",
     "sample_size": null,
-    "pillar_reason": null,
+    "pillar_reason": "The experiment monitors ion currents and flame responses to electric fields, providing detection data on flame behavior changes.",
     "fuels": [
       "methane",
-      "methane 40% in N2",
-      "ethylene",
-      "ethylene 30% in N2"
+      "ethylene"
     ],
     "sample_geometry": [
-      "coflow or gas-jet burner with electric field"
+      "coflow or gas‑jet burner with electric field"
     ],
     "variables_varied": [
       "electric field voltage",
-      "dilution level"
+      "fuel dilution",
+      "fuel type"
     ],
-    "variables_fixed": [],
+    "variables_fixed": [
+      "microgravity",
+      "ISS platform",
+      "CIR and ACME hardware"
+    ],
     "sensors": [
-      "ion current probe",
-      "high‑resolution camera",
-      "spectral imaging system",
-      "thermopile detector"
+      "high‑resolution cameras",
+      "spectral imaging filters",
+      "thermopile detectors"
     ],
     "measurements": [
       "ion current",
@@ -172,45 +177,47 @@
       "flame shape",
       "luminosity",
       "soot distribution",
-      "chemiluminescence",
+      "chemiluminescent emissions",
       "soot volume fraction",
-      "radiant emissions"
+      "flame radiant emissions"
     ],
     "earth_benefits": [
       "reduce harmful pollutants",
       "improve combustion efficiency",
       "lower fuel consumption"
     ],
-    "pillars": [],
+    "pillars": [
+      "detection"
+    ],
     "fuel_phase": [
       "gas"
     ],
-    "warnings": [
-      "no fire-safety pillar assigned"
-    ],
+    "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-23",
     "acronym": "ACME s-Flame",
-    "summary": "This study investigates spherical diffusion flames in microgravity using gaseous fuels and diluents to measure flame structure, extinction limits, and pulsating instabilities. Experiments are conducted with a counterflow burner on the ISS, varying oxygen concentration while keeping pressure constant. The data support model validation and offer insights for improving combustion performance on Earth.",
-    "objective_short": "Measure flame structure, extinction limits, and instabilities in microgravity spherical diffusion flames.",
+    "summary": "These microgravity experiments investigate spherical diffusion flames of gaseous fuels such as hydrogen, methane, and ethylene with various diluents. The focus is on measuring flame structure, extinction limits, and pulsating instabilities to validate detailed combustion models. The data support improvements in engine performance and emissions control.",
+    "objective_short": "Characterize transient and extinction behavior of spherical diffusion flames of H2, CH4, and C2H4 mixtures.",
     "sample_size": null,
-    "pillar_reason": "The study focuses on extinction limits and flame suppression mechanisms.",
+    "pillar_reason": "The study aims to determine extinction limits and flame stability, key aspects of preventing and suppressing fires.",
     "fuels": [
-      "ethylene",
+      "hydrogen",
       "methane",
-      "H2"
+      "ethylene"
     ],
     "sample_geometry": [
-      "counterflow burner"
+      "spherical porous burner"
     ],
     "variables_varied": [
-      "o2_range"
+      "oxygen concentration"
     ],
     "variables_fixed": [
-      "pressure_kpa_range"
+      "pressure",
+      "platform",
+      "hardware"
     ],
     "sensors": [],
     "measurements": [],
@@ -221,6 +228,7 @@
       "increase reliability"
     ],
     "pillars": [
+      "prevention",
       "suppression"
     ],
     "fuel_phase": [
@@ -228,15 +236,15 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-25",
     "acronym": "BASS-II",
-    "summary": "BASS‑II examined how solid fuels ignite, grow, spread, and extinguish in low‑velocity forced flows aboard the ISS. The tests varied airflow speed and oxygen concentration while keeping pressure constant, measuring flame growth and spread rates for different geometries. Results inform fire‑detection and suppression design for spacecraft and Earth applications.",
-    "objective_short": "Study ignition, flame growth, spread, and extinction limits of solid fuels in microgravity under varied airflow and O₂.",
+    "summary": "BASS‑II examined how solid fuels spread and extinguish in microgravity under low‑velocity forced flows and varying oxygen levels. The tests used a small wind tunnel on the ISS to impose airflow up to 40 cm/s and measured flame growth and spread rates for different geometries. Results help refine fire detection and suppression models for spacecraft and Earth applications.",
+    "objective_short": "Study ignition, flame growth, spread, and extinction limits of solid fuels in microgravity with varied airflow and oxygen.",
     "sample_size": "0.1 to 40 mm",
-    "pillar_reason": "The study targets flammability, flame spread, and extinction limits to prevent ignition and to develop suppression strategies.",
+    "pillar_reason": "The study focuses on flammability limits and extinction, key to preventing fires and enabling effective suppression in spacecraft.",
     "fuels": [
       "PMMA",
       "SIBAL cotton‑fiberglass",
@@ -245,17 +253,19 @@
     ],
     "sample_geometry": [
       "rod",
-      "spherical section",
+      "fabric strip",
+      "flat strip",
+      "thin film",
       "slab",
-      "film",
-      "fabric sheet"
+      "candle"
     ],
     "variables_varied": [
       "airflow speed",
       "oxygen concentration"
     ],
     "variables_fixed": [
-      "pressure"
+      "pressure",
+      "temperature"
     ],
     "sensors": [],
     "measurements": [
@@ -267,9 +277,7 @@
       "improved spacecraft fire safety",
       "better material selection",
       "enhanced firefighting methods",
-      "modeling of wildfires",
-      "building fires",
-      "energy recapture from waste recycling"
+      "model validation for Earth fires"
     ],
     "pillars": [
       "prevention",
@@ -280,22 +288,22 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-26",
     "acronym": "BASS",
-    "summary": "The BASS experiment studied how solid fabrics and other materials burn in microgravity, focusing on flame spread and the use of nitrogen as a suppressant. It varied airflow speed and direction while keeping pressure and oxygen constant, measuring flame characteristics to inform spacecraft fire safety. The results help validate ground‑based models and improve material selection for space missions.",
-    "objective_short": "Bridge 1‑g and microgravity flammability data and evaluate nitrogen suppression.",
+    "summary": "The BASS experiment examined how solid fabrics burn in microgravity and how an inert gas can extinguish them. It measured flame spread, size, color, and quenching under different airflow directions and speeds. The data help validate combustion models and improve spacecraft fire safety.",
+    "objective_short": "Bridge ground‑based and microgravity flammability data and test inert gas suppression.",
     "sample_size": "10 to 20 mm",
-    "pillar_reason": "The study examined flame spread to prevent fire spread and tested nitrogen to suppress flames.",
+    "pillar_reason": "The study focused on flame spread characteristics and the effectiveness of inert gas extinguishment, addressing both prevention and suppression aspects of fire safety.",
     "fuels": [
-      "PMMA",
+      "pmma",
       "paraffin wax",
-      "SIBAL cotton‑fiberglass",
-      "Japan wax",
-      "Nomex",
-      "Ultem"
+      "sibal cotton‑fiberglass",
+      "japan wax",
+      "nomex",
+      "ultem"
     ],
     "sample_geometry": [
       "sphere",
@@ -310,9 +318,9 @@
       "preheating"
     ],
     "variables_fixed": [
-      "pressure (101.3 kPa)",
-      "oxygen (0.21)",
-      "temperature (nominal cabin)"
+      "pressure",
+      "oxygen concentration",
+      "temperature"
     ],
     "sensors": [],
     "measurements": [
@@ -324,8 +332,7 @@
     ],
     "earth_benefits": [
       "guidance for ground‑based microgravity combustion research",
-      "validation of combustion models",
-      "improved material selection for spacecraft"
+      "validation of combustion models"
     ],
     "pillars": [
       "prevention",
@@ -336,15 +343,15 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-39",
     "acronym": "CFI",
-    "summary": "The Cool Flames Investigation examined how liquid n‑dodecane and its mixtures behave when burned as droplets in microgravity, varying pressure, oxygen level, and helium dilution. The study measured droplet and flame characteristics to understand low‑temperature combustion and extinction limits. Findings support safer spacecraft fire control and inform Earth engine design.",
-    "objective_short": "Study droplet combustion of n‑dodecane mixtures under varied pressure, O₂, and He dilution to understand cool flame behavior and extinction.",
+    "summary": "This study examined how n‑dodecane and its mixtures behave when burned as droplets in microgravity, focusing on cool flame formation, extinction, and soot production. Experiments varied pressure, droplet size, and helium dilution while keeping the fuel phase liquid and the droplet geometry fiber‑supported. The results help design safer spacecraft fire systems and improve low‑temperature combustion models for Earth engines.",
+    "objective_short": "Investigate cool flame behavior of n‑dodecane droplets under varying pressure, size, and helium dilution.",
     "sample_size": null,
-    "pillar_reason": "The investigation focused on preventing fire by determining extinction limits and suppressing flames through helium dilution.",
+    "pillar_reason": "The study aims to understand droplet extinction limits and the role of helium dilution, which informs material selection and extinguishing strategies for spacecraft fire safety.",
     "fuels": [
       "n-dodecane",
       "[.60]/[.40] C12H26/iso-dodecane",
@@ -356,30 +363,32 @@
     ],
     "variables_varied": [
       "pressure",
-      "o2",
-      "diluent",
-      "fuel composition"
+      "droplet size",
+      "helium dilution"
     ],
     "variables_fixed": [
-      "fuel phase liquid"
+      "fuel phase",
+      "droplet geometry"
     ],
     "sensors": [
-      "hot-wire igniter",
-      "black-and-white camera",
+      "hot‑wire igniter",
+      "black‑and‑white camera",
       "UV camera",
-      "high-resolution cameras",
-      "radiometers"
+      "high‑resolution cameras",
+      "narrow‑band radiometer",
+      "wide‑band radiometer"
     ],
     "measurements": [
-      "droplet size",
       "flame size",
-      "OH* emissions",
-      "flame radiation"
+      "OH* radical emissions",
+      "droplet size",
+      "flame extinction diameter",
+      "soot formation"
     ],
     "earth_benefits": [
-      "engine design",
-      "fuel selection",
-      "computational modeling"
+      "improve low‑temperature combustion models",
+      "support design of high‑efficiency HCCI engines",
+      "enhance fuel selection for spark ignition and diesel engines"
     ],
     "pillars": [
       "prevention",
@@ -390,15 +399,15 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-47",
     "acronym": "DAFT / DAFT-2",
-    "summary": "The Dust and Aerosol Measurement Feasibility Test (DAFT) evaluated a modified TSI P‑Trak particulate counter for use in microgravity, comparing its performance to a DustTrak control. The test used Arizona Red Dust aerosolized with nitrogen and measured particle counts to verify detector reliability. Results support the use of such detectors for future space fire‑safety systems.",
-    "objective_short": "Validate a modified TSI P‑Trak for accurate aerosol detection in microgravity.",
+    "summary": "The DAFT experiments tested a modified TSI P‑Trak particle counter in microgravity to ensure reliable smoke aerosol detection for future spacecraft fire safety. They compared its performance to a DustTrak control and generated aerosol standards using Arizona Red Dust. The goal was to validate the instrument’s functionality and support more sensitive fire detection systems on long‑duration missions.",
+    "objective_short": "Validate a modified TSI P‑Trak for accurate smoke aerosol measurement in microgravity.",
     "sample_size": null,
-    "pillar_reason": "The experiment’s main goal was to assess the reliability of smoke aerosol detection in microgravity.",
+    "pillar_reason": "The primary aim was to confirm reliable detection of smoke aerosols, a key fire detection requirement.",
     "fuels": [
       "Arizona road dust"
     ],
@@ -409,14 +418,14 @@
     "variables_fixed": [],
     "sensors": [
       "TSI P‑Trak",
-      "DustTrak"
+      "DustTrak CNC"
     ],
     "measurements": [
-      "aerosol particle count"
+      "aerosol particle counts"
     ],
     "earth_benefits": [
-      "improved fire detection for space missions",
-      "enhanced smoke detection in submarines and underwater labs"
+      "improved fire detection systems for ISS and future spacecraft",
+      "enhanced smoke detection in challenging Earth environments such as submarines or underwater labs"
     ],
     "pillars": [
       "detection"
@@ -426,15 +435,15 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-60",
     "acronym": null,
-    "summary": "This ground study examined soot formation in coflow flames under normal and microgravity using image analysis and computational modeling. It aimed to reconcile discrepancies between 1‑g and 0‑g soot behavior and improve predictive models for both spacecraft and terrestrial combustion. The work supports safer fire detection, suppression, and cleaner combustion technologies.",
-    "objective_short": "Integrate experimental and computational methods to understand soot formation differences between 1‑g and 0‑g flames.",
+    "summary": "This ground study examined soot formation in coflow flames under normal and microgravity, using image analysis and computational modeling to compare temperature and soot distributions. The goal was to reconcile differences between 1‑g and 0‑g flames and improve predictive soot models. Findings support safer fire detection and cleaner combustion for space and Earth applications.",
+    "objective_short": "Increase understanding of soot formation differences between 1‑g and 0‑g flames.",
     "sample_size": null,
-    "pillar_reason": null,
+    "pillar_reason": "No specific fire safety pillar was targeted in this investigation.",
     "fuels": [],
     "sample_geometry": [],
     "variables_varied": [],
@@ -452,27 +461,31 @@
       "no fire-safety pillar assigned"
     ],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-62",
     "acronym": null,
-    "summary": "This study develops and validates an unsteady flamelet generated manifold (UFGM) model for concurrent flame spread in microgravity, comparing predictions to NASA BASS experiments. The focus is on solid fuel combustion, particularly PMMA and wax, using flat sheets, spheres, and rods. The goal is to predict flammability limits and support spacecraft fire safety.",
+    "summary": "This study develops a new computational method, the unsteady flamelet generated manifold (UFGM), to predict how solid fuels spread flames in microgravity. Experiments from NASA’s BASS program on flat sheets, spheres, rods, and wax cylinders validate the model, focusing on flame geometry, temperature, soot, and spread rate. The goal is to improve spacecraft fire safety by accurately estimating flammability limits and providing subgrid models for large‑eddy simulations.",
     "objective_short": "Develop and validate UFGM modeling for concurrent flame spread in microgravity.",
     "sample_size": null,
-    "pillar_reason": "The work aims to predict flammability limits and improve fire suppression modeling for spacecraft materials.",
+    "pillar_reason": "The work aims to predict flammability limits and provide subgrid models for fire suppression, while also improving material selection to prevent ignition.",
     "fuels": [
-      "pmma",
+      "polymethyl methacrylate",
       "wax"
     ],
     "sample_geometry": [
       "flat sheet",
       "sphere",
-      "rod"
+      "rod",
+      "cylinder"
     ],
     "variables_varied": [],
     "variables_fixed": [],
-    "sensors": [],
+    "sensors": [
+      "DSLR camera",
+      "two-color tomography"
+    ],
     "measurements": [
       "flame geometry",
       "temperature distribution",
@@ -493,31 +506,30 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-68",
     "acronym": "FLEX-2",
-    "summary": "The FLEX‑2 experiment investigates how bi‑component liquid fuel droplets extinguish in microgravity, varying pressure, oxygen level, and fuel mix while keeping droplet size and support fiber constant. It records flame evolution, pressure, and temperature to validate combustion models and improve fuel efficiency. The data support both prevention (flammability limits) and suppression (extinction mechanisms) of spacecraft fires.",
-    "objective_short": "Extend FLEX‑1 results to bi‑component fuels and validate droplet combustion models in microgravity.",
+    "summary": "The FLEX‑2 experiment investigates how liquid fuel droplets burn and extinguish in microgravity, varying pressure, oxygen level, and fuel mix to understand flame behavior and soot formation. It uses droplet combustion in a controlled chamber with high‑speed imaging and pressure/temperature sensors. The data help validate models for safer, cleaner spacecraft and Earth‑based engines.",
+    "objective_short": "Extend FLEX‑1 results to bi‑component fuels and varied conditions to benchmark droplet combustion and extinction.",
     "sample_size": null,
-    "pillar_reason": "The study focuses on flammability limits and flame extinction mechanisms, key to preventing and suppressing spacecraft fires.",
+    "pillar_reason": "The study focuses on flammability limits, extinction mechanisms, and droplet interactions, addressing both prevention of ignition and suppression of flames.",
     "fuels": [
-      "isooctane (pure)",
-      "n-octane (pure)",
-      "heptane (pure)",
-      "decane (pure)",
-      "ethanol (pure)",
-      "propanol (95%) glycerol (5%) (mixture)",
-      "heptane (50%) isooctane (50%) (mixture)",
-      "propanol (80%) glycerol (20%) (mixture)"
+      "isooctane",
+      "n‑octane",
+      "heptane",
+      "decane",
+      "ethanol",
+      "propanol",
+      "glycerol"
     ],
     "sample_geometry": [
       "droplet"
     ],
     "variables_varied": [
       "pressure",
-      "o2 concentration",
+      "oxygen concentration",
       "fuel mixture"
     ],
     "variables_fixed": [],
@@ -532,11 +544,10 @@
       "temperature"
     ],
     "earth_benefits": [
-      "more sustainable energy production",
-      "future combustor designs with minimal carbon footprint",
-      "improved fuel efficiency",
-      "better fuels",
-      "validation of jet engine models"
+      "sustainable energy production",
+      "future combustor designs",
+      "fuel efficiency",
+      "reduced pollutant emissions"
     ],
     "pillars": [
       "prevention",
@@ -547,15 +558,15 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-69",
     "acronym": "FLEX",
-    "summary": "The FLEX experiment maps flammability limits of liquid fuels in microgravity and tests how gaseous suppressants affect droplet extinction. It measures droplet burning rates, flame extinction, heat radiation, soot, and temperature under varied pressures and oxygen levels. The data support better fire‑safety designs for space and Earth confined environments.",
-    "objective_short": "Map flammability limits of liquid fuels and evaluate suppressant efficacy in microgravity.",
+    "summary": "The FLEX experiment maps how liquid fuel droplets behave in microgravity, determining flammability limits and how suppressants like CO₂, He, and SF₆ affect extinction. It systematically varies pressure, oxygen level, and diluent composition while keeping droplet size and fuel type constant. The data support safer fire‑safety designs for spacecraft and similar confined environments on Earth.",
+    "objective_short": "Map flammability limits of liquid fuels in microgravity and evaluate suppressant efficacy.",
     "sample_size": "1.1 to 4.67 mm",
-    "pillar_reason": "The study determines flammability limits and suppressant effectiveness, key to preventing and suppressing fires.",
+    "pillar_reason": "The study focuses on flammability limits and suppressant effectiveness, key aspects of preventing and suppressing fires.",
     "fuels": [
       "methanol",
       "heptane"
@@ -565,10 +576,13 @@
     ],
     "variables_varied": [
       "pressure",
-      "o2",
-      "diluent"
+      "oxygen concentration",
+      "diluent composition"
     ],
-    "variables_fixed": [],
+    "variables_fixed": [
+      "fuel phase",
+      "sample geometry"
+    ],
     "sensors": [],
     "measurements": [
       "droplet burning rates",
@@ -578,9 +592,10 @@
       "temperature profiles"
     ],
     "earth_benefits": [
-      "improved fire safety protocols",
-      "efficient suppression systems",
-      "reduced toxic byproducts"
+      "improved fire safety protocols for space missions",
+      "enhanced fire safety in confined and reduced‑gravity environments such as submarines or high‑altitude aircraft",
+      "development of more efficient and less harmful fire suppression systems",
+      "advancement of low‑temperature combustion knowledge"
     ],
     "pillars": [
       "prevention",
@@ -591,15 +606,15 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-98",
     "acronym": "SAFFIRE-I",
-    "summary": "The Saffire‑I experiment examined how a large cotton‑fiberglass composite sheet burns in microgravity, measuring flame growth, temperatures, and gas concentrations. It compared low‑gravity flammability limits to those from normal‑gravity tests, providing data for safer spacecraft design. The results also have implications for fire safety in confined Earth environments such as mines, aircraft, and submarines.",
-    "objective_short": "Determine large‑scale fire growth and low‑g flammability limits of a composite fabric.",
+    "summary": "The Saffire‑I experiment examined how a large cotton‑fiberglass fabric sheet burns in microgravity while air flows through it. It measured flame growth, temperatures, radiation, and gas concentrations to determine flammability limits and flame size under low‑gravity conditions. The data help validate spacecraft fire safety criteria and inform Earth‑based safety in confined environments.",
+    "objective_short": "Determine microgravity flame growth and flammability limits of a large fabric sheet.",
     "sample_size": "3.7 mm",
-    "pillar_reason": "The study focuses on flammability limits and flame growth, key aspects of preventing and detecting fires.",
+    "pillar_reason": "The study focuses on flammability limits and flame growth, key aspects of preventing ignition and detecting fire onset.",
     "fuels": [
       "SIBAL Fabric"
     ],
@@ -608,11 +623,11 @@
       "large sheet, opposed flow"
     ],
     "variables_varied": [
-      "o2"
+      "oxygen concentration"
     ],
     "variables_fixed": [
-      "flow velocity",
       "pressure",
+      "flow velocity",
       "diluent"
     ],
     "sensors": [
@@ -644,15 +659,15 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-99",
     "acronym": "SAFFIRE-II",
-    "summary": "The Saffire‑II experiment examined how large‑scale fires develop in low‑gravity using a Cygnus cargo module. It measured flame growth, temperatures, and gas concentrations for several solid materials in a controlled flow environment. The data provide microgravity flammability limits that can inform spacecraft fire safety design.",
-    "objective_short": "Determine rapid fire growth and low‑gravity flammability limits for spacecraft materials.",
+    "summary": "The Saffire‑II experiment measured how large‑scale fires grow in low‑gravity and determined flammability limits for several spacecraft materials. It used a 5 cm × 29 cm sample card with nine solid samples exposed to controlled airflow and oxygen levels, recording flame growth, temperature, pressure, and gas concentrations. The data help validate material selection and improve fire safety for future missions and similar sealed environments on Earth.",
+    "objective_short": "Determine low‑gravity flammability limits and flame growth of spacecraft materials.",
     "sample_size": "0.27 to 10 mm",
-    "pillar_reason": "The study aims to establish flammability limits, a key prevention goal.",
+    "pillar_reason": "The study establishes flammability limits and monitors flame development, key to preventing and detecting fires in spacecraft and similar sealed environments.",
     "fuels": [
       "silicone",
       "cotton‑fiberglass (sibal)",
@@ -664,78 +679,27 @@
       "large sheet, opposed flow"
     ],
     "variables_varied": [
-      "flow direction"
+      "flow velocity",
+      "oxygen concentration"
     ],
     "variables_fixed": [
       "pressure",
-      "o2",
-      "diluent"
+      "diluent (n2/air)"
     ],
     "sensors": [
       "thermocouples",
       "radiometers",
-      "solid state sensors",
-      "anemometer"
+      "solid state pressure/CO2/O2 sensors",
+      "anemometers",
+      "cameras"
     ],
     "measurements": [
-      "flow temperature",
-      "flame temperature",
-      "plume temperature",
+      "flame growth",
       "flame radiation",
+      "temperature",
       "pressure",
-      "CO2 mole fraction",
-      "O2 mole fraction",
-      "flow velocity"
-    ],
-    "earth_benefits": [
-      "mines",
-      "airplanes",
-      "submarines"
-    ],
-    "pillars": [
-      "prevention"
-    ],
-    "fuel_phase": [
-      "solid"
-    ],
-    "warnings": [],
-    "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
-  },
-  {
-    "accession": "PSI-100",
-    "acronym": "SAFFIRE-III",
-    "summary": "The Saffire‑III experiment examined how a large silicone sheet fire behaves in low‑gravity, measuring flame growth and flammability limits. It used a 3.3 mm thick SIBAL Fabric sheet with a 30 cm/s nitrogen‑air flow, recording temperatures, radiation, gas composition, and flow velocity. The data help validate spacecraft fire safety criteria and inform Earth‑based safety in confined environments.",
-    "objective_short": "Determine large‑scale fire growth and low‑gravity flammability limits of SIBAL Fabric.",
-    "sample_size": "3.3 mm",
-    "pillar_reason": "The study focuses on flammability limits and flame growth, key aspects of fire prevention and detection.",
-    "fuels": [
-      "SIBAL Fabric"
-    ],
-    "sample_geometry": [
-      "large sheet, concurrent flow",
-      "large sheet, opposed flow"
-    ],
-    "variables_varied": [],
-    "variables_fixed": [
-      "flow_cm_s",
-      "o2",
-      "pressure"
-    ],
-    "sensors": [
-      "thermocouples",
-      "radiometers",
-      "solid state sensors",
-      "anemometer"
-    ],
-    "measurements": [
-      "flow temperature",
-      "flame temperature",
-      "plume temperature",
-      "flame radiation",
-      "pressure",
-      "CO2 mole fraction",
-      "O2 mole fraction",
+      "CO2 concentration",
+      "O2 concentration",
       "flow velocity"
     ],
     "earth_benefits": [
@@ -750,17 +714,73 @@
     "fuel_phase": [
       "solid"
     ],
-    "warnings": [],
+    "warnings": [
+      "sensors not found in source: anemometers"
+    ],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
+  },
+  {
+    "accession": "PSI-100",
+    "acronym": "SAFFIRE-III",
+    "summary": "The Saffire‑III experiment examined how a large silicone sheet fire behaves in low‑gravity aboard an unmanned cargo vehicle. By igniting a 3.3‑mm thick SIBAL Fabric sheet under controlled 30 cm/s airflow and 21 % O₂, the study measured flame growth, temperatures, radiation, and gas concentrations. Results provide microgravity flammability limits that inform spacecraft fire safety and have practical implications for confined‑space fires on Earth.",
+    "objective_short": "Determine large‑scale fire growth and low‑gravity flammability limits of SIBAL Fabric.",
+    "sample_size": "3.3 mm",
+    "pillar_reason": "The investigation focuses on flammability limits and flame growth, key aspects of preventing and detecting fires in spacecraft.",
+    "fuels": [
+      "SIBAL Fabric"
+    ],
+    "sample_geometry": [
+      "large sheet, concurrent flow",
+      "large sheet, opposed flow"
+    ],
+    "variables_varied": [
+      "flow direction"
+    ],
+    "variables_fixed": [
+      "size 3.3 mm",
+      "flow speed 30 cm/s",
+      "oxygen 0.21",
+      "pressure 101.3 kPa"
+    ],
+    "sensors": [
+      "thermocouples",
+      "radiometers",
+      "solid state sensors",
+      "anemometer"
+    ],
+    "measurements": [
+      "temperature",
+      "radiation",
+      "pressure",
+      "CO2",
+      "O2",
+      "flow velocity"
+    ],
+    "earth_benefits": [
+      "mines",
+      "airplanes",
+      "submarines"
+    ],
+    "pillars": [
+      "prevention"
+    ],
+    "fuel_phase": [
+      "solid"
+    ],
+    "warnings": [
+      "detection pillar removed: no smoke, aerosol, particle, dust or detector terms in source"
+    ],
+    "model": "openai/gpt-oss-20b",
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-101",
     "acronym": "SAME-R",
-    "summary": "The SAME‑R experiment measured smoke aerosol sizes from solid fuels in microgravity to inform future spacecraft fire detectors. It used a heated smoke source and varied flow, oxygen, and pressure conditions across 109 tests. The data support detector sensitivity studies for extreme environments on Earth and in space.",
-    "objective_short": "Quantify liquid smoke particulate sizes in low gravity and relate droplet size distribution to smoke generation and transport.",
+    "summary": "The SAME‑R experiment measured smoke aerosol sizes from solid fuels in microgravity, using a heated smoke source and a new M‑pass instrument. It varied heating temperature and flow conditions while keeping cabin pressure and oxygen constant. Results inform low‑gravity fire detector design for spacecraft and other extreme environments.",
+    "objective_short": "Quantify smoke particle sizes in microgravity and relate them to source conditions.",
     "sample_size": null,
-    "pillar_reason": "The experiment’s main aim was to measure smoke aerosol characteristics to evaluate and improve fire detector performance in microgravity.",
+    "pillar_reason": "The study focuses on measuring smoke aerosols to evaluate detector sensitivity in microgravity.",
     "fuels": [
       "kapton",
       "silicone",
@@ -772,19 +792,21 @@
       "heated smoke source"
     ],
     "variables_varied": [
-      "flow_cm_s",
-      "o2",
-      "pressure_kpa"
+      "heating temperature",
+      "flow"
     ],
-    "variables_fixed": [],
+    "variables_fixed": [
+      "pressure",
+      "oxygen"
+    ],
     "sensors": [
-      "dusttrak",
-      "ionization detector",
-      "m-pass"
+      "M-pass",
+      "DustTrak",
+      "ionization detector"
     ],
     "measurements": [
-      "smoke particle size",
-      "droplet size distribution"
+      "smoke particle size distribution",
+      "particle number density"
     ],
     "earth_benefits": [
       "advanced fire detector for spacecraft",
@@ -798,15 +820,15 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-102",
     "acronym": "SAME",
-    "summary": "This experiment measured smoke particle sizes and detector responses from overheated spacecraft materials in microgravity. By varying flow, oxygen, and pressure while keeping the solid fuel source constant, the study quantified how reduced gravity affects smoke growth and detector sensitivity. The data support the development of advanced fire detectors for spacecraft and other extreme environments on Earth.",
+    "summary": "This experiment measured smoke particle sizes and detector responses from solid spacecraft materials in microgravity. By varying the flow field while keeping oxygen and pressure constant, the study quantified how reduced gravity affects particle growth and detector sensitivity. The data support the design of advanced fire detectors for long‑duration missions and similar extreme environments on Earth.",
     "objective_short": "Quantify smoke particle sizes in microgravity and relate them to detector response.",
     "sample_size": null,
-    "pillar_reason": "The primary aim was to evaluate smoke detector sensitivity to microgravity smoke, a key detection objective.",
+    "pillar_reason": "The main aim was to evaluate how smoke detectors respond to microgravity smoke, a key detection objective.",
     "fuels": [
       "Teflon",
       "Kapton",
@@ -818,22 +840,19 @@
       "heated smoke source"
     ],
     "variables_varied": [
-      "flow field",
+      "flow field"
+    ],
+    "variables_fixed": [
       "oxygen concentration",
       "pressure"
     ],
-    "variables_fixed": [
-      "fuel phase solid",
-      "o2_basis nominal_cabin_air",
-      "pressure_basis nominal_cabin"
-    ],
     "sensors": [
+      "thermophoretic soot samplers",
       "smoke detectors",
-      "video cameras",
-      "thermophoretic soot samplers"
+      "video cameras"
     ],
     "measurements": [
-      "particle size distribution",
+      "particle size",
       "mass loss",
       "detector response"
     ],
@@ -849,15 +868,15 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-106",
     "acronym": "SLICE",
-    "summary": "The SLICE experiment examined laminar diffusion flames of methane and ethylene in microgravity, varying burner diameter, coflow velocity, and fuel dilution to assess flame structure, stability, and soot. It used a coflow jet nozzle with gas fuels and measured flow, temperature, and soot to inform numerical models. The data support fire‑safety insights and cleaner combustion on Earth.",
-    "objective_short": "Understand laminar diffusion flame structure, stability, and soot in microgravity.",
+    "summary": "This study examined laminar diffusion flames in microgravity using a coflow jet nozzle and various gas fuels, focusing on flame structure, stability, and soot formation. The experiments varied fuel composition, dilution, burner diameter, and coflow velocity to determine liftoff limits and radiative heat loss. Findings support improved combustion models and fire‑safety insights for Earth applications.",
+    "objective_short": "Understand laminar diffusion flame structure and stability in microgravity and assess effects of fuel dilution, burner size, and coflow velocity.",
     "sample_size": null,
-    "pillar_reason": "The investigation targets flame stability and soot production, key factors for preventing fire spread and detecting hazardous conditions.",
+    "pillar_reason": "The investigation targets flammability, flame spread, and soot (smoke) detection to improve fire safety and combustion efficiency.",
     "fuels": [
       "methane",
       "methane 70% in N2",
@@ -870,30 +889,33 @@
       "coflow jet nozzle"
     ],
     "variables_varied": [
-      "burner diameter",
-      "coflow velocity",
       "fuel composition",
-      "fuel dilution"
+      "fuel dilution",
+      "burner diameter",
+      "coflow velocity"
     ],
-    "variables_fixed": [],
+    "variables_fixed": [
+      "microgravity",
+      "ambient temperature",
+      "pressure"
+    ],
     "sensors": [
-      "flow rate sensor",
-      "temperature sensor",
-      "soot sensor"
+      "high‑resolution camera",
+      "flow‑rate sensor",
+      "temperature sensor"
     ],
     "measurements": [
       "flame structure",
       "flame stability",
-      "liftoff velocity",
       "soot formation",
       "flame length",
       "radiative heat loss"
     ],
     "earth_benefits": [
       "improved numerical models for efficient combustion",
-      "design of low‑emission combustion systems",
-      "enhanced fire safety",
-      "development of cleaner engines and industrial burners"
+      "reduced soot emissions",
+      "enhanced fire‑safety designs",
+      "cleaner engines and industrial burners"
     ],
     "pillars": [
       "prevention",
@@ -904,15 +926,15 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-107",
     "acronym": "SPICE",
-    "summary": "The experiment examined laminar smoke‑point properties of hydrocarbon fuels in microgravity using a co‑flow jet nozzle. It varied burner diameter, co‑flow velocity, and fuel flow rate while keeping pressure, oxygen, and diluent constant. The data help predict soot formation and improve spacecraft fire safety.",
-    "objective_short": "Determine laminar smoke‑point properties of non‑buoyant jet diffusion flames under varied co‑flow conditions.",
+    "summary": "The experiment studied laminar smoke points of hydrocarbon fuels in microgravity using a co‑flow jet nozzle. Burner diameters ranged from 0.41 mm to 1.6 mm and co‑flow velocities from 0.66 cm/s to 85 cm/s. Data were collected on flame height, radiative heat loss, and air velocity distributions for 435 tests.",
+    "objective_short": "Determine how burner size and co‑flow velocity affect smoke points and soot formation of hydrocarbon fuels in microgravity.",
     "sample_size": "0.4064 to 1.6002 mm",
-    "pillar_reason": "The study focuses on identifying smoke points and soot formation to prevent fire initiation and to detect smoke early.",
+    "pillar_reason": "The study focuses on identifying smoke‑point conditions to prevent ignition and on measuring extinction limits to aid suppression strategies.",
     "fuels": [
       "methane",
       "ethylene",
@@ -930,81 +952,66 @@
       "fuel flow rate"
     ],
     "variables_fixed": [
+      "oxygen concentration",
       "pressure",
-      "o2",
-      "diluent"
+      "ambient temperature"
     ],
     "sensors": [
-      "cameras"
+      "still camera",
+      "video camera"
     ],
     "measurements": [
       "flame height",
       "radiative heat losses",
-      "co‑flow air velocity distributions"
+      "co‑flow air velocity distribution"
     ],
     "earth_benefits": [
-      "safer spacecraft environments",
-      "refining computational models",
-      "better fuel formulations"
+      "improve soot formation understanding",
+      "refine computational models",
+      "enhance fuel formulation knowledge"
     ],
     "pillars": [
       "prevention",
-      "detection"
+      "suppression"
     ],
     "fuel_phase": [
       "gas"
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-115",
     "acronym": null,
-    "summary": "This study uses numerical simulation to compare smoke formation from dibutyl‑phthalate pyrolysis in microgravity versus Earth gravity, focusing on how buoyancy affects particle growth and distribution. The goal is to quantify differences and identify fluid‑dynamic mechanisms that influence smoke characteristics. The results aim to improve smoke detection and fire prevention tools.",
-    "objective_short": "Quantify microgravity vs Earth gravity smoke differences and identify fluid dynamics mechanisms.",
+    "summary": "This study used numerical simulation to compare smoke formation from dibutyl‑phthalate pyrolysis in microgravity versus Earth gravity. It examined how buoyancy affects particle growth and wake geometry in low‑speed cross‑flow conditions. The goal was to improve smoke detection and fire prevention tools.",
+    "objective_short": "Quantify differences between microgravity and Earth gravity smoke and identify fluid dynamic mechanisms.",
     "sample_size": null,
-    "pillar_reason": "The investigation seeks to understand how gravity influences smoke generation to improve fire prevention and smoke detection devices.",
-    "fuels": [
-      "dibutyl‑phthalate"
-    ],
-    "sample_geometry": [
-      "coflow burner"
-    ],
-    "variables_varied": [
-      "gravity",
-      "cross‑flow velocity"
-    ],
+    "pillar_reason": null,
+    "fuels": [],
+    "sample_geometry": [],
+    "variables_varied": [],
     "variables_fixed": [],
     "sensors": [],
-    "measurements": [
-      "particle size distribution",
-      "scalar fields of particle accumulation"
+    "measurements": [],
+    "earth_benefits": [],
+    "pillars": [],
+    "fuel_phase": [],
+    "warnings": [
+      "no fire-safety pillar assigned"
     ],
-    "earth_benefits": [
-      "better smoke detection devices",
-      "prevent fires that can lead to loss of materiel and life"
-    ],
-    "pillars": [
-      "prevention",
-      "detection"
-    ],
-    "fuel_phase": [
-      "gas"
-    ],
-    "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-117",
     "acronym": null,
-    "summary": "This study uses CFD to predict how thermal and convective perturbations affect cool‑flame behavior of n‑alkane droplets in microgravity. It maps ignition, oscillation, transition to hot ignition, and extinction boundaries for large (1–4 mm) and sub‑millimeter (~0.5 mm) droplets. The results help define safer operating envelopes for spacecraft fire safety and improve low‑temperature combustion models for Earth engines.",
-    "objective_short": "Quantify how imposed thermal and convective perturbations regulate cool‑flame dynamics and extinction of n‑alkane droplets in microgravity.",
+    "summary": "This study used CFD to examine how external heating and convection affect cool flame behavior of n‑alkane droplets in microgravity. It mapped ignition, oscillation, transition to hot ignition, and extinction for large (1–4 mm) and sub‑millimeter (~0.5 mm) droplets. The results help define safer operating envelopes for spacecraft fire safety.",
+    "objective_short": "Quantify how imposed thermal and convective perturbations regulate droplet cool flame dynamics and extinction in microgravity.",
     "sample_size": null,
-    "pillar_reason": "The investigation focuses on extinguishing cool flames and defining extinction limits, directly supporting fire suppression strategies.",
+    "pillar_reason": "The investigation focuses on preventing and suppressing cool flame ignition and extinction by characterizing stability windows and extinction limits.",
     "fuels": [
-      "n-alkane"
+      "n‑alkane"
     ],
     "sample_geometry": [
       "droplet"
@@ -1025,11 +1032,10 @@
       "extinction diameter"
     ],
     "earth_benefits": [
-      "engine knock",
-      "efficiency",
-      "emissions"
+      "advances low‑temperature combustion understanding relevant to engine knock, efficiency, and emissions; delivers validate"
     ],
     "pillars": [
+      "prevention",
       "suppression"
     ],
     "fuel_phase": [
@@ -1037,23 +1043,27 @@
     ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-142",
     "acronym": null,
-    "summary": "This study investigates how cool flames transition to hot flames under varying conditions such as oxygen concentration, pressure, and dilution. Ground‑based counterflow flame experiments and simulations were used to map flammability and extinction limits for fuels like n‑heptane and dimethyl ether. The results aim to improve combustion safety in high‑pressure, microgravity, and turbulent environments.",
-    "objective_short": "Map flammability and extinction limits of cool flames under varied conditions.",
+    "summary": "This study investigates how cool flames transition to hot flames and how radiation, diffusion, and convection affect their flammability limits. Experiments used counterflow flames with n‑heptane, dimethyl ether, and large n‑alkanes under varied oxygen and pressure conditions. The goal is to improve models for spacecraft fire safety and high‑pressure combustion.",
+    "objective_short": "Determine how oxygen, dilution, pressure, diffusion, and convection influence cool flame extinction and transition to hot flames.",
     "sample_size": null,
-    "pillar_reason": "The investigation focuses on determining flammability limits to prevent unintended ignition.",
-    "fuels": [],
-    "sample_geometry": [],
+    "pillar_reason": "The work focuses on flammability limits and extinction conditions to prevent ignition and to understand how to extinguish cool flames.",
+    "fuels": [
+      "n-heptane",
+      "dimethyl ether",
+      "large n-alkanes"
+    ],
+    "sample_geometry": [
+      "counterflow flame"
+    ],
     "variables_varied": [
       "oxygen concentration",
-      "dilution",
       "pressure",
-      "diffusion",
-      "convection"
+      "dilution"
     ],
     "variables_fixed": [],
     "sensors": [],
@@ -1064,20 +1074,23 @@
     ],
     "earth_benefits": [],
     "pillars": [
-      "prevention"
+      "prevention",
+      "suppression"
     ],
-    "fuel_phase": [],
+    "fuel_phase": [
+      "gas"
+    ],
     "warnings": [],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   },
   {
     "accession": "PSI-159",
     "acronym": "ACME CFI-G",
-    "summary": "This study investigates cool diffusion flames of gaseous fuels aboard the ISS using spherical porous burners. It varies oxygen concentration and pressure to map flame behavior, including normal and inverse flames. The data support advanced combustion modeling and potential engine efficiency gains.",
-    "objective_short": "Determine conditions for cool diffusion flames of propane, n‑butane, and n‑pentane on spherical burners in microgravity.",
+    "summary": "This study investigates cool diffusion flames of gaseous fuels aboard the ISS using spherical porous burners. By varying oxygen concentration and pressure, the experiments map conditions for normal, inverse, and self-extinguishing flames. The data support development of more efficient, ultra‑lean combustion engines on Earth.",
+    "objective_short": "Determine conditions for cool diffusion flames of propane, n‑butane, and n‑pentane on the ISS.",
     "sample_size": null,
-    "pillar_reason": "The investigation monitors flame presence and extinction to inform smoke and flame detection systems.",
+    "pillar_reason": "Studying cool flame behavior identifies flammability limits and enables detection of flame states, aiding prevention of unintended combustion.",
     "fuels": [
       "ethane",
       "propane",
@@ -1095,7 +1108,9 @@
       "oxygen concentration",
       "pressure"
     ],
-    "variables_fixed": [],
+    "variables_fixed": [
+      "diluent N2"
+    ],
     "sensors": [
       "cameras",
       "radiometers",
@@ -1103,19 +1118,22 @@
       "thermocouples"
     ],
     "measurements": [
-      "outcomes (self‑extinguished, flow terminated, no ignition)"
+      "flame extinction",
+      "flow termination"
     ],
     "earth_benefits": [
       "improved internal combustion engine efficiency"
     ],
     "pillars": [
-      "detection"
+      "prevention"
     ],
     "fuel_phase": [
       "gas"
     ],
-    "warnings": [],
+    "warnings": [
+      "detection pillar removed: no smoke, aerosol, particle, dust or detector terms in source"
+    ],
     "model": "openai/gpt-oss-20b",
-    "prompt_version": "s2-v2"
+    "prompt_version": "s2-v3"
   }
 ]
