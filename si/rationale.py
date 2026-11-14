@@ -56,3 +56,45 @@ def group_scenarios(scenarios):
 
 def fingerprint(facts):
     return hashlib.sha256(json.dumps(facts, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:16]
+
+
+PROMPT_VERSION = "s4-v1"
+SYSTEM_PROMPT = """You explain a fire-safety ranking to an aerospace engineer.
+Write exactly two plain sentences, at most 60 words in total.
+Sentence 1: why this investigation ranks where it does for this habitat, naming its strongest factor.
+Sentence 2: its main limitation or caveat for this habitat.
+Rules:
+- Use only the FACTS. Do not add knowledge from outside them.
+- Every number you write must appear in the FACTS. Prefer words over numbers when unsure.
+- If n_in_target is 0, never say its tests were inside or within the habitat's target.
+- No hype, no lists, no dashes, no semicolons.
+Reply with JSON only: {"rationale": "<two sentences>"}"""
+
+
+def build_facts(entry, scenario, total, summary_record):
+    best = (entry.get("evidence") or {}).get("best") or {}
+    components = {k: round(float(v), 2) for k, v in (entry.get("components") or {}).items()}
+    summary = (summary_record or {}).get("summary") or ""
+    return {
+        "investigation": entry.get("acronym") or entry["accession"],
+        "title": entry.get("title"),
+        "habitat": scenario.get("label"),
+        "habitat_oxygen_percent": [round(v * 100) for v in scenario.get("o2_mole_fraction") or []],
+        "habitat_pressure_kpa": scenario.get("pressure_kpa"),
+        "rank": entry["rank"],
+        "out_of": total,
+        "score_out_of_100": round(float(entry["score"]) * 100),
+        "score_parts_0_to_1": components,
+        "pillars": entry.get("pillars") or [],
+        "n_considered": (entry.get("evidence") or {}).get("n_considered", 0),
+        "n_in_target": (entry.get("evidence") or {}).get("n_in_target", 0),
+        "n_near": (entry.get("evidence") or {}).get("n_near", 0),
+        "closest_test_oxygen_percent": round(best["o2_mole_fraction"] * 100, 1) if best.get("o2_mole_fraction") is not None else None,
+        "closest_test_pressure_kpa": round(best["pressure_kpa"]) if best.get("pressure_kpa") is not None else None,
+        "computed_reasons": entry.get("reasons") or [],
+        "summary": summary[:400],
+    }
+
+
+def build_prompt(facts):
+    return "FACTS:\n" + json.dumps(facts, ensure_ascii=False, indent=1)
