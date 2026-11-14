@@ -45,9 +45,10 @@
             "data_richness": 0.9425
           },
           "pillars": [
+            "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 274,
             "n_in_target": 49,
@@ -62,7 +63,7 @@
             "49 measured test(s) inside the ISS and Earth-normal cabin target",
             "closest test: 21% O2 at 101 kPa",
             "burned liquid fuels",
-            "fire-safety focus: suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 1
         },
@@ -80,7 +81,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 79,
             "n_in_target": 25,
@@ -95,7 +96,7 @@
             "25 measured test(s) inside the ISS and Earth-normal cabin target",
             "closest test: 21% O2 at 101 kPa",
             "burned liquid fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 2
         },
@@ -114,7 +115,7 @@
             "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 129,
             "n_in_target": 0,
@@ -128,7 +129,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 3
         },
@@ -147,7 +148,7 @@
             "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 121,
             "n_in_target": 0,
@@ -161,7 +162,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 4
         },
@@ -179,7 +180,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 109,
             "n_in_target": 0,
@@ -193,7 +194,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 5
         },
@@ -211,7 +212,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 316,
             "n_in_target": 65,
@@ -226,7 +227,7 @@
             "65 measured test(s) inside the ISS and Earth-normal cabin target",
             "closest test: 21% O2 at 103 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 6
         },
@@ -244,7 +245,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 20,
             "n_in_target": 0,
@@ -258,7 +259,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 7
         },
@@ -276,7 +277,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 9,
             "n_in_target": 0,
@@ -290,7 +291,7 @@
           "reasons": [
             "closest test: 22% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 8
         },
@@ -306,10 +307,9 @@
             "data_richness": 0.3919
           },
           "pillars": [
-            "prevention",
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 2,
             "n_in_target": 0,
@@ -323,7 +323,7 @@
           "reasons": [
             "closest test: 22% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: prevention, detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 9
         },
@@ -339,10 +339,9 @@
             "data_richness": 0.3489
           },
           "pillars": [
-            "prevention",
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 2,
             "n_in_target": 0,
@@ -356,7 +355,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: prevention, detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 10
         },
@@ -374,7 +373,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 333,
             "n_in_target": 27,
@@ -389,7 +388,7 @@
             "27 measured test(s) inside the ISS and Earth-normal cabin target",
             "closest test: 21% O2 at 101 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 11
         },
@@ -405,9 +404,9 @@
             "data_richness": 0.726
           },
           "pillars": [
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 435,
             "n_in_target": 0,
@@ -421,7 +420,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned gas fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 12
         },
@@ -437,9 +436,10 @@
             "data_richness": 0.6357
           },
           "pillars": [
+            "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 160,
             "n_in_target": 0,
@@ -453,7 +453,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned liquid fuels",
-            "fire-safety focus: suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 13
         },
@@ -469,9 +469,10 @@
             "data_richness": 0.499
           },
           "pillars": [
-            "prevention"
+            "prevention",
+            "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 43,
             "n_in_target": 0,
@@ -485,7 +486,7 @@
           "reasons": [
             "closest test: 21% O2",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 14
         },
@@ -503,7 +504,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -513,9 +514,37 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned dust fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 15
+        },
+        {
+          "accession": "PSI-117",
+          "acronym": null,
+          "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
+          "score": 0.3092,
+          "components": {
+            "condition_fit": 0.0,
+            "material_relevance": 0.0,
+            "pillar_match": 1.0,
+            "data_richness": 0.2962
+          },
+          "pillars": [
+            "prevention"
+          ],
+          "pillar_source": "tags",
+          "evidence": {
+            "n_considered": 0,
+            "n_in_target": 0,
+            "n_near": 0,
+            "best": null
+          },
+          "reasons": [
+            "no O2 or pressure data to compare with this habitat",
+            "fire-safety focus: prevention (from tags tags)",
+            "ground study, no flight tests of its own"
+          ],
+          "rank": 16
         },
         {
           "accession": "PSI-142",
@@ -531,7 +560,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -540,10 +569,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 16
+          "rank": 17
         },
         {
           "accession": "PSI-62",
@@ -559,7 +588,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -568,10 +597,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 17
+          "rank": 18
         },
         {
           "accession": "PSI-115",
@@ -585,9 +614,10 @@
             "data_richness": 0.1522
           },
           "pillars": [
+            "prevention",
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -596,10 +626,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: detection (from seed tags)",
+            "fire-safety focus: prevention, detection (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 18
+          "rank": 19
         },
         {
           "accession": "PSI-60",
@@ -613,9 +643,9 @@
             "data_richness": 0.0814
           },
           "pillars": [
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -624,10 +654,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: detection (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 19
+          "rank": 20
         },
         {
           "accession": "PSI-23",
@@ -641,7 +671,7 @@
             "data_richness": 0.6294
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -651,9 +681,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 20
+          "rank": 21
         },
         {
           "accession": "PSI-22",
@@ -667,7 +697,7 @@
             "data_richness": 0.5429
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -677,9 +707,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 21
+          "rank": 22
         },
         {
           "accession": "PSI-21",
@@ -693,7 +723,7 @@
             "data_richness": 0.5296
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -703,9 +733,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 22
+          "rank": 23
         },
         {
           "accession": "PSI-106",
@@ -719,7 +749,7 @@
             "data_richness": 0.4845
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -729,33 +759,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
-          ],
-          "rank": 23
-        },
-        {
-          "accession": "PSI-117",
-          "acronym": null,
-          "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
-          "score": 0.0592,
-          "components": {
-            "condition_fit": 0.0,
-            "material_relevance": 0.0,
-            "pillar_match": 0.0,
-            "data_richness": 0.2962
-          },
-          "pillars": [],
-          "pillar_source": "seed",
-          "evidence": {
-            "n_considered": 0,
-            "n_in_target": 0,
-            "n_near": 0,
-            "best": null
-          },
-          "reasons": [
-            "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: fundamentals only (from seed tags)",
-            "ground study, no flight tests of its own"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
           "rank": 24
         }
@@ -789,9 +793,10 @@
             "data_richness": 0.9425
           },
           "pillars": [
+            "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 274,
             "n_in_target": 0,
@@ -805,7 +810,7 @@
           "reasons": [
             "closest test: 34% O2 at 71 kPa",
             "burned liquid fuels",
-            "fire-safety focus: suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 1
         },
@@ -823,7 +828,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 316,
             "n_in_target": 2,
@@ -838,7 +843,7 @@
             "2 measured test(s) inside the Lunar base target",
             "closest test: 32% O2 at 52 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 2
         },
@@ -856,7 +861,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 333,
             "n_in_target": 29,
@@ -871,7 +876,7 @@
             "29 measured test(s) inside the Lunar base target",
             "closest test: 30% O2 at 50 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 3
         },
@@ -887,9 +892,10 @@
             "data_richness": 0.6357
           },
           "pillars": [
+            "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 160,
             "n_in_target": 0,
@@ -903,7 +909,7 @@
           "reasons": [
             "closest test: 30% O2 at 51 kPa",
             "burned liquid fuels",
-            "fire-safety focus: suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 4
         },
@@ -919,9 +925,10 @@
             "data_richness": 0.499
           },
           "pillars": [
-            "prevention"
+            "prevention",
+            "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 43,
             "n_in_target": 0,
@@ -935,7 +942,7 @@
           "reasons": [
             "closest test: 40% O2",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 5
         },
@@ -954,7 +961,7 @@
             "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 129,
             "n_in_target": 0,
@@ -968,7 +975,7 @@
           "reasons": [
             "none of its 129 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 6
         },
@@ -987,7 +994,7 @@
             "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 121,
             "n_in_target": 0,
@@ -1001,7 +1008,7 @@
           "reasons": [
             "none of its 121 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 7
         },
@@ -1019,7 +1026,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 109,
             "n_in_target": 0,
@@ -1033,7 +1040,7 @@
           "reasons": [
             "none of its 109 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 8
         },
@@ -1051,7 +1058,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 20,
             "n_in_target": 0,
@@ -1065,7 +1072,7 @@
           "reasons": [
             "none of its 20 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 9
         },
@@ -1083,7 +1090,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 79,
             "n_in_target": 0,
@@ -1097,7 +1104,7 @@
           "reasons": [
             "none of its 79 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 10
         },
@@ -1115,7 +1122,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 9,
             "n_in_target": 0,
@@ -1129,7 +1136,7 @@
           "reasons": [
             "none of its 9 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 11
         },
@@ -1145,10 +1152,9 @@
             "data_richness": 0.3919
           },
           "pillars": [
-            "prevention",
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 2,
             "n_in_target": 0,
@@ -1162,7 +1168,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 12
         },
@@ -1178,10 +1184,9 @@
             "data_richness": 0.3489
           },
           "pillars": [
-            "prevention",
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 2,
             "n_in_target": 0,
@@ -1195,7 +1200,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 13
         },
@@ -1211,9 +1216,9 @@
             "data_richness": 0.726
           },
           "pillars": [
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 435,
             "n_in_target": 0,
@@ -1227,7 +1232,7 @@
           "reasons": [
             "none of its 435 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 14
         },
@@ -1245,7 +1250,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -1255,9 +1260,37 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned dust fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 15
+        },
+        {
+          "accession": "PSI-117",
+          "acronym": null,
+          "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
+          "score": 0.3092,
+          "components": {
+            "condition_fit": 0.0,
+            "material_relevance": 0.0,
+            "pillar_match": 1.0,
+            "data_richness": 0.2962
+          },
+          "pillars": [
+            "prevention"
+          ],
+          "pillar_source": "tags",
+          "evidence": {
+            "n_considered": 0,
+            "n_in_target": 0,
+            "n_near": 0,
+            "best": null
+          },
+          "reasons": [
+            "no O2 or pressure data to compare with this habitat",
+            "fire-safety focus: prevention (from tags tags)",
+            "ground study, no flight tests of its own"
+          ],
+          "rank": 16
         },
         {
           "accession": "PSI-142",
@@ -1273,7 +1306,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -1282,10 +1315,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 16
+          "rank": 17
         },
         {
           "accession": "PSI-62",
@@ -1301,7 +1334,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -1310,10 +1343,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 17
+          "rank": 18
         },
         {
           "accession": "PSI-115",
@@ -1327,9 +1360,10 @@
             "data_richness": 0.1522
           },
           "pillars": [
+            "prevention",
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -1338,10 +1372,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: detection (from seed tags)",
+            "fire-safety focus: prevention, detection (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 18
+          "rank": 19
         },
         {
           "accession": "PSI-60",
@@ -1355,9 +1389,9 @@
             "data_richness": 0.0814
           },
           "pillars": [
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -1366,10 +1400,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: detection (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 19
+          "rank": 20
         },
         {
           "accession": "PSI-23",
@@ -1383,7 +1417,7 @@
             "data_richness": 0.6294
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -1393,9 +1427,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 20
+          "rank": 21
         },
         {
           "accession": "PSI-22",
@@ -1409,7 +1443,7 @@
             "data_richness": 0.5429
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -1419,9 +1453,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 21
+          "rank": 22
         },
         {
           "accession": "PSI-21",
@@ -1435,7 +1469,7 @@
             "data_richness": 0.5296
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -1445,9 +1479,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 22
+          "rank": 23
         },
         {
           "accession": "PSI-106",
@@ -1461,7 +1495,7 @@
             "data_richness": 0.4845
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -1471,33 +1505,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
-          ],
-          "rank": 23
-        },
-        {
-          "accession": "PSI-117",
-          "acronym": null,
-          "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
-          "score": 0.0592,
-          "components": {
-            "condition_fit": 0.0,
-            "material_relevance": 0.0,
-            "pillar_match": 0.0,
-            "data_richness": 0.2962
-          },
-          "pillars": [],
-          "pillar_source": "seed",
-          "evidence": {
-            "n_considered": 0,
-            "n_in_target": 0,
-            "n_near": 0,
-            "best": null
-          },
-          "reasons": [
-            "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: fundamentals only (from seed tags)",
-            "ground study, no flight tests of its own"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
           "rank": 24
         }
@@ -1531,9 +1539,10 @@
             "data_richness": 0.9425
           },
           "pillars": [
+            "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 274,
             "n_in_target": 0,
@@ -1547,7 +1556,7 @@
           "reasons": [
             "closest test: 34% O2 at 71 kPa",
             "burned liquid fuels",
-            "fire-safety focus: suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 1
         },
@@ -1565,7 +1574,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 316,
             "n_in_target": 2,
@@ -1580,7 +1589,7 @@
             "2 measured test(s) inside the Pressurized rover target",
             "closest test: 32% O2 at 52 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 2
         },
@@ -1598,7 +1607,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 333,
             "n_in_target": 29,
@@ -1613,7 +1622,7 @@
             "29 measured test(s) inside the Pressurized rover target",
             "closest test: 30% O2 at 50 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 3
         },
@@ -1629,9 +1638,10 @@
             "data_richness": 0.6357
           },
           "pillars": [
+            "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 160,
             "n_in_target": 0,
@@ -1645,7 +1655,7 @@
           "reasons": [
             "closest test: 30% O2 at 51 kPa",
             "burned liquid fuels",
-            "fire-safety focus: suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 4
         },
@@ -1661,9 +1671,10 @@
             "data_richness": 0.499
           },
           "pillars": [
-            "prevention"
+            "prevention",
+            "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 43,
             "n_in_target": 0,
@@ -1677,7 +1688,7 @@
           "reasons": [
             "closest test: 40% O2",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 5
         },
@@ -1696,7 +1707,7 @@
             "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 129,
             "n_in_target": 0,
@@ -1710,7 +1721,7 @@
           "reasons": [
             "none of its 129 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 6
         },
@@ -1729,7 +1740,7 @@
             "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 121,
             "n_in_target": 0,
@@ -1743,7 +1754,7 @@
           "reasons": [
             "none of its 121 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 7
         },
@@ -1761,7 +1772,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 109,
             "n_in_target": 0,
@@ -1775,7 +1786,7 @@
           "reasons": [
             "none of its 109 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 8
         },
@@ -1793,7 +1804,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 20,
             "n_in_target": 0,
@@ -1807,7 +1818,7 @@
           "reasons": [
             "none of its 20 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 9
         },
@@ -1825,7 +1836,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 79,
             "n_in_target": 0,
@@ -1839,7 +1850,7 @@
           "reasons": [
             "none of its 79 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 10
         },
@@ -1857,7 +1868,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 9,
             "n_in_target": 0,
@@ -1871,7 +1882,7 @@
           "reasons": [
             "none of its 9 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 11
         },
@@ -1887,10 +1898,9 @@
             "data_richness": 0.3919
           },
           "pillars": [
-            "prevention",
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 2,
             "n_in_target": 0,
@@ -1904,7 +1914,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 12
         },
@@ -1920,10 +1930,9 @@
             "data_richness": 0.3489
           },
           "pillars": [
-            "prevention",
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 2,
             "n_in_target": 0,
@@ -1937,7 +1946,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 13
         },
@@ -1953,9 +1962,9 @@
             "data_richness": 0.726
           },
           "pillars": [
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 435,
             "n_in_target": 0,
@@ -1969,7 +1978,7 @@
           "reasons": [
             "none of its 435 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 14
         },
@@ -1987,7 +1996,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -1997,9 +2006,37 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned dust fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 15
+        },
+        {
+          "accession": "PSI-117",
+          "acronym": null,
+          "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
+          "score": 0.3092,
+          "components": {
+            "condition_fit": 0.0,
+            "material_relevance": 0.0,
+            "pillar_match": 1.0,
+            "data_richness": 0.2962
+          },
+          "pillars": [
+            "prevention"
+          ],
+          "pillar_source": "tags",
+          "evidence": {
+            "n_considered": 0,
+            "n_in_target": 0,
+            "n_near": 0,
+            "best": null
+          },
+          "reasons": [
+            "no O2 or pressure data to compare with this habitat",
+            "fire-safety focus: prevention (from tags tags)",
+            "ground study, no flight tests of its own"
+          ],
+          "rank": 16
         },
         {
           "accession": "PSI-142",
@@ -2015,7 +2052,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2024,10 +2061,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 16
+          "rank": 17
         },
         {
           "accession": "PSI-62",
@@ -2043,7 +2080,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2052,10 +2089,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 17
+          "rank": 18
         },
         {
           "accession": "PSI-115",
@@ -2069,9 +2106,10 @@
             "data_richness": 0.1522
           },
           "pillars": [
+            "prevention",
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2080,10 +2118,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: detection (from seed tags)",
+            "fire-safety focus: prevention, detection (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 18
+          "rank": 19
         },
         {
           "accession": "PSI-60",
@@ -2097,9 +2135,9 @@
             "data_richness": 0.0814
           },
           "pillars": [
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2108,10 +2146,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: detection (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 19
+          "rank": 20
         },
         {
           "accession": "PSI-23",
@@ -2125,7 +2163,7 @@
             "data_richness": 0.6294
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2135,9 +2173,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 20
+          "rank": 21
         },
         {
           "accession": "PSI-22",
@@ -2151,7 +2189,7 @@
             "data_richness": 0.5429
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2161,9 +2199,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 21
+          "rank": 22
         },
         {
           "accession": "PSI-21",
@@ -2177,7 +2215,7 @@
             "data_richness": 0.5296
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2187,9 +2225,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 22
+          "rank": 23
         },
         {
           "accession": "PSI-106",
@@ -2203,7 +2241,7 @@
             "data_richness": 0.4845
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2213,33 +2251,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
-          ],
-          "rank": 23
-        },
-        {
-          "accession": "PSI-117",
-          "acronym": null,
-          "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
-          "score": 0.0592,
-          "components": {
-            "condition_fit": 0.0,
-            "material_relevance": 0.0,
-            "pillar_match": 0.0,
-            "data_richness": 0.2962
-          },
-          "pillars": [],
-          "pillar_source": "seed",
-          "evidence": {
-            "n_considered": 0,
-            "n_in_target": 0,
-            "n_near": 0,
-            "best": null
-          },
-          "reasons": [
-            "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: fundamentals only (from seed tags)",
-            "ground study, no flight tests of its own"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
           "rank": 24
         }
@@ -2273,9 +2285,10 @@
             "data_richness": 0.9425
           },
           "pillars": [
+            "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 274,
             "n_in_target": 0,
@@ -2289,7 +2302,7 @@
           "reasons": [
             "closest test: 34% O2 at 71 kPa",
             "burned liquid fuels",
-            "fire-safety focus: suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 1
         },
@@ -2307,7 +2320,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 316,
             "n_in_target": 2,
@@ -2322,7 +2335,7 @@
             "2 measured test(s) inside the Mars habitat target",
             "closest test: 32% O2 at 52 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 2
         },
@@ -2340,7 +2353,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 333,
             "n_in_target": 29,
@@ -2355,7 +2368,7 @@
             "29 measured test(s) inside the Mars habitat target",
             "closest test: 30% O2 at 50 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 3
         },
@@ -2371,9 +2384,10 @@
             "data_richness": 0.6357
           },
           "pillars": [
+            "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 160,
             "n_in_target": 0,
@@ -2387,7 +2401,7 @@
           "reasons": [
             "closest test: 30% O2 at 51 kPa",
             "burned liquid fuels",
-            "fire-safety focus: suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 4
         },
@@ -2403,9 +2417,10 @@
             "data_richness": 0.499
           },
           "pillars": [
-            "prevention"
+            "prevention",
+            "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 43,
             "n_in_target": 0,
@@ -2419,7 +2434,7 @@
           "reasons": [
             "closest test: 40% O2",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 5
         },
@@ -2438,7 +2453,7 @@
             "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 129,
             "n_in_target": 0,
@@ -2452,7 +2467,7 @@
           "reasons": [
             "none of its 129 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 6
         },
@@ -2471,7 +2486,7 @@
             "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 121,
             "n_in_target": 0,
@@ -2485,7 +2500,7 @@
           "reasons": [
             "none of its 121 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 7
         },
@@ -2503,7 +2518,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 109,
             "n_in_target": 0,
@@ -2517,7 +2532,7 @@
           "reasons": [
             "none of its 109 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 8
         },
@@ -2535,7 +2550,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 20,
             "n_in_target": 0,
@@ -2549,7 +2564,7 @@
           "reasons": [
             "none of its 20 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 9
         },
@@ -2567,7 +2582,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 79,
             "n_in_target": 0,
@@ -2581,7 +2596,7 @@
           "reasons": [
             "none of its 79 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 10
         },
@@ -2599,7 +2614,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 9,
             "n_in_target": 0,
@@ -2613,7 +2628,7 @@
           "reasons": [
             "none of its 9 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 11
         },
@@ -2629,10 +2644,9 @@
             "data_richness": 0.3919
           },
           "pillars": [
-            "prevention",
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 2,
             "n_in_target": 0,
@@ -2646,7 +2660,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 12
         },
@@ -2662,10 +2676,9 @@
             "data_richness": 0.3489
           },
           "pillars": [
-            "prevention",
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 2,
             "n_in_target": 0,
@@ -2679,7 +2692,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 13
         },
@@ -2695,9 +2708,9 @@
             "data_richness": 0.726
           },
           "pillars": [
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 435,
             "n_in_target": 0,
@@ -2711,7 +2724,7 @@
           "reasons": [
             "none of its 435 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 14
         },
@@ -2729,7 +2742,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2739,9 +2752,37 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned dust fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 15
+        },
+        {
+          "accession": "PSI-117",
+          "acronym": null,
+          "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
+          "score": 0.3092,
+          "components": {
+            "condition_fit": 0.0,
+            "material_relevance": 0.0,
+            "pillar_match": 1.0,
+            "data_richness": 0.2962
+          },
+          "pillars": [
+            "prevention"
+          ],
+          "pillar_source": "tags",
+          "evidence": {
+            "n_considered": 0,
+            "n_in_target": 0,
+            "n_near": 0,
+            "best": null
+          },
+          "reasons": [
+            "no O2 or pressure data to compare with this habitat",
+            "fire-safety focus: prevention (from tags tags)",
+            "ground study, no flight tests of its own"
+          ],
+          "rank": 16
         },
         {
           "accession": "PSI-142",
@@ -2757,7 +2798,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2766,10 +2807,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 16
+          "rank": 17
         },
         {
           "accession": "PSI-62",
@@ -2785,7 +2826,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2794,10 +2835,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 17
+          "rank": 18
         },
         {
           "accession": "PSI-115",
@@ -2811,9 +2852,10 @@
             "data_richness": 0.1522
           },
           "pillars": [
+            "prevention",
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2822,10 +2864,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: detection (from seed tags)",
+            "fire-safety focus: prevention, detection (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 18
+          "rank": 19
         },
         {
           "accession": "PSI-60",
@@ -2839,9 +2881,9 @@
             "data_richness": 0.0814
           },
           "pillars": [
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2850,10 +2892,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: detection (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 19
+          "rank": 20
         },
         {
           "accession": "PSI-23",
@@ -2867,7 +2909,7 @@
             "data_richness": 0.6294
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2877,9 +2919,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 20
+          "rank": 21
         },
         {
           "accession": "PSI-22",
@@ -2893,7 +2935,7 @@
             "data_richness": 0.5429
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2903,9 +2945,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 21
+          "rank": 22
         },
         {
           "accession": "PSI-21",
@@ -2919,7 +2961,7 @@
             "data_richness": 0.5296
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2929,9 +2971,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 22
+          "rank": 23
         },
         {
           "accession": "PSI-106",
@@ -2945,7 +2987,7 @@
             "data_richness": 0.4845
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -2955,33 +2997,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
-          ],
-          "rank": 23
-        },
-        {
-          "accession": "PSI-117",
-          "acronym": null,
-          "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
-          "score": 0.0592,
-          "components": {
-            "condition_fit": 0.0,
-            "material_relevance": 0.0,
-            "pillar_match": 0.0,
-            "data_richness": 0.2962
-          },
-          "pillars": [],
-          "pillar_source": "seed",
-          "evidence": {
-            "n_considered": 0,
-            "n_in_target": 0,
-            "n_near": 0,
-            "best": null
-          },
-          "reasons": [
-            "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: fundamentals only (from seed tags)",
-            "ground study, no flight tests of its own"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
           "rank": 24
         }
@@ -3018,7 +3034,7 @@
             "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 129,
             "n_in_target": 0,
@@ -3032,7 +3048,7 @@
           "reasons": [
             "none of its 129 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 1
         },
@@ -3051,7 +3067,7 @@
             "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 121,
             "n_in_target": 0,
@@ -3065,7 +3081,7 @@
           "reasons": [
             "none of its 121 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 2
         },
@@ -3081,9 +3097,10 @@
             "data_richness": 0.9425
           },
           "pillars": [
+            "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 274,
             "n_in_target": 0,
@@ -3097,7 +3114,7 @@
           "reasons": [
             "none of its 274 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 3
         },
@@ -3115,7 +3132,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 109,
             "n_in_target": 0,
@@ -3129,7 +3146,7 @@
           "reasons": [
             "none of its 109 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 4
         },
@@ -3147,7 +3164,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 20,
             "n_in_target": 0,
@@ -3161,7 +3178,7 @@
           "reasons": [
             "none of its 20 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 5
         },
@@ -3179,7 +3196,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 316,
             "n_in_target": 0,
@@ -3193,7 +3210,7 @@
           "reasons": [
             "none of its 316 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 6
         },
@@ -3211,7 +3228,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 9,
             "n_in_target": 0,
@@ -3225,7 +3242,7 @@
           "reasons": [
             "none of its 9 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 7
         },
@@ -3243,7 +3260,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 79,
             "n_in_target": 0,
@@ -3257,7 +3274,7 @@
           "reasons": [
             "none of its 79 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 8
         },
@@ -3273,10 +3290,9 @@
             "data_richness": 0.3919
           },
           "pillars": [
-            "prevention",
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 2,
             "n_in_target": 0,
@@ -3290,7 +3306,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 9
         },
@@ -3306,10 +3322,9 @@
             "data_richness": 0.3489
           },
           "pillars": [
-            "prevention",
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 2,
             "n_in_target": 0,
@@ -3323,7 +3338,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 10
         },
@@ -3339,9 +3354,10 @@
             "data_richness": 0.6357
           },
           "pillars": [
+            "prevention",
             "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 160,
             "n_in_target": 0,
@@ -3355,7 +3371,7 @@
           "reasons": [
             "none of its 160 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: suppression (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 11
         },
@@ -3373,7 +3389,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 333,
             "n_in_target": 0,
@@ -3387,7 +3403,7 @@
           "reasons": [
             "none of its 333 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 12
         },
@@ -3403,9 +3419,9 @@
             "data_richness": 0.726
           },
           "pillars": [
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 435,
             "n_in_target": 0,
@@ -3419,7 +3435,7 @@
           "reasons": [
             "none of its 435 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: prevention (from tags tags)"
           ],
           "rank": 13
         },
@@ -3435,9 +3451,10 @@
             "data_richness": 0.499
           },
           "pillars": [
-            "prevention"
+            "prevention",
+            "suppression"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 43,
             "n_in_target": 0,
@@ -3451,7 +3468,7 @@
           "reasons": [
             "none of its 43 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: prevention (from seed tags)"
+            "fire-safety focus: prevention, suppression (from tags tags)"
           ],
           "rank": 14
         },
@@ -3469,7 +3486,7 @@
           "pillars": [
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -3479,9 +3496,37 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned dust fuels",
-            "fire-safety focus: detection (from seed tags)"
+            "fire-safety focus: detection (from tags tags)"
           ],
           "rank": 15
+        },
+        {
+          "accession": "PSI-117",
+          "acronym": null,
+          "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
+          "score": 0.3092,
+          "components": {
+            "condition_fit": 0.0,
+            "material_relevance": 0.0,
+            "pillar_match": 1.0,
+            "data_richness": 0.2962
+          },
+          "pillars": [
+            "prevention"
+          ],
+          "pillar_source": "tags",
+          "evidence": {
+            "n_considered": 0,
+            "n_in_target": 0,
+            "n_near": 0,
+            "best": null
+          },
+          "reasons": [
+            "no O2 or pressure data to compare with this habitat",
+            "fire-safety focus: prevention (from tags tags)",
+            "ground study, no flight tests of its own"
+          ],
+          "rank": 16
         },
         {
           "accession": "PSI-142",
@@ -3497,7 +3542,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -3506,10 +3551,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 16
+          "rank": 17
         },
         {
           "accession": "PSI-62",
@@ -3525,7 +3570,7 @@
           "pillars": [
             "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -3534,10 +3579,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 17
+          "rank": 18
         },
         {
           "accession": "PSI-115",
@@ -3551,9 +3596,10 @@
             "data_richness": 0.1522
           },
           "pillars": [
+            "prevention",
             "detection"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -3562,10 +3608,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: detection (from seed tags)",
+            "fire-safety focus: prevention, detection (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 18
+          "rank": 19
         },
         {
           "accession": "PSI-60",
@@ -3579,9 +3625,9 @@
             "data_richness": 0.0814
           },
           "pillars": [
-            "detection"
+            "prevention"
           ],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -3590,10 +3636,10 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: detection (from seed tags)",
+            "fire-safety focus: prevention (from tags tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 19
+          "rank": 20
         },
         {
           "accession": "PSI-23",
@@ -3607,7 +3653,7 @@
             "data_richness": 0.6294
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -3617,9 +3663,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 20
+          "rank": 21
         },
         {
           "accession": "PSI-22",
@@ -3633,7 +3679,7 @@
             "data_richness": 0.5429
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -3643,9 +3689,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 21
+          "rank": 22
         },
         {
           "accession": "PSI-21",
@@ -3659,7 +3705,7 @@
             "data_richness": 0.5296
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -3669,9 +3715,9 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
-          "rank": 22
+          "rank": 23
         },
         {
           "accession": "PSI-106",
@@ -3685,7 +3731,7 @@
             "data_richness": 0.4845
           },
           "pillars": [],
-          "pillar_source": "seed",
+          "pillar_source": "tags",
           "evidence": {
             "n_considered": 0,
             "n_in_target": 0,
@@ -3695,33 +3741,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from seed tags)"
-          ],
-          "rank": 23
-        },
-        {
-          "accession": "PSI-117",
-          "acronym": null,
-          "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
-          "score": 0.0592,
-          "components": {
-            "condition_fit": 0.0,
-            "material_relevance": 0.0,
-            "pillar_match": 0.0,
-            "data_richness": 0.2962
-          },
-          "pillars": [],
-          "pillar_source": "seed",
-          "evidence": {
-            "n_considered": 0,
-            "n_in_target": 0,
-            "n_near": 0,
-            "best": null
-          },
-          "reasons": [
-            "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: fundamentals only (from seed tags)",
-            "ground study, no flight tests of its own"
+            "fire-safety focus: fundamentals only (from tags tags)"
           ],
           "rank": 24
         }
