@@ -7,6 +7,14 @@ import { BASIS_LABEL, PHASE_COLOR, PHASE_LABEL, pct, rangeText } from "@/lib/for
 
 export const dynamicParams = false;
 
+// Values come from resolve_pillars in si/rank.py.
+const PILLAR_SOURCE: Record<string, string> = {
+  tags: "pillars from team tags",
+  seed: "pillars from seed tags",
+  model: "pillars suggested by the model, not yet checked",
+  none: "no pillars identified",
+};
+
 export function generateStaticParams() {
   return loadDataset().investigations.map((inv) => ({ accession: inv.accession }));
 }
@@ -73,7 +81,7 @@ export default async function InvestigationPage({ params }: PageProps<"/investig
                 {p}
               </span>
             ))}
-            <span className="mono text-[12px] text-muted">pillars from {inv.pillarSource} tags</span>
+            <span className="mono text-[12px] text-muted">{PILLAR_SOURCE[inv.pillarSource] ?? `pillars from ${inv.pillarSource}`}</span>
           </div>
         </div>
         <div className="flex flex-col items-start gap-2 md:items-end">
@@ -136,12 +144,13 @@ export default async function InvestigationPage({ params }: PageProps<"/investig
               </div>
               <div>
                 <dt className="text-muted">Tests</dt>
-                <dd className="mono mt-1 text-[15px]">{inv.nTests}</dd>
+                <dd className="mono mt-1 text-[15px]">{inv.nTests || "none"}</dd>
                 {inv.nRecords !== inv.nTests && <dd className="mt-0.5 text-[12px] text-ink-2">{inv.nRecords} table rows incl. test days or planned matrix</dd>}
+                {!inv.nRecords && <dd className="mt-0.5 text-[12px] text-ink-2">No test conditions on PSI</dd>}
               </div>
               <div>
                 <dt className="text-muted">Sample size</dt>
-                <dd className="mono mt-1 text-[15px]">{inv.sampleSize ?? "n/a"}</dd>
+                <dd className="mono mt-1 text-[15px]">{inv.sampleSize ?? "not stated"}</dd>
               </div>
               <div className="col-span-2">
                 <dt className="text-muted">Hardware</dt>
@@ -175,18 +184,29 @@ export default async function InvestigationPage({ params }: PageProps<"/investig
         </aside>
       </div>
 
-      {points.length > 0 && (
-        <section className="mt-12">
-          <p className="eyebrow mb-3">Its tests on the gap map</p>
+      <section className="mt-12">
+        <p className="eyebrow mb-3">Its tests on the gap map</p>
+        {points.length > 0 ? (
           <div className="panel p-4 sm:p-5">
             <GapMap points={data.points} scenarios={data.scenarios} names={names} highlight={inv.accession} height={380} />
           </div>
-        </section>
-      )}
+        ) : (
+          <p className="max-w-[72ch] text-[14px] leading-relaxed text-ink-2">
+            Nothing to plot. PSI has no per-test oxygen and pressure for this investigation. Its {inv.nFiles.toLocaleString("en-US")}{" "}
+            raw {inv.nFiles === 1 ? "file is" : "files are"} on{" "}
+            <a href={inv.psiUrl} className="link-underline">
+              NASA PSI
+            </a>
+            .
+          </p>
+        )}
+      </section>
 
-      {inv.publications.length > 0 && (
-        <section className="mt-12">
-          <p className="eyebrow mb-3">Publications · {inv.publications.length}</p>
+      <section className="mt-12">
+        <p className="eyebrow mb-3">Publications · {inv.publications.length}</p>
+        {inv.publications.length === 0 ? (
+          <p className="text-[14px] text-ink-2">NASA PSI lists no publications for this investigation yet.</p>
+        ) : (
           <ol className="divide-y divide-[color:var(--rule)] border-y border-rule">
             {inv.publications.map((pub, index) => (
               <li key={`${pub.title}-${index}`} className="grid gap-1 py-3 sm:grid-cols-[40px_1fr]">
@@ -198,8 +218,8 @@ export default async function InvestigationPage({ params }: PageProps<"/investig
               </li>
             ))}
           </ol>
-        </section>
-      )}
+        )}
+      </section>
     </article>
   );
 }
