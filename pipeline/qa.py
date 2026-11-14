@@ -103,6 +103,55 @@ def expected_range(rows, value_field, source_field):
     return None, others
 
 
+EXTRACTED_KEYS = {
+    "accession", "acronym", "summary", "objective_short", "sample_size", "pillar_reason", "fuels", "sample_geometry",
+    "variables_varied", "variables_fixed", "sensors", "measurements", "earth_benefits", "pillars", "fuel_phase",
+    "warnings", "model", "prompt_version",
+}
+EXTRACTED_LISTS = ("fuels", "sample_geometry", "variables_varied", "variables_fixed", "sensors", "measurements",
+                   "earth_benefits", "pillars", "fuel_phase", "warnings")
+
+
+def check_extracted(report, processed_dir):
+    path = os.path.join(processed_dir, "extracted.json")
+    if not os.path.exists(path):
+        print("\nextracted.json not present yet, skipping its checks")
+        return
+    with open(path, encoding="utf-8") as handle:
+        extracted = json.load(handle)
+    with open(os.path.join(processed_dir, "investigations.json"), encoding="utf-8") as handle:
+        investigations = {i["accession"]: i for i in json.load(handle)}
+    print("\nChecks on extracted.json")
+    accessions = [r.get("accession") for r in extracted]
+    report.check("one extracted record per investigation",
+                 [] if sorted(accessions) == sorted(investigations) and len(set(accessions)) == len(accessions)
+                 else [f"{len(accessions)} records vs {len(investigations)} investigations"])
+    report.check("extracted fields match the data contract",
+                 [f"{r.get('accession')}: {sorted(set(r) ^ EXTRACTED_KEYS)}" for r in extracted if set(r) != EXTRACTED_KEYS])
+    report.check("list fields are lists of text",
+                 [f"{r['accession']}.{f}" for r in extracted for f in EXTRACTED_LISTS
+                  if not isinstance(r.get(f), list) or not all(isinstance(x, str) for x in r.get(f) or [])])
+    report.check("pillars and phases use allowed values",
+                 [r["accession"] for r in extracted
+                  if not set(r.get("pillars") or []) <= {"prevention", "detection", "suppression"}
+                  or not set(r.get("fuel_phase") or []) <= {"solid", "liquid", "gas", "dust"}])
+    report.check("fuel phase agrees with the test tables",
+                 [r["accession"] for r in extracted
+                  if investigations.get(r["accession"], {}).get("fuel_phase") and r.get("fuel_phase") != investigations[r["accession"]]["fuel_phase"]])
+    report.check("every record has a summary", [r["accession"] for r in extracted if not r.get("summary")])
+    report.check("no condition listed as both varied and fixed",
+                 [f"{r['accession']}: {sorted({v.lower() for v in r.get('variables_varied') or []} & {v.lower() for v in r.get('variables_fixed') or []})}"
+                  for r in extracted
+                  if {v.lower() for v in r.get("variables_varied") or []} & {v.lower() for v in r.get("variables_fixed") or []}])
+    report.check("no summary contradicts the test tables",
+                 [f"{r['accession']}: {w}" for r in extracted for w in r.get("warnings") or [] if w.startswith("summary may call")])
+    report.check("one prompt version and model across the file",
+                 [] if len({(r.get("prompt_version"), r.get("model")) for r in extracted}) == 1
+                 else [sorted({f"{r.get('prompt_version')}/{r.get('model')}" for r in extracted})])
+    flagged = [r["accession"] for r in extracted if r.get("warnings")]
+    print(f"  {len(flagged)} record(s) carry review warnings (see docs/extraction-review.md): {', '.join(flagged) or 'none'}")
+
+
 def check_investigations(report, raw_dir, processed_dir, tests):
     path = os.path.join(processed_dir, "investigations.json")
     if not os.path.exists(path):
@@ -199,6 +248,7 @@ def main():
         lambda r, o: o["test_id"] == r[3] and (not number(o["pressure_kpa"]) or close(number(o["pressure_kpa"]), float(r[12]) * 101.325, 0.01))))
 
     check_investigations(report, args.raw, args.processed, tests)
+    check_extracted(report, args.processed)
 
     solid = [number(t["o2_mole_fraction"]) for t in tests if t["fuel_phase"] == "solid" and t["o2_source"] == "measured"]
     lunar = [t for t in tests if t["record_type"] == "test" and t["o2_source"] == "measured"

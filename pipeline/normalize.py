@@ -468,7 +468,7 @@ PARSERS = {
     "PSI-69_": flex, "PSI-68_": flex2, "PSI-39_": cfi, "PSI-159_": cfi_g, "PSI-10_": flame_design,
     "PSI-20_": acme_bre, "PSI-21_": acme_day_table("PSI-21", "ACME CLD Flame", "coflow burner"),
     "PSI-22_": acme_day_table("PSI-22", "ACME E-FIELD Flames", "coflow or gas-jet burner with electric field"),
-    "PSI-23_": acme_day_table("PSI-23", "ACME s-Flame", "counterflow burner"),
+    "PSI-23_": acme_day_table("PSI-23", "ACME s-Flame", "spherical porous burner"),
     "PSI-106_": slice_table, "PSI-107_": spice, "PSI-26_": bass, "PSI-25_": bass2,
     "PSI-98_": saffire("PSI-98", "SAFFIRE-I"), "PSI-99_": saffire("PSI-99", "SAFFIRE-II"),
     "PSI-100_": saffire("PSI-100", "SAFFIRE-III"), "PSI-102_": same, "PSI-101_": same_r, "PSI-47_": daft,

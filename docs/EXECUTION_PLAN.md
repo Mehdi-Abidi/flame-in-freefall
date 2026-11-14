@@ -85,7 +85,7 @@ Task IDs are used in branch names and PR titles, for example `mufeed/D2-normaliz
 | D2 | S1 | ~~Write `pipeline/normalize.py` that builds `data/processed/tests.csv`.~~ **Done 14 Nov.** 2,127 rows, plus `saffire2_gravity.csv`. | Mufeed reviews the output and the quirks list in `docs/data-notes.md`. |
 | D3 | S2 | ~~Build `data/processed/investigations.json` with ranges computed from `tests.csv`.~~ **Done 14 Nov** (Mufeed, review fixes by Mehdi). | `qa.py` investigation checks pass. |
 | D4 | S2 | ~~Data QA script: counts per investigation, missing values, unit sanity checks.~~ **Done 14 Nov.** 22 checks including spot checks against raw tables. | `python pipeline/qa.py` prints ALL CHECKS PASSED. |
-| D5 | S3 | Help Mehdi run extraction, then merge LLM fields into `investigations.json`. | One file the frontend and API both read. |
+| D5 | S3 | Merge `extracted.json` into `investigations.json`. Pillars come from Taha's `data/domain/tags.json` when present, and the model's pillars are only a fallback. | One file the frontend and API both read. |
 
 Known quirks to handle: pressure appears in mmHg (FLEX), atm (FLEX-2, Flame Design), bar (CFI-G) and text such as "1 atm" (CFI). Oxygen appears as a mole fraction, as a percent, and as "% by vol". Some cells are blank or hold notes. FLEX-2 and the SAFFIRE tables need string cleanup before numbers parse.
 
@@ -94,7 +94,7 @@ Known quirks to handle: pressure appears in mmHg (FLEX), atm (FLEX-2, Flame Desi
 | ID | Sprint | Task | Done when |
 |---|---|---|---|
 | S1 | S1 | ~~`si/llm.py` with one provider wrapper.~~ **Done 14 Nov.** Groq, `openai/gpt-oss-20b` with `gpt-oss-120b` as fallback, JSON mode, retries, cache. | `python -m si.llm --check` prints OK. |
-| S2 | S1 | Extraction prompt that reads each investigation's objectives, approach, hypothesis, hardware and table headers and returns: fuel and phase, sample shape and size, variables varied, variables held fixed, sensors and measurements, fire-safety pillar, one-paragraph plain summary. Unknown fields stay null. | All 24 investigations extracted into `data/processed/extracted.json`. |
+| S2 | S1 | ~~Extraction of all 24 investigations.~~ **Done 14 Nov.** `python -m si.extract` writes `data/processed/extracted.json` (prompt s2-v4, GPT-OSS 20B). Table facts are given as ground truth, varied and fixed conditions come from `tests.csv`, summaries may not contradict them, invented fuels or sensors are flagged, and detection needs smoke, aerosol, particle, dust or detector evidence. | 24/24 extracted, QA checks pass, review list in `docs/extraction-review.md`. |
 | S3 | S2 | Ranking engine (formula in section 7) in `si/rank.py`, scored for 5 habitat scenarios. | `rank.py --scenario lunar_base` prints a sensible top 10. |
 | S4 | S2 | Rationale writer: two sentences per investigation per scenario, citing the fields used. | Stored in `investigations.json`. |
 | S5 | S3 | Insight briefs per pillar (prevention, detection, suppression) with PSI citations. | Three briefs Taha has reviewed. |
@@ -138,7 +138,7 @@ Every LLM output is precomputed and committed. The live site calls an LLM only f
 | T1 | S1 | Hand-check the seed tags in section 8 against the PSI pages and the 2015 Researcher's Guide. Write `data/domain/tags.json`. | All 24 tagged with pillar, hardware and platform. |
 | T2 | S1 | Write `data/domain/scenarios.json` with the habitat targets in section 7, each with its source sentence. | Reviewed by Mehdi. |
 | T3 | S2 | Earth spinoffs page content: water mist extinguishers, the shuttle-era smoke detector that tells dust from smoke (link to SAME and DAFT), firefighter clothing, air tanks. Plus a short history strip: Apollo 1, Apollo 13, Mir, Artemis II alarm. | Text in `web/src/content/`. |
-| T4 | S3 | Review all 24 LLM extractions and the three insight briefs for factual errors. | Corrections merged. |
+| T4 | S3 | Review all 24 LLM extractions and the three insight briefs for factual errors. Start with the rows in `docs/extraction-review.md` that are not `agree` and every warning there. | Corrections merged. |
 | T5 | S4 | Demo video and slides (section 10). Submission text draft. | Files in `docs/submission/`. |
 
 # 5. Rules that keep us fast
