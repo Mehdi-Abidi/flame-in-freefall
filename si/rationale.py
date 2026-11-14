@@ -164,14 +164,17 @@ def ordinal(n):
 
 def template_rationale(facts):
     """A plain, always-correct fallback built only from the computed facts."""
-    reasons = facts.get("computed_reasons") or []
-    first = reasons[0] if reasons else "its overall score"
+    reasons = [r for r in facts.get("computed_reasons") or [] if not r.startswith("no O2 or pressure data")]
+    basis = reasons[0] if reasons else "its material, fire-safety focus and data"
     lead = (f"{facts['investigation']} ranks {ordinal(facts['rank'])} of {facts['out_of']} for the {facts['habitat']} "
-            f"with a score of {facts['score_out_of_100']}, mainly because of this: {first}.")
+            f"with a score of {facts['score_out_of_100']}, mainly on {basis}.")
     if facts.get("n_in_target"):
-        caveat = f"{facts['n_in_target']} of its {facts['n_considered']} tests ran inside this habitat's target."
+        caveat = f"{facts['n_in_target']} of its {facts['n_considered']} tests ran inside this habitat's target with oxygen and pressure measured."
+    elif facts.get("n_near"):
+        caveat = (f"{facts['n_near']} of its tests ran near this habitat's conditions, "
+                  "but none had both oxygen and pressure measured inside the target.")
     elif facts.get("n_considered"):
-        caveat = "None of its tests ran inside this habitat's oxygen and pressure target."
+        caveat = "None of its tests came near this habitat's oxygen and pressure."
     else:
         caveat = "It has no recorded oxygen and pressure to compare with this habitat."
     return sanitize(f"{lead} {caveat}")
