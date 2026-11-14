@@ -70,15 +70,76 @@ Sentence 2: its main limitation or caveat for this habitat.
 Rules:
 - Use only the FACTS. Do not add knowledge from outside them.
 - Every number you write must appear in the FACTS. Prefer words over numbers when unsure.
-- If n_in_target is 0, never say its tests were inside or within the habitat's target.
+- If tests_inside_target is 0, never say its tests were inside or within the habitat's target.
 - No hype, no lists, no dashes, no semicolons.
 Reply with JSON only: {"rationale": "<two sentences>"}"""
 
 
-def build_facts(entry, scenario, total, summary_record):
+PART_NAMES = {
+    "condition_fit": "oxygen and pressure fit",
+    "pillar_match": "fire-safety focus match",
+    "material_relevance": "material relevance",
+    "data_richness": "amount of data",
+}
+COMPONENT_WEIGHTS = {"condition_fit": 0.35, "material_relevance": 0.20, "pillar_match": 0.25, "data_richness": 0.20}
+BASIS_WORDS = {
+    "measured": "measured",
+    "planned": "from a planned test matrix",
+    "approximate": "approximate",
+    "test_day_list": "listed per test day",
+    "nominal_cabin_air": "assumed ISS cabin air, not logged",
+    "nominal_cabin": "assumed ISS cabin pressure, not logged",
+    "nominal_1atm": "assumed about 1 atm",
+}
+
+
+def load_investigations(path=PROCESSED / "investigations.json"):
+    if not Path(path).is_file():
+        return {}
+    records = read_json(path)
+    if not isinstance(records, list):
+        raise RationaleError(f"{shown(path)} must be a list of records")
+    return {r["accession"]: r for r in records if isinstance(r, dict) and r.get("accession")}
+
+
+def field_medians(ranking):
+    medians = {}
+    for key in COMPONENT_WEIGHTS:
+        values = sorted(float((e.get("components") or {}).get(key, 0)) for e in ranking)
+        middle = len(values) // 2
+        medians[key] = values[middle] if len(values) % 2 else (values[middle - 1] + values[middle]) / 2
+    return medians
+
+
+def standout_parts(components, medians):
+    """The part that lifts this entry most above the field, and the one that holds it back most, weighted by importance."""
+    lift = {k: COMPONENT_WEIGHTS[k] * (float(components.get(k, 0)) - medians.get(k, 0)) for k in COMPONENT_WEIGHTS}
+    strongest = max(lift, key=lift.get)
+    weakest = min(lift, key=lift.get)
+    return (PART_NAMES[strongest] if lift[strongest] > 0 else None,
+            PART_NAMES[weakest] if lift[weakest] < 0 else None)
+
+
+def conditions_on_record(investigation):
+    if not investigation:
+        return "not known"
+    o2, pressure = investigation.get("o2_basis"), investigation.get("pressure_basis")
+    if not o2 and not pressure:
+        return "no oxygen or pressure recorded"
+    parts = []
+    if o2:
+        parts.append(f"oxygen {BASIS_WORDS.get(o2, o2)}")
+    if pressure:
+        parts.append(f"pressure {BASIS_WORDS.get(pressure, pressure)}")
+    return ", ".join(parts)
+
+
+def build_facts(entry, scenario, total, summary_record, medians=None, investigation=None):
     best = (entry.get("evidence") or {}).get("best") or {}
     components = {k: round(float(v), 2) for k, v in (entry.get("components") or {}).items()}
+    strongest, weakest = standout_parts(components, medians or {})
     summary = (summary_record or {}).get("summary") or ""
+    evidence = entry.get("evidence") or {}
     return {
         "investigation": entry.get("acronym") or entry["accession"],
         "title": entry.get("title"),
@@ -88,11 +149,14 @@ def build_facts(entry, scenario, total, summary_record):
         "rank": entry["rank"],
         "out_of": total,
         "score_out_of_100": round(float(entry["score"]) * 100),
-        "score_parts_0_to_1": components,
+        "score_parts": {PART_NAMES.get(k, k): v for k, v in components.items()},
+        "standout_strength_vs_others": strongest,
+        "weakest_part_vs_others": weakest,
+        "conditions_on_record": conditions_on_record(investigation),
         "pillars": entry.get("pillars") or [],
-        "n_considered": (entry.get("evidence") or {}).get("n_considered", 0),
-        "n_in_target": (entry.get("evidence") or {}).get("n_in_target", 0),
-        "n_near": (entry.get("evidence") or {}).get("n_near", 0),
+        "tests_compared": evidence.get("n_considered", 0),
+        "tests_inside_target": evidence.get("n_in_target", 0),
+        "tests_near_target": evidence.get("n_near", 0),
         "closest_test_oxygen_percent": round(best["o2_mole_fraction"] * 100, 1) if best.get("o2_mole_fraction") is not None else None,
         "closest_test_pressure_kpa": round(best["pressure_kpa"]) if best.get("pressure_kpa") is not None else None,
         "computed_reasons": entry.get("reasons") or [],
@@ -151,7 +215,7 @@ def validate(text, facts):
     unknown = sorted({t for t in NUMBER.findall(text) if not number_is_allowed(t, allowed)}, key=float)
     if unknown:
         problems.append(f"mentions numbers not in the facts: {', '.join(unknown)}")
-    if not facts.get("n_in_target"):
+    if not facts.get("tests_inside_target"):
         for sentence in sentences(text):
             if INSIDE_CLAIM.search(sentence) and not NEGATION.search(sentence):
                 problems.append("claims tests were inside the target, but none were")
@@ -176,14 +240,14 @@ def template_rationale(facts):
     lead = (f"{facts['investigation']} ranks {ordinal(facts['rank'])} of {facts['out_of']} for the {facts['habitat']} "
             f"with a score of {facts['score_out_of_100']}, mainly on {basis}.")
     phases = next((r[len("burned "):-len(" fuels")] for r in facts.get("computed_reasons") or [] if r.startswith("burned ") and r.endswith(" fuels")), "")
-    if facts.get("n_in_target") and phases and "solid" not in phases:
+    if facts.get("tests_inside_target") and phases and "solid" not in phases:
         caveat = f"Its tests burned {phases} fuels, so they do not show how solid cabin materials behave there."
-    elif facts.get("n_in_target"):
-        caveat = f"{facts['n_in_target']} of its {facts['n_considered']} tests ran inside this habitat's target."
-    elif facts.get("n_near"):
-        caveat = (f"{facts['n_near']} of its tests ran near this habitat's conditions, "
+    elif facts.get("tests_inside_target"):
+        caveat = f"{facts['tests_inside_target']} of its {facts['tests_compared']} tests ran inside this habitat's target."
+    elif facts.get("tests_near_target"):
+        caveat = (f"{facts['tests_near_target']} of its tests ran near this habitat's conditions, "
                   "but none had both oxygen and pressure measured inside the target.")
-    elif facts.get("n_considered"):
+    elif facts.get("tests_compared"):
         caveat = "None of its tests came near this habitat's oxygen and pressure."
     else:
         caveat = "It has no recorded oxygen and pressure to compare with this habitat."
@@ -238,7 +302,7 @@ def is_reusable(previous, print_key, model_id, force):
 
 
 def generate(rankings, summaries, writer, existing=None, scenario_filter=None, only=None, model_id="template",
-             force=False, on_progress=None, save=None):
+             force=False, on_progress=None, save=None, investigations=None):
     """Fill rationales for every (scenario group, investigation). writer(facts) returns (text, source, problems)."""
     existing = existing or {}
     output = {sid: dict(existing.get(sid) or {}) for sid in rankings}
@@ -250,11 +314,13 @@ def generate(rankings, summaries, writer, existing=None, scenario_filter=None, o
         lead = rankings[group[0]]
         label = " / ".join(rankings[sid]["label"] for sid in group)
         total = len(lead["ranking"])
+        medians = field_medians(lead["ranking"])
         for entry in lead["ranking"]:
             accession = entry["accession"]
             if wanted and accession not in wanted:
                 continue
-            facts = build_facts(entry, {**lead, "label": label}, total, summaries.get(accession))
+            facts = build_facts(entry, {**lead, "label": label}, total, summaries.get(accession), medians,
+                                (investigations or {}).get(accession))
             print_key = fingerprint({"facts": facts, "prompt": PROMPT_VERSION})
             previous = output[group[0]].get(accession) or {}
             reused = is_reusable(previous, print_key, model_id, force)
@@ -299,6 +365,7 @@ def run(argv=None):
     try:
         rankings = load_rankings()
         summaries = load_summaries()
+        investigations = load_investigations()
         validate_selection(rankings, args.scenario, args.only)
         existing = load_existing(args.out)
         if args.templates_only:
@@ -325,7 +392,7 @@ def run(argv=None):
 
         started = time.time()
         output, stats = generate(rankings, summaries, writer, existing, args.scenario, args.only, model_id,
-                                 args.force, progress, save)
+                                 args.force, progress, save, investigations)
         save(output)
         print(f"\nmodel {stats['model']}, template {stats['template']}, kept {stats['kept']} "
               f"in {time.time() - started:.0f}s -> {shown(args.out)}")
