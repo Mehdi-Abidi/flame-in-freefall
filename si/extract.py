@@ -83,6 +83,38 @@ def build_prompt(context, facts):
             + "\n\nDATA FACTS:\n" + json.dumps(facts, ensure_ascii=False, indent=1))
 
 
+def clean_text(value, limit=900):
+    if not isinstance(value, str):
+        return None
+    value = " ".join(value.split())
+    return value[:limit] if value and value.lower() not in {"null", "none", "n/a", "unknown"} else None
+
+
+def clean_list(value, limit=12):
+    if isinstance(value, str):
+        value = [value]
+    if not isinstance(value, list):
+        return []
+    seen, out = set(), []
+    for item in value:
+        text = clean_text(item, 120) if isinstance(item, str) else None
+        if text and text.lower() not in seen:
+            seen.add(text.lower())
+            out.append(text)
+    return out[:limit]
+
+
+def clean_record(raw, facts):
+    """Coerce a model reply into the extracted.json schema. Data-proven values override the model."""
+    raw = raw if isinstance(raw, dict) else {}
+    record = {field: clean_text(raw.get(field)) for field in TEXT_FIELDS}
+    record.update({field: clean_list(raw.get(field)) for field in LIST_FIELDS})
+    record["pillars"] = [p for p in PILLARS if p in {x.lower() for x in clean_list(raw.get("pillars"))}]
+    model_phases = [p for p in PHASES if p in {x.lower() for x in clean_list(raw.get("fuel_phase"))}]
+    record["fuel_phase"] = list(facts.get("fuel_phase") or []) or model_phases
+    return record
+
+
 TEXT_LIMITS = {"objective": 1600, "approach": 2000, "hypothesis": 900, "researchImpacts": 900}
 
 
