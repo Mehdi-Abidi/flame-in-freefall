@@ -10,6 +10,7 @@ const STEPS = [
   { code: "B", title: "Normalize", body: "21 tables in different units (mmHg, atm, bar, percent, mole fraction) become one table of 2,127 rows. Every oxygen and pressure value carries a tag saying whether it was measured, planned or assumed." },
   { code: "C", title: "Extract", body: "An open model (GPT-OSS 20B on Groq) reads NASA's text for each investigation. Facts the tables already prove are handed to it as ground truth, and anything it names that is not in the source is flagged." },
   { code: "D", title: "Rank", body: "A deterministic score, no AI involved, rates every investigation for each habitat. The same code runs in Python for the data files and in your browser for the sliders, and a test proves they agree." },
+  { code: "E", title: "Explain", body: "The same open model writes a short reason for each ranking and one brief per fire-safety pillar, using only facts the code hands it. Code checks every number and citation, and anything that fails falls back to a fact-only template." },
 ];
 
 const RULES = [
@@ -30,14 +31,13 @@ export default function MethodPage() {
       </PageIntro>
 
       <SectionHeader title="Pipeline">
-        Four steps turn NASA&apos;s raw repository into this dashboard. Each runs from a script in the repository and is checked automatically on
+        Five steps turn NASA&apos;s raw repository into this dashboard. Each runs from a script in the repository and is checked automatically on
         every change.
       </SectionHeader>
-      <ol className="mb-16 grid gap-4 md:grid-cols-4">
+      <ol className="mb-16 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-5">
         {STEPS.map((step) => (
-          <li key={step.code} className="ticks border border-rule bg-surface p-5">
-            <p className="mono text-[12px] text-accent">STEP {step.code}</p>
-            <p className="mt-2 text-[17px] font-semibold">{step.title}</p>
+          <li key={step.code} className="border-t-2 border-ink pt-4">
+            <p className="text-[17px] font-semibold">{step.title}</p>
             <p className="mt-2 text-[13px] leading-relaxed text-ink-2">{step.body}</p>
           </li>
         ))}
