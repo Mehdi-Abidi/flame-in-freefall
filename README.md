@@ -216,7 +216,7 @@ python -m unittest tests.test_api -v
 
 `/ask` searches PSI objectives, approaches, hypotheses, publication titles and the S2 summaries from `extracted.json`, plus passages built from the data: a digest of each investigation's tests (O2, pressure and outcomes by fuel and diluent), the SAFFIRE-II microgravity vs 1 g comparison, and a dataset overview by fuel phase. These are needed for data questions such as "CO2 or helium?" and "were solids ever tested at 30% O2?". An answer must cite accessions from the retrieved passages. Otherwise the model gets one retry, then the reply is "Not covered in PSI data."
 
-Deploy: `render.yaml` is a Render blueprint. Set `LLM_API_KEY` in the Render dashboard and `CORS_ORIGINS` to the Vercel URL.
+Deploy: `render.yaml` is a Render blueprint. Set `LLM_API_KEY` in the Render dashboard. `CORS_ORIGINS` allows the GitHub Pages dashboard and `http://localhost:3000` for local work on the Ask page (F5).
 
 ## Repository layout
 
