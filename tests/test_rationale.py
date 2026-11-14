@@ -7,8 +7,8 @@ from pathlib import Path
 from unittest import mock
 
 from si.llm import LLMError
-from si.rationale import (RationaleError, build_facts, fingerprint, generate, group_scenarios, is_reusable, load_rankings,
-                          run, sanitize, template_rationale, validate, write_one)
+from si.rationale import (RationaleError, build_facts, conditions_on_record, field_medians, fingerprint, generate, group_scenarios,
+                          is_reusable, load_rankings, run, sanitize, standout_parts, template_rationale, validate, write_one)
 from si.rank import UsageError
 
 
@@ -71,6 +71,40 @@ class ValidationTests(unittest.TestCase):
 
     def test_numbers_from_facts_and_their_percent_forms_are_allowed(self):
         self.assertEqual(validate("FLEX scores 78 with a condition fit of 0.58. Its fit is 58 percent of the maximum.", FACTS), [])
+
+
+class PlainLanguageTests(unittest.TestCase):
+    def test_spelled_out_numbers_are_rejected(self):
+        problems = validate("FLEX ranks first of twenty-four on oxygen and pressure fit. None of its tests were inside the target.", FACTS)
+        self.assertTrue(any("spells out numbers" in p for p in problems))
+
+    def test_internal_field_names_are_rejected(self):
+        problems = validate("FLEX ranks first because its pillar_match is perfect. None of its tests were inside the target.", FACTS)
+        self.assertTrue(any("internal field names (pillar_match)" in p for p in problems))
+
+    def test_the_investigation_must_be_named(self):
+        problems = validate("It ranks first on oxygen and pressure fit. None of its tests were inside the target.", FACTS)
+        self.assertTrue(any("does not name the investigation" in p for p in problems))
+
+    def test_odd_hyphens_are_normalized(self):
+        self.assertEqual(sanitize("fire‑safety"), "fire-safety")
+
+    def test_standout_and_weakness_are_relative_to_the_field(self):
+        medians = {"condition_fit": 0.1, "material_relevance": 0.7, "pillar_match": 1.0, "data_richness": 0.5}
+        strongest, weakest = standout_parts({"condition_fit": 0.58, "material_relevance": 0.7, "pillar_match": 1.0, "data_richness": 0.94}, medians)
+        self.assertEqual((strongest, weakest), ("oxygen and pressure fit", None))
+        strongest, weakest = standout_parts({"condition_fit": 0.0, "material_relevance": 0.7, "pillar_match": 1.0, "data_richness": 0.5}, medians)
+        self.assertEqual((strongest, weakest), (None, "oxygen and pressure fit"))
+
+    def test_field_medians(self):
+        ranking = [{"components": {"condition_fit": v, "material_relevance": 0, "pillar_match": 0, "data_richness": 0}} for v in (0.1, 0.5, 0.9, 0.3)]
+        self.assertAlmostEqual(field_medians(ranking)["condition_fit"], 0.4)
+
+    def test_conditions_on_record_says_assumed_not_missing(self):
+        self.assertEqual(conditions_on_record({"o2_basis": "nominal_cabin_air", "pressure_basis": "nominal_cabin"}),
+                         "oxygen assumed ISS cabin air, not logged, pressure assumed ISS cabin pressure, not logged")
+        self.assertEqual(conditions_on_record({"o2_basis": None, "pressure_basis": None}), "no oxygen or pressure recorded")
+        self.assertEqual(conditions_on_record(None), "not known")
 
 
 class TemplateTests(unittest.TestCase):
