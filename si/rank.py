@@ -38,9 +38,18 @@ class UsageError(RankError):
     """The caller asked for something invalid (unknown scenario, bad weights). An API should answer 400."""
 
 
+def shown(path):
+    """Paths inside the project are shown relative to it, so messages stay short and readable."""
+    path = Path(path)
+    try:
+        return path.resolve().relative_to(ROOT).as_posix()
+    except ValueError:
+        return str(path)
+
+
 def _missing(path):
     hint = PRODUCERS.get(Path(path).name)
-    return RankError(f"{path} not found." + (f" Create it with: {hint}" if hint else ""))
+    return RankError(f"{shown(path)} not found." + (f" Create it with: {hint}" if hint else ""))
 
 
 def read_json(path):
@@ -50,9 +59,9 @@ def read_json(path):
     try:
         return json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as error:
-        raise RankError(f"{path} is not valid JSON (line {error.lineno}, column {error.colno}): {error.msg}") from error
+        raise RankError(f"{shown(path)} is not valid JSON (line {error.lineno}, column {error.colno}): {error.msg}") from error
     except (OSError, UnicodeDecodeError) as error:
-        raise RankError(f"cannot read {path}: {error}") from error
+        raise RankError(f"cannot read {shown(path)}: {error}") from error
 
 
 def read_csv(path, required_columns):
@@ -64,10 +73,10 @@ def read_csv(path, required_columns):
             reader = csv.DictReader(handle)
             missing = sorted(set(required_columns) - set(reader.fieldnames or []))
             if missing:
-                raise RankError(f"{path} is missing columns {missing}. Regenerate it with: {PRODUCERS.get(path.name, 'its producer')}")
+                raise RankError(f"{shown(path)} is missing columns {missing}. Regenerate it with: {PRODUCERS.get(path.name, 'its producer')}")
             return list(reader)
     except (OSError, UnicodeDecodeError, csv.Error) as error:
-        raise RankError(f"cannot read {path}: {error}") from error
+        raise RankError(f"cannot read {shown(path)}: {error}") from error
 
 
 SCENARIO_KEYS = {"id", "label", "o2_mole_fraction", "pressure_kpa", "context_only", "source", "assumptions"}
@@ -407,7 +416,7 @@ def write_json_atomic(path, document):
     except OSError as error:
         if os.path.exists(temporary):
             os.remove(temporary)
-        raise RankError(f"cannot write {path}: {error}") from error
+        raise RankError(f"cannot write {shown(path)}: {error}") from error
 
 
 def format_table(results, top):
@@ -440,7 +449,7 @@ def run(argv=None):
         if args.write:
             document = build_rankings(inputs)
             write_json_atomic(PROCESSED / "rankings.json", document)
-            print(f"wrote {PROCESSED / 'rankings.json'} for {len(document['scenarios'])} scenarios")
+            print(f"wrote {shown(PROCESSED / 'rankings.json')} for {len(document['scenarios'])} scenarios")
             return 0
         results = rank(args.scenario, args.weights or None, inputs)
         if args.json:

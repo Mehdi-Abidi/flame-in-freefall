@@ -9,7 +9,7 @@ from unittest import mock
 
 from si.rank import (COMPONENT_WEIGHTS, DEFAULT_WEIGHTS, RankError, UsageError, box_distance, condition_fit, data_richness,
                      build_rankings, load_inputs, material_relevance, parse_weights, pillar_match, rank, read_csv, read_json,
-                     resolve_pillars, run, validate_scenarios, write_json_atomic)
+                     resolve_pillars, run, shown, validate_scenarios, write_json_atomic)
 
 SCENARIOS = {
     "tolerance": {"o2_mole_fraction": 0.05, "pressure_kpa": 20.0},
@@ -34,6 +34,11 @@ class LoaderTests(unittest.TestCase):
         with self.assertRaises(RankError) as error:
             read_json(self.dir / "investigations.json")
         self.assertIn("python pipeline/build_investigations.py", str(error.exception))
+
+    def test_project_paths_are_shown_relative(self):
+        project_file = Path(__file__).resolve().parent.parent / "data" / "processed" / "investigations.json"
+        self.assertEqual(shown(project_file), "data/processed/investigations.json")
+        self.assertEqual(shown(self.dir / "x.json"), str(self.dir / "x.json"))
 
     def test_invalid_json_reports_line_and_column(self):
         path = self.dir / "bad.json"
