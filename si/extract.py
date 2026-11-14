@@ -47,7 +47,7 @@ def numeric_range(rows, field):
     return [min(values), max(values)] if values else None
 
 
-PROMPT_VERSION = "s2-v1"
+PROMPT_VERSION = "s2-v2"
 PILLARS = ("prevention", "detection", "suppression")
 PHASES = ("solid", "liquid", "gas", "dust")
 LIST_FIELDS = ("fuels", "sample_geometry", "variables_varied", "variables_fixed", "sensors", "measurements", "earth_benefits")
@@ -59,10 +59,12 @@ Rules:
 - DATA FACTS come from the experiment tables and are correct. Prefer them over the text when they disagree.
 - If something is not stated, use null for strings and [] for lists.
 - Keep list items short (1 to 6 words), lowercase except chemical formulas and acronyms.
-Fire safety pillars:
+Fire safety pillars. Assign a pillar only when it is a main aim of the investigation. Most have one or two.
 - prevention: flammability, ignition, flame spread, material selection, oxygen or pressure limits
-- detection: smoke, soot or aerosol measurement, detectors, telling smoke from dust
+- detection: measuring smoke, soot or aerosol particles to design or test fire detectors, or telling smoke from dust. Observing that a flame went out is NOT detection.
 - suppression: extinguishing flames, diluents or agents such as CO2 or helium, extinction limits
+variables_fixed lists physical test conditions held constant (for example ambient temperature or droplet size). Never list the platform, hardware or facility there.
+For sample_size, use size_mm_range from DATA FACTS when given (it is in millimetres).
 Reply with one JSON object with exactly these keys:
 summary: 2 to 3 plain sentences for an engineer new to the topic
 objective_short: one sentence
