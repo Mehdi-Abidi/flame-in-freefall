@@ -8,9 +8,11 @@ Library:
     results = rank("lunar_base", {"prevention": 2, "detection": 1, "suppression": 1}, load_inputs())
 """
 
+import argparse
 import csv
 import math
 import os
+import sys
 import tempfile
 import json
 from pathlib import Path
@@ -403,3 +405,68 @@ def write_json_atomic(path, document):
         if os.path.exists(temporary):
             os.remove(temporary)
         raise RankError(f"cannot write {path}: {error}") from error
+
+
+def format_table(results, top):
+    lines = [f"{'#':>2}  {'score':>5}  {'investigation':22} {'fit':>4} {'mat':>4} {'pil':>4} {'data':>4}  why"]
+    for result in results[:top]:
+        c = result["components"]
+        name = (result["acronym"] or result["accession"])[:22]
+        lines.append(f"{result['rank']:>2}  {result['score']:.3f}  {name:22} {c['condition_fit']:.2f} {c['material_relevance']:.2f} "
+                     f"{c['pillar_match']:.2f} {c['data_richness']:.2f}  {result['reasons'][0]}")
+    return "\n".join(lines)
+
+
+def run(argv=None):
+    parser = argparse.ArgumentParser(prog="python -m si.rank", description="Rank PSI combustion investigations for a habitat.")
+    parser.add_argument("--scenario", default="lunar_base", help="habitat id from data/domain/scenarios.json")
+    parser.add_argument("--weights", default="", help="e.g. prevention=2,detection=1,suppression=1")
+    parser.add_argument("--top", type=int, default=10, help="how many rows to print")
+    parser.add_argument("--json", action="store_true", help="print the full result as JSON")
+    parser.add_argument("--write", action="store_true", help="write data/processed/rankings.json for all scenarios")
+    parser.add_argument("--debug", action="store_true", help="show the full traceback on unexpected errors")
+    args = parser.parse_args(argv)
+    if args.top < 1:
+        parser.error("--top must be at least 1")
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    try:
+        inputs = load_inputs()
+        for note in inputs["notes"]:
+            print(f"note: {note}", file=sys.stderr)
+        if args.write:
+            document = build_rankings(inputs)
+            write_json_atomic(PROCESSED / "rankings.json", document)
+            print(f"wrote {PROCESSED / 'rankings.json'} for {len(document['scenarios'])} scenarios")
+            return 0
+        results = rank(args.scenario, args.weights or None, inputs)
+        if args.json:
+            print(json.dumps(results, indent=2, ensure_ascii=False))
+        else:
+            scenario = inputs["scenarios"]["scenarios"][args.scenario]
+            print(f"{scenario['label']}: O2 {scenario['o2_mole_fraction']}, pressure {scenario['pressure_kpa']} kPa"
+                  + ("  (context only)" if scenario["context_only"] else ""))
+            print(format_table(results, args.top))
+        return 0
+    except UsageError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 2
+    except RankError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 1
+    except KeyboardInterrupt:
+        print("stopped", file=sys.stderr)
+        return 130
+    except Exception as error:
+        if args.debug:
+            raise
+        print(f"unexpected error: {type(error).__name__}: {error}. Rerun with --debug for the full traceback.", file=sys.stderr)
+        return 1
+
+
+def main():
+    sys.exit(run())
+
+
+if __name__ == "__main__":
+    main()
