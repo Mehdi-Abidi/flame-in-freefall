@@ -10,9 +10,11 @@ Usage:
 import collections
 import csv
 import json
+import re
 from pathlib import Path
 
 from si.rank import PROCESSED, RankError, UsageError, read_json, shown
+from si.rationale import FIELD_NAME, NUMBER, NUMBER_WORDS, allowed_numbers, number_is_allowed, sanitize
 
 OUTPUT = PROCESSED / "briefs.json"
 PILLARS = ("prevention", "detection", "suppression")
@@ -155,3 +157,95 @@ def build_facts(pillar, members, investigations, extracted, rows_by_accession, a
     if pillar == "prevention":
         facts["gravity_observations"] = gravity_observations()
     return facts
+
+
+PROMPT_VERSION = "s5-v1"
+SYSTEM_PROMPT = """You write a short insight brief for spacecraft and lunar habitat fire-safety engineers.
+Use only the FACTS. Never add knowledge from outside them.
+Reply with JSON only, with exactly these keys:
+title: at most 10 words, plain, no colon
+findings: a list of exactly 3 objects, each {"text": one or two sentences of at most 45 words, "citations": list of accession numbers such as "PSI-69"}
+implication: one sentence of at most 40 words on what this means for a lunar base designer
+gap: one sentence of at most 40 words on what the data does not cover
+Rules:
+- Each finding must be supported by the investigations it cites, and cite only accessions listed in the FACTS.
+- Write every number as digits, and only numbers that appear in the FACTS.
+- Never write FACT key names or words joined by underscores.
+- Do not call anything best, most effective, safest, optimal or ideal. Report what was observed.
+- If oxygen or pressure is assumed or planned, say so rather than presenting it as measured.
+- No hype, no dashes, no semicolons."""
+
+
+def build_prompt(facts):
+    return "FACTS:\n" + json.dumps(facts, ensure_ascii=False, indent=1)
+
+
+SUPERLATIVE = re.compile(r"\b(best|most effective|safest|optimal|ideal|superior|clearly better)\b", re.I)
+CITATION = re.compile(r"PSI-\d+")
+
+
+def _text_problems(label, text, facts, max_words, allowed_numbers_set):
+    problems = []
+    if not text:
+        return [f"{label} is empty"]
+    words = len(text.split())
+    if words > max_words:
+        problems.append(f"{label} has {words} words, limit is {max_words}")
+    without_citations = CITATION.sub("", text)
+    unknown = sorted({t for t in NUMBER.findall(without_citations) if not number_is_allowed(t, allowed_numbers_set)}, key=float)
+    if unknown:
+        problems.append(f"{label} mentions numbers not in the facts: {', '.join(unknown)}")
+    spelled = sorted({m.group(0).lower() for m in NUMBER_WORDS.finditer(text)})
+    if spelled:
+        problems.append(f"{label} spells out numbers ({', '.join(spelled)}), write digits")
+    fields = sorted({m.group(0) for m in FIELD_NAME.finditer(text)})
+    if fields:
+        problems.append(f"{label} uses internal field names ({', '.join(fields)})")
+    if SUPERLATIVE.search(text):
+        problems.append(f"{label} makes a superlative claim ({SUPERLATIVE.search(text).group(0)}) the data does not state")
+    return problems
+
+
+def clean_brief(raw):
+    raw = raw if isinstance(raw, dict) else {}
+    findings = []
+    for item in raw.get("findings") or []:
+        if isinstance(item, dict):
+            text = sanitize(item.get("text"))
+            cited = item.get("citations") if isinstance(item.get("citations"), list) else []
+            cited = [c for c in dict.fromkeys(str(c).strip().upper() for c in cited) if c]
+            cited += [c for c in CITATION.findall(text) if c not in cited]
+            findings.append({"text": text, "citations": cited})
+    return {
+        "title": sanitize(raw.get("title")).rstrip("."),
+        "findings": findings,
+        "implication": sanitize(raw.get("implication")),
+        "gap": sanitize(raw.get("gap")),
+    }
+
+
+def validate_brief(brief, facts):
+    """Return a list of problems; an empty list means the brief is safe to publish."""
+    allowed_accessions = {inv["accession"] for inv in facts["investigations"]}
+    allowed = allowed_numbers(facts)
+    problems = []
+    title = brief.get("title") or ""
+    if not title:
+        problems.append("title is empty")
+    elif len(title.split()) > 10:
+        problems.append(f"title has {len(title.split())} words, limit is 10")
+    findings = brief.get("findings") or []
+    if len(findings) != 3:
+        problems.append(f"has {len(findings)} findings, needs exactly 3")
+    for index, finding in enumerate(findings, start=1):
+        label = f"finding {index}"
+        problems += _text_problems(label, finding.get("text"), facts, 45, allowed)
+        cited = finding.get("citations") or []
+        if not cited:
+            problems.append(f"{label} cites nothing")
+        outside = [c for c in cited if c not in allowed_accessions]
+        if outside:
+            problems.append(f"{label} cites {', '.join(outside)}, which is not in this pillar")
+    for key in ("implication", "gap"):
+        problems += _text_problems(key, brief.get(key), facts, 40, allowed)
+    return problems
