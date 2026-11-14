@@ -238,8 +238,11 @@ def text_context(metadata, keywords="", max_publications=6, sub_area=""):
 
 def data_facts(investigation, rows):
     """Facts already proven by tests.csv and investigations.json, handed to the model as ground truth."""
+    variation = table_variation(rows)
     return {
         "record_types": dict(collections.Counter(row["record_type"] for row in rows)),
+        "varied_in_tables": variation["varied"],
+        "constant_in_tables": variation["fixed"],
         "n_tests": investigation.get("n_tests", 0),
         "fuel_phase": investigation.get("fuel_phase") or [],
         "fuels_in_tables": top_values(rows, "fuel", 15),
