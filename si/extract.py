@@ -79,8 +79,8 @@ def table_variation(rows):
     if sizes:
         (varied if max(sizes) > 1.2 * min(sizes) else fixed).append("sample size")
     for label, field in TEXT_DIMENSIONS:
-        distinct = {r[field].strip().lower() for r in rows
-                    if r.get(field, "").strip() and r[field].strip().lower() not in PLACEHOLDERS}
+        distinct = {part.strip().lower() for r in rows for part in r.get(field, "").split(" or ")
+                    if part.strip() and part.strip().lower() not in PLACEHOLDERS}
         if distinct:
             (varied if len(distinct) > 1 else fixed).append(label)
     return {"varied": varied, "fixed": fixed}
