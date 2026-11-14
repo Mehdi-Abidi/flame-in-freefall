@@ -1,0 +1,16 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+node_modules/
+dist/
+.vercel/
+.DS_Store
+Thumbs.db
+*.mp4
+*.mpg
+*.avi
+*.zip
+data/raw/media/

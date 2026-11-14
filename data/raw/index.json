@@ -1,0 +1,782 @@
+[
+  {
+    "accession": "PSI-10",
+    "acronym": "ACME/Flame Design",
+    "title": "Advanced Combustion via Microgravity Experiments / Flame Design",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Flames of Gaseous Fuels",
+    "hardware": "Advanced Combustion via Microgravity Experiments (ACME), Combustion Integrated Rack (CIR), Reconfiguration of Combustion Integrated Rack (CIR)",
+    "experimental_tables": [
+      "PSI-10_Experimental table_Flame Design_Normal Flame.csv",
+      "PSI-10_Experimental table_Flame Design_Inverse Flame.csv"
+    ],
+    "files": {
+      "file_count": 3807,
+      "total_bytes": 2180435304347,
+      "by_extension": {
+        ".zip": 1184,
+        ".txt": 993,
+        ".csv": 636,
+        ".mdipsug": 490,
+        ".ts": 317,
+        ".pdf": 76,
+        ".asc": 66,
+        ".log": 35,
+        ".jpg": 5,
+        ".xlsx": 2,
+        ".png": 2,
+        ".errors": 1
+      },
+      "by_folder": {
+        "Raw Data": 3792,
+        "Representative Image(s)": 5,
+        "Reports": 3,
+        "Science Documents": 3,
+        "Experimental table": 2,
+        "metadata": 1,
+        "Engineering Documents": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "acronym": "ACME BRE",
+    "title": "Advanced Combustion via Microgravity Experiments - Burning Rate Emulator",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Flames of Gaseous Fuels",
+    "hardware": "Combustion Integrated Rack (CIR), ACME",
+    "experimental_tables": [
+      "PSI-20_Experimental table_ACME BRE.csv"
+    ],
+    "files": {
+      "file_count": 2553,
+      "total_bytes": 2039226801988,
+      "by_extension": {
+        ".zip": 1048,
+        ".txt": 852,
+        ".csv": 384,
+        ".mp4": 198,
+        ".pdf": 55,
+        ".mdipsug": 8,
+        ".xlsx": 6,
+        ".ziip": 1,
+        ".docx": 1
+      },
+      "by_folder": {
+        "Raw Data": 2550,
+        "Experimental table": 2,
+        "metadata": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "acronym": "ACME CLD Flame",
+    "title": "Advanced Combustion via Microgravity Experiments / Coflow Laminar Diffusion Flame",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Flames of gaseous fuel",
+    "hardware": "Combustion Integrated Rack (CIR), ACME",
+    "experimental_tables": [
+      "PSI-21_Experimental table_CLD Flame.csv"
+    ],
+    "files": {
+      "file_count": 4852,
+      "total_bytes": 2005469826024,
+      "by_extension": {
+        ".zip": 1793,
+        ".txt": 1311,
+        ".csv": 778,
+        ".mp4": 399,
+        ".log": 358,
+        ".pdf": 114,
+        ".mdipsug": 79,
+        ".log ": 10,
+        ".next": 7,
+        ".xlsx": 3
+      },
+      "by_folder": {
+        "Raw Data": 4850,
+        "metadata": 1,
+        "Experimental table": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "acronym": "ACME E-FIELD Flames",
+    "title": "Advanced Combustion via Microgravity Experiments Electric-Field Effects on Laminar Diffusion Flames",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Laminar Flames",
+    "hardware": "Combustion Integrated Rack (CIR), ACME",
+    "experimental_tables": [
+      "PSI-22_Experimental table_ACME E-FIELD Flames.csv"
+    ],
+    "files": {
+      "file_count": 3257,
+      "total_bytes": 952225706448,
+      "by_extension": {
+        ".zip": 910,
+        ".txt": 818,
+        ".log": 560,
+        ".csv": 412,
+        ".mp4": 224,
+        ".mdipsug": 196,
+        ".metadata": 87,
+        ".pdf": 34,
+        ".xlsx": 8,
+        ".jpg": 4,
+        ".errors": 2,
+        "(none)": 1,
+        ".png": 1
+      },
+      "by_folder": {
+        "Raw Data": 3250,
+        "Representative Image(s)": 4,
+        "metadata": 1,
+        "Experimental table": 1,
+        "Engineering Documents": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-23",
+    "acronym": "ACME s-Flame",
+    "title": "Advanced Combustion via Microgravity Experiments-Structure and Response of Spherical Diffusion Flames",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Flames of gaseous fuels",
+    "hardware": "Combustion Integrated Rack (CIR), ACME",
+    "experimental_tables": [
+      "PSI-23_Experimental table_ACME s-Flame.csv"
+    ],
+    "files": {
+      "file_count": 10965,
+      "total_bytes": 1565709036507,
+      "by_extension": {
+        ".zip": 4077,
+        ".txt": 2372,
+        ".asc": 1876,
+        ".csv": 1153,
+        ".log": 775,
+        ".mp4": 580,
+        ".pdf": 70,
+        ".mdipsug": 32,
+        ".xlsx": 24,
+        ".next": 4,
+        ".sfk": 2
+      },
+      "by_folder": {
+        "Raw Data": 10858,
+        "Reference Data": 50,
+        "Engineering Documents": 29,
+        "Presentations": 17,
+        "Science Documents": 7,
+        "Reports": 2,
+        "metadata": 1,
+        "Experimental table": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-25",
+    "acronym": "BASS-II",
+    "title": "Burning and Suppression of Solids - II",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Spacecraft Fire Safety",
+    "hardware": "Microgravity Science Glovebox (MSG)",
+    "experimental_tables": [
+      "PSI-25_Experimental table_BASS-II.csv"
+    ],
+    "files": {
+      "file_count": 1406,
+      "total_bytes": 549265916057,
+      "by_extension": {
+        ".mp4": 592,
+        ".zip": 530,
+        ".pdf": 257,
+        ".xlsx": 14,
+        ".docx": 8,
+        ".pptx": 3,
+        ".csv": 1,
+        ".jpg": 1
+      },
+      "by_folder": {
+        "Raw Data": 1395,
+        "Science Documents": 3,
+        "metadata": 2,
+        "Engineering Documents": 2,
+        "Experimental table": 1,
+        "Reference Data": 1,
+        "Reports": 1,
+        "Representative Image(s)": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-26",
+    "acronym": "BASS",
+    "title": "Burning and Suppression of Solids",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Spacecraft Fire Safety",
+    "hardware": "Microgravity Science Glovebox",
+    "experimental_tables": [
+      "PSI-26_Experimental table_BASS.csv"
+    ],
+    "files": {
+      "file_count": 423,
+      "total_bytes": 327103991145,
+      "by_extension": {
+        ".mp4": 228,
+        ".zip": 120,
+        ".pdf": 64,
+        ".pptx": 4,
+        ".xlsx": 3,
+        ".docx": 2,
+        ".rtf": 1,
+        ".csv": 1
+      },
+      "by_folder": {
+        "Raw Data": 383,
+        "Engineering Documents": 24,
+        "Presentations": 6,
+        "Science Documents": 5,
+        "metadata": 2,
+        "Reports": 2,
+        "Experimental table": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-39",
+    "acronym": "CFI",
+    "title": "Cool Flames Investigation",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Droplets",
+    "hardware": "Multi-User Droplet Combustion Apparatus (MDCA), Combustion Integrated Rack (CIR)",
+    "experimental_tables": [
+      "PSI-39_Experimental table_CFI.csv"
+    ],
+    "files": {
+      "file_count": 5933,
+      "total_bytes": 1685943637611,
+      "by_extension": {
+        ".txt": 3603,
+        ".zip": 799,
+        ".meta": 474,
+        ".mp4": 320,
+        ".ts": 310,
+        ".metadata": 235,
+        ".pdf": 88,
+        ".pxp": 57,
+        ".rtf": 43,
+        ".pptx": 2,
+        ".csv": 1,
+        ".xlsx": 1
+      },
+      "by_folder": {
+        "Raw Data": 5891,
+        "Analyzed Data": 32,
+        "Science Documents": 3,
+        "metadata": 2,
+        "Presentations": 2,
+        "Experimental table": 1,
+        "Reports": 1,
+        "Engineering Documents": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-47",
+    "acronym": "DAFT / DAFT-2",
+    "title": "Dust and Aerosol Measurement Feasibility Test / Dust and Aerosol Measurement Feasibility Test-2",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Spacecraft Fire Safety",
+    "hardware": "TSI P-Trak",
+    "experimental_tables": [
+      "PSI-47_Experimental table_DAFT.csv"
+    ],
+    "files": {
+      "file_count": 384,
+      "total_bytes": 5183500884,
+      "by_extension": {
+        ".bmp": 141,
+        ".zip": 97,
+        ".mp4": 43,
+        ".xls": 30,
+        ".xlsx": 24,
+        ".pdf": 22,
+        ".txt": 12,
+        ".ppt": 7,
+        ".doc": 4,
+        ".docx": 2,
+        ".csv": 1,
+        ".jpg": 1
+      },
+      "by_folder": {
+        "Raw Data": 332,
+        "Analyzed Data": 36,
+        "Engineering Documents": 6,
+        "Reports": 3,
+        "Presentations": 3,
+        "metadata": 2,
+        "Experimental table": 1,
+        "Representative Image(s)": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-60",
+    "acronym": "",
+    "title": "Computational and Experimental Analysis of SPICE Data Sets",
+    "project_type": "Ground Investigation",
+    "sub_research_area": "Gaseous",
+    "hardware": "",
+    "experimental_tables": [],
+    "files": {
+      "file_count": 1,
+      "total_bytes": 7743,
+      "by_extension": {
+        ".zip": 1
+      },
+      "by_folder": {
+        "metadata": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-62",
+    "acronym": "",
+    "title": "Concurrent Flame Spread Modeling using Flamelet Generated Manifolds in Microgravity with Comparison to BASS Experiments using Two-Color Tomography",
+    "project_type": "Ground Investigation",
+    "sub_research_area": "Spacecraft Fire Safety",
+    "hardware": "",
+    "experimental_tables": [],
+    "files": {
+      "file_count": 1,
+      "total_bytes": 9694,
+      "by_extension": {
+        ".zip": 1
+      },
+      "by_folder": {
+        "metadata": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-68",
+    "acronym": "FLEX-2",
+    "title": "Flame Extinguishment Experiment - 2",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Spacecraft Fire Safety",
+    "hardware": "Combustion Integrated Rack (CIR), Multi-user Droplet Combustion Appartatus (MDCA)",
+    "experimental_tables": [
+      "PSI-68_Experimental table_Flex2.csv"
+    ],
+    "files": {
+      "file_count": 10703,
+      "total_bytes": 1366233407154,
+      "by_extension": {
+        ".txt": 8200,
+        ".zip": 2388,
+        ".docx": 88,
+        ".pdf": 13,
+        ".jpg": 6,
+        ".log": 4,
+        ".csv": 2,
+        ".ppt": 1,
+        ".xlsx": 1
+      },
+      "by_folder": {
+        "Raw Data": 10700,
+        "Experimental table": 2,
+        "metadata": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-69",
+    "acronym": "FLEX",
+    "title": "Flame Extinguishment Experiment",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Spacecraft Fire Safety",
+    "hardware": "Combustion Integrated Rack (CIR)-Fluids and Combustion Facility (FCF), Multi-user Droplet Combustion Appartatus (MDCA)",
+    "experimental_tables": [
+      "PSI-69_Experimental table_FLEX.csv"
+    ],
+    "files": {
+      "file_count": 8853,
+      "total_bytes": 944185801964,
+      "by_extension": {
+        ".txt": 5426,
+        ".zip": 1422,
+        ".mp4": 1303,
+        ".pdf": 425,
+        ".rtf": 271,
+        ".xls": 2,
+        ".csv": 2,
+        ".eps": 1,
+        ".mpg": 1
+      },
+      "by_folder": {
+        "Raw Data": 8850,
+        "Experimental table": 2,
+        "metadata": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-98",
+    "acronym": "SAFFIRE-I",
+    "title": "Spacecraft Fire Safety Experiment-I",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Spacecraft Fire, Smoke Distribution",
+    "hardware": "Saffire 1 enclosure in Cygnus",
+    "experimental_tables": [
+      "PSI-98_Experimental table_SAFFIRE-1.csv"
+    ],
+    "files": {
+      "file_count": 156,
+      "total_bytes": 23405427198,
+      "by_extension": {
+        ".zip": 121,
+        ".pdf": 20,
+        ".xlsx": 9,
+        ".docx": 5,
+        ".csv": 1
+      },
+      "by_folder": {
+        "Raw Data": 148,
+        "Science Documents": 4,
+        "Engineering Documents": 2,
+        "metadata": 1,
+        "Experimental table": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-99",
+    "acronym": "SAFFIRE-II",
+    "title": "Spacecraft Fire Experiment-II",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Surface Combustion",
+    "hardware": "Cygnus Pressurized Cargo Module, SAFFIRE",
+    "experimental_tables": [
+      "PSI-99_Experimental table_SAFFIRE-2.csv"
+    ],
+    "files": {
+      "file_count": 253,
+      "total_bytes": 17314766781,
+      "by_extension": {
+        ".zip": 190,
+        ".pdf": 31,
+        ".xlsx": 20,
+        ".docx": 10,
+        ".csv": 2
+      },
+      "by_folder": {
+        "Raw Data": 250,
+        "Experimental table": 2,
+        "metadata": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-100",
+    "acronym": "SAFFIRE-III",
+    "title": "Spacecraft Fire Experiment-III",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Spacecraft Fire Safety",
+    "hardware": "Saffire III enclosure in Cygnus",
+    "experimental_tables": [
+      "PSI-100_Experimental table_SAFFIRE-3.csv"
+    ],
+    "files": {
+      "file_count": 177,
+      "total_bytes": 70481075967,
+      "by_extension": {
+        ".zip": 135,
+        ".pdf": 14,
+        ".xlsx": 14,
+        ".csv": 9,
+        ".docx": 5
+      },
+      "by_folder": {
+        "Raw Data": 165,
+        "Science Documents": 5,
+        "Presentations": 3,
+        "Engineering Documents": 2,
+        "metadata": 1,
+        "Experimental table": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "acronym": "SAME-R",
+    "title": "Smoke Aerosol Measurement Experiment-Reflight",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Spacecraft Fire Safety",
+    "hardware": "Comparitive Soot Diagnostic Hardware; Refer to final report",
+    "experimental_tables": [
+      "PSI-101_Experimental table_SAME-R.csv"
+    ],
+    "files": {
+      "file_count": 714,
+      "total_bytes": 12926172669,
+      "by_extension": {
+        ".xls": 165,
+        ".zip": 160,
+        ".pptx": 152,
+        ".csv": 90,
+        ".pdf": 68,
+        ".xlsx": 38,
+        ".mp4": 16,
+        ".docx": 11,
+        ".tif": 6,
+        ".ppt": 5,
+        ".doc": 3
+      },
+      "by_folder": {
+        "Raw Data": 553,
+        "Analyzed Data": 126,
+        "Engineering Documents": 24,
+        "Presentations": 4,
+        "Science Documents": 2,
+        "Reference Data": 2,
+        "metadata": 1,
+        "Experimental table": 1,
+        "Reports": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-102",
+    "acronym": "SAME",
+    "title": "Smoke and Aerosol Measurement Experiment",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Spacecraft Fire Safety",
+    "hardware": "Comparitive Soot Diagnostic Hardware",
+    "experimental_tables": [
+      "PSI-102_Experimental table_SAME.csv"
+    ],
+    "files": {
+      "file_count": 216,
+      "total_bytes": 1337251166,
+      "by_extension": {
+        ".xls": 110,
+        ".pdf": 57,
+        ".xlsx": 13,
+        ".xml": 9,
+        ".zip": 8,
+        ".ppt": 6,
+        ".mp4": 4,
+        ".pptx": 4,
+        ".doc": 3,
+        ".docx": 1,
+        ".csv": 1
+      },
+      "by_folder": {
+        "Analyzed Data": 129,
+        "Raw Data": 44,
+        "Engineering Documents": 28,
+        "Presentations": 6,
+        "Reference Data": 3,
+        "metadata": 2,
+        "Science Documents": 2,
+        "Experimental table": 1,
+        "Reports": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-106",
+    "acronym": "SLICE",
+    "title": "Structure and Liftoff In Combustion Experiment",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "",
+    "hardware": "",
+    "experimental_tables": [
+      "PSI-106_Experimental table_Slice.csv"
+    ],
+    "files": {
+      "file_count": 23402,
+      "total_bytes": 46449310500,
+      "by_extension": {
+        ".dat": 22990,
+        ".pdf": 230,
+        ".docx": 45,
+        ".zip": 28,
+        ".mp4": 26,
+        ".csv": 23,
+        ".xls": 22,
+        ".xlsx": 16,
+        ".txt": 11,
+        ".eps": 6,
+        ".mat": 2,
+        ".doc": 1,
+        "(none)": 1,
+        ".pptx": 1
+      },
+      "by_folder": {
+        "Raw Data": 23400,
+        "metadata": 1,
+        "Experimental table": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-107",
+    "acronym": "SPICE",
+    "title": "Smoke Point In Co-flow Experiment",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Fire Safety",
+    "hardware": "Microgravity Science Glovebox (MSG)",
+    "experimental_tables": [
+      "PSI-107_Experimental table_Spice.csv"
+    ],
+    "files": {
+      "file_count": 398,
+      "total_bytes": 12621396112,
+      "by_extension": {
+        ".zip": 201,
+        ".xls": 73,
+        ".pdf": 38,
+        ".mp4": 36,
+        ".ppt": 20,
+        ".xlsx": 12,
+        ".pptx": 4,
+        ".txt": 4,
+        ".doc": 3,
+        ".docx": 3,
+        ".nef": 2,
+        ".csv": 1,
+        ".avi": 1
+      },
+      "by_folder": {
+        "Raw Data": 382,
+        "Presentations": 5,
+        "Engineering Documents": 4,
+        "Reports": 3,
+        "metadata": 1,
+        "Experimental table": 1,
+        "Science Documents": 1,
+        "Reference Data": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-115",
+    "acronym": "",
+    "title": "Utilization of the Smoke Aerosol Measurement Experiment Data for Advanced Modeling and Simulation of Smoke Generation in Micro-Gravity",
+    "project_type": "Ground Investigation",
+    "sub_research_area": "Smoke Aerosol, Combustion Simulation",
+    "hardware": "",
+    "experimental_tables": [],
+    "files": {
+      "file_count": 98,
+      "total_bytes": 554043976,
+      "by_extension": {
+        ".dat": 94,
+        ".zip": 2,
+        ".pdf": 2
+      },
+      "by_folder": {
+        "Raw Data": 50,
+        "Analyzed Data": 44,
+        "metadata": 2,
+        "Reports": 1,
+        "Science Documents": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-117",
+    "acronym": "",
+    "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
+    "project_type": "Ground Investigation",
+    "sub_research_area": "Droplet",
+    "hardware": "",
+    "experimental_tables": [],
+    "files": {
+      "file_count": 16,
+      "total_bytes": 70820870,
+      "by_extension": {
+        ".csv": 9,
+        ".pdf": 5,
+        ".zip": 1,
+        ".xlsx": 1
+      },
+      "by_folder": {
+        "Analyzed Data": 10,
+        "Presentations": 4,
+        "metadata": 1,
+        "Reports": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-142",
+    "acronym": "",
+    "title": "Quantitative Studies of Cool Flame Transitions at Radiation / Stretch Extinction Using Counterflow Flames",
+    "project_type": "Ground Investigation",
+    "sub_research_area": "Spacecraft Fire Safety",
+    "hardware": "Principal Investigator Laboratory Hardware",
+    "experimental_tables": [
+      "PSI-142_Experimental table_Data Summary Table.csv"
+    ],
+    "files": {
+      "file_count": 6,
+      "total_bytes": 1612550,
+      "by_extension": {
+        ".docx": 2,
+        ".xlsx": 2,
+        ".zip": 1,
+        ".csv": 1
+      },
+      "by_folder": {
+        "Raw Data": 2,
+        "Analyzed Data": 2,
+        "metadata": 1,
+        "Experimental table": 1
+      }
+    }
+  },
+  {
+    "accession": "PSI-159",
+    "acronym": "ACME CFI-G",
+    "title": "Advanced Combustion via Microgravity Experiments / Cool Flames Investigation with Gases",
+    "project_type": "Microgravity Investigation",
+    "sub_research_area": "Flames of Gaseous Fuels",
+    "hardware": "ACME, Combustion Integrated Rack (CIR)",
+    "experimental_tables": [
+      "PSI-159_Experimental table_CFI-G_Normal Flames.csv",
+      "PSI-159_Experimental table_CFI-G_Inverse Flames.csv"
+    ],
+    "files": {
+      "file_count": 3756,
+      "total_bytes": 2085592429259,
+      "by_extension": {
+        ".txt": 1022,
+        ".zip": 987,
+        ".csv": 680,
+        ".mdipsug": 610,
+        ".ts": 336,
+        ".pdf": 93,
+        ".log": 22,
+        ".xlsx": 1,
+        ".errors": 1,
+        ".mp4": 1,
+        ".next": 1,
+        ".png": 1,
+        ".jpg": 1
+      },
+      "by_folder": {
+        "Raw Data": 3749,
+        "Experimental table": 2,
+        "Representative Image(s)": 2,
+        "metadata": 1,
+        "Reports": 1,
+        "Engineering Documents": 1
+      }
+    }
+  }
+]
