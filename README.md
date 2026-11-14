@@ -53,6 +53,8 @@ Already pulled into this repo:
 | `data/raw/index.json` | Summary per investigation, including raw file counts and sizes on PSI |
 | `data/processed/tests.csv` | 2,127 normalized rows, each with a unique `row_id`: fuel, phase, geometry, size, O2 fraction, pressure in kPa, flow, outcome |
 | `data/processed/investigations.json` | 24 investigation records: metadata, publications, test counts, O2 and pressure ranges with their basis (measured, nominal, planned) |
+| `data/processed/extracted.json` | AI-extracted facts per investigation: plain summary, fuels, geometry, variables varied and held fixed, sensors, measurements, fire-safety pillars, Earth benefits, plus review warnings |
+| `data/domain/seed_pillars.json` | Seed fire-safety tags from the plan, replaced by hand-checked tags in T1 |
 | `data/processed/saffire2_gravity.csv` | SAFFIRE-II microgravity vs 1 g burn results, sample by sample |
 
 Every O2 and pressure value carries a source tag (`measured`, `planned`, `nominal_cabin_air` and so on), so assumed cabin values are never mistaken for test conditions. Table-by-table units and cleanup decisions are in [`docs/data-notes.md`](docs/data-notes.md).
@@ -73,7 +75,7 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | D4 `pipeline/qa.py`, 22 automated data checks | Mufeed | Done, all passing |
 | D3 `investigations.json`: one record per investigation with ranges and their basis | Mufeed | Done |
 | S1 `si/llm.py` provider wrapper, 17 unit tests | Mehdi | Done |
-| S2 Extraction of all 24 investigations | Mehdi | Next |
+| S2 AI extraction of all 24 investigations (`extracted.json`) | Mehdi | Done, Taha to review in T4 |
 | A1 FastAPI skeleton | Moiz | Next |
 | F1 to F2 React shell and Vercel deploy | Ali Soban | Next |
 | V1 Flammability map prototype | Ahsan | Next, can start on `tests.csv` now |
@@ -121,6 +123,21 @@ Put your own free [Groq](https://console.groq.com/keys) key into `.env` as `LLM_
 | `LLM_FALLBACK_MODEL` | `openai/gpt-oss-120b` | Used automatically if the main model fails |
 
 Replies are cached in `.cache/llm/` so reruns do not spend free-tier quota. Rate limits are retried with backoff.
+
+### AI extraction (S2)
+
+```bash
+python -m si.extract                  # all 24 investigations, about 4 minutes on the Groq free tier
+python -m si.extract --only PSI-69    # redo one investigation, keeps the others
+python -m si.extraction_report        # rewrite docs/extraction-review.md
+```
+
+How it stays honest:
+
+- Facts already proven by the tables (fuels, phases, geometry, O2 and pressure ranges with their basis) are passed to the model as ground truth. Fuel phase and sample size are written from the data, not by the model.
+- Any fuel or sensor the model names that does not appear in the source text or data is flagged as a warning.
+- A detection pillar is dropped unless the source mentions smoke, aerosols, particles, dust or detectors.
+- Model pillars are suggestions. [`docs/extraction-review.md`](docs/extraction-review.md) compares them with the seed tags so a person can decide.
 
 ## Repository layout
 
