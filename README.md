@@ -128,13 +128,14 @@ Replies are cached in `.cache/llm/` so reruns do not spend free-tier quota. Rate
 
 ```bash
 python -m si.extract                  # all 24 investigations, about 4 minutes on the Groq free tier
-python -m si.extract --only PSI-69    # redo one investigation, keeps the others
+python -m si.extract --only PSI-69    # redo one investigation, keeps the others (unknown IDs are rejected)
 python -m si.extraction_report        # rewrite docs/extraction-review.md
 ```
 
 How it stays honest:
 
 - Facts already proven by the tables (fuels, phases, geometry, O2 and pressure ranges with their basis) are passed to the model as ground truth. Fuel phase and sample size are written from the data, not by the model.
+- Which conditions varied and which stayed fixed is computed from `tests.csv`. The tables win over the model, and a summary that calls a varied condition constant (or the reverse) is flagged and fails QA.
 - Any fuel or sensor the model names that does not appear in the source text or data is flagged as a warning.
 - A detection pillar is dropped unless the source mentions smoke, aerosols, particles, dust or detectors.
 - Model pillars are suggestions. [`docs/extraction-review.md`](docs/extraction-review.md) compares them with the seed tags so a person can decide.
