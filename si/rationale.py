@@ -104,6 +104,7 @@ def build_prompt(facts):
 MAX_WORDS = 70
 NUMBER = re.compile(r"(?<![A-Za-z])\d+(?:\.\d+)?")
 INSIDE_CLAIM = re.compile(r"\b(inside|within|in)\s+(the\s+)?(lunar|habitat|target|box|its|this)?\s*(target|box|habitat'?s? (range|conditions|target))", re.I)
+NEGATION = re.compile(r"\b(no|none|not|never|neither|without)\b", re.I)
 RANK_CLAIM = re.compile(r"(?:\branks?\s+(?:#|number\s+)?|#|\bno\.\s*)(\d+)|\b(\d+)(?:st|nd|rd|th)\b", re.I)
 
 
@@ -147,8 +148,11 @@ def validate(text, facts):
     unknown = sorted({t for t in NUMBER.findall(text) if not number_is_allowed(t, allowed)}, key=float)
     if unknown:
         problems.append(f"mentions numbers not in the facts: {', '.join(unknown)}")
-    if not facts.get("n_in_target") and INSIDE_CLAIM.search(text):
-        problems.append("claims tests were inside the target, but none were")
+    if not facts.get("n_in_target"):
+        for sentence in sentences(text):
+            if INSIDE_CLAIM.search(sentence) and not NEGATION.search(sentence):
+                problems.append("claims tests were inside the target, but none were")
+                break
     for match in RANK_CLAIM.finditer(text):
         stated = int(match.group(1) or match.group(2))
         if stated != facts.get("rank") and stated != facts.get("out_of"):
@@ -168,8 +172,11 @@ def template_rationale(facts):
     basis = reasons[0] if reasons else "its material, fire-safety focus and data"
     lead = (f"{facts['investigation']} ranks {ordinal(facts['rank'])} of {facts['out_of']} for the {facts['habitat']} "
             f"with a score of {facts['score_out_of_100']}, mainly on {basis}.")
-    if facts.get("n_in_target"):
-        caveat = f"{facts['n_in_target']} of its {facts['n_considered']} tests ran inside this habitat's target with oxygen and pressure measured."
+    phases = next((r[len("burned "):-len(" fuels")] for r in facts.get("computed_reasons") or [] if r.startswith("burned ") and r.endswith(" fuels")), "")
+    if facts.get("n_in_target") and phases and "solid" not in phases:
+        caveat = f"Its tests burned {phases} fuels, so they do not show how solid cabin materials behave there."
+    elif facts.get("n_in_target"):
+        caveat = f"{facts['n_in_target']} of its {facts['n_considered']} tests ran inside this habitat's target."
     elif facts.get("n_near"):
         caveat = (f"{facts['n_near']} of its tests ran near this habitat's conditions, "
                   "but none had both oxygen and pressure measured inside the target.")
