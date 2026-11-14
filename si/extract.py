@@ -328,6 +328,10 @@ def extract_one(llm, investigation, rows, metadata, keywords="", sub_area=""):
     }
 
 
+def invalid_accessions(requested, investigations):
+    return [a for a in requested if a.upper() not in investigations]
+
+
 def accession_number(accession):
     return int(accession.split("-")[1])
 
@@ -360,13 +364,19 @@ def main():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-    llm = LLM(model=args.model)
     investigations = load_investigations()
+    unknown = invalid_accessions(args.only or [], investigations)
+    if unknown:
+        sys.exit(f"Unknown accession(s): {', '.join(unknown)}. Valid ones: {', '.join(sorted(investigations, key=accession_number))}")
+    try:
+        llm = LLM(model=args.model)
+    except LLMError as error:
+        sys.exit(f"Cannot start the model client: {error}")
     tests = load_tests()
     keywords = load_keywords()
     sub_areas = load_sub_areas()
     records = load_existing(args.out)
-    targets = sorted(args.only or investigations, key=accession_number)
+    targets = sorted({a.upper() for a in args.only} if args.only else investigations, key=accession_number)
     failures = []
     started = time.time()
     for accession in targets:

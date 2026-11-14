@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 from si.extract import (PILLARS, PROMPT_VERSION, build_prompt, clean_list, clean_record, data_facts, dimension_of,
-                        enforce_detection_evidence, extract_one, grounding_warnings, load_existing, merge_variables,
+                        enforce_detection_evidence, extract_one, grounding_warnings, invalid_accessions, load_existing, merge_variables,
                         summary_contradictions, table_variation, text_context, write_records)
 
 
@@ -207,6 +207,13 @@ class OutputFileTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CommandLineTests(unittest.TestCase):
+    def test_unknown_accessions_are_reported_and_case_is_ignored(self):
+        investigations = {"PSI-69": {}, "PSI-25": {}}
+        self.assertEqual(invalid_accessions(["psi-69", "PSI-999", "FLEX"], investigations), ["PSI-999", "FLEX"])
+        self.assertEqual(invalid_accessions([], investigations), [])
 
 
 class ExtractionReportTests(unittest.TestCase):
