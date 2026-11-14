@@ -46,6 +46,43 @@ def numeric_range(rows, field):
     return [min(values), max(values)] if values else None
 
 
+PROMPT_VERSION = "s2-v1"
+PILLARS = ("prevention", "detection", "suppression")
+PHASES = ("solid", "liquid", "gas", "dust")
+LIST_FIELDS = ("fuels", "sample_geometry", "variables_varied", "variables_fixed", "sensors", "measurements", "earth_benefits")
+TEXT_FIELDS = ("summary", "objective_short", "sample_size", "pillar_reason")
+
+SYSTEM_PROMPT = """You turn NASA microgravity combustion investigation records into structured facts for a spacecraft fire safety dashboard.
+Rules:
+- Use only the TEXT and DATA FACTS given. Never add knowledge from outside them.
+- DATA FACTS come from the experiment tables and are correct. Prefer them over the text when they disagree.
+- If something is not stated, use null for strings and [] for lists.
+- Keep list items short (1 to 6 words), lowercase except chemical formulas and acronyms.
+Fire safety pillars:
+- prevention: flammability, ignition, flame spread, material selection, oxygen or pressure limits
+- detection: smoke, soot or aerosol measurement, detectors, telling smoke from dust
+- suppression: extinguishing flames, diluents or agents such as CO2 or helium, extinction limits
+Reply with one JSON object with exactly these keys:
+summary: 2 to 3 plain sentences for an engineer new to the topic
+objective_short: one sentence
+fuels: list of fuels or materials burned
+fuel_phase: list from solid, liquid, gas, dust
+sample_geometry: list, e.g. droplet, flat sheet, rod, spherical burner, coflow burner
+sample_size: string or null
+variables_varied: list of conditions changed between tests
+variables_fixed: list of conditions held constant
+sensors: list of instruments
+measurements: list of quantities measured
+pillars: list from prevention, detection, suppression
+pillar_reason: one sentence saying why those pillars apply
+earth_benefits: list of practical uses on Earth stated in the text"""
+
+
+def build_prompt(context, facts):
+    return ("TEXT:\n" + json.dumps(context, ensure_ascii=False, indent=1)
+            + "\n\nDATA FACTS:\n" + json.dumps(facts, ensure_ascii=False, indent=1))
+
+
 TEXT_LIMITS = {"objective": 1600, "approach": 2000, "hypothesis": 900, "researchImpacts": 900}
 
 
