@@ -7,12 +7,15 @@ Usage:
     python -m si.rationale [--scenario lunar_base] [--only PSI-69] [--model openai/gpt-oss-120b] [--strict]
 """
 
+import argparse
 import hashlib
 import json
 import re
+import sys
+import time
 from pathlib import Path
 
-from si.rank import PROCESSED, RankError, UsageError, read_json, shown
+from si.rank import PROCESSED, RankError, UsageError, read_json, shown, write_json_atomic
 
 OUTPUT = PROCESSED / "rationale.json"
 
@@ -205,3 +208,147 @@ def write_one(llm, facts):
         prompt = (build_prompt(facts) + "\n\nYour previous answer was rejected for these reasons: " + "; ".join(problems)
                   + ". Write it again following every rule.")
     return template_rationale(facts), "template", problems
+
+
+def load_existing(path):
+    if not Path(path).is_file():
+        return {}
+    document = read_json(path)
+    rationales = document.get("rationales") if isinstance(document, dict) else None
+    if not isinstance(rationales, dict):
+        raise RationaleError(f"{shown(path)} is not a rationale file. Delete it and rerun.")
+    return rationales
+
+
+def validate_selection(scenarios, scenario_filter, only):
+    if scenario_filter and scenario_filter not in scenarios:
+        raise UsageError(f"unknown scenario '{scenario_filter}'. Choose one of: {', '.join(scenarios)}")
+    known = {e["accession"] for s in scenarios.values() for e in s["ranking"]}
+    unknown = sorted({a.upper() for a in only or []} - known)
+    if unknown:
+        raise UsageError(f"unknown accession(s): {', '.join(unknown)}")
+
+
+def is_reusable(previous, print_key, model_id, force):
+    if force or previous.get("fingerprint") != print_key:
+        return False
+    if previous.get("source") == "model":
+        return True
+    return previous.get("source") == "template" and model_id == "template"
+
+
+def generate(rankings, summaries, writer, existing=None, scenario_filter=None, only=None, model_id="template",
+             force=False, on_progress=None, save=None):
+    """Fill rationales for every (scenario group, investigation). writer(facts) returns (text, source, problems)."""
+    existing = existing or {}
+    output = {sid: dict(existing.get(sid) or {}) for sid in rankings}
+    wanted = {a.upper() for a in only} if only else None
+    stats = {"model": 0, "template": 0, "kept": 0}
+    for group in group_scenarios(rankings):
+        if scenario_filter and scenario_filter not in group:
+            continue
+        lead = rankings[group[0]]
+        label = " / ".join(rankings[sid]["label"] for sid in group)
+        total = len(lead["ranking"])
+        for entry in lead["ranking"]:
+            accession = entry["accession"]
+            if wanted and accession not in wanted:
+                continue
+            facts = build_facts(entry, {**lead, "label": label}, total, summaries.get(accession))
+            print_key = fingerprint({"facts": facts, "prompt": PROMPT_VERSION})
+            previous = output[group[0]].get(accession) or {}
+            reused = is_reusable(previous, print_key, model_id, force)
+            if reused:
+                record = previous
+                stats["kept"] += 1
+            else:
+                text, source, problems = writer(facts)
+                record = {"text": text, "source": source, "model": model_id if source == "model" else "template",
+                          "fingerprint": print_key, "problems": problems}
+                stats[source] += 1
+            for sid in group:
+                output[sid][accession] = {**record, "rank": entry["rank"], "score": entry["score"]}
+            if on_progress:
+                on_progress(group[0], accession, record, reused)
+            if save:
+                save(output)
+    return output, stats
+
+
+def document_for(rationales, model_id):
+    return {"version": 1, "prompt_version": PROMPT_VERSION, "model": model_id, "rationales": rationales}
+
+
+def template_writer(facts):
+    return template_rationale(facts), "template", []
+
+
+def run(argv=None):
+    parser = argparse.ArgumentParser(prog="python -m si.rationale", description="Write two-sentence rank explanations.")
+    parser.add_argument("--scenario", help="only this habitat (its whole box group is written)")
+    parser.add_argument("--only", nargs="*", help="only these accessions")
+    parser.add_argument("--model", help="override LLM_MODEL")
+    parser.add_argument("--templates-only", action="store_true", help="no model calls, write fact-only templates")
+    parser.add_argument("--force", action="store_true", help="rewrite even when the facts did not change")
+    parser.add_argument("--strict", action="store_true", help="exit 1 if any rationale fell back to a template")
+    parser.add_argument("--out", default=str(OUTPUT))
+    parser.add_argument("--debug", action="store_true")
+    args = parser.parse_args(argv)
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    try:
+        rankings = load_rankings()
+        summaries = load_summaries()
+        validate_selection(rankings, args.scenario, args.only)
+        existing = load_existing(args.out)
+        if args.templates_only:
+            model_id, writer = "template", template_writer
+        else:
+            from si.llm import LLM, LLMError
+
+            try:
+                llm = LLM(model=args.model)
+            except LLMError as error:
+                raise RationaleError(f"cannot start the model client: {error}. Use --templates-only to build without a key.") from error
+            model_id = llm.model
+
+            def writer(facts):
+                return write_one(llm, facts)
+
+        def progress(scenario_id, accession, record, reused):
+            tag = "kept" if reused else record["source"]
+            note = f"  ({'; '.join(record['problems'])[:120]})" if record.get("problems") and not reused else ""
+            print(f"{tag:8} {scenario_id:18} {accession:8} {record['text'][:80]}{note}")
+
+        def save(output):
+            write_json_atomic(args.out, document_for(output, model_id))
+
+        started = time.time()
+        output, stats = generate(rankings, summaries, writer, existing, args.scenario, args.only, model_id,
+                                 args.force, progress, save)
+        save(output)
+        print(f"\nmodel {stats['model']}, template {stats['template']}, kept {stats['kept']} "
+              f"in {time.time() - started:.0f}s -> {shown(args.out)}")
+        return 1 if args.strict and stats["template"] else 0
+    except UsageError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 2
+    except RankError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 1
+    except KeyboardInterrupt:
+        print("stopped, progress so far is saved", file=sys.stderr)
+        return 130
+    except Exception as error:
+        if args.debug:
+            raise
+        print(f"unexpected error: {type(error).__name__}: {error}. Rerun with --debug for the full traceback.", file=sys.stderr)
+        return 1
+
+
+def main():
+    sys.exit(run())
+
+
+if __name__ == "__main__":
+    main()
