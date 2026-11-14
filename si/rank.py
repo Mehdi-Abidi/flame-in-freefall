@@ -197,3 +197,37 @@ def condition_fit(rows, scenario, tolerance):
         "n_near": sum(1 for item in scored if item[0] >= 0.6),
         "best": {"o2_mole_fraction": best[2], "pressure_kpa": best[3], "closeness": round(best[0], 4)},
     }
+
+
+MATERIAL_RELEVANCE = {"solid": 1.0, "liquid": 0.7, "gas": 0.5, "dust": 0.4}
+
+
+def material_relevance(phases):
+    """Habitat fires start in solids, so solid-material tests matter most."""
+    return max((MATERIAL_RELEVANCE.get(phase, 0.0) for phase in phases or []), default=0.0)
+
+
+def pillar_match(pillars, weights):
+    total = sum(weights.values())
+    return round(sum(weights[p] for p in set(pillars) if p in weights) / total, 4) if total else 0.0
+
+
+def data_richness(investigation, maxima):
+    parts = []
+    for key, value in (("n_tests", investigation.get("n_tests") or 0),
+                       ("n_files", investigation.get("n_files") or 0),
+                       ("publications", len(investigation.get("publications") or []))):
+        top = maxima.get(key) or 0
+        parts.append(math.log1p(value) / math.log1p(top) if top else 0.0)
+    return round(sum(parts) / len(parts), 4)
+
+
+def resolve_pillars(accession, tags, seed, extracted):
+    """Hand-checked tags beat seed tags, which beat model suggestions."""
+    for source, table in (("tags", tags), ("seed", seed), ("model", extracted)):
+        entry = table.get(accession)
+        if entry is not None and entry.get("pillars") is not None:
+            pillars = [p for p in entry["pillars"] if p in PILLARS]
+            if source != "seed" or pillars or entry.get("role"):
+                return pillars, source
+    return [], "none"
