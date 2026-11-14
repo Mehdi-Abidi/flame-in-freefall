@@ -3,6 +3,7 @@ import { BriefCards } from "@/components/BriefCards";
 import { GapMap } from "@/components/GapMap";
 import { GravityTable } from "@/components/GravityTable";
 import { OxygenRuler } from "@/components/OxygenRuler";
+import { PartialGravityNote } from "@/components/PartialGravityNote";
 import { SectionHeader } from "@/components/Section";
 import { loadDataset } from "@/lib/data";
 import { compact, pct } from "@/lib/format";
@@ -11,6 +12,8 @@ export default function OverviewPage() {
   const data = loadDataset();
   const names = Object.fromEntries(data.investigations.map((i) => [i.accession, i.name]));
   const lunar = data.scenarios.find((s) => s.id === "lunar_base");
+  const efield = data.investigations.find((i) => i.accession === "PSI-22");
+  const efieldOnMap = data.points.some((p) => p.a === efield?.accession);
 
   return (
     <>
@@ -61,6 +64,7 @@ export default function OverviewPage() {
           mislead in both directions.
         </SectionHeader>
         <GravityTable rows={data.gravity} />
+        <PartialGravityNote efield={efield} efieldOnMap={efieldOnMap} />
       </section>
 
       {data.briefs.length > 0 && (

@@ -45,3 +45,22 @@ describe("SAFFIRE-II gravity comparison", () => {
     });
   });
 });
+
+describe("E-FIELD facts quoted in the partial-gravity note", () => {
+  const data = loadDataset();
+  const efield = data.investigations.find((i) => i.accession === "PSI-22");
+
+  it("is a gas-flame investigation with test days but no recorded atmosphere", () => {
+    expect(efield?.name).toBe("ACME E-FIELD Flames");
+    expect(efield?.phases).toEqual(["gas"]);
+    expect(efield?.fuels).toEqual(["methane", "ethylene"]);
+    expect(efield?.nTests).toBe(0);
+    expect(efield?.nRecords).toBe(20);
+    expect(efield?.o2Range).toBeNull();
+    expect(efield?.kpaRange).toBeNull();
+  });
+
+  it("has no points on the gap map", () => {
+    expect(data.points.filter((p) => p.a === "PSI-22")).toHaveLength(0);
+  });
+});
