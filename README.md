@@ -142,9 +142,10 @@ python -m si.rationale --templates-only               # no key needed, fact-only
 python -m si.rationale --only PSI-69 --force          # rewrite one investigation
 ```
 
-The model only turns facts that the ranking already computed into two sentences. Each reply is checked before it is kept:
+The model only turns facts that the ranking already computed into two sentences. Code works out what is distinctive (the part that lifts an investigation most above the other 23, and any part genuinely below them) and how its conditions were recorded, so the model never has to guess. Each reply is checked before it is kept:
 
 - exactly two sentences, at most 70 words, no dashes or semicolons
+- it names the investigation, uses plain words (no field names) and writes numbers as digits
 - every number must appear in the facts (percent and fraction forms allowed)
 - any stated rank must be the real rank
 - it may not say tests were inside the target when none were (negations such as "none were inside" are fine)
