@@ -1,0 +1,239 @@
+{
+  "source": "docs/EXECUTION_PLAN.md section 8 seed tags, not yet hand-checked. Task T1 (Taha) replaces this with verified tags.",
+  "investigations": [
+    {
+      "accession": "PSI-10",
+      "acronym": "ACME Flame Design",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "note": "soot, O2 enriched",
+      "hardware": "CIR, ACME"
+    },
+    {
+      "accession": "PSI-20",
+      "acronym": "ACME BRE",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "CIR, ACME"
+    },
+    {
+      "accession": "PSI-21",
+      "acronym": "ACME CLD Flame",
+      "pillars": [],
+      "role": "fundamentals",
+      "note": null,
+      "hardware": "CIR, ACME"
+    },
+    {
+      "accession": "PSI-22",
+      "acronym": "ACME E-FIELD Flames",
+      "pillars": [],
+      "role": "partial-gravity proxy",
+      "note": null,
+      "hardware": "CIR, ACME"
+    },
+    {
+      "accession": "PSI-23",
+      "acronym": "ACME s-Flame",
+      "pillars": [],
+      "role": "fundamentals",
+      "note": null,
+      "hardware": "CIR, ACME"
+    },
+    {
+      "accession": "PSI-25",
+      "acronym": "BASS-II",
+      "pillars": [
+        "prevention",
+        "suppression"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "MSG, SPICE flow duct"
+    },
+    {
+      "accession": "PSI-26",
+      "acronym": "BASS",
+      "pillars": [
+        "prevention",
+        "suppression"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "MSG, SPICE flow duct"
+    },
+    {
+      "accession": "PSI-39",
+      "acronym": "CFI",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "note": "cool flames",
+      "hardware": "CIR, MDCA"
+    },
+    {
+      "accession": "PSI-47",
+      "acronym": "DAFT / DAFT-2",
+      "pillars": [
+        "detection"
+      ],
+      "role": null,
+      "note": "dust vs smoke",
+      "hardware": "SAME instrument"
+    },
+    {
+      "accession": "PSI-60",
+      "acronym": "ground: SPICE analysis",
+      "pillars": [
+        "detection"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "ground"
+    },
+    {
+      "accession": "PSI-62",
+      "acronym": "ground: flame spread modeling",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "ground"
+    },
+    {
+      "accession": "PSI-68",
+      "acronym": "FLEX-2",
+      "pillars": [
+        "suppression"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "CIR, MDCA"
+    },
+    {
+      "accession": "PSI-69",
+      "acronym": "FLEX",
+      "pillars": [
+        "suppression"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "CIR, MDCA"
+    },
+    {
+      "accession": "PSI-98",
+      "acronym": "SAFFIRE-I",
+      "pillars": [
+        "prevention",
+        "detection"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "Saffire unit in Cygnus"
+    },
+    {
+      "accession": "PSI-99",
+      "acronym": "SAFFIRE-II",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "Saffire unit in Cygnus"
+    },
+    {
+      "accession": "PSI-100",
+      "acronym": "SAFFIRE-III",
+      "pillars": [
+        "prevention",
+        "detection"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "Saffire unit in Cygnus"
+    },
+    {
+      "accession": "PSI-101",
+      "acronym": "SAME-R",
+      "pillars": [
+        "detection"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "MSG"
+    },
+    {
+      "accession": "PSI-102",
+      "acronym": "SAME",
+      "pillars": [
+        "detection"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "MSG"
+    },
+    {
+      "accession": "PSI-106",
+      "acronym": "SLICE",
+      "pillars": [],
+      "role": "fundamentals",
+      "note": null,
+      "hardware": "MSG, SPICE flow duct"
+    },
+    {
+      "accession": "PSI-107",
+      "acronym": "SPICE",
+      "pillars": [
+        "detection"
+      ],
+      "role": null,
+      "note": "smoke point",
+      "hardware": "MSG, SPICE flow duct"
+    },
+    {
+      "accession": "PSI-115",
+      "acronym": "ground: SAME data use",
+      "pillars": [
+        "detection"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "ground"
+    },
+    {
+      "accession": "PSI-117",
+      "acronym": "ground: cool flame dynamics",
+      "pillars": [],
+      "role": "fundamentals",
+      "note": null,
+      "hardware": "ground"
+    },
+    {
+      "accession": "PSI-142",
+      "acronym": "ground: cool flame transitions",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "note": null,
+      "hardware": "ground"
+    },
+    {
+      "accession": "PSI-159",
+      "acronym": "ACME CFI-G",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "note": "up to 85% O2",
+      "hardware": "CIR, ACME"
+    }
+  ]
+}
