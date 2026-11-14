@@ -7,13 +7,17 @@ Usage:
     python -m si.briefs [--pillar suppression] [--model openai/gpt-oss-120b] [--templates-only] [--force] [--strict]
 """
 
+import argparse
 import collections
 import csv
+import hashlib
 import json
 import re
+import sys
+import time
 from pathlib import Path
 
-from si.rank import PROCESSED, RankError, UsageError, read_json, shown
+from si.rank import PROCESSED, RankError, UsageError, read_json, shown, write_json_atomic
 from si.rationale import FIELD_NAME, NUMBER, NUMBER_WORDS, allowed_numbers, number_is_allowed, sanitize
 
 OUTPUT = PROCESSED / "briefs.json"
@@ -315,3 +319,139 @@ def write_one(llm, facts):
         prompt = (build_prompt(facts) + "\n\nYour previous brief was rejected for these reasons: " + "; ".join(problems)
                   + ". Write it again following every rule.")
     return template_brief(facts), "template", problems
+
+
+PENDING_REVIEW = "awaiting expert review"
+
+
+def fingerprint(facts):
+    payload = json.dumps({"facts": facts, "prompt": PROMPT_VERSION}, sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(payload.encode()).hexdigest()[:16]
+
+
+def load_existing(path):
+    if not Path(path).is_file():
+        return {}
+    document = read_json(path)
+    briefs = document.get("briefs") if isinstance(document, dict) else None
+    if not isinstance(briefs, dict):
+        raise BriefError(f"{shown(path)} is not a briefs file. Delete it and rerun.")
+    return briefs
+
+
+def generate(all_facts, writer, existing=None, only=None, model_id="template", force=False, on_progress=None, save=None):
+    """all_facts maps pillar to its facts. writer(facts) returns (brief, source, problems)."""
+    output = dict(existing or {})
+    stats = {"model": 0, "template": 0, "kept": 0}
+    for pillar, facts in all_facts.items():
+        if only and pillar != only:
+            continue
+        key = fingerprint(facts)
+        previous = output.get(pillar) or {}
+        reusable = (not force and previous.get("fingerprint") == key
+                    and (previous.get("source") == "model" or model_id == "template"))
+        if reusable:
+            stats["kept"] += 1
+            record = previous
+        else:
+            brief, source, problems = writer(facts)
+            record = {**brief, "source": source, "model": model_id if source == "model" else "template",
+                      "members": [inv["accession"] for inv in facts["investigations"]], "fingerprint": key,
+                      "problems": problems, "review": PENDING_REVIEW}
+            stats[source] += 1
+        output[pillar] = record
+        if on_progress:
+            on_progress(pillar, record, reusable)
+        if save:
+            save(output)
+    return output, stats
+
+
+def document_for(briefs, model_id):
+    return {"version": 1, "prompt_version": PROMPT_VERSION, "model": model_id, "briefs": briefs}
+
+
+def collect_facts():
+    from si.rationale import load_investigations, load_rankings, load_summaries
+
+    rankings = load_rankings()
+    all_rows, rows_by_accession = load_tests()
+    members = pillar_members(rankings)
+    investigations = load_investigations()
+    extracted = load_summaries()
+    return {pillar: build_facts(pillar, members[pillar], investigations, extracted, rows_by_accession, all_rows)
+            for pillar in PILLARS if members[pillar]}
+
+
+def run(argv=None):
+    parser = argparse.ArgumentParser(prog="python -m si.briefs", description="Write cited insight briefs per pillar.")
+    parser.add_argument("--pillar", help="only this pillar: prevention, detection or suppression")
+    parser.add_argument("--model", help="override LLM_MODEL")
+    parser.add_argument("--templates-only", action="store_true", help="no model calls, write fact-only briefs")
+    parser.add_argument("--force", action="store_true", help="rewrite even when the facts did not change")
+    parser.add_argument("--strict", action="store_true", help="exit 1 if any brief fell back to the template")
+    parser.add_argument("--out", default=str(OUTPUT))
+    parser.add_argument("--debug", action="store_true")
+    args = parser.parse_args(argv)
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    try:
+        if args.pillar and args.pillar not in PILLARS:
+            raise UsageError(f"unknown pillar '{args.pillar}'. Choose one of: {', '.join(PILLARS)}")
+        all_facts = collect_facts()
+        if not all_facts:
+            raise BriefError("no investigation carries a fire-safety pillar. Check data/domain tags and rerun python -m si.rank --write")
+        existing = load_existing(args.out)
+        if args.templates_only:
+            model_id = "template"
+
+            def writer(facts):
+                return template_brief(facts), "template", []
+        else:
+            from si.llm import LLM, LLMError
+
+            try:
+                llm = LLM(model=args.model)
+            except LLMError as error:
+                raise BriefError(f"cannot start the model client: {error}. Use --templates-only to build without a key.") from error
+            model_id = llm.model
+
+            def writer(facts):
+                return write_one(llm, facts)
+
+        def progress(pillar, record, reused):
+            tag = "kept" if reused else record["source"]
+            note = f"  ({'; '.join(record['problems'])[:160]})" if record.get("problems") and not reused else ""
+            print(f"{tag:8} {pillar:12} {record['title']}{note}")
+
+        def save(output):
+            write_json_atomic(args.out, document_for(output, model_id))
+
+        started = time.time()
+        output, stats = generate(all_facts, writer, existing, args.pillar, model_id, args.force, progress, save)
+        save(output)
+        print(f"\nmodel {stats['model']}, template {stats['template']}, kept {stats['kept']} "
+              f"in {time.time() - started:.0f}s -> {shown(args.out)}")
+        return 1 if args.strict and stats["template"] else 0
+    except UsageError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 2
+    except RankError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 1
+    except KeyboardInterrupt:
+        print("stopped, progress so far is saved", file=sys.stderr)
+        return 130
+    except Exception as error:
+        if args.debug:
+            raise
+        print(f"unexpected error: {type(error).__name__}: {error}. Rerun with --debug for the full traceback.", file=sys.stderr)
+        return 1
+
+
+def main():
+    sys.exit(run())
+
+
+if __name__ == "__main__":
+    main()
