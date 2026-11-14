@@ -6,11 +6,25 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Advanced Combustion via Microgravity Experiments (ACME), Combustion Integrated Rack (CIR), Reconfiguration of Combustion Integrated Rack (CIR)",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention"
+    ],
+    "summary": "This microgravity study examined ethylene and propane spherical diffusion flames on the ISS, varying oxygen, pressure, fuel, and geometry to map soot‑inception and extinction limits. The data reveal how inert N2 diluent and operating conditions control flame temperature, size, color, and soot volume. Findings aim to inform safer, cleaner combustion designs for Earth power plants.",
+    "variables_varied": [
+      "oxygen concentration",
+      "pressure",
+      "fuel",
+      "sample geometry"
+    ],
+    "variables_fixed": [
+      "diluent"
+    ],
+    "sensors": [
+      "cameras",
+      "radiometers",
+      "photomultiplier tubes",
+      "thermocouples"
+    ],
     "fuel_phase": [
       "gas"
     ],
@@ -173,11 +187,21 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Combustion Integrated Rack (CIR), ACME",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention",
+      "suppression"
+    ],
+    "summary": "The BRE flight program studied how gaseous fuels burn in microgravity on porous copper burners of 25–50 mm diameter. Tests varied oxygen concentration, fuel type, and sample size while keeping the diluent (N₂) and burner geometry constant. Results showed quasi‑steady flames in high‑oxygen atmospheres, informing spacecraft fire‑safety limits.",
+    "variables_varied": [
+      "oxygen concentration",
+      "sample size",
+      "fuel"
+    ],
+    "variables_fixed": [
+      "diluent",
+      "sample geometry"
+    ],
+    "sensors": [],
     "fuel_phase": [
       "gas"
     ],
@@ -269,11 +293,11 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Combustion Integrated Rack (CIR), ACME",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [],
+    "summary": "The study examined methane and ethylene diffusion flames in microgravity using a coflow burner on the ISS. It measured flame shape, lift‑off height, temperatures, extinction limits, and sooting characteristics to validate computational models. The experiments varied fuel dilution and inlet velocity while keeping other conditions constant.",
+    "variables_varied": [],
+    "variables_fixed": [],
+    "sensors": [],
     "fuel_phase": [
       "gas"
     ],
@@ -370,11 +394,15 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Combustion Integrated Rack (CIR), ACME",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [],
+    "summary": "This study investigates how electric fields affect laminar diffusion flames in microgravity, focusing on methane and ethylene gases diluted with nitrogen. By measuring ion currents, flame response times, and soot characteristics, the experiment seeks to understand how electric fields can stabilize flames and reduce pollutant formation. The findings could inform safer, cleaner combustion processes on Earth and in space.",
+    "variables_varied": [],
+    "variables_fixed": [],
+    "sensors": [
+      "high-resolution cameras",
+      "spectral imaging filters",
+      "thermopile detectors"
+    ],
     "fuel_phase": [
       "gas"
     ],
@@ -499,11 +527,14 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Combustion Integrated Rack (CIR), ACME",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [],
+    "summary": "These microgravity experiments study spherical diffusion flames of gaseous fuels to measure flame structure, extinction limits, and instabilities. The tests use a spherical porous burner on the ISS, varying fuel/diluent mixtures while keeping pressure and oxygen range constant. Results help improve engine performance and fire safety by providing high‑fidelity data for modeling.",
+    "variables_varied": [],
+    "variables_fixed": [
+      "pressure 101.3 kPa",
+      "oxygen concentration 0.21–0.3"
+    ],
+    "sensors": [],
     "fuel_phase": [
       "gas"
     ],
@@ -710,11 +741,24 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Microgravity Science Glovebox (MSG)",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention",
+      "suppression"
+    ],
+    "summary": "BASS‑II tested solid fuels in microgravity with low‑velocity forced flows to determine ignition, flame spread, and extinction limits. The study varied oxygen concentration, sample size, fuel type, and geometry while keeping the diluent (N₂) constant. Results support fire‑safety models for spacecraft and Earth applications.",
+    "variables_varied": [
+      "oxygen concentration",
+      "sample size",
+      "fuel",
+      "sample geometry"
+    ],
+    "variables_fixed": [
+      "diluent"
+    ],
+    "sensors": [
+      "CSA‑CP",
+      "CDM"
+    ],
     "fuel_phase": [
       "solid"
     ],
@@ -813,11 +857,20 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Microgravity Science Glovebox",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention",
+      "suppression"
+    ],
+    "summary": "The BASS experiment examined how solid fabrics and polymers burn in microgravity with controlled airflow, comparing concurrent and opposed flow configurations. It tested various sample sizes, geometries, and fuels while keeping the diluent (N2/air) constant, measuring flame spread and quenching. The goal was to bridge ground‑based and in‑flight flammability data and evaluate inert gas suppression.",
+    "variables_varied": [
+      "sample size",
+      "fuel",
+      "sample geometry"
+    ],
+    "variables_fixed": [
+      "diluent"
+    ],
+    "sensors": [],
     "fuel_phase": [
       "solid"
     ],
@@ -888,11 +941,26 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Multi-User Droplet Combustion Apparatus (MDCA), Combustion Integrated Rack (CIR)",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention"
+    ],
+    "summary": "The study examined how n‑dodecane and its mixtures behave when burned as droplets in microgravity, varying oxygen level, pressure, fuel mix, diluent, and droplet support. It focused on cool‑flame formation, extinction limits, and soot production to inform safer spacecraft fire safety and Earth engine design. The experiments used a fiber‑supported droplet geometry on the ISS.",
+    "variables_varied": [
+      "oxygen concentration",
+      "pressure",
+      "fuel",
+      "diluent",
+      "sample geometry"
+    ],
+    "variables_fixed": [],
+    "sensors": [
+      "hot-wire igniter",
+      "black-and-white camera",
+      "UV camera",
+      "high-resolution cameras",
+      "narrow-band radiometer",
+      "wide-band radiometer"
+    ],
     "fuel_phase": [
       "liquid"
     ],
@@ -951,11 +1019,16 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "TSI P-Trak",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "detection"
+    ],
+    "summary": "The DAFT and DAFT‑2 experiments tested a modified TSI P‑Trak particulate counter in microgravity to verify its ability to count smoke aerosols generated from Arizona road dust. The tests compared the modified P‑Trak to a DustTrak control and produced aerosol standards for future microgravity fire safety studies. The goal was to ensure reliable smoke detection for long‑duration space missions.",
+    "variables_varied": [],
+    "variables_fixed": [],
+    "sensors": [
+      "TSI P‑Trak",
+      "DustTrak CNC"
+    ],
     "fuel_phase": [
       "dust"
     ],
@@ -988,11 +1061,13 @@
     "project_type": "Ground Investigation",
     "platform": "ground",
     "hardware": null,
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention"
+    ],
+    "summary": "This ground study examined soot formation in coflow flames under normal and microgravity, using image analysis and computational modeling to compare temperature and soot distributions. The goal was to reconcile differences between 1‑g and 0‑g flames and improve predictive soot models. Findings support safer fire detection and cleaner combustion for spacecraft and Earth applications.",
+    "variables_varied": [],
+    "variables_fixed": [],
+    "sensors": [],
     "fuel_phase": [],
     "o2_range": null,
     "o2_basis": null,
@@ -1019,11 +1094,13 @@
     "project_type": "Ground Investigation",
     "platform": "ground",
     "hardware": null,
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention"
+    ],
+    "summary": "This study develops and validates a new unsteady flamelet generated manifold (UFGM) model to predict concurrent flame spread in microgravity, using NASA BASS experiments as benchmarks. The goal is to accurately capture heat, mass, and chemical coupling near solid–vapor interfaces and to provide a tool for screening spacecraft material flammability. The work also aims to support large‑eddy simulation subgrid models for spacecraft fire hazard assessment.",
+    "variables_varied": [],
+    "variables_fixed": [],
+    "sensors": [],
     "fuel_phase": [],
     "o2_range": null,
     "o2_basis": null,
@@ -1062,11 +1139,25 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Combustion Integrated Rack (CIR), Multi-user Droplet Combustion Appartatus (MDCA)",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention",
+      "suppression"
+    ],
+    "summary": "The FLEX‑2 experiment studied how liquid fuel droplets burn and extinguish in microgravity under varying oxygen levels, pressures, fuels, and diluents. Droplets were ignited on a support fiber and their combustion was recorded with high‑speed cameras and pressure/temperature sensors. The data help validate models of droplet combustion and inform safer spacecraft fire designs.",
+    "variables_varied": [
+      "oxygen concentration",
+      "pressure",
+      "fuel",
+      "diluent"
+    ],
+    "variables_fixed": [
+      "sample geometry"
+    ],
+    "sensors": [
+      "high‑speed camera",
+      "pressure sensor",
+      "temperature sensor"
+    ],
     "fuel_phase": [
       "liquid"
     ],
@@ -1289,11 +1380,22 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Combustion Integrated Rack (CIR)-Fluids and Combustion Facility (FCF), Multi-user Droplet Combustion Appartatus (MDCA)",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention",
+      "suppression"
+    ],
+    "summary": "The FLEX experiment maps flammability limits of liquid fuels in microgravity and tests how gaseous suppressants affect droplet extinction. It uses methanol and heptane droplets of 1.1–4.7 mm in size, varying oxygen, pressure, fuel, and diluent while keeping droplet geometry constant. Results inform fire‑safety protocols for spacecraft and similar confined environments on Earth.",
+    "variables_varied": [
+      "oxygen concentration",
+      "pressure",
+      "sample size",
+      "fuel",
+      "diluent"
+    ],
+    "variables_fixed": [
+      "sample geometry"
+    ],
+    "sensors": [],
     "fuel_phase": [
       "liquid"
     ],
@@ -1528,11 +1630,27 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Saffire 1 enclosure in Cygnus",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention"
+    ],
+    "summary": "The Saffire‑I experiment examined how a large cotton‑fiberglass fabric sheet burns in microgravity with a low‑speed airflow. Two test configurations—concurrent and opposed flow—were used to assess flame spread and flammability limits under nearly identical oxygen, pressure, and flow conditions. The data provide insight into how reduced gravity and limited oxygen affect flame size and growth, informing spacecraft fire safety design.",
+    "variables_varied": [
+      "sample geometry"
+    ],
+    "variables_fixed": [
+      "oxygen concentration",
+      "flow velocity",
+      "sample size",
+      "fuel",
+      "diluent"
+    ],
+    "sensors": [
+      "thermocouples",
+      "radiometers",
+      "solid state sensors",
+      "anemometer",
+      "cameras"
+    ],
     "fuel_phase": [
       "solid"
     ],
@@ -1587,11 +1705,27 @@
     "project_type": "Microgravity Investigation",
     "platform": "Cygnus",
     "hardware": "Cygnus Pressurized Cargo Module, SAFFIRE",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention"
+    ],
+    "summary": "The Saffire‑II experiment examined how large‑scale fires grow in low‑gravity aboard the Cygnus cargo vehicle. Nine tests varied sample size, fuel type, and geometry while keeping oxygen concentration, flow velocity, and diluent constant. Data on flame growth, temperatures, and gas concentrations were collected to determine microgravity flammability limits for spacecraft materials.",
+    "variables_varied": [
+      "sample size",
+      "fuel",
+      "sample geometry"
+    ],
+    "variables_fixed": [
+      "oxygen concentration",
+      "flow velocity",
+      "diluent"
+    ],
+    "sensors": [
+      "thermocouples",
+      "radiometers",
+      "solid state pressure sensor",
+      "CO2 and O2 mole fraction sensor",
+      "anemometers"
+    ],
     "fuel_phase": [
       "solid"
     ],
@@ -1650,11 +1784,26 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Saffire III enclosure in Cygnus",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention"
+    ],
+    "summary": "The Saffire‑III tests examined how a large silicone sheet flame behaves in low‑gravity with a 30 cm/s flow, comparing concurrent and opposed flow directions. Both tests used the same 3.3 mm thick SIBAL fabric in N₂‑air, measuring flame growth, temperatures, radiation, and gas concentrations. The data help define microgravity flammability limits and validate material selection for spacecraft.",
+    "variables_varied": [
+      "sample geometry"
+    ],
+    "variables_fixed": [
+      "flow velocity",
+      "sample size",
+      "fuel",
+      "diluent"
+    ],
+    "sensors": [
+      "thermocouples",
+      "radiometers",
+      "solid state pressure sensor",
+      "CO2 and O2 mole fraction sensor",
+      "anemometers"
+    ],
     "fuel_phase": [
       "solid"
     ],
@@ -1697,11 +1846,22 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Comparitive Soot Diagnostic Hardware; Refer to final report",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "detection"
+    ],
+    "summary": "The SAME‑R experiment measured smoke aerosol sizes from solid fuels in microgravity, varying flow velocity and fuel type while keeping the heated smoke source geometry constant. It aimed to quantify how reduced gravity affects particle growth and to inform future spacecraft fire detectors. The study used new diagnostics and a new intumescent foam fuel, Pyrell®.",
+    "variables_varied": [
+      "flow velocity",
+      "fuel"
+    ],
+    "variables_fixed": [
+      "sample geometry"
+    ],
+    "sensors": [
+      "DustTrak",
+      "ionization detector",
+      "M-pass"
+    ],
     "fuel_phase": [
       "solid"
     ],
@@ -1756,11 +1916,22 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Comparitive Soot Diagnostic Hardware",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "detection"
+    ],
+    "summary": "The experiment measured smoke particle sizes from various spacecraft materials in microgravity, varying flow velocity and fuel type while keeping the sample geometry constant. It aimed to quantify how reduced gravity affects particle growth and detector response, providing data for advanced fire detectors. The study also explored potential Earth applications such as submarine and underwater lab safety.",
+    "variables_varied": [
+      "flow velocity",
+      "fuel"
+    ],
+    "variables_fixed": [
+      "sample geometry"
+    ],
+    "sensors": [
+      "smoke detectors",
+      "video cameras",
+      "thermophoretic soot samplers"
+    ],
     "fuel_phase": [
       "solid"
     ],
@@ -1855,11 +2026,11 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": null,
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [],
+    "summary": "The SLICE experiment examined laminar diffusion flames of methane and ethylene in microgravity, varying fuel dilution with nitrogen and burner diameter. It measured flame structure, stability, soot production, and radiative heat loss to validate numerical models. Findings aim to improve combustion efficiency and fire safety on Earth.",
+    "variables_varied": [],
+    "variables_fixed": [],
+    "sensors": [],
     "fuel_phase": [
       "gas"
     ],
@@ -1904,11 +2075,23 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "Microgravity Science Glovebox (MSG)",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention"
+    ],
+    "summary": "The study examined laminar smoke‑point behavior of hydrocarbon jets in microgravity, varying fuel type, flow velocity, and burner size while keeping the co‑flow geometry and diluent constant. It measured flame height, radiative losses, and velocity fields to understand soot formation and flame shape under non‑buoyant conditions.",
+    "variables_varied": [
+      "flow velocity",
+      "sample size",
+      "fuel"
+    ],
+    "variables_fixed": [
+      "diluent",
+      "sample geometry"
+    ],
+    "sensors": [
+      "still camera",
+      "video camera"
+    ],
     "fuel_phase": [
       "gas"
     ],
@@ -1975,11 +2158,14 @@
     "project_type": "Ground Investigation",
     "platform": "ground",
     "hardware": null,
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention",
+      "detection"
+    ],
+    "summary": "This investigation used numerical simulation to compare smoke formation from dibutyl‑phthalate pyrolysis in microgravity versus Earth gravity, focusing on how buoyancy affects particle growth and distribution. The study aimed to quantify differences in smoke characteristics and identify fluid‑dynamic mechanisms responsible for those differences. The results are intended to improve smoke detection devices and fire prevention strategies.",
+    "variables_varied": [],
+    "variables_fixed": [],
+    "sensors": [],
     "fuel_phase": [],
     "o2_range": null,
     "o2_basis": null,
@@ -2001,11 +2187,13 @@
     "project_type": "Ground Investigation",
     "platform": "ground",
     "hardware": null,
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention"
+    ],
+    "summary": "This study used ground-based CFD to investigate how external thermal and convective disturbances affect cool flame behavior of n‑alkane droplets in microgravity. The simulations mapped ignition, oscillation, transition to hot ignition, and extinction for droplets ranging from sub‑millimeter to a few millimeters. The results aim to improve spacecraft fire‑safety models and advance low‑temperature combustion knowledge for Earth engines.",
+    "variables_varied": [],
+    "variables_fixed": [],
+    "sensors": [],
     "fuel_phase": [],
     "o2_range": null,
     "o2_basis": null,
@@ -2068,11 +2256,13 @@
     "project_type": "Ground Investigation",
     "platform": "ground",
     "hardware": "Principal Investigator Laboratory Hardware",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention"
+    ],
+    "summary": "This study investigates how cool flames transition to hot flames under varying oxygen, pressure, and dilution conditions using counterflow flame experiments. The goal is to map flammability and extinction limits for fuels relevant to spacecraft fire safety. The work also validates ISS observations and informs kinetic and radiation models.",
+    "variables_varied": [],
+    "variables_fixed": [],
+    "sensors": [],
     "fuel_phase": [],
     "o2_range": null,
     "o2_basis": null,
@@ -2143,11 +2333,20 @@
     "project_type": "Microgravity Investigation",
     "platform": "ISS",
     "hardware": "ACME, Combustion Integrated Rack (CIR)",
-    "pillars": null,
-    "summary": null,
-    "variables_varied": null,
-    "variables_fixed": null,
-    "sensors": null,
+    "pillars": [
+      "prevention"
+    ],
+    "summary": "This study investigates cool diffusion flames of gaseous fuels aboard the ISS using spherical porous burners. By varying oxygen, pressure, fuel, and geometry, the team maps conditions that produce normal, inverse, or self‑extinguished flames. The results aim to improve combustion models for more efficient engines.",
+    "variables_varied": [
+      "oxygen concentration",
+      "pressure",
+      "fuel",
+      "sample geometry"
+    ],
+    "variables_fixed": [
+      "diluent"
+    ],
+    "sensors": [],
     "fuel_phase": [
       "gas"
     ],

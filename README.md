@@ -198,6 +198,7 @@ python -m si.llm --check
 python pipeline/fetch_psi.py
 python pipeline/normalize.py
 python pipeline/build_investigations.py
+python pipeline/merge_extraction.py
 python pipeline/qa.py
 ```
 

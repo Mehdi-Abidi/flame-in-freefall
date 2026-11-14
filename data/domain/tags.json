@@ -1,0 +1,267 @@
+{
+  "source": "Hand-checked pillar tags for task T1, read directly against each investigation's own NASA objective, hypothesis and research-impact text (data/raw/investigations/PSI-*.json), not just its title. First pass drafted by Claude at Mufeed's request so Taha reviews rather than starts from a blank file. Entries whose note starts with REVIEW disagree with the seed tags in docs/EXECUTION_PLAN.md section 8 and should get a second pair of eyes before judging day; everything else either matches the seed tags or corrects the model's extraction where the actual NASA text didn't support it. Taha: once you've checked these, feel free to edit this file directly and drop the REVIEW notes you've confirmed.",
+  "investigations": [
+    {
+      "accession": "PSI-10",
+      "acronym": "ACME Flame Design",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "platform": "ISS",
+      "hardware": "CIR, ACME",
+      "note": "Soot-inception and extinction limits for gaseous diffusion flames, but the investigation's own stated impact is terrestrial power-plant combustors, not spacecraft safety. Kept prevention only; rejected the model's added suppression, no suppressant agent is tested here, only flame physics."
+    },
+    {
+      "accession": "PSI-20",
+      "acronym": "ACME BRE",
+      "pillars": [
+        "prevention",
+        "suppression"
+      ],
+      "role": null,
+      "platform": "ISS",
+      "hardware": "CIR, ACME",
+      "note": "Upgraded from prevention-only. Objective tests NASA's actual candidate cabin atmospheres (14.7/21%, 10.2/26.5%, 8.2/34% O2), and the investigation's own impact text states cutting ventilation is an established step in putting out spacecraft fires and that unventilated burning persisted at elevated O2, both prevention and suppression relevant."
+    },
+    {
+      "accession": "PSI-21",
+      "acronym": "ACME CLD Flame",
+      "pillars": [],
+      "role": "fundamentals",
+      "platform": "ISS",
+      "hardware": "CIR, ACME",
+      "note": "Pure coflow diffusion flame benchmark data for validating computational models. No NASA atmosphere context, no operational framing. Kept as seed had it; rejected the model's prevention/suppression tag as overreach."
+    },
+    {
+      "accession": "PSI-22",
+      "acronym": "ACME E-FIELD Flames",
+      "pillars": [],
+      "role": "partial-gravity proxy",
+      "platform": "ISS",
+      "hardware": "CIR, ACME",
+      "note": "The investigation's own impact text says plainly it is not conducted to serve any space application. Kept as seed had it; rejected the model's prevention tag."
+    },
+    {
+      "accession": "PSI-23",
+      "acronym": "ACME s-Flame",
+      "pillars": [],
+      "role": "fundamentals",
+      "platform": "ISS",
+      "hardware": "CIR, ACME",
+      "note": "Transient flame structure study for computational model comparison, impacts framed around terrestrial combustion devices. Kept as seed had it; rejected the model's prevention tag."
+    },
+    {
+      "accession": "PSI-25",
+      "acronym": "BASS-II",
+      "pillars": [
+        "prevention",
+        "suppression"
+      ],
+      "role": null,
+      "platform": "ISS",
+      "hardware": "MSG, SPICE flow duct",
+      "note": "Objective explicitly ties results to fire detection and suppression system design and to bridging NASA's flammability test standard with real microgravity behavior. Seed and model agree here."
+    },
+    {
+      "accession": "PSI-26",
+      "acronym": "BASS",
+      "pillars": [
+        "prevention",
+        "suppression"
+      ],
+      "role": null,
+      "platform": "ISS",
+      "hardware": "MSG, SPICE flow duct",
+      "note": "Objective explicitly tests an inert gaseous extinguishing agent (suppression) and flammability/material screening (prevention). Seed and model agree here."
+    },
+    {
+      "accession": "PSI-39",
+      "acronym": "CFI",
+      "pillars": [
+        "prevention"
+      ],
+      "role": "cool flames",
+      "platform": "ISS",
+      "hardware": "CIR, MDCA",
+      "note": "Droplet cool-flame chemistry and extinction diameters, impact text framed around fuel and engine design broadly, not spacecraft safety. Kept prevention only (as seed); rejected the model's added suppression, no suppressant agent is tested."
+    },
+    {
+      "accession": "PSI-47",
+      "acronym": "DAFT / DAFT-2",
+      "pillars": [
+        "detection"
+      ],
+      "role": "dust vs smoke",
+      "platform": "ISS",
+      "hardware": "SAME instrument",
+      "note": "Validates a particulate counter's reliability in microgravity, explicitly to support fire and smoke detection systems. Seed and model agree here."
+    },
+    {
+      "accession": "PSI-60",
+      "acronym": "ground: SPICE analysis",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "platform": "ground",
+      "hardware": "ground",
+      "note": "REVIEW: changed from seed's detection. This is a computational re-analysis of SPICE's soot/flame-structure images. 'Smoke point' here is a fuel sootiness property used in combustion science, not a smoke-detector technology. Recommend prevention (soot/material understanding) over detection; please confirm."
+    },
+    {
+      "accession": "PSI-62",
+      "acronym": "ground: flame spread modeling",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "platform": "ground",
+      "hardware": "ground",
+      "note": "Flame-spread modeling explicitly intended as a screening tool for new materials' flammability limits, to design safer spacecraft and manage fire risk. Kept seed's prevention tag; the model's call of zero pillars looks like an extraction miss, the text is clearly prevention relevant."
+    },
+    {
+      "accession": "PSI-68",
+      "acronym": "FLEX-2",
+      "pillars": [
+        "prevention",
+        "suppression"
+      ],
+      "role": null,
+      "platform": "ISS",
+      "hardware": "CIR, MDCA",
+      "note": "REVIEW: upgraded from seed's suppression only. FLEX-2 is a direct continuation of FLEX on the same hardware, studying extinction mechanisms and boundaries; treated consistently with FLEX. Note the visible objective text itself is framed around terrestrial fuel efficiency, so please confirm this against the full PSI page."
+    },
+    {
+      "accession": "PSI-69",
+      "acronym": "FLEX",
+      "pillars": [
+        "prevention",
+        "suppression"
+      ],
+      "role": null,
+      "platform": "ISS",
+      "hardware": "CIR, MDCA",
+      "note": "Objective explicitly both maps flammability limits (prevention) and measures the effectiveness of CO2, He and SF6 suppressants (suppression). Upgraded from seed's suppression-only; matches the model here."
+    },
+    {
+      "accession": "PSI-98",
+      "acronym": "SAFFIRE-I",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "platform": "ISS",
+      "hardware": "Saffire unit in Cygnus",
+      "note": "REVIEW: removed detection, harmonized with SAFFIRE-II and III which share essentially the same objective text (fire growth rate and flammability limits vs the normal-gravity standard test). The onboard cameras and gas sensors are experiment instrumentation for observing the fire, not a detector-technology study like SAME or DAFT. Please confirm, and apply the same call to SAFFIRE-II/III below."
+    },
+    {
+      "accession": "PSI-99",
+      "acronym": "SAFFIRE-II",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "platform": "Cygnus",
+      "hardware": "Saffire unit in Cygnus",
+      "note": "Same objective text as SAFFIRE-I and III (fire growth rate and flammability limits). Kept prevention only for consistency across the three SAFFIRE missions; rejected the model's added suppression, no suppressant is tested, the fires are observed, not extinguished."
+    },
+    {
+      "accession": "PSI-100",
+      "acronym": "SAFFIRE-III",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "platform": "ISS",
+      "hardware": "Saffire unit in Cygnus",
+      "note": "REVIEW: removed detection, same reasoning and harmonization as SAFFIRE-I. Please confirm."
+    },
+    {
+      "accession": "PSI-101",
+      "acronym": "SAME-R",
+      "pillars": [
+        "detection"
+      ],
+      "role": null,
+      "platform": "ISS",
+      "hardware": "MSG",
+      "note": "Explicitly about smoke particle size for designing and evaluating spacecraft smoke detectors. Seed and model agree here."
+    },
+    {
+      "accession": "PSI-102",
+      "acronym": "SAME",
+      "pillars": [
+        "detection"
+      ],
+      "role": null,
+      "platform": "ISS",
+      "hardware": "MSG",
+      "note": "Same as SAME-R: explicitly about smoke detector sensitivity to microgravity smoke. Seed and model agree here."
+    },
+    {
+      "accession": "PSI-106",
+      "acronym": "SLICE",
+      "pillars": [],
+      "role": "fundamentals",
+      "platform": "ISS",
+      "hardware": "MSG, SPICE flow duct",
+      "note": "Laminar diffusion flame structure and liftoff study, impacts framed around terrestrial engine efficiency with one generic fire-safety mention. Kept as seed had it; rejected the model's prevention/detection tag."
+    },
+    {
+      "accession": "PSI-107",
+      "acronym": "SPICE",
+      "pillars": [
+        "prevention"
+      ],
+      "role": "smoke point",
+      "platform": "ISS",
+      "hardware": "MSG, SPICE flow duct",
+      "note": "REVIEW: changed from seed's detection. 'Smoke point' is the sootiness threshold of a fuel, a combustion-science property, not a smoke-detector study. Recommend prevention (fuel/material sootiness understanding) over detection; please confirm against the PSI page."
+    },
+    {
+      "accession": "PSI-115",
+      "acronym": "ground: SAME data use",
+      "pillars": [
+        "prevention",
+        "detection"
+      ],
+      "role": null,
+      "platform": "ground",
+      "hardware": "ground",
+      "note": "REVIEW: added prevention. The investigation's own impact text says models of smoke generation would directly lead to better smoke detection devices AND prevent fires, both are explicitly stated. Please confirm."
+    },
+    {
+      "accession": "PSI-117",
+      "acronym": "ground: cool flame dynamics",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "platform": "ground",
+      "hardware": "ground",
+      "note": "REVIEW: changed from seed's fundamentals (no pillar). This is a CFD re-analysis of FLEX data, but its own stated space benefit is explicitly to define safer operating envelopes by resolving cool-flame extinction behavior. Borderline between fundamentals and applied; recommend prevention, but please confirm, rejected the model's added suppression since no suppressant agent is tested."
+    },
+    {
+      "accession": "PSI-142",
+      "acronym": "ground: cool flame transitions",
+      "pillars": [
+        "prevention"
+      ],
+      "role": null,
+      "platform": "ground",
+      "hardware": "ground",
+      "note": "Explicitly develops a flammability-limit diagram for cool flames and verifies it against the ISS FLEX results. Kept prevention only (as seed); rejected the model's added suppression, no suppressant agent is tested."
+    },
+    {
+      "accession": "PSI-159",
+      "acronym": "ACME CFI-G",
+      "pillars": [
+        "prevention"
+      ],
+      "role": "up to 85% O2",
+      "platform": "ISS",
+      "hardware": "CIR, ACME",
+      "note": "Cool diffusion flame conditions at elevated oxygen for gaseous fuels, directly relevant to spacecraft cabin flammability margins at high O2. Kept prevention only (as seed); rejected the model's added suppression, no suppressant agent is tested."
+    }
+  ]
+}
