@@ -50,6 +50,42 @@ def numeric_range(rows, field):
     return [min(values), max(values)] if values else None
 
 
+VARIATION_RECORD_TYPES = {"test", "condition_matrix", "test_day_condition"}
+EVIDENCE_SOURCES = {"measured", "planned", "approximate", "test_day_list"}
+NUMERIC_DIMENSIONS = (
+    ("oxygen concentration", "o2_mole_fraction", "o2_source", 0.02),
+    ("pressure", "pressure_kpa", "pressure_source", 10.0),
+    ("flow velocity", "flow_cm_s", None, 1.0),
+)
+TEXT_DIMENSIONS = (("fuel", "fuel"), ("diluent", "diluent"), ("sample geometry", "geometry"))
+
+
+def table_variation(rows):
+    """Which test conditions changed between tests and which stayed the same, decided from tests.csv alone."""
+    rows = [r for r in rows if r.get("record_type") in VARIATION_RECORD_TYPES]
+    varied, fixed = [], []
+    for label, field, source_field, tolerance in NUMERIC_DIMENSIONS:
+        values = []
+        for r in rows:
+            if source_field and r.get(source_field) not in EVIDENCE_SOURCES:
+                continue
+            try:
+                values.append(float(r[field]))
+            except (KeyError, ValueError):
+                pass
+        if values:
+            (varied if max(values) - min(values) > tolerance else fixed).append(label)
+    sizes = [float(r["size_mm"]) for r in rows if r.get("size_mm", "").strip()]
+    if sizes:
+        (varied if max(sizes) > 1.2 * min(sizes) else fixed).append("sample size")
+    for label, field in TEXT_DIMENSIONS:
+        distinct = {r[field].strip().lower() for r in rows
+                    if r.get(field, "").strip() and r[field].strip().lower() not in PLACEHOLDERS}
+        if distinct:
+            (varied if len(distinct) > 1 else fixed).append(label)
+    return {"varied": varied, "fixed": fixed}
+
+
 PROMPT_VERSION = "s2-v3"
 PILLARS = ("prevention", "detection", "suppression")
 PHASES = ("solid", "liquid", "gas", "dust")
