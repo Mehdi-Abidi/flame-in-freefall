@@ -7,6 +7,7 @@ Writes data/processed/extracted.json.
 import collections
 import csv
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -113,6 +114,33 @@ def clean_record(raw, facts):
     model_phases = [p for p in PHASES if p in {x.lower() for x in clean_list(raw.get("fuel_phase"))}]
     record["fuel_phase"] = list(facts.get("fuel_phase") or []) or model_phases
     return record
+
+
+STOPWORDS = {"the", "and", "with", "for", "fuel", "fuels", "sample", "samples", "pure", "mixture", "based", "flame", "flames", "gas", "gases"}
+
+
+def words(text):
+    return {w for w in re.findall(r"[a-z0-9]+", text.lower()) if len(w) >= 3 and w not in STOPWORDS}
+
+
+def is_grounded(item, haystack_words):
+    item_words = words(item)
+    return not item_words or bool(item_words & haystack_words)
+
+
+def grounding_warnings(record, context, facts):
+    """Flag anything the model named that does not appear in the text or data it was given."""
+    haystack = words(json.dumps(context, ensure_ascii=False) + " " + json.dumps(facts, ensure_ascii=False))
+    warnings = []
+    for field in ("fuels", "sensors"):
+        missing = [item for item in record[field] if not is_grounded(item, haystack)]
+        if missing:
+            warnings.append(f"{field} not found in source: {', '.join(missing)}")
+    if not record["pillars"]:
+        warnings.append("no fire-safety pillar assigned")
+    if not record["summary"]:
+        warnings.append("no summary")
+    return warnings
 
 
 TEXT_LIMITS = {"objective": 1600, "approach": 2000, "hypothesis": 900, "researchImpacts": 900}
