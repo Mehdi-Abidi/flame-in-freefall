@@ -41,6 +41,17 @@ describe("loadDataset", () => {
     }
   });
 
+  it("attaches a rationale only when it matches the current rank", () => {
+    for (const investigation of data.investigations) {
+      for (const score of Object.values(investigation.scores)) {
+        if (score.rationale) {
+          expect(score.rationale.text.length).toBeGreaterThan(20);
+          expect(["model", "template"]).toContain(score.rationale.source);
+        }
+      }
+    }
+  });
+
   it("keeps component weights summing to one", () => {
     const total = Object.values(data.componentWeights).reduce((sum, value) => sum + value, 0);
     expect(total).toBeCloseTo(1, 9);
