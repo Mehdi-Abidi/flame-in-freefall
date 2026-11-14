@@ -27,8 +27,12 @@ def load_investigations(path=PROCESSED / "investigations.json"):
         return {record["accession"]: record for record in json.load(handle)}
 
 
+PLACEHOLDERS = {"unknown", "sample", "n/a", "none"}
+
+
 def top_values(rows, field, limit):
-    counts = collections.Counter(row[field].strip() for row in rows if row.get(field, "").strip())
+    counts = collections.Counter(row[field].strip() for row in rows
+                                 if row.get(field, "").strip() and row[field].strip().lower() not in PLACEHOLDERS)
     return [value for value, _ in counts.most_common(limit)]
 
 
