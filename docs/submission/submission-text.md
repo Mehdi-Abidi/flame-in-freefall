@@ -13,6 +13,7 @@ Lunar habitats are expected to run at 30% oxygen or more, yet no solid-material 
 ## Link to Project Demo
 
 - 30-second video: add the link once it is uploaded. It must open in a private window with no sign-in.
+- Slide deck (7 slides, title and introduction included): [`docs/submission/flame-in-freefall-slides.pptx`](flame-in-freefall-slides.pptx). Upload it, or export it to PDF, if the form asks for slides.
 
 ## Link to Final Project
 
@@ -149,6 +150,7 @@ Data courtesy of NASA's Physical Sciences Informatics system. This project is no
 ## Before pressing Submit for Judging
 
 - Add the demo link, then open it and the dashboard in a private window.
+- The slide deck has 7 slides. Check the form's own limit and file type before uploading.
 - The video must be 30 seconds or less. A longer one is not eligible for Global Judging.
 - The deadline is Sunday 15 November, 23:59 local time. Only the last saved submission is judged.
 - Tick both boxes: the terms and conditions, and that all work is original.
