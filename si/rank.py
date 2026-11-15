@@ -332,7 +332,7 @@ def reasons_for(investigation, fit, phases, pillars, pillar_source, scenario):
         reasons.append("no O2 or pressure data to compare with this habitat")
     if phases:
         reasons.append(f"burned {', '.join(phases)} fuels")
-    reasons.append(f"fire-safety focus: {', '.join(pillars) or 'fundamentals only'} (from {pillar_source} tags)"
+    reasons.append(f"fire-safety focus: {', '.join(pillars) or 'fundamentals only'} (from {'team' if pillar_source == 'tags' else 'seed'} tags)"
                    if pillar_source in ("tags", "seed") else
                    f"fire-safety focus: {', '.join(pillars) or 'not identified'} (model suggestion, not yet checked)")
     if investigation.get("platform") == "ground":
