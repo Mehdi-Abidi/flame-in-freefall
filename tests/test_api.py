@@ -378,6 +378,11 @@ class AskTests(unittest.TestCase):
         self.assertTrue(ask_module._mentions("SAME measured smoke", "SAME"))
         self.assertTrue(ask_module._mentions("the ACME Flame Design tests", "ACME/Flame Design"))
 
+    def test_ask_fails_over_to_the_fallback_without_waiting(self):
+        with mock.patch.object(main, "_llm", None), mock.patch.object(main, "LLM") as client:
+            main.llm_chat()
+        client.assert_called_once_with(max_retries=0, timeout=main.ASK_MODEL_TIMEOUT)
+
     def test_question_validation(self):
         self.assertEqual(client.post("/ask", json={"question": "x" * 501}).status_code, 422)
 

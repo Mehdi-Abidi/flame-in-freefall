@@ -62,6 +62,26 @@ class ClientTests(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
+    def test_default_fallback_is_the_120b_model(self):
+        with mock.patch.dict("os.environ", {}, clear=True):
+            llm = LLM(api_key="test-key", env_file=self.env_file)
+        self.assertEqual(llm.fallback_model, "openai/gpt-oss-120b")
+
+    def test_no_retries_means_one_try_then_the_fallback(self):
+        calls = []
+
+        def fake(request, timeout):
+            calls.append(json.loads(request.data)["model"])
+            if len(calls) == 1:
+                raise urllib.error.HTTPError(request.full_url, 429, "busy", Message(), io.BytesIO(b"{}"))
+            return io.BytesIO(json.dumps({"choices": [{"message": {"content": "ok"}}]}).encode())
+
+        with mock.patch("urllib.request.urlopen", side_effect=fake), mock.patch("time.sleep") as sleep:
+            result = self.client(fallback_model="openai/gpt-oss-120b", max_retries=0).chat("hi")
+        self.assertEqual(result, "ok")
+        self.assertEqual(calls, ["openai/gpt-oss-20b", "openai/gpt-oss-120b"])
+        sleep.assert_not_called()
+
     def client(self, **kwargs):
         options = {"api_key": "test-key", "base_url": "https://example.test/v1", "model": "openai/gpt-oss-20b",
                    "fallback_model": "", "cache_dir": "", "env_file": self.env_file, "max_retries": 2}
