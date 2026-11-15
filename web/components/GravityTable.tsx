@@ -23,7 +23,6 @@ function Outcome({ text }: { text: string }) {
 export function GravityTable({ rows }: { rows: GravityRow[] }) {
   return (
     <>
-      {/* Below 768 px the five columns do not fit, so each sample becomes a card with its two results side by side. */}
       <ul aria-label={CAPTION} className="divide-y divide-[color:var(--rule)] rounded-[6px] border border-rule bg-surface md:hidden">
         {rows.map((row) => (
           <li key={row.sample} className="px-4 py-3.5">

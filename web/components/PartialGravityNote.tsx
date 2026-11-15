@@ -8,7 +8,6 @@ function listOf(items: string[]): string {
   return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
 }
 
-// The three statements are the challenge's own notes on partial gravity. Everything said about E-FIELD beyond them is read from the data.
 export function PartialGravityNote({ efield, efieldOnMap }: { efield?: Investigation; efieldOnMap: boolean }) {
   const count = efield ? (efield.nTests > 0 ? `${efield.nTests} tests` : `${efield.nRecords} test days`) : "";
   const gasOnly = efield ? efield.phases.length === 1 && efield.phases[0] === "gas" : false;

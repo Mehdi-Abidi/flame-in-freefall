@@ -15,12 +15,10 @@ export interface AskAnswer {
   sources: AskSource[];
 }
 
-/** Answer text split so accession ids sit at odd indexes. Drops the model's Markdown bold and bullets. */
 export function splitCitations(text: string): string[] {
   return text.replace(/\*\*/g, "").replace(/^\* /gm, "• ").split(/(PSI-\d+)/);
 }
 
-/** POST /ask. Throws an Error whose message is safe to show the reader. */
 export async function ask(question: string, fetcher: typeof fetch = fetch): Promise<AskAnswer> {
   let res: Response;
   try {
@@ -34,7 +32,6 @@ export async function ask(question: string, fetcher: typeof fetch = fetch): Prom
   }
   if (res.ok) return res.json();
   const body = await res.json().catch(() => null);
-  // 429 and 503 carry a readable string; 422 validation errors carry a list.
   const detail = typeof body?.detail === "string" ? body.detail : null;
   throw new Error(detail ?? (res.status === 422 ? "Questions must be 3 to 500 characters." : `The API answered ${res.status}. Try again.`));
 }
