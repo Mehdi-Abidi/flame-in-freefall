@@ -178,6 +178,9 @@ INSIDE_CLAIM = re.compile(r"\b(inside|within|in)\s+(the\s+)?(lunar|habitat|targe
 NUMBER_WORDS = re.compile(r"\b(two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|point zero)\b", re.I)
 FIELD_NAME = re.compile(r"\b[a-z]+_[a-z_]+\b", re.I)
 NEGATION = re.compile(r"\b(no|none|not|never|neither|without)\b", re.I)
+FIELD_SUPERLATIVE = re.compile(r"\b(strongest|most|best|highest|largest|richest|greatest|top)\b[^.]{0,50}\b(among|of all|than any|than all|in the field)\b", re.I)
+PRESSURE_WORD = re.compile(r"\bpressure\b", re.I)
+LACK = re.compile(r"\b(lacks?|lacking|absent|absence|missing|unrecorded|not recorded)\b", re.I)
 RANK_CLAIM = re.compile(r"(?:\branks?\s+(?:#|number\s+)?|#|\bno\.\s*)(\d+)|\b(\d+)(?:st|nd|rd|th)\b", re.I)
 
 
@@ -235,6 +238,13 @@ def validate(text, facts):
         for sentence in sentences(text):
             if INSIDE_CLAIM.search(sentence) and not NEGATION.search(sentence):
                 problems.append("claims tests were inside the target, but none were")
+                break
+    if FIELD_SUPERLATIVE.search(text):
+        problems.append("claims to lead the whole field; the facts only say a part is above the median")
+    if "pressure" not in str(facts.get("conditions_on_record", "")):
+        for sentence in sentences(text):
+            if PRESSURE_WORD.search(sentence) and not NEGATION.search(sentence) and not LACK.search(sentence):
+                problems.append("talks about pressure, but no pressure is on record")
                 break
     for match in RANK_CLAIM.finditer(text):
         stated = int(match.group(1) or match.group(2))
@@ -346,7 +356,8 @@ def generate(rankings, summaries, writer, existing=None, scenario_filter=None, o
                                 (investigations or {}).get(accession))
             print_key = fingerprint({"facts": facts, "prompt": PROMPT_VERSION})
             previous = output[group[0]].get(accession) or {}
-            reused = is_reusable(previous, print_key, model_id, force)
+            reused = is_reusable(previous, print_key, model_id, force) and not (
+                previous.get("source") == "model" and validate(previous.get("text", ""), facts))
             if reused:
                 record = previous
                 stats["kept"] += 1
