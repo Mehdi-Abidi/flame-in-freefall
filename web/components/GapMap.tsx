@@ -23,7 +23,6 @@ interface Props {
 const MARGIN = { top: 16, right: 18, bottom: 44, left: 56 };
 const HIT_RADIUS = 24;
 const TIP_WIDTH = 236;
-// The busiest row of dots sits on the ISS box and just above it, so that label goes underneath.
 const LABEL_BELOW = new Set(["iss"]);
 
 interface Box {
@@ -59,7 +58,6 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
     () => points.filter((p) => phases.has(p.ph) && (!measuredOnly || oxygenMeasured(p))),
     [points, phases, measuredOnly],
   );
-  // A tap keeps its tooltip open, so drop it once a filter hides that test.
   const active = hover && phases.has(hover.ph) && (!measuredOnly || oxygenMeasured(hover)) ? hover : null;
   const counts = useMemo(() => {
     const c: Record<string, number> = {};
@@ -70,7 +68,6 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
   const innerW = Math.max(width - MARGIN.left - MARGIN.right, 120);
   const innerH = height - MARGIN.top - MARGIN.bottom;
   const x = useMemo(() => scaleLinear().domain([0.1, 1]).range([0, innerW]), [innerW]);
-  // Whole pixels: Node and the browser disagree on log() in the last digits, which breaks hydration.
   const y = useMemo(() => scaleLog().domain([20, 600]).rangeRound([innerH, 0]).clamp(true), [innerH]);
   const boxes = useMemo(() => mergeBoxes(scenarios), [scenarios]);
 
@@ -96,7 +93,6 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
     });
   }
 
-  // Every other label on phones, where "100%" and "90%" otherwise run together.
   const xTicks = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1].filter((_, i) => innerW >= 420 || i % 2 === 1);
   const yTicks = compact ? [30, 100, 300] : [20, 30, 50, 70, 100, 200, 300, 500];
 
@@ -118,7 +114,6 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
     const bw = Math.max(x(box.o2[1]) - bx, 6);
     const by = y(box.kpa[1]);
     const bh = Math.max(y(box.kpa[0]) - by, 6);
-    // Mono 12px is about 7.2px a character. Shorten a merged label that cannot fit from its box's left edge, then keep the label inside the plot.
     const full = box.label.toUpperCase();
     const label = bx + 4 + full.length * 7.2 > innerW && box.ids.length > 1 ? `${full.split(" · ")[0]} +${box.ids.length - 1}` : full;
     const textW = label.length * 7.2;
@@ -247,7 +242,6 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                         stroke={basis === "measured" ? "var(--surface)" : PHASE_COLOR[p.ph]}
                         strokeWidth={1.5}
                       />
-                      {/* Oxygen measured, pressure assumed: a ring with a centre, between filled and hollow. */}
                       {basis === "oxygen" && (
                         <motion.circle
                           cx={x(p.o2)}
@@ -264,7 +258,6 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                 })}
               </g>
 
-              {/* Labels go on top of the dots so the dots cannot strike through them. */}
               {!compact &&
                 boxLayout.map(({ box, selected, label, lx, ly }) => (
                   <text key={box.key} x={lx} y={ly} fontSize={12} className="mono" fill={selected ? "var(--accent)" : "var(--ink-2)"} stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
@@ -284,7 +277,6 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                 <circle cx={x(active.o2)} cy={y(active.kpa)} r={8} fill="none" stroke="var(--ink)" strokeWidth={1.5} pointerEvents="none" />
               )}
 
-              {/* A mouse shows the nearest test on hover. A finger shows it on tap and keeps it until the next tap, because a phone has no hover. */}
               <rect
                 width={innerW}
                 height={innerH}
@@ -338,7 +330,6 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
               exit={{ opacity: 0 }}
               transition={{ duration: 0.12 }}
               className="pointer-events-none absolute z-10 w-max rounded-[4px] border border-rule bg-surface px-3 py-2 text-[12px] shadow-lg"
-              // Sits above the test and stays inside the chart. Near the top edge it drops below instead.
               style={{
                 maxWidth: TIP_WIDTH,
                 left: Math.max(4, Math.min(tipX + 14, width - TIP_WIDTH - 4)),

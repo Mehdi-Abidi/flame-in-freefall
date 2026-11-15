@@ -26,9 +26,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from si.rank import resolve_pillars  # the single source of truth for tags > seed > model
+from si.rank import resolve_pillars
 
-# The four fields that are a direct copy from extracted.json, no resolution needed.
 DIRECT_FIELDS = ("summary", "variables_varied", "variables_fixed", "sensors")
 
 

@@ -6,7 +6,6 @@ export const PLOTTED_PHASES: Phase[] = ["solid", "liquid", "gas"];
 
 export const PILLAR_LABEL: Record<Pillar, string> = { prevention: "Prevention", detection: "Detection", suppression: "Suppression" };
 
-// Short habitat names for tight places: the Rank switcher and the labels on the gap map.
 export const HABITAT_SHORT_LABEL: Record<string, string> = {
   iss: "ISS",
   lunar_base: "Lunar base",

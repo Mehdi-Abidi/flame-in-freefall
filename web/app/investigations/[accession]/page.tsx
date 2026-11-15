@@ -7,7 +7,6 @@ import { BASIS_LABEL, PHASE_COLOR, PHASE_LABEL, pct, rangeText } from "@/lib/for
 
 export const dynamicParams = false;
 
-// Values come from resolve_pillars in si/rank.py.
 const PILLAR_SOURCE: Record<string, string> = {
   tags: "pillars from team tags",
   seed: "pillars from seed tags",
