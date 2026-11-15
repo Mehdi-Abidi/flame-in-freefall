@@ -76,6 +76,9 @@ def pillar_members(rankings):
     return members
 
 
+LUNAR_O2 = 0.30
+
+
 def group_observations(rows):
     """Plain sentences per fuel phase and diluent: measured oxygen range and outcomes."""
     groups = collections.defaultdict(list)
@@ -92,7 +95,12 @@ def group_observations(rows):
         for outcome, count in outcomes.most_common(2):
             o2 = [number(r["o2_mole_fraction"]) for r in group if r.get("outcome") == outcome and number(r.get("o2_mole_fraction")) is not None]
             phrase = OUTCOME_PHRASE.get(outcome, f"ended as {outcome}")
-            line += f", {count} {phrase}" + (f", the lowest at {pct(min(o2))}% oxygen" if o2 else "")
+            line += f", {count} {phrase}"
+            if o2:
+                line += f", the lowest at {pct(min(o2))}% oxygen" if min(o2) == max(o2) else f", from {pct(min(o2))}% to {pct(max(o2))}% oxygen"
+                rich = sum(1 for value in o2 if value >= LUNAR_O2)
+                if rich:
+                    line += f", {rich} of them at {pct(LUNAR_O2)}% oxygen or more"
         lines.append(line)
     return lines
 
