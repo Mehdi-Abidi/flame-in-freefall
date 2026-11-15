@@ -5,6 +5,7 @@ No API key needed: the LLM is replaced by a fake.
 """
 
 import importlib.util
+import re
 import unittest
 from unittest import mock
 
@@ -273,6 +274,22 @@ class AskTests(unittest.TestCase):
     def test_a_habitat_comparison_is_not_read_as_a_test_range(self):
         text = "BASS-II never reached the lunar band of 30% to 40% oxygen [PSI-25]."
         self.assertEqual(ask_module.oxygen_problems(text, main.oxygen_levels), [])
+
+    def test_overview_lists_every_investigation_that_varied_oxygen_or_pressure(self):
+        overview = next(c["text"] for c in main.retriever.chunks if c["field"] == "dataset overview")
+        lines = {line.split(":")[0]: line for line in overview.split("\n")}
+        varied = [i["accession"] for i in main.store.investigations if "oxygen concentration" in (i.get("variables_varied") or [])]
+        self.assertEqual(sorted(re.findall(r"PSI-[0-9]+", lines["Varied-oxygen"])), sorted(varied))
+        self.assertNotIn("PSI-99", lines["Varied-oxygen"])
+        self.assertIn("SAFFIRE-II (PSI-99) about 22% O2 (measured)", lines["Single-oxygen"])
+        self.assertIn("FLEX (PSI-69) 70 to 309 kPa", lines["Varied-pressure"])
+
+    def test_variation_lines_do_not_widen_overview_citations(self):
+        reply = "No solid-fuel experiments were run at 30% oxygen or higher [OVERVIEW]."
+        with mock.patch.object(main, "llm_chat", return_value=fake_chat(reply)):
+            body = client.post("/ask", json={"question": "Were any solid materials tested at 30% oxygen?"}).json()
+        self.assertNotIn("PSI-69", body["citations"])
+        self.assertNotIn("PSI-10", body["citations"])
 
     def test_overview_gives_each_investigation_its_own_range(self):
         overview = next(c["text"] for c in main.retriever.chunks if c["field"] == "dataset overview")
