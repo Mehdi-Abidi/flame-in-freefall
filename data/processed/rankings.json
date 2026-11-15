@@ -856,9 +856,9 @@
           "accession": "PSI-10",
           "acronym": "ACME/Flame Design",
           "title": "Advanced Combustion via Microgravity Experiments / Flame Design",
-          "score": 0.6873,
+          "score": 0.6361,
           "components": {
-            "condition_fit": 0.4561,
+            "condition_fit": 0.3097,
             "material_relevance": 0.5,
             "pillar_match": 1.0,
             "data_richness": 0.8884
@@ -870,15 +870,15 @@
           "evidence": {
             "n_considered": 207,
             "n_in_target": 0,
-            "n_near": 20,
+            "n_near": 0,
             "best": {
               "o2_mole_fraction": 0.4,
-              "pressure_kpa": null,
-              "closeness": 0.75
+              "pressure_kpa": 94.43,
+              "closeness": 0.483
             }
           },
           "reasons": [
-            "closest test: 40% O2",
+            "closest test: 40% O2 at 94 kPa",
             "burned gas fuels",
             "fire-safety focus: prevention (from team tags)"
           ],
@@ -1606,9 +1606,9 @@
           "accession": "PSI-10",
           "acronym": "ACME/Flame Design",
           "title": "Advanced Combustion via Microgravity Experiments / Flame Design",
-          "score": 0.6873,
+          "score": 0.6361,
           "components": {
-            "condition_fit": 0.4561,
+            "condition_fit": 0.3097,
             "material_relevance": 0.5,
             "pillar_match": 1.0,
             "data_richness": 0.8884
@@ -1620,15 +1620,15 @@
           "evidence": {
             "n_considered": 207,
             "n_in_target": 0,
-            "n_near": 20,
+            "n_near": 0,
             "best": {
               "o2_mole_fraction": 0.4,
-              "pressure_kpa": null,
-              "closeness": 0.75
+              "pressure_kpa": 94.43,
+              "closeness": 0.483
             }
           },
           "reasons": [
-            "closest test: 40% O2",
+            "closest test: 40% O2 at 94 kPa",
             "burned gas fuels",
             "fire-safety focus: prevention (from team tags)"
           ],
@@ -2356,9 +2356,9 @@
           "accession": "PSI-10",
           "acronym": "ACME/Flame Design",
           "title": "Advanced Combustion via Microgravity Experiments / Flame Design",
-          "score": 0.6873,
+          "score": 0.6361,
           "components": {
-            "condition_fit": 0.4561,
+            "condition_fit": 0.3097,
             "material_relevance": 0.5,
             "pillar_match": 1.0,
             "data_richness": 0.8884
@@ -2370,15 +2370,15 @@
           "evidence": {
             "n_considered": 207,
             "n_in_target": 0,
-            "n_near": 20,
+            "n_near": 0,
             "best": {
               "o2_mole_fraction": 0.4,
-              "pressure_kpa": null,
-              "closeness": 0.75
+              "pressure_kpa": 94.43,
+              "closeness": 0.483
             }
           },
           "reasons": [
-            "closest test: 40% O2",
+            "closest test: 40% O2 at 94 kPa",
             "burned gas fuels",
             "fire-safety focus: prevention (from team tags)"
           ],
@@ -3316,7 +3316,7 @@
             "n_near": 0,
             "best": {
               "o2_mole_fraction": 0.4,
-              "pressure_kpa": null,
+              "pressure_kpa": 94.43,
               "closeness": 0.0
             }
           },
