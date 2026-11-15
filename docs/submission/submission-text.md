@@ -20,13 +20,13 @@ Lunar habitats are expected to run at 30% oxygen or more, yet no solid-material 
 
 ### What it does
 
-NASA has flown dozens of fire experiments on the International Space Station. Their results sit in PSI as 24 investigations, about 2,900 logged tests and more than 82,000 raw files. That is hard to search when you are designing a habitat and need to know how a fabric burns at 30% oxygen. The dashboard answers that in five views:
+NASA has flown dozens of fire experiments on the International Space Station. Their results sit in PSI as 24 investigations, 21 experimental tables and more than 82,000 raw files. That is hard to search when you are designing a habitat and need to know how a fabric burns at 30% oxygen. The dashboard answers that in five views:
 
 - **Overview** shows the headline gap. An oxygen ruler compares the oxygen measured for each fuel phase with the lunar band. A gap map plots every test by oxygen and pressure against the habitat boxes. A SAFFIRE-II panel compares the same materials burned in microgravity and at 1 g.
 - **Rank** scores all 24 investigations for the chosen habitat. Sliders weight the three fire-safety pillars (prevention, detection, suppression), and the list re-orders live. Each row shows its score parts and a two-sentence reason. The view lives in the URL, so it can be shared.
 - **Investigations** lets you search and filter all 24. Each one has its own page with a plain summary, the conditions tested, its tests on the map and every publication, all linked to the NASA record.
 - **Compare** puts up to four investigations side by side and marks what differs, for example how FLEX-2 changed the FLEX recipe.
-- **Ask** (live once PR #14 merges) answers questions such as "Which diluent put out droplet flames at lower oxygen, CO2 or helium?" Every answer cites PSI accession numbers. If the data does not cover a question, the answer says so.
+- **Ask** answers questions such as "Which diluent put out droplet flames at lower oxygen, CO2 or helium?" Every answer cites PSI accession numbers. If the data does not cover a question, the answer says so.
 
 Three findings stand out in the data:
 
@@ -116,7 +116,7 @@ Data courtesy of NASA's Physical Sciences Informatics system. This project is no
 ## Use of AI
 
 - **GPT-OSS 20B** (open-weight, via Groq) drafted the plain-language summary of each investigation and extracted fuels, sample geometry, sensors and suggested fire-safety pillars from NASA's text. Facts the tables prove were given to it as ground truth, and anything not in the source is flagged. A team member hand-checks the pillar tags, and the hand-checked tags take priority over the model's.
-- **GPT-OSS 120B** (open-weight, via Groq) wrote the two-sentence ranking reasons and the three insight briefs from facts computed by code. Code checks every number, rank and citation, and replaces failures with a labelled fact-only template.
+- **GPT-OSS 120B, with 20B as fallback** (open-weight, via Groq), wrote the two-sentence ranking reasons and the three insight briefs from facts computed by code. Code checks every number, rank and citation, and replaces failures with a labelled fact-only template.
 - **GPT-OSS 20B, with 120B as fallback**, answers questions on the Ask page, only from retrieved NASA passages and with required citations.
 - **Claude Code** (Anthropic) was the coding assistant for the whole team. It helped write and review the software, and team members reviewed and tested all of it.
 - **No AI** is used in the ranking scores, the unit conversions or the charts. Those are deterministic code with tests.
@@ -124,7 +124,5 @@ Data courtesy of NASA's Physical Sciences Informatics system. This project is no
 ## Open for T5
 
 - Confirm the 2026 field names and length limits, and trim the short summary if needed.
-- Confirm the Render service does not override `LLM_MODEL`. The draft assumes the defaults: 20B, with 120B as fallback.
-- T1 still has entries marked REVIEW in `data/domain/tags.json`. Once Taha finishes them, the pillar sentence under Use of AI can say "hand-checked".
-- The Ask page goes live when PR #14 merges. Then remove "(live once PR #14 merges)" under What it does, and check the page on the live site before submitting.
-- Add the demo video link once it is uploaded.
+- Check that the challenge link opens. It could not be loaded from the laptop that drafted this.
+- Add the demo video link once it is uploaded. The script is in `video-script.md`.
