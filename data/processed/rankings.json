@@ -643,7 +643,8 @@
             "data_richness": 0.0814
           },
           "pillars": [
-            "prevention"
+            "prevention",
+            "detection"
           ],
           "pillar_source": "tags",
           "evidence": {
@@ -654,7 +655,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from team tags)",
+            "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 20
@@ -1389,7 +1390,8 @@
             "data_richness": 0.0814
           },
           "pillars": [
-            "prevention"
+            "prevention",
+            "detection"
           ],
           "pillar_source": "tags",
           "evidence": {
@@ -1400,7 +1402,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from team tags)",
+            "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 20
@@ -2135,7 +2137,8 @@
             "data_richness": 0.0814
           },
           "pillars": [
-            "prevention"
+            "prevention",
+            "detection"
           ],
           "pillar_source": "tags",
           "evidence": {
@@ -2146,7 +2149,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from team tags)",
+            "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 20
@@ -2881,7 +2884,8 @@
             "data_richness": 0.0814
           },
           "pillars": [
-            "prevention"
+            "prevention",
+            "detection"
           ],
           "pillar_source": "tags",
           "evidence": {
@@ -2892,7 +2896,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from team tags)",
+            "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 20
@@ -3625,7 +3629,8 @@
             "data_richness": 0.0814
           },
           "pillars": [
-            "prevention"
+            "prevention",
+            "detection"
           ],
           "pillar_source": "tags",
           "evidence": {
@@ -3636,7 +3641,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from team tags)",
+            "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 20
