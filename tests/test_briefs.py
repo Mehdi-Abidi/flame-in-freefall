@@ -109,6 +109,34 @@ class EvidenceGuardTests(unittest.TestCase):
         self.assertTrue(any("assumed or planned oxygen as measured" in p for p in problems))
         self.assertEqual(self.with_finding("SPICE ran in assumed cabin air of 21% oxygen.", ["PSI-107"]), [])
 
+    def test_absence_claims_the_facts_contradict_are_rejected(self):
+        facts = json.loads(json.dumps(FACTS))
+        facts["investigations"][0]["observations"] += ["101 liquid-fuel rows with N2, 58 ended in extinction, from 12.0% to 30.0% oxygen, 2 of them at 30.0% oxygen or more"]
+        brief = json.loads(json.dumps(GOOD))
+        brief["gap"] = "The data lack extinction results at lunar-base oxygen."
+        self.assertTrue(any("extinctions at 30% oxygen or more" in p for p in validate_brief(clean_brief(brief), facts)))
+        brief["gap"] = "No microgravity data exist for solid or fabric fires."
+        self.assertTrue(any("solids have no data" in p for p in validate_brief(clean_brief(brief), facts)))
+        brief["gap"] = "No solid-material test ran at lunar-base oxygen."
+        self.assertEqual(validate_brief(clean_brief(brief), facts), [])
+
+    def test_a_count_must_belong_to_the_diluent_it_is_given_to(self):
+        facts = json.loads(json.dumps(FACTS))
+        facts["investigations"][0]["observations"] = [
+            "123 liquid-fuel rows with N2+CO2, measured oxygen 14.0% to 25.0%, 88 ended in extinction, from 14.0% to 24.0% oxygen",
+            "101 liquid-fuel rows with N2, measured oxygen 12.0% to 34.0%, 58 ended in extinction, from 12.0% to 30.0% oxygen"]
+        brief = json.loads(json.dumps(GOOD))
+        brief["findings"][0] = {"text": "FLEX had 88 liquid-fuel rows with N2 that went out between 14.0% and 24.0% oxygen.", "citations": ["PSI-69"]}
+        self.assertTrue(any("belongs to a different group" in p for p in validate_brief(clean_brief(brief), facts)))
+        brief["findings"][0] = {"text": "FLEX had 88 liquid-fuel rows with N2+CO2 that went out between 14.0% and 24.0% oxygen.", "citations": ["PSI-69"]}
+        self.assertFalse(any("belongs to a different group" in p for p in validate_brief(clean_brief(brief), facts)))
+
+    def test_kept_model_brief_that_fails_a_newer_check_is_rewritten(self):
+        bad = {**GOOD, "gap": "No microgravity data exist for solid or fabric fires."}
+        output, _ = generate({"suppression": FACTS}, lambda f: (bad, "model", []), model_id="m")
+        _, stats = generate({"suppression": FACTS}, lambda f: (GOOD, "model", []), existing=output, model_id="m")
+        self.assertEqual(stats["model"], 1)
+
     def test_overconfident_safety_language_is_rejected(self):
         problems = self.with_finding(GOOD["findings"][0]["text"], ["PSI-69"],
                                      implication="Designers can rely on diluents that worked at lower oxygen.")
