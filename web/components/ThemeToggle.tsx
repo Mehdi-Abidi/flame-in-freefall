@@ -51,4 +51,4 @@ export function ThemeToggle() {
   );
 }
 
-export const themeInitScript = `(function(){try{var t=localStorage.getItem("${KEY}");if(t==="dark"||t==="light"){document.documentElement.dataset.theme=t;}}catch(e){}})();`;
+export const themeInitScript = `(function(){try{var t=localStorage.getItem("${KEY}");document.documentElement.dataset.theme=(t==="dark"||t==="light")?t:"dark";}catch(e){}})();`;

@@ -215,8 +215,8 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                   initial={false}
                   animate={{ x: bx, y: by, width: bw, height: bh }}
                   transition={{ type: "spring", stiffness: 220, damping: 30 }}
-                  fill={selected ? "var(--accent-wash)" : "var(--target-wash)"}
-                  stroke={selected ? "var(--accent)" : "var(--ink-2)"}
+                  fill={selected ? "var(--signal-wash)" : "var(--target-wash)"}
+                  stroke={selected ? "var(--signal)" : "var(--ink-2)"}
                   strokeWidth={selected ? 1.5 : 1}
                   rx={2}
                 />
@@ -262,7 +262,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
 
               {!compact &&
                 boxLayout.map(({ box, selected, label, lx, ly }) => (
-                  <text key={box.key} x={lx} y={ly} fontSize={12} className="mono" fill={selected ? "var(--accent)" : "var(--ink-2)"} stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
+                  <text key={box.key} x={lx} y={ly} fontSize={12} className="mono" fill={selected ? "var(--signal)" : "var(--ink-2)"} stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
                     {label}
                   </text>
                 ))}
