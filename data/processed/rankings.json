@@ -63,7 +63,7 @@
             "49 measured test(s) inside the ISS and Earth-normal cabin target",
             "closest test: 21% O2 at 101 kPa",
             "burned liquid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 1
         },
@@ -96,7 +96,7 @@
             "25 measured test(s) inside the ISS and Earth-normal cabin target",
             "closest test: 21% O2 at 101 kPa",
             "burned liquid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 2
         },
@@ -129,7 +129,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 3
         },
@@ -162,7 +162,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 4
         },
@@ -194,7 +194,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 5
         },
@@ -227,7 +227,7 @@
             "65 measured test(s) inside the ISS and Earth-normal cabin target",
             "closest test: 21% O2 at 103 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 6
         },
@@ -259,7 +259,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 7
         },
@@ -291,7 +291,7 @@
           "reasons": [
             "closest test: 22% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 8
         },
@@ -323,7 +323,7 @@
           "reasons": [
             "closest test: 22% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 9
         },
@@ -355,7 +355,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 10
         },
@@ -388,7 +388,7 @@
             "27 measured test(s) inside the ISS and Earth-normal cabin target",
             "closest test: 21% O2 at 101 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 11
         },
@@ -420,7 +420,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 12
         },
@@ -453,7 +453,7 @@
           "reasons": [
             "closest test: 21% O2 at 101 kPa",
             "burned liquid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 13
         },
@@ -486,7 +486,7 @@
           "reasons": [
             "closest test: 21% O2",
             "burned gas fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 14
         },
@@ -514,7 +514,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned dust fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 15
         },
@@ -541,7 +541,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 16
@@ -569,7 +569,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 17
@@ -597,7 +597,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 18
@@ -626,7 +626,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention, detection (from tags tags)",
+            "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 19
@@ -654,7 +654,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 20
@@ -681,7 +681,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 21
         },
@@ -707,7 +707,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 22
         },
@@ -733,7 +733,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 23
         },
@@ -759,7 +759,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 24
         }
@@ -810,7 +810,7 @@
           "reasons": [
             "closest test: 34% O2 at 71 kPa",
             "burned liquid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 1
         },
@@ -843,7 +843,7 @@
             "2 measured test(s) inside the Lunar base target",
             "closest test: 32% O2 at 52 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 2
         },
@@ -876,7 +876,7 @@
             "29 measured test(s) inside the Lunar base target",
             "closest test: 30% O2 at 50 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 3
         },
@@ -909,7 +909,7 @@
           "reasons": [
             "closest test: 30% O2 at 51 kPa",
             "burned liquid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 4
         },
@@ -942,7 +942,7 @@
           "reasons": [
             "closest test: 40% O2",
             "burned gas fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 5
         },
@@ -975,7 +975,7 @@
           "reasons": [
             "none of its 129 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 6
         },
@@ -1008,7 +1008,7 @@
           "reasons": [
             "none of its 121 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 7
         },
@@ -1040,7 +1040,7 @@
           "reasons": [
             "none of its 109 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 8
         },
@@ -1072,7 +1072,7 @@
           "reasons": [
             "none of its 20 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 9
         },
@@ -1104,7 +1104,7 @@
           "reasons": [
             "none of its 79 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 10
         },
@@ -1136,7 +1136,7 @@
           "reasons": [
             "none of its 9 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 11
         },
@@ -1168,7 +1168,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 12
         },
@@ -1200,7 +1200,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 13
         },
@@ -1232,7 +1232,7 @@
           "reasons": [
             "none of its 435 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 14
         },
@@ -1260,7 +1260,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned dust fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 15
         },
@@ -1287,7 +1287,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 16
@@ -1315,7 +1315,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 17
@@ -1343,7 +1343,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 18
@@ -1372,7 +1372,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention, detection (from tags tags)",
+            "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 19
@@ -1400,7 +1400,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 20
@@ -1427,7 +1427,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 21
         },
@@ -1453,7 +1453,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 22
         },
@@ -1479,7 +1479,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 23
         },
@@ -1505,7 +1505,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 24
         }
@@ -1556,7 +1556,7 @@
           "reasons": [
             "closest test: 34% O2 at 71 kPa",
             "burned liquid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 1
         },
@@ -1589,7 +1589,7 @@
             "2 measured test(s) inside the Pressurized rover target",
             "closest test: 32% O2 at 52 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 2
         },
@@ -1622,7 +1622,7 @@
             "29 measured test(s) inside the Pressurized rover target",
             "closest test: 30% O2 at 50 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 3
         },
@@ -1655,7 +1655,7 @@
           "reasons": [
             "closest test: 30% O2 at 51 kPa",
             "burned liquid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 4
         },
@@ -1688,7 +1688,7 @@
           "reasons": [
             "closest test: 40% O2",
             "burned gas fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 5
         },
@@ -1721,7 +1721,7 @@
           "reasons": [
             "none of its 129 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 6
         },
@@ -1754,7 +1754,7 @@
           "reasons": [
             "none of its 121 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 7
         },
@@ -1786,7 +1786,7 @@
           "reasons": [
             "none of its 109 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 8
         },
@@ -1818,7 +1818,7 @@
           "reasons": [
             "none of its 20 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 9
         },
@@ -1850,7 +1850,7 @@
           "reasons": [
             "none of its 79 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 10
         },
@@ -1882,7 +1882,7 @@
           "reasons": [
             "none of its 9 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 11
         },
@@ -1914,7 +1914,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 12
         },
@@ -1946,7 +1946,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 13
         },
@@ -1978,7 +1978,7 @@
           "reasons": [
             "none of its 435 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 14
         },
@@ -2006,7 +2006,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned dust fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 15
         },
@@ -2033,7 +2033,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 16
@@ -2061,7 +2061,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 17
@@ -2089,7 +2089,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 18
@@ -2118,7 +2118,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention, detection (from tags tags)",
+            "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 19
@@ -2146,7 +2146,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 20
@@ -2173,7 +2173,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 21
         },
@@ -2199,7 +2199,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 22
         },
@@ -2225,7 +2225,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 23
         },
@@ -2251,7 +2251,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 24
         }
@@ -2302,7 +2302,7 @@
           "reasons": [
             "closest test: 34% O2 at 71 kPa",
             "burned liquid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 1
         },
@@ -2335,7 +2335,7 @@
             "2 measured test(s) inside the Mars habitat target",
             "closest test: 32% O2 at 52 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 2
         },
@@ -2368,7 +2368,7 @@
             "29 measured test(s) inside the Mars habitat target",
             "closest test: 30% O2 at 50 kPa",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 3
         },
@@ -2401,7 +2401,7 @@
           "reasons": [
             "closest test: 30% O2 at 51 kPa",
             "burned liquid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 4
         },
@@ -2434,7 +2434,7 @@
           "reasons": [
             "closest test: 40% O2",
             "burned gas fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 5
         },
@@ -2467,7 +2467,7 @@
           "reasons": [
             "none of its 129 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 6
         },
@@ -2500,7 +2500,7 @@
           "reasons": [
             "none of its 121 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 7
         },
@@ -2532,7 +2532,7 @@
           "reasons": [
             "none of its 109 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 8
         },
@@ -2564,7 +2564,7 @@
           "reasons": [
             "none of its 20 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 9
         },
@@ -2596,7 +2596,7 @@
           "reasons": [
             "none of its 79 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 10
         },
@@ -2628,7 +2628,7 @@
           "reasons": [
             "none of its 9 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 11
         },
@@ -2660,7 +2660,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 12
         },
@@ -2692,7 +2692,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 13
         },
@@ -2724,7 +2724,7 @@
           "reasons": [
             "none of its 435 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 14
         },
@@ -2752,7 +2752,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned dust fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 15
         },
@@ -2779,7 +2779,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 16
@@ -2807,7 +2807,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 17
@@ -2835,7 +2835,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 18
@@ -2864,7 +2864,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention, detection (from tags tags)",
+            "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 19
@@ -2892,7 +2892,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 20
@@ -2919,7 +2919,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 21
         },
@@ -2945,7 +2945,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 22
         },
@@ -2971,7 +2971,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 23
         },
@@ -2997,7 +2997,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 24
         }
@@ -3048,7 +3048,7 @@
           "reasons": [
             "none of its 129 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 1
         },
@@ -3081,7 +3081,7 @@
           "reasons": [
             "none of its 121 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 2
         },
@@ -3114,7 +3114,7 @@
           "reasons": [
             "none of its 274 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 3
         },
@@ -3146,7 +3146,7 @@
           "reasons": [
             "none of its 109 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 4
         },
@@ -3178,7 +3178,7 @@
           "reasons": [
             "none of its 20 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 5
         },
@@ -3210,7 +3210,7 @@
           "reasons": [
             "none of its 316 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 6
         },
@@ -3242,7 +3242,7 @@
           "reasons": [
             "none of its 9 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 7
         },
@@ -3274,7 +3274,7 @@
           "reasons": [
             "none of its 79 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 8
         },
@@ -3306,7 +3306,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 9
         },
@@ -3338,7 +3338,7 @@
           "reasons": [
             "none of its 2 tests come near this habitat's O2 and pressure",
             "burned solid fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 10
         },
@@ -3371,7 +3371,7 @@
           "reasons": [
             "none of its 160 tests come near this habitat's O2 and pressure",
             "burned liquid fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 11
         },
@@ -3403,7 +3403,7 @@
           "reasons": [
             "none of its 333 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 12
         },
@@ -3435,7 +3435,7 @@
           "reasons": [
             "none of its 435 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: prevention (from tags tags)"
+            "fire-safety focus: prevention (from team tags)"
           ],
           "rank": 13
         },
@@ -3468,7 +3468,7 @@
           "reasons": [
             "none of its 43 tests come near this habitat's O2 and pressure",
             "burned gas fuels",
-            "fire-safety focus: prevention, suppression (from tags tags)"
+            "fire-safety focus: prevention, suppression (from team tags)"
           ],
           "rank": 14
         },
@@ -3496,7 +3496,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned dust fuels",
-            "fire-safety focus: detection (from tags tags)"
+            "fire-safety focus: detection (from team tags)"
           ],
           "rank": 15
         },
@@ -3523,7 +3523,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 16
@@ -3551,7 +3551,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 17
@@ -3579,7 +3579,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 18
@@ -3608,7 +3608,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention, detection (from tags tags)",
+            "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 19
@@ -3636,7 +3636,7 @@
           },
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
-            "fire-safety focus: prevention (from tags tags)",
+            "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
           "rank": 20
@@ -3663,7 +3663,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 21
         },
@@ -3689,7 +3689,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 22
         },
@@ -3715,7 +3715,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 23
         },
@@ -3741,7 +3741,7 @@
           "reasons": [
             "no O2 or pressure data to compare with this habitat",
             "burned gas fuels",
-            "fire-safety focus: fundamentals only (from tags tags)"
+            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 24
         }
