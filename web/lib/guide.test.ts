@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fallbackReply, isAboutTheRecord, localReply, suggestionsFor } from "./guide";
+import { fallbackReply, isAboutTheRecord, isAboutTheSite, localReply, suggestionsFor } from "./guide";
 import { loadGuideData } from "./guideData";
 
 const data = loadGuideData();
@@ -47,6 +47,7 @@ describe("the guide's own answers", () => {
     expect(reply).toContain("10 or more tests");
     expect(localReply("what does to breathe mean", "/lab/", data)?.text).toContain("lungs");
     expect(localReply("sliders", "/lab/", data)?.text).toContain("box on the map");
+    expect(localReply("why do flames turn round in space?", "/", data)?.text).toContain("round ball");
   });
 
   it("answers a question that only says 'this' from the part of the page in view", () => {
@@ -70,6 +71,14 @@ describe("the guide's own answers", () => {
     for (const question of ["what's the weather like today?", "what is it like outside", "help me with my homework", "how do I bake a cake"]) {
       expect(localReply(question, "/", data, { section: "This is the gap." }), question).toBeNull();
       expect(fallbackReply(question, "/", { section: "This is the gap." }), question).not.toContain("gap");
+    }
+  });
+
+  it("tells questions about the site from questions about nothing it knows", () => {
+    for (const question of ["how was this built?", "who made this site", "what is SI?", "can I download the data"]) expect(isAboutTheSite(question), question).toBe(true);
+    for (const question of ["do you like pizza?", "what's the weather like today?", "tell me a story"]) {
+      expect(isAboutTheSite(question), question).toBe(false);
+      expect(isAboutTheRecord(question), question).toBe(false);
     }
   });
 
