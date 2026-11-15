@@ -28,6 +28,7 @@ COMPARE_FIELDS = (
 store = Store()
 ask_limiter = RateLimiter.from_env()
 retriever = ask_module.Retriever(ask_module.build_chunks(store.investigations, store.raw, store.extracted, store.tests, store.gravity))
+oxygen_levels = ask_module.oxygen_facts(store.investigations)
 _llm = None
 
 try:
@@ -209,6 +210,6 @@ def ask(request: AskRequest, http_request: Request):
         raise HTTPException(status_code=429, detail=f"Too many questions {who}. Try again in {retry_after} s.",
                             headers={"Retry-After": str(retry_after)})
     try:
-        return ask_module.answer(request.question, retriever, llm_chat())
+        return ask_module.answer(request.question, retriever, llm_chat(), oxygen_levels)
     except (ask_module.ChatUnavailable, LLMError) as error:
         raise HTTPException(status_code=503, detail=f"Chat is unavailable right now: {error}") from error
