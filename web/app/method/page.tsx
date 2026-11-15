@@ -1,3 +1,4 @@
+import { stageLabel } from "@/lib/journey";
 import type { Metadata } from "next";
 import { PageIntro, SectionHeader } from "@/components/Section";
 import { loadDataset } from "@/lib/data";
@@ -26,8 +27,8 @@ export default function MethodPage() {
   const w = data.componentWeights;
   return (
     <div className="mx-auto max-w-[1240px] px-4 pt-12 sm:px-6">
-      <PageIntro title="Method">
-        How NASA&apos;s raw records become the rankings and briefs on this site, and where each number comes from.
+      <PageIntro kicker={`${stageLabel("/method/")} · Method`} title="Method">
+        How NASA&apos;s raw records become the scores and briefs on this site.
       </PageIntro>
 
       <SectionHeader title="Pipeline">

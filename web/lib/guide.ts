@@ -50,7 +50,8 @@ const PAGES: { path: string; words: RegExp; label: string; tour: string }[] = [
   { path: "/ask/", words: /\b(ask page|question page)\b/, label: "Open the Ask page", tour: "Ask in plain English. Every answer comes from NASA's records and cites them." },
   { path: "/earth/", words: /\b(earth|spinoffs?|at home)\b/, label: "Open Back on Earth", tour: "Where the same research is used on Earth, grouped by what it is used for." },
   { path: "/method/", words: /\b(method|how it works|sources|scoring)\b/, label: "Open the method", tour: "How the scores, sources and checks work, and which text a model wrote." },
-  { path: "/", words: /\b(overview|home|gap map|map)\b/, label: "Open the overview", tour: "This is the overview. The headline is the gap. Scroll for the map of every test, or open the cabin lab to try a cabin of your own." },
+  { path: "/evidence/", words: /\b(evidence|gap map|map|briefs?|findings)\b/, label: "Open the evidence", tour: "Every test on one map, the gravity comparison, the three briefs and the experiments to fly next." },
+  { path: "/", words: /\b(overview|home|mission brief|start)\b/, label: "Open the mission brief", tour: "This is the mission brief. Scroll to watch a flame lose gravity and to see the gap, then open the cabin lab to try a cabin of your own." },
 ];
 
 function pageFor(pathname: string) {
@@ -80,7 +81,7 @@ export function localReply(message: string, pathname: string, data: GuideData): 
 
   if (HELP_QUESTION.test(text)) {
     const page = pageFor(pathname);
-    const next = page.path === "/lab/" ? PAGES[1] : PAGES[0];
+    const next = page.path === "/lab/" ? PAGES.find((p) => p.path === "/evidence/")! : PAGES[0];
     return { text: page.tour, link: { href: next.path, label: next.label } };
   }
 
@@ -88,7 +89,7 @@ export function localReply(message: string, pathname: string, data: GuideData): 
     const { investigations, records, solidMaxO2, lunarTests } = data.stats;
     return {
       text: `The record holds ${investigations} investigations and ${records.toLocaleString("en-US")} test records. No solid was burned above ${share(solidMaxO2)} oxygen, and ${lunarTests} tests ran at lunar-base conditions, all gas flames.`,
-      link: { href: "/", label: "Open the overview" },
+      link: { href: "/evidence/", label: "Open the evidence" },
     };
   }
 

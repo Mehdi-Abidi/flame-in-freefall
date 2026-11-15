@@ -18,7 +18,7 @@ describe("the guide's own answers", () => {
 
   it("explains the page the visitor is on and points to the next one", () => {
     expect(localReply("What can I do on this page?", "/rank/", data)?.text).toContain("sliders");
-    expect(localReply("help", "/lab/", data)?.link?.href).toBe("/rank/");
+    expect(localReply("help", "/lab/", data)?.link?.href).toBe("/evidence/");
     expect(localReply("help", "/", data)?.link?.href).toBe("/lab/");
   });
 

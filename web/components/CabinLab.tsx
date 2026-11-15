@@ -36,7 +36,7 @@ const HABITAT_GRAVITY: Record<string, GravityId> = { lunar_base: "moon", pressur
 const O2_SCALE = { min: 10, max: 100 };
 const KPA_SCALE = { min: 20, max: 105 };
 const CHIP =
-  "rounded-[4px] border border-rule px-2 py-2 text-[12.5px] text-ink-2 transition-[color,border-color,transform] hover:border-rule-strong hover:text-ink active:translate-y-px data-[state=on]:border-ink data-[state=on]:bg-ink data-[state=on]:text-paper";
+  "rounded-[4px] border border-rule px-2 py-2 text-[12.5px] text-ink-2 transition-[color,border-color,transform] hover:border-rule-strong hover:text-ink active:translate-y-px data-[state=on]:border-accent data-[state=on]:bg-accent data-[state=on]:text-accent-ink";
 
 const share = (fraction: number) => `${Number((fraction * 100).toFixed(1))}%`;
 const points = (fraction: number) => `${Number((fraction * 100).toFixed(1))} points`;
@@ -160,8 +160,9 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
 
   return (
     <div>
-      <header className="mb-8">
-        <h1 className="max-w-[16ch] text-[36px] font-medium leading-[1.04] tracking-[-0.035em] sm:text-[52px]">What NASA has burned in a cabin like yours</h1>
+      <header className="hero-enter mb-8">
+        <p className="eyebrow mb-3 text-accent">Stage 2 of 9 · Cabin lab</p>
+        <h1 className="display max-w-[14ch] text-[52px] sm:text-[80px]">What NASA has burned in a cabin like yours</h1>
         <p className="mt-4 max-w-[52ch] text-[16px] leading-relaxed text-ink-2">
           Counted live from {tests.length} flight tests with measured oxygen. Nothing here is a prediction.
         </p>
@@ -256,7 +257,7 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
 
         <section aria-label="Flight record for this cabin" aria-live="polite" className="panel flex flex-col p-5">
           <p className="eyebrow">NASA flight record</p>
-          <p className="mt-3 text-[44px] font-semibold leading-none tracking-[-0.02em] sm:text-[52px]" style={{ color: verdict.color }}>
+          <p className="display mt-3 text-[64px] sm:text-[88px]" style={{ color: verdict.color }}>
             {verdict.word}
           </p>
           <p className="mt-4 max-w-[40ch] text-[15px] leading-relaxed">{countLine}</p>
@@ -287,8 +288,8 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
       </div>
 
       <section className="mt-12">
-        <h2 className="text-[24px] font-semibold leading-tight tracking-[-0.01em]">What the record says here</h2>
-        <div className="mt-5 grid gap-x-10 gap-y-8 md:grid-cols-3">
+        <h2 className="display text-[36px] sm:text-[46px]">What the record says here</h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
           {(
             [
               ["Prevent", lines.prevent],
@@ -296,8 +297,8 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
               ["Suppress", lines.suppress],
             ] as const
           ).map(([pillar, text]) => (
-            <div key={pillar} className="border-t-2 border-ink pt-4">
-              <h3 className="text-[13px] font-medium text-accent">{pillar}</h3>
+            <div key={pillar} className="panel p-5">
+              <h3 className="display text-[26px] text-accent">{pillar}</h3>
               <p className="mt-2 max-w-[38ch] text-[15px] leading-relaxed">{text}</p>
               {pillar === "Detect" && (
                 <p className="mt-3 flex flex-wrap gap-1">
@@ -314,7 +315,7 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
       </section>
 
       <section className="mt-12">
-        <h2 className="text-[24px] font-semibold leading-tight tracking-[-0.01em]">Closest tests NASA flew</h2>
+        <h2 className="display text-[36px] sm:text-[46px]">Closest tests NASA flew</h2>
         <ol className="mt-5 divide-y divide-rule border-y border-rule">
           {reading.nearest.map((test) => (
             <li key={[test.a, test.o2, test.kpa, test.fuel, test.out].join("|")} className="grid grid-cols-2 items-baseline gap-x-4 gap-y-1 py-3 text-[14px] md:grid-cols-[minmax(0,3fr)_minmax(0,4fr)_minmax(0,3fr)_minmax(0,3fr)_3rem]">
@@ -331,10 +332,10 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
           ))}
         </ol>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link href={habitat ? `/rank/?habitat=${habitat}` : "/rank/"} className="inline-flex h-11 items-center rounded-[4px] bg-ink px-5 text-[14px] font-medium text-paper transition-transform hover:-translate-y-px active:translate-y-px">
+          <Link href={habitat ? `/rank/?habitat=${habitat}` : "/rank/"} className="btn btn-primary">
             Rank the experiments for this cabin
           </Link>
-          <Link href="/ask/" className="inline-flex h-11 items-center rounded-[4px] border border-rule-strong px-5 text-[14px] font-medium transition-[transform,border-color] hover:-translate-y-px hover:border-ink active:translate-y-px">
+          <Link href="/ask/" className="btn btn-ghost">
             Ask the record a question
           </Link>
         </div>

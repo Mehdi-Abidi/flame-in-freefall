@@ -28,7 +28,7 @@ const VERDICT: Record<Verdict, { word: string; color: string }> = {
   thin: { word: "Barely flown", color: "var(--warn-ink)" },
   never: { word: "Never flown", color: "var(--signal)" },
 };
-const HELLO = "I am Orb. Ask me about NASA's fire tests, or name a habitat and I will check its cabin.";
+const HELLO = "I am Orb, your guide. Ask me about NASA's fire tests, or name a habitat and I will check its cabin.";
 const ICON = "inline-flex h-8 w-8 items-center justify-center rounded-[4px] border border-rule text-ink-2 transition-[color,border-color,transform] hover:border-rule-strong hover:text-ink active:translate-y-px";
 const noSubscription = () => () => {};
 
@@ -231,7 +231,7 @@ export function Guide({ data }: { data: GuideData }) {
                     {message.answer && <Answer answer={message.answer} names={data.names} />}
                     {message.error && <p style={{ color: "var(--signal)" }}>{message.error}</p>}
                     {message.link && (
-                      <Link href={message.link.href} onClick={() => setOpen(false)} className="mt-3 inline-flex h-9 items-center rounded-[4px] bg-accent px-3.5 text-[13px] font-medium text-accent-ink transition-transform hover:-translate-y-px active:translate-y-px">
+                      <Link href={message.link.href} onClick={() => setOpen(false)} className="btn btn-primary mt-3 !h-10 !text-[15px]">
                         {message.link.label}
                       </Link>
                     )}
