@@ -184,6 +184,38 @@ def overview_summary(tests: List[dict]) -> str:
     return "\n".join(lines)
 
 
+BASIS_WORDS = {"measured": "measured", "planned": "planned", "nominal_cabin_air": "assumed cabin air",
+               "test_day_list": "per test day", "approximate": "approximate"}
+
+
+def _span(low_high: List[float], scale: float, percent: bool) -> str:
+    low, high = low_high[0] * scale, low_high[1] * scale
+    mark, unit = ("%", " O2") if percent else ("", " kPa")
+    return f"{low:.0f}{mark}{unit}" if round(low) == round(high) else f"{low:.0f}{mark} to {high:.0f}{mark}{unit}"
+
+
+def variation_summary(investigations: List[dict]) -> str:
+    """Complete lists, from the test tables, of which investigations varied oxygen or pressure and which ran at one level."""
+    oxygen, pressure, single = [], [], []
+    for item in sorted(investigations, key=lambda i: int(i["accession"].split("-")[1])):
+        label = f"{item.get('acronym') or item['accession']} ({item['accession']})"
+        varied = item.get("variables_varied") or []
+        o2 = item.get("o2_range")
+        basis = BASIS_WORDS.get(item.get("o2_basis"), item.get("o2_basis") or "")
+        if "oxygen concentration" in varied and o2:
+            oxygen.append(f"{label} {_span(o2, 100, True)}" + (f" ({basis})" if basis else ""))
+        elif o2 and o2[1] - o2[0] < 0.01:
+            single.append(f"{label} about {o2[0] * 100:.0f}% O2" + (f" ({basis})" if basis else ""))
+        if "pressure" in varied and item.get("pressure_kpa_range"):
+            pressure.append(f"{label} {_span(item['pressure_kpa_range'], 1, False)}")
+    lines = [f"Varied-oxygen: the test tables vary oxygen concentration in {len(oxygen)} investigations: {'; '.join(oxygen)}."]
+    if pressure:
+        lines.append(f"Varied-pressure: the test tables vary pressure in {len(pressure)} investigations: {'; '.join(pressure)}.")
+    if single:
+        lines.append(f"Single-oxygen: these ran at one oxygen level and did not vary it: {'; '.join(single)}.")
+    return "\n".join(lines)
+
+
 def build_chunks(investigations: List[dict], raw: Dict[str, dict], extracted: Optional[Dict[str, dict]] = None,
                  tests: Optional[List[dict]] = None, gravity: Optional[List[dict]] = None) -> List[dict]:
     """Searchable passages. The summary comes from investigations.json once D5 merges it, else from extracted.json (S2)."""
@@ -192,7 +224,7 @@ def build_chunks(investigations: List[dict], raw: Dict[str, dict], extracted: Op
         rows_by_accession[row["accession"]].append(row)
     chunks = []
     if tests:
-        text = overview_summary(tests)
+        text = overview_summary(tests) + "\n" + variation_summary(investigations)
         chunks.append({"accession": OVERVIEW, "acronym": "All investigations", "field": "dataset overview",
                        "text": text, "tokens": tokenize(f"dataset overview all investigations tested {text}")})
     for item in investigations:
@@ -249,9 +281,17 @@ def normalize_citations(text: str) -> str:
 ANY_DASH = re.compile("[" + DASHES + "]")
 
 
+WORD_ACRONYMS = {"same", "flex", "spice", "slice", "bass"}
+
+
 def _mentions(text: str, name: str) -> bool:
-    text, name = ANY_DASH.sub("-", text), ANY_DASH.sub("-", name)
-    return re.search(r"(?<![\w-])" + re.escape(name) + r"(?![\w-])", text, re.I) is not None
+    text = ANY_DASH.sub("-", text)
+    flags = 0 if ANY_DASH.sub("-", name).lower() in WORD_ACRONYMS else re.I
+    for variant in {name, name.replace("/", " ")}:
+        variant = ANY_DASH.sub("-", variant)
+        if re.search(r"(?<![\w-])" + re.escape(variant) + r"(?![\w-])", text, flags):
+            return True
+    return False
 
 
 def expand_overview(text: str, sources: List[dict], acronyms: Optional[Dict[str, str]] = None) -> str:
@@ -290,12 +330,18 @@ in square brackets taken from the sources, for example [PSI-69]. Never cite [{ov
 
 
 OXYGEN_WORD = re.compile(r"\b(oxygen|o2|o\u2082)\b", re.I)
-VARIATION_WORD = re.compile(r"\b(vary|varies|varied|varying|variation|variations|different|several|multiple)\b", re.I)
+VARIED_CLAIM = re.compile(
+    r"\b(?:vary|varies|varied|varying|changed|changing)\b(?:\W+\w+){0,3}?\W+(?:oxygen|o2|o\u2082)\b"
+    r"|\b(?:oxygen|o2|o\u2082)\b(?:\W+\w+){0,3}?\W+(?:was|were|is|are)\W+(?:varied|changed)\b"
+    r"|\b(?:different|several|multiple|various|range of)\W+(?:oxygen|o2|o\u2082)\W+(?:levels?|concentrations?|fractions?)\b",
+    re.I)
 CONTRAST_WORD = re.compile(r"cabin air|assumed|did not vary|didn't vary|not varied|without varying|one oxygen|single oxygen|"
-                           r"oxygen(?: \w+){0,3} (?:constant|fixed|unchanged)|(?:constant|fixed) oxygen|"
-                           r"\bat (?:about |around |roughly )?2[01](?:\.\d+)?\s?%", re.I)
-PERCENT_RANGE = re.compile(r"(\d+(?:\.\d+)?)\s?%?\s?(?:to|and|[" + DASHES + r"])\s?(\d+(?:\.\d+)?)\s?%")
-TARGET_WORD = re.compile(r"\b(lunar|moon|mars|martian|habitat|band|target|spacesuit)\b", re.I)
+                           r"oxygen(?: \w+){0,3} (?:constant|fixed|unchanged)|(?:constant|fixed) oxygen", re.I)
+NUMBER = r"(\d+(?:\.\d+)?)"
+JOIN = r"\s?%?\s?(?:to|and|[" + DASHES + r"])\s?"
+OXYGEN_RANGE = re.compile(NUMBER + JOIN + NUMBER + r"\s?%\s?(?:O2|O\u2082|oxygen)\b"
+                          r"|\b(?:oxygen|O2|O\u2082)\b(?:\W+\w+){0,4}?\W+" + NUMBER + JOIN + NUMBER + r"\s?%", re.I)
+TARGET_WORD = re.compile(r"\b(lunar|moon|mars|martian|band|target|spacesuit)\b", re.I)
 RANGE_TOLERANCE = 1.0
 
 OXYGEN_RETRY = """
@@ -324,20 +370,29 @@ def _sentences(text: str) -> List[str]:
     return [part for part in re.split(r"(?<=[.!?])\s+|\n+", text) if part.strip()]
 
 
+def _oxygen_ranges(sentence: str) -> List[Tuple[float, float]]:
+    found = []
+    for groups in OXYGEN_RANGE.findall(sentence):
+        values = [float(g) for g in groups if g]
+        if len(values) == 2:
+            found.append((values[0], values[1]))
+    return found
+
+
 def _sentence_problems(sentence: str, facts: Dict[str, Tuple[str, float, float, bool]]) -> List[str]:
     if not OXYGEN_WORD.search(sentence):
         return []
     named = [(accession, fact) for accession, fact in facts.items() if _mentions(sentence, fact[0])]
     problems = []
-    if VARIATION_WORD.search(sentence) and not CONTRAST_WORD.search(sentence):
+    if VARIED_CLAIM.search(sentence) and not CONTRAST_WORD.search(sentence):
         for accession, (acronym, low, _, single) in named:
             if single:
-                problems.append(f"{accession} {acronym} ran at about {low * 100:.0f}% oxygen")
+                problems.append(f"{accession} {acronym} ran at one oxygen level, about {low * 100:.1f}%")
     if len(named) == 1 and not TARGET_WORD.search(sentence):
         accession, (acronym, low, high, _) = named[0]
-        for start, end in PERCENT_RANGE.findall(sentence):
-            if float(start) < low * 100 - RANGE_TOLERANCE or float(end) > high * 100 + RANGE_TOLERANCE:
-                problems.append(f"{accession} {acronym} ran from {low * 100:.1f}% to {high * 100:.1f}% oxygen, not {start}% to {end}%")
+        for start, end in _oxygen_ranges(sentence):
+            if start < low * 100 - RANGE_TOLERANCE or end > high * 100 + RANGE_TOLERANCE:
+                problems.append(f"{accession} {acronym} ran from {low * 100:.1f}% to {high * 100:.1f}% oxygen, not {start:g}% to {end:g}%")
                 break
     return problems
 
@@ -350,7 +405,12 @@ def oxygen_problems(text: str, facts: Dict[str, Tuple[str, float, float, bool]])
 
 
 def drop_oxygen_claims(text: str, facts: Dict[str, Tuple[str, float, float, bool]]) -> str:
-    return " ".join(sentence for sentence in _sentences(text) if not _sentence_problems(sentence, facts)).strip()
+    lines = []
+    for line in text.split("\n"):
+        kept = [part for part in re.split(r"(?<=[.!?])\s+", line) if part.strip() and not _sentence_problems(part, facts)]
+        if kept or not line.strip():
+            lines.append(" ".join(kept))
+    return re.sub(r"\n{3,}", "\n\n", "\n".join(lines)).strip()
 
 
 def answer(question: str, retriever: Retriever, chat: Optional[Callable[[str, str], str]],
