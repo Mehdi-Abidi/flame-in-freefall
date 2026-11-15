@@ -20,12 +20,13 @@ Lunar habitats are expected to run at 30% oxygen or more, yet no solid-material 
 
 ### What it does
 
-NASA has flown dozens of fire experiments on the International Space Station. Their results sit in PSI as 24 investigations, 21 experimental tables and more than 82,000 raw files. That is hard to search when you are designing a habitat and need to know how a fabric burns at 30% oxygen. The dashboard answers that in five views:
+NASA has flown dozens of fire experiments on the International Space Station. Their results sit in PSI as 24 investigations, 21 experimental tables and more than 82,000 raw files. That is hard to search when you are designing a habitat and need to know how a fabric burns at 30% oxygen. The dashboard answers that in six views:
 
 - **Overview** shows the headline gap. An oxygen ruler compares the oxygen measured for each fuel phase with the lunar band. A gap map plots every test by oxygen and pressure against the habitat boxes. A SAFFIRE-II panel compares the same materials burned in microgravity and at 1 g.
 - **Rank** scores all 24 investigations for the chosen habitat. Sliders weight the three fire-safety pillars (prevention, detection, suppression), and the list re-orders live. Each row shows its score parts and a two-sentence reason. The view lives in the URL, so it can be shared.
 - **Investigations** lets you search and filter all 24. Each one has its own page with a plain summary, the conditions tested, its tests on the map and every publication, all linked to the NASA record.
 - **Compare** puts up to four investigations side by side and marks what differs, for example how FLEX-2 changed the FLEX recipe.
+- **Back on Earth** groups the uses on Earth that 21 investigations name in their NASA records: smoke detectors for submarines and underwater labs, fire safety in mines, aircraft and submarines, and cleaner engines and power plants.
 - **Ask** answers questions such as "Which diluent put out droplet flames at lower oxygen, CO2 or helium?" Every answer cites PSI accession numbers. If the data does not cover a question, the answer says so.
 
 Three findings stand out in the data:

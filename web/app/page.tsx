@@ -87,9 +87,13 @@ export default function OverviewPage() {
           <Link href="/investigations/" className="link-underline font-medium text-ink">
             read each one in plain language
           </Link>
-          , or{" "}
+          ,{" "}
           <Link href="/compare/" className="link-underline font-medium text-ink">
             compare up to four side by side
+          </Link>
+          , or see how the same research{" "}
+          <Link href="/earth/" className="link-underline font-medium text-ink">
+            helps back on Earth
           </Link>
           .
         </p>
