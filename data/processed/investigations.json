@@ -1062,7 +1062,8 @@
     "platform": "ground",
     "hardware": null,
     "pillars": [
-      "prevention"
+      "prevention",
+      "detection"
     ],
     "summary": "This ground study examined soot formation in coflow flames under normal and microgravity, using image analysis and computational modeling to compare temperature and soot distributions. The goal was to reconcile differences between 1‑g and 0‑g flames and improve predictive soot models. Findings support safer fire detection and cleaner combustion for spacecraft and Earth applications.",
     "variables_varied": [],
