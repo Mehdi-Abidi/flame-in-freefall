@@ -80,6 +80,7 @@ const GLOSSARY: { words: RegExp; text: string; live?: boolean }[] = [
   { words: /\b(to breathe|breath\w*|oxygen pressure|partial pressure)\b/, text: "To breathe is the oxygen share times the cabin pressure, compared with sea level. It is how much oxygen your lungs get. A thin cabin with rich oxygen can breathe like Earth." },
   { words: /\b(to burn|oxygen share|richer)\b/, text: "To burn compares the oxygen share with Earth air at 21%. Fire answers to that share, so a 30% cabin burns far more easily than Earth air even when it breathes the same." },
   { words: /\b(sliders?|dials?)\b/, text: "The sliders describe your cabin's air. As you drag them, the box on the map moves, tests fall in or out of it, and the big word updates." },
+  { words: /\b(round|ball|spher\w*|blue)\b.*\bflames?\b|\bflames?\b.*\b(round|ball|spher\w*|blue)\b/, text: "On Earth, hot air rises, and that pulls a flame up into a point. In space nothing rises, so the flame can't stretch and settles into a small round ball. It glows a faint blue and gets its oxygen by slowly drifting in from all sides, which is called diffusion." },
   { words: /\b(microgravity|freefall|free fall|weightless\w*)\b/, text: "In freefall hot gas does not rise, because nothing is lighter than anything else. A flame becomes a sphere and gets its oxygen by diffusion, which changes how fire spreads." },
   { words: /\bdiffusion\b/, text: "Diffusion is oxygen drifting toward the flame on its own, with no rising air to carry it. It is what feeds a flame in freefall." },
   { words: /\b(gravity|flame shape|illustration|teardrop|sphere|orbit)\b/, text: "The gravity buttons change the flame drawing: a teardrop on Earth, a sphere with no gravity. It is only a picture of shape. Every NASA test here ran in orbit, one experiment has a ground comparison, and none exist for Moon or Mars gravity." },
@@ -112,6 +113,14 @@ const RECORD_WORDS =
 export function isAboutTheRecord(message: string): boolean {
   const text = message.toLowerCase();
   return NAMES_AN_EXPERIMENT.test(text) || RECORD_WORDS.test(text);
+}
+
+const SITE_WORDS =
+  /\b(site|website|page|pages|dashboard|platform|app|data|datasets?|scores?|rank|ranking|compare|evidence|method|built|build|made|team|models?|ai|si|llm|rag|sources?|cite[sd]?|citations?|csv|download|export|pipeline|wisp|map|charts?|graphs?|photos?|pictures?|music|lab|sliders?|numbers?|stages?|features?|challenge|hackathon|jcomit)\b/;
+
+/** True when a question is about this dashboard itself: how it works, what it holds, who built it. */
+export function isAboutTheSite(message: string): boolean {
+  return SITE_WORDS.test(message.toLowerCase());
 }
 
 /** What the visitor has in front of them: the note of the part of the page in view, and for pages that change, what they show now. */

@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 import { ask, askGuide, splitCitations, type AskAnswer } from "@/lib/ask";
 import { PHASE_LABEL } from "@/lib/format";
-import { fallbackReply, isAboutTheRecord, localReply, pageName, suggestionsFor, tourFor, type GuideData, type GuideLink, type HabitatReading } from "@/lib/guide";
+import { fallbackReply, isAboutTheRecord, isAboutTheSite, localReply, pageName, suggestionsFor, tourFor, type GuideData, type GuideLink, type HabitatReading } from "@/lib/guide";
 import { screen, sectionInView } from "@/lib/screen";
 import type { Verdict } from "@/lib/lab";
 
@@ -152,12 +152,18 @@ export function Guide({ data }: { data: GuideData }) {
     }
     setBusy(true);
     try {
-      // Wisp's own endpoint is told what is on the screen. An older API has only the strict record search, which is
-      // sent a question only when it is about the subject: a vague one would match some unrelated study.
-      const shown = [context.section || tourFor(pathname), context.live].filter(Boolean).join(" ");
-      const guided = await askGuide(text, pageName(pathname), shown);
-      const searchable = text.length >= 3 && isAboutTheRecord(text);
-      const answer: AskAnswer | null = guided ? { answer: guided.answer, covered: true, citations: guided.citations, sources: [] } : searchable ? await ask(text) : null;
+      // A question about the subject goes to the strict record search first: its answers must cite a retrieved
+      // passage and are checked against the test tables. When that finds nothing, or the question is about the
+      // dashboard itself, Wisp's own endpoint answers, told what is on the screen. A question about neither is
+      // answered here, in Wisp's own voice, and never reaches a model.
+      const onRecord = isAboutTheRecord(text);
+      const strict = onRecord && text.length >= 3 ? await ask(text) : null;
+      let answer: AskAnswer | null = strict?.covered ? strict : null;
+      if (!answer && (onRecord || isAboutTheSite(text))) {
+        const shown = [context.section || tourFor(pathname), context.live].filter(Boolean).join(" ");
+        const guided = await askGuide(text, pageName(pathname), shown);
+        if (guided) answer = { answer: guided.answer, covered: true, citations: guided.citations, sources: [] };
+      }
       if (answer?.covered) {
         add({ answer });
         say(answer.answer);
