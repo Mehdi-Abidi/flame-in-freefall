@@ -10,7 +10,7 @@ import flameEarth from "@/assets/nasa/flame-earth.jpg";
 import flameOrbit from "@/assets/nasa/flame-orbit.jpg";
 import saffireFabric from "@/assets/nasa/saffire-fabric.jpg";
 import saffireBand from "@/assets/nasa/saffire-plexiglass.jpg";
-import { Orb } from "@/components/Guide";
+import { Wisp } from "@/components/Guide";
 import { Reveal } from "@/components/Reveal";
 import { API_URL } from "@/lib/ask";
 import type { HabitatReading } from "@/lib/guide";
@@ -305,9 +305,9 @@ function Tools({ data }: { data: MissionData }) {
         </Reveal>
         <Reveal className="md:col-span-2" delay={0.05}>
           <Link href="/ask/" className="panel bento items-start p-6">
-            <Orb size={84} />
-            <span className="display mt-4 text-[40px]">Ask Orb</span>
-            <span className="mt-2 text-[15px] leading-relaxed text-ink-2">Type or speak. Every answer cites its NASA record.</span>
+            <Wisp size={84} />
+            <span className="display mt-4 text-[40px]">Ask Wisp</span>
+            <span className="mt-2 text-[15px] leading-relaxed text-ink-2">Your guide on every page. Type or speak, and answers from the record cite it.</span>
             <span className="arrow mt-auto pt-6 text-accent" aria-hidden="true">
               →
             </span>

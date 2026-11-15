@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { localReply, suggestionsFor } from "./guide";
+import { localReply, offTopicReply, suggestionsFor } from "./guide";
 import { loadGuideData } from "./guideData";
 
 const data = loadGuideData();
@@ -33,7 +33,31 @@ describe("the guide's own answers", () => {
     expect(text).toContain("22.2%");
   });
 
+  it("answers a greeting, however short, and small talk", () => {
+    expect(localReply("hi", "/", data)?.text).toContain("Wisp");
+    expect(localReply("hello hello hello hello", "/", data)?.text).toContain("Wisp");
+    expect(localReply("Hi, how are you?", "/", data)?.text).toContain("steady");
+    expect(localReply("who are you", "/", data)?.text).toContain("guide");
+  });
+
+  it("explains the words on the screen and adds what the screen shows", () => {
+    const shown = "Cabin lab is set to 35% oxygen at 50 kPa, solid fuels. It reads Never flown: 0 solid tests near this cabin.";
+    const reply = localReply("why does it say never flown?", "/lab/", data, shown)?.text ?? "";
+    expect(reply.startsWith(shown)).toBe(true);
+    expect(reply).toContain("10 or more tests");
+    expect(localReply("what does to breathe mean", "/lab/", data)?.text).toContain("lungs");
+    expect(localReply("sliders", "/lab/", data)?.text).toContain("box on the map");
+    expect(localReply("What is this page showing?", "/lab/", data, shown)?.text).toContain(shown);
+  });
+
+  it("jokes its way back when a question is outside the record", () => {
+    expect(offTopicReply("what is the capital of France?")).toMatch(/flame|gravity|record/);
+    expect(localReply("what is the capital of France?", "/", data)).toBeNull();
+  });
+
   it("leaves science questions to NASA's records", () => {
+    expect(localReply("What did gravity change in SAFFIRE-II?", "/", data)).toBeNull();
+    expect(localReply("What oxygen levels did BASS-II test?", "/", data)).toBeNull();
     expect(localReply("CO2 or helium: which put out flames at lower oxygen?", "/", data)).toBeNull();
     expect(localReply("Which investigations matter for a lunar base?", "/", data)).toBeNull();
     for (const path of ["/", "/lab/", "/rank/"]) for (const s of suggestionsFor(path).slice(0, 2)) expect(localReply(s, path, data)).not.toBeNull();

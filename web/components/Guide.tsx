@@ -4,9 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
-import { ask, splitCitations, type AskAnswer } from "@/lib/ask";
+import { ask, askGuide, splitCitations, type AskAnswer } from "@/lib/ask";
 import { PHASE_LABEL } from "@/lib/format";
-import { localReply, suggestionsFor, type GuideData, type GuideLink, type HabitatReading } from "@/lib/guide";
+import { localReply, offTopicReply, pageName, suggestionsFor, tourFor, type GuideData, type GuideLink, type HabitatReading } from "@/lib/guide";
+import { screen } from "@/lib/screen";
 import type { Verdict } from "@/lib/lab";
 
 type Message =
@@ -28,7 +29,7 @@ const VERDICT: Record<Verdict, { word: string; color: string }> = {
   thin: { word: "Barely flown", color: "var(--warn-ink)" },
   never: { word: "Never flown", color: "var(--signal)" },
 };
-const HELLO = "I am Orb, your guide. Ask me about NASA's fire tests, or name a habitat and I will check its cabin.";
+const HELLO = "I am Wisp, your guide. Ask me what anything on this page means, ask about NASA's fire tests, or name a habitat and I will check its cabin.";
 const ICON = "inline-flex h-8 w-8 items-center justify-center rounded-[4px] border border-rule text-ink-2 transition-[color,border-color,transform] hover:border-rule-strong hover:text-ink active:translate-y-px";
 const noSubscription = () => () => {};
 
@@ -38,8 +39,8 @@ function newRecognizer(): Recognizer | null {
   return Speech ? new Speech() : null;
 }
 
-/** Orb: a flame in freefall with a face. A blue sphere, an orbit ring and one small ember. */
-export function Orb({ size = 44, busy = false }: { size?: number; busy?: boolean }) {
+/** Wisp: a flame in freefall with a face. A blue sphere, an orbit ring and one small ember. */
+export function Wisp({ size = 44, busy = false }: { size?: number; busy?: boolean }) {
   return (
     <svg viewBox="0 0 64 64" width={size} height={size} aria-hidden="true" className="shrink-0">
       <ellipse cx="32" cy="34" rx="29" ry="9" fill="none" stroke="var(--rule-strong)" strokeWidth="1.5" transform="rotate(-18 32 34)" />
@@ -139,10 +140,11 @@ export function Guide({ data }: { data: GuideData }) {
 
   async function send(raw: string) {
     const text = raw.trim();
-    if (busy || text.length < 3) return;
+    if (busy || !text) return;
     setDraft("");
     setMessages((list) => [...list, { id: nextId.current++, from: "you", text }]);
-    const local = localReply(text, pathname, data);
+    const shown = screen.get();
+    const local = localReply(text, pathname, data, shown);
     if (local) {
       add(local);
       say(local.text);
@@ -150,11 +152,19 @@ export function Guide({ data }: { data: GuideData }) {
     }
     setBusy(true);
     try {
-      const answer = await ask(text);
-      add({ answer });
-      say(answer.answer);
+      // Wisp's own endpoint knows the page. An older API has only the strict record search, which needs three characters.
+      const guided = await askGuide(text, pageName(pathname), shown || tourFor(pathname));
+      const answer: AskAnswer | null = guided ? { answer: guided.answer, covered: true, citations: guided.citations, sources: [] } : text.length >= 3 ? await ask(text) : null;
+      if (answer?.covered) {
+        add({ answer });
+        say(answer.answer);
+      } else {
+        const fallback = offTopicReply(text);
+        add({ text: fallback });
+        say(fallback);
+      }
     } catch (error) {
-      add({ error: (error as Error).message });
+      add({ error: (error as Error).message, text: "I cannot reach NASA's records right now. I can still explain anything on this page: ask what a word means." });
     }
     setBusy(false);
   }
@@ -192,7 +202,7 @@ export function Guide({ data }: { data: GuideData }) {
         {open && (
           <motion.section
             role="dialog"
-            aria-label="Orb, the guide"
+            aria-label="Wisp, the guide"
             initial={{ opacity: 0, y: 12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
@@ -200,10 +210,10 @@ export function Guide({ data }: { data: GuideData }) {
             className="panel flex max-h-[min(620px,calc(100svh-104px))] w-[min(400px,calc(100vw-32px))] origin-bottom-right flex-col overflow-hidden"
           >
             <header className="flex items-center gap-3 border-b border-rule px-4 py-3">
-              <Orb size={36} busy={busy} />
+              <Wisp size={36} busy={busy} />
               <div className="mr-auto leading-tight">
-                <p className="text-[15px] font-medium">Orb</p>
-                <p className="text-[12px] text-muted">Guide to NASA&apos;s fire record</p>
+                <p className="display text-[22px]">Wisp</p>
+                <p className="pt-0.5 text-[12px] text-muted">Your guide to this page and NASA&apos;s fire record</p>
               </div>
               <button type="button" onClick={toggleAloud} aria-pressed={aloud} aria-label={aloud ? "Stop reading answers aloud" : "Read answers aloud"} title={aloud ? "Stop reading answers aloud" : "Read answers aloud"} className={`${ICON} ${aloud ? "border-accent text-accent" : ""}`}>
                 <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -226,10 +236,10 @@ export function Guide({ data }: { data: GuideData }) {
                   </p>
                 ) : (
                   <div key={message.id} className="max-w-[92%]">
+                    {message.error && <p className="mb-1 text-[12.5px] text-muted">{message.error}</p>}
                     {message.text && <p>{message.text}</p>}
                     {message.habitat && <HabitatCard habitat={message.habitat} />}
                     {message.answer && <Answer answer={message.answer} names={data.names} />}
-                    {message.error && <p style={{ color: "var(--signal)" }}>{message.error}</p>}
                     {message.link && (
                       <Link href={message.link.href} onClick={() => setOpen(false)} className="btn btn-primary mt-3 !h-10 !text-[15px]">
                         {message.link.label}
@@ -253,16 +263,16 @@ export function Guide({ data }: { data: GuideData }) {
             </div>
 
             <form onSubmit={onSubmit} className="flex items-center gap-2 border-t border-rule p-3">
-              <label htmlFor="orb-question" className="sr-only">
-                Question for Orb
+              <label htmlFor="wisp-question" className="sr-only">
+                Question for Wisp
               </label>
               <input
-                id="orb-question"
+                id="wisp-question"
                 ref={input}
                 value={draft}
                 onChange={(event) => setDraft(event.target.value)}
                 maxLength={500}
-                placeholder={listening ? "Listening" : "Ask about a test, a fuel or a habitat"}
+                placeholder={listening ? "Listening" : "Ask about this page or NASA's tests"}
                 className="h-9 min-w-0 flex-1 rounded-[4px] border border-rule bg-paper px-3 text-[14px] placeholder:text-muted"
               />
               {canListen && (
@@ -273,7 +283,7 @@ export function Guide({ data }: { data: GuideData }) {
                   </svg>
                 </button>
               )}
-              <button type="submit" disabled={busy || draft.trim().length < 3} className="inline-flex h-9 items-center rounded-[4px] bg-ink px-3.5 text-[13px] font-medium text-paper transition-[transform,opacity] hover:-translate-y-px active:translate-y-px disabled:pointer-events-none disabled:opacity-40">
+              <button type="submit" disabled={busy || !draft.trim()} className="inline-flex h-9 items-center rounded-[4px] bg-ink px-3.5 text-[13px] font-medium text-paper transition-[transform,opacity] hover:-translate-y-px active:translate-y-px disabled:pointer-events-none disabled:opacity-40">
                 Send
               </button>
             </form>
@@ -285,11 +295,11 @@ export function Guide({ data }: { data: GuideData }) {
         type="button"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        aria-label={open ? "Close Orb, the guide" : "Ask Orb, the guide"}
+        aria-label={open ? "Close Wisp, the guide" : "Ask Wisp, the guide"}
         className="orb-launcher flex h-14 items-center gap-2 rounded-full border border-rule-strong bg-surface py-1 pl-1.5 pr-4 text-[13px] font-medium shadow-[var(--shadow)] transition-transform hover:-translate-y-0.5 active:translate-y-0"
       >
-        <Orb size={44} busy={busy} />
-        <span>{open ? "Close" : "Ask Orb"}</span>
+        <Wisp size={44} busy={busy} />
+        <span>{open ? "Close" : "Ask Wisp"}</span>
       </button>
     </div>
   );
