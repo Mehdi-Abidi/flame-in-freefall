@@ -451,7 +451,7 @@
             }
           },
           "reasons": [
-            "closest test: 21% O2 at 101 kPa",
+            "closest planned condition: 21% O2 at 101 kPa",
             "burned liquid fuels",
             "fire-safety focus: prevention, suppression (from team tags)"
           ],
@@ -484,7 +484,7 @@
             }
           },
           "reasons": [
-            "closest test: 21% O2",
+            "closest test day: 21% O2",
             "burned gas fuels",
             "fire-safety focus: prevention, suppression (from team tags)"
           ],
@@ -519,6 +519,36 @@
           "rank": 15
         },
         {
+          "accession": "PSI-23",
+          "acronym": "ACME s-Flame",
+          "title": "Advanced Combustion via Microgravity Experiments-Structure and Response of Spherical Diffusion Flames",
+          "score": 0.3728,
+          "components": {
+            "condition_fit": 0.4198,
+            "material_relevance": 0.5,
+            "pillar_match": 0.0,
+            "data_richness": 0.6294
+          },
+          "pillars": [],
+          "pillar_source": "tags",
+          "evidence": {
+            "n_considered": 18,
+            "n_in_target": 0,
+            "n_near": 10,
+            "best": {
+              "o2_mole_fraction": 0.21,
+              "pressure_kpa": 101.3,
+              "closeness": 0.5
+            }
+          },
+          "reasons": [
+            "closest test day: 21% O2 at 101 kPa",
+            "burned gas fuels",
+            "fire-safety focus: fundamentals only (from team tags)"
+          ],
+          "rank": 16
+        },
+        {
           "accession": "PSI-117",
           "acronym": null,
           "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
@@ -544,7 +574,7 @@
             "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 16
+          "rank": 17
         },
         {
           "accession": "PSI-142",
@@ -572,7 +602,7 @@
             "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 17
+          "rank": 18
         },
         {
           "accession": "PSI-62",
@@ -600,7 +630,7 @@
             "fire-safety focus: prevention (from team tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 18
+          "rank": 19
         },
         {
           "accession": "PSI-115",
@@ -629,7 +659,7 @@
             "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
           ],
-          "rank": 19
+          "rank": 20
         },
         {
           "accession": "PSI-60",
@@ -657,32 +687,6 @@
             "no O2 or pressure data to compare with this habitat",
             "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
-          ],
-          "rank": 20
-        },
-        {
-          "accession": "PSI-23",
-          "acronym": "ACME s-Flame",
-          "title": "Advanced Combustion via Microgravity Experiments-Structure and Response of Spherical Diffusion Flames",
-          "score": 0.2259,
-          "components": {
-            "condition_fit": 0.0,
-            "material_relevance": 0.5,
-            "pillar_match": 0.0,
-            "data_richness": 0.6294
-          },
-          "pillars": [],
-          "pillar_source": "tags",
-          "evidence": {
-            "n_considered": 0,
-            "n_in_target": 0,
-            "n_near": 0,
-            "best": null
-          },
-          "reasons": [
-            "no O2 or pressure data to compare with this habitat",
-            "burned gas fuels",
-            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 21
         },
@@ -907,7 +911,7 @@
             }
           },
           "reasons": [
-            "closest test: 30% O2 at 51 kPa",
+            "closest planned condition: 30% O2 at 51 kPa",
             "burned liquid fuels",
             "fire-safety focus: prevention, suppression (from team tags)"
           ],
@@ -940,7 +944,7 @@
             }
           },
           "reasons": [
-            "closest test: 40% O2",
+            "closest test day: 40% O2",
             "burned gas fuels",
             "fire-safety focus: prevention, suppression (from team tags)"
           ],
@@ -1378,6 +1382,36 @@
           "rank": 19
         },
         {
+          "accession": "PSI-23",
+          "acronym": "ACME s-Flame",
+          "title": "Advanced Combustion via Microgravity Experiments-Structure and Response of Spherical Diffusion Flames",
+          "score": 0.2668,
+          "components": {
+            "condition_fit": 0.1169,
+            "material_relevance": 0.5,
+            "pillar_match": 0.0,
+            "data_richness": 0.6294
+          },
+          "pillars": [],
+          "pillar_source": "tags",
+          "evidence": {
+            "n_considered": 18,
+            "n_in_target": 0,
+            "n_near": 0,
+            "best": {
+              "o2_mole_fraction": 0.3,
+              "pressure_kpa": 101.3,
+              "closeness": 0.1504
+            }
+          },
+          "reasons": [
+            "none of its 18 test days come near this habitat's O2 and pressure",
+            "burned gas fuels",
+            "fire-safety focus: fundamentals only (from team tags)"
+          ],
+          "rank": 20
+        },
+        {
           "accession": "PSI-60",
           "acronym": null,
           "title": "Computational and Experimental Analysis of SPICE Data Sets",
@@ -1403,32 +1437,6 @@
             "no O2 or pressure data to compare with this habitat",
             "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
-          ],
-          "rank": 20
-        },
-        {
-          "accession": "PSI-23",
-          "acronym": "ACME s-Flame",
-          "title": "Advanced Combustion via Microgravity Experiments-Structure and Response of Spherical Diffusion Flames",
-          "score": 0.2259,
-          "components": {
-            "condition_fit": 0.0,
-            "material_relevance": 0.5,
-            "pillar_match": 0.0,
-            "data_richness": 0.6294
-          },
-          "pillars": [],
-          "pillar_source": "tags",
-          "evidence": {
-            "n_considered": 0,
-            "n_in_target": 0,
-            "n_near": 0,
-            "best": null
-          },
-          "reasons": [
-            "no O2 or pressure data to compare with this habitat",
-            "burned gas fuels",
-            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 21
         },
@@ -1653,7 +1661,7 @@
             }
           },
           "reasons": [
-            "closest test: 30% O2 at 51 kPa",
+            "closest planned condition: 30% O2 at 51 kPa",
             "burned liquid fuels",
             "fire-safety focus: prevention, suppression (from team tags)"
           ],
@@ -1686,7 +1694,7 @@
             }
           },
           "reasons": [
-            "closest test: 40% O2",
+            "closest test day: 40% O2",
             "burned gas fuels",
             "fire-safety focus: prevention, suppression (from team tags)"
           ],
@@ -2124,6 +2132,36 @@
           "rank": 19
         },
         {
+          "accession": "PSI-23",
+          "acronym": "ACME s-Flame",
+          "title": "Advanced Combustion via Microgravity Experiments-Structure and Response of Spherical Diffusion Flames",
+          "score": 0.2668,
+          "components": {
+            "condition_fit": 0.1169,
+            "material_relevance": 0.5,
+            "pillar_match": 0.0,
+            "data_richness": 0.6294
+          },
+          "pillars": [],
+          "pillar_source": "tags",
+          "evidence": {
+            "n_considered": 18,
+            "n_in_target": 0,
+            "n_near": 0,
+            "best": {
+              "o2_mole_fraction": 0.3,
+              "pressure_kpa": 101.3,
+              "closeness": 0.1504
+            }
+          },
+          "reasons": [
+            "none of its 18 test days come near this habitat's O2 and pressure",
+            "burned gas fuels",
+            "fire-safety focus: fundamentals only (from team tags)"
+          ],
+          "rank": 20
+        },
+        {
           "accession": "PSI-60",
           "acronym": null,
           "title": "Computational and Experimental Analysis of SPICE Data Sets",
@@ -2149,32 +2187,6 @@
             "no O2 or pressure data to compare with this habitat",
             "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
-          ],
-          "rank": 20
-        },
-        {
-          "accession": "PSI-23",
-          "acronym": "ACME s-Flame",
-          "title": "Advanced Combustion via Microgravity Experiments-Structure and Response of Spherical Diffusion Flames",
-          "score": 0.2259,
-          "components": {
-            "condition_fit": 0.0,
-            "material_relevance": 0.5,
-            "pillar_match": 0.0,
-            "data_richness": 0.6294
-          },
-          "pillars": [],
-          "pillar_source": "tags",
-          "evidence": {
-            "n_considered": 0,
-            "n_in_target": 0,
-            "n_near": 0,
-            "best": null
-          },
-          "reasons": [
-            "no O2 or pressure data to compare with this habitat",
-            "burned gas fuels",
-            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 21
         },
@@ -2399,7 +2411,7 @@
             }
           },
           "reasons": [
-            "closest test: 30% O2 at 51 kPa",
+            "closest planned condition: 30% O2 at 51 kPa",
             "burned liquid fuels",
             "fire-safety focus: prevention, suppression (from team tags)"
           ],
@@ -2432,7 +2444,7 @@
             }
           },
           "reasons": [
-            "closest test: 40% O2",
+            "closest test day: 40% O2",
             "burned gas fuels",
             "fire-safety focus: prevention, suppression (from team tags)"
           ],
@@ -2870,6 +2882,36 @@
           "rank": 19
         },
         {
+          "accession": "PSI-23",
+          "acronym": "ACME s-Flame",
+          "title": "Advanced Combustion via Microgravity Experiments-Structure and Response of Spherical Diffusion Flames",
+          "score": 0.2668,
+          "components": {
+            "condition_fit": 0.1169,
+            "material_relevance": 0.5,
+            "pillar_match": 0.0,
+            "data_richness": 0.6294
+          },
+          "pillars": [],
+          "pillar_source": "tags",
+          "evidence": {
+            "n_considered": 18,
+            "n_in_target": 0,
+            "n_near": 0,
+            "best": {
+              "o2_mole_fraction": 0.3,
+              "pressure_kpa": 101.3,
+              "closeness": 0.1504
+            }
+          },
+          "reasons": [
+            "none of its 18 test days come near this habitat's O2 and pressure",
+            "burned gas fuels",
+            "fire-safety focus: fundamentals only (from team tags)"
+          ],
+          "rank": 20
+        },
+        {
           "accession": "PSI-60",
           "acronym": null,
           "title": "Computational and Experimental Analysis of SPICE Data Sets",
@@ -2895,32 +2937,6 @@
             "no O2 or pressure data to compare with this habitat",
             "fire-safety focus: prevention, detection (from team tags)",
             "ground study, no flight tests of its own"
-          ],
-          "rank": 20
-        },
-        {
-          "accession": "PSI-23",
-          "acronym": "ACME s-Flame",
-          "title": "Advanced Combustion via Microgravity Experiments-Structure and Response of Spherical Diffusion Flames",
-          "score": 0.2259,
-          "components": {
-            "condition_fit": 0.0,
-            "material_relevance": 0.5,
-            "pillar_match": 0.0,
-            "data_richness": 0.6294
-          },
-          "pillars": [],
-          "pillar_source": "tags",
-          "evidence": {
-            "n_considered": 0,
-            "n_in_target": 0,
-            "n_near": 0,
-            "best": null
-          },
-          "reasons": [
-            "no O2 or pressure data to compare with this habitat",
-            "burned gas fuels",
-            "fire-safety focus: fundamentals only (from team tags)"
           ],
           "rank": 21
         },
@@ -3370,7 +3386,7 @@
             }
           },
           "reasons": [
-            "none of its 160 tests come near this habitat's O2 and pressure",
+            "none of its 160 planned conditions come near this habitat's O2 and pressure",
             "burned liquid fuels",
             "fire-safety focus: prevention, suppression (from team tags)"
           ],
@@ -3467,7 +3483,7 @@
             }
           },
           "reasons": [
-            "none of its 43 tests come near this habitat's O2 and pressure",
+            "none of its 43 test days come near this habitat's O2 and pressure",
             "burned gas fuels",
             "fire-safety focus: prevention, suppression (from team tags)"
           ],
@@ -3657,13 +3673,17 @@
           "pillars": [],
           "pillar_source": "tags",
           "evidence": {
-            "n_considered": 0,
+            "n_considered": 18,
             "n_in_target": 0,
             "n_near": 0,
-            "best": null
+            "best": {
+              "o2_mole_fraction": 0.3,
+              "pressure_kpa": 101.3,
+              "closeness": 0.0
+            }
           },
           "reasons": [
-            "no O2 or pressure data to compare with this habitat",
+            "none of its 18 test days come near this habitat's O2 and pressure",
             "burned gas fuels",
             "fire-safety focus: fundamentals only (from team tags)"
           ],

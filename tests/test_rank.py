@@ -148,9 +148,18 @@ class ComponentTests(unittest.TestCase):
         self.assertAlmostEqual(fit["fit"], 0.75)
 
     def test_rows_without_usable_values_are_skipped(self):
-        rows = [row(None, 60), row("abc", 60), row(0.35, 60, record_type="test_day"), row(0.35, 60, o2_source="")]
+        rows = [row(None, 60), row("abc", 60), row(0.35, 60, record_type="session"), row(0.35, 60, o2_source="")]
         self.assertEqual(condition_fit(rows, LUNAR, TOLERANCE)["n_considered"], 0)
         self.assertEqual(condition_fit([], LUNAR, TOLERANCE)["fit"], 0.0)
+
+    def test_test_days_with_conditions_count_and_are_named_as_test_days(self):
+        fit = condition_fit([row(0.30, 101.3, record_type="test_day", o2_source="approximate", pressure_source="nominal_1atm")],
+                            LUNAR, TOLERANCE)
+        self.assertEqual(fit["n_considered"], 1)
+        self.assertGreater(fit["fit"], 0)
+        self.assertEqual(fit["unit"], "test day")
+        self.assertEqual(condition_fit([row(0.35, 60, record_type="condition_matrix")], LUNAR, TOLERANCE)["unit"], "planned condition")
+        self.assertEqual(condition_fit([row(0.35, 60), row(0.3, 60, record_type="condition_matrix")], LUNAR, TOLERANCE)["unit"], "record")
 
     def test_material_relevance(self):
         self.assertEqual(material_relevance(["gas", "solid"]), 1.0)

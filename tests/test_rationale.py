@@ -57,10 +57,17 @@ class ValidationTests(unittest.TestCase):
             "one sentence": ("FLEX is first.", "needs exactly 2"),
             "too long": (" ".join(["word"] * 40) + ". " + " ".join(["word"] * 40) + ".", "limit is 70"),
             "empty": ("", "empty"),
+            "field superlative": ("FLEX ranks first with the strongest data among all studies. It burned liquids.", "lead the whole field"),
         }
         for name, (text, expected) in cases.items():
             with self.subTest(name):
                 self.assertTrue(any(expected in p for p in validate(text, FACTS)), validate(text, FACTS))
+
+    def test_pressure_talk_needs_pressure_on_record(self):
+        facts = {**FACTS, "conditions_on_record": "oxygen per test day"}
+        self.assertTrue(any("no pressure is on record" in p for p in
+                            validate("FLEX ranks first because its oxygen and pressure fit stands out. It burned liquids.", facts)))
+        self.assertEqual(validate("FLEX ranks first on suppression. It lacks pressure data.", facts), [])
 
     def test_negated_inside_statement_is_allowed(self):
         self.assertEqual(validate("FLEX ranks first on suppression. None of its tests were inside the target box.", FACTS), [])
@@ -179,11 +186,18 @@ class GenerateTests(unittest.TestCase):
         self.assertEqual(output["pressurized_rover"]["PSI-69"]["text"], output["lunar_base"]["PSI-69"]["text"])
 
     def test_unchanged_facts_are_kept_and_force_rewrites(self):
-        first, _ = generate(self.rankings(), {}, lambda f: ("A. B.", "model", []), model_id="m")
+        first, _ = generate(self.rankings(), {}, lambda f: (f"{f['investigation']} ranks well on its record. It burned fuels.", "model", []),
+                            model_id="m")
         _, stats = generate(self.rankings(), {}, lambda f: ("C. D.", "model", []), existing=first, model_id="m")
         self.assertEqual(stats["kept"], 4)
         _, forced = generate(self.rankings(), {}, lambda f: ("C. D.", "model", []), existing=first, model_id="m", force=True)
         self.assertEqual(forced["model"], 4)
+
+    def test_kept_model_text_that_fails_a_newer_check_is_rewritten(self):
+        first, _ = generate(self.rankings(), {}, lambda f: (f"{f['investigation']} has the most data of all studies. It burned fuels.", "model", []),
+                            model_id="m")
+        _, stats = generate(self.rankings(), {}, lambda f: ("C. D.", "template", []), existing=first, model_id="m")
+        self.assertEqual(stats["kept"], 0)
 
     def test_templates_are_upgraded_when_a_model_is_available(self):
         self.assertFalse(is_reusable({"fingerprint": "x", "source": "template"}, "x", "openai/gpt-oss-120b", False))

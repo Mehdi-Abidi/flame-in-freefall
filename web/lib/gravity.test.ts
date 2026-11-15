@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { loadDataset } from "./data";
-import { burnExtent } from "./gravity";
+import { burnExtent, referencedNotes } from "./gravity";
 
 describe("burnExtent", () => {
   it("reads the cells NASA's SAFFIRE-II table uses", () => {
@@ -62,5 +62,14 @@ describe("E-FIELD facts quoted in the partial-gravity note", () => {
 
   it("has no points on the gap map", () => {
     expect(data.points.filter((p) => p.a === "PSI-22")).toHaveLength(0);
+  });
+});
+
+describe("SAFFIRE-II table notes", () => {
+  it("shows NASA's notes that the burn cells refer to", () => {
+    const data = loadDataset();
+    const shown = referencedNotes(data.gravity, data.gravityNotes);
+    expect(shown.map((n) => n.note)).toEqual(["2", "3", "4"]);
+    expect(shown[0].text).toContain("Nomex was not ignited");
   });
 });

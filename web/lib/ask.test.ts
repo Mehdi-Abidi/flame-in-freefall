@@ -25,6 +25,11 @@ describe("ask", () => {
     await expect(ask("q", reply(422, { detail: [{ msg: "too short" }] }))).rejects.toThrow("3 to 500 characters");
   });
 
+  it("explains an unreadable answer instead of showing a parser error", async () => {
+    const garbled = (async () => new Response("<html>oops</html>", { status: 200 })) as unknown as typeof fetch;
+    await expect(ask("q?", garbled)).rejects.toThrow("could not be read");
+  });
+
   it("reports network failures", async () => {
     const down = (async () => {
       throw new TypeError("Failed to fetch");

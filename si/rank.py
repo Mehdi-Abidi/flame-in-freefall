@@ -159,7 +159,7 @@ def parse_weights(value=None):
     return weights
 
 
-CONDITION_RECORD_TYPES = {"test", "condition_matrix", "test_day_condition"}
+CONDITION_RECORD_TYPES = {"test", "condition_matrix", "test_day_condition", "test_day"}
 BASIS_WEIGHT = {
     "measured": 1.0, "approximate": 0.7, "test_day_list": 0.7, "planned": 0.6,
     "nominal_cabin_air": 0.5, "nominal_cabin": 0.5, "nominal_1atm": 0.5,
@@ -175,6 +175,16 @@ def to_number(text):
     return number if math.isfinite(number) else None
 
 
+def record_unit(kinds):
+    if kinds <= {"test"}:
+        return "test"
+    if kinds <= {"condition_matrix"}:
+        return "planned condition"
+    if kinds <= {"test_day", "test_day_condition"}:
+        return "test day"
+    return "record"
+
+
 def box_distance(value, box, tolerance):
     """0 inside the box, otherwise the gap to the nearest edge measured in tolerances."""
     if value < box[0]:
@@ -187,7 +197,7 @@ def box_distance(value, box, tolerance):
 def condition_fit(rows, scenario, tolerance):
     """How close an investigation's tested O2 and pressure come to a habitat, from 0 (nowhere near) to 1.
     n_near counts tests whose conditions are close, whatever their evidence. The fit itself is scaled by evidence strength."""
-    scored = []
+    scored, kinds = [], set()
     for row in rows:
         if row.get("record_type") not in CONDITION_RECORD_TYPES:
             continue
@@ -206,8 +216,9 @@ def condition_fit(rows, scenario, tolerance):
             closeness = nearness * BASIS_WEIGHT[o2_basis]
             inside = False
         scored.append((closeness, inside, o2, pressure, nearness))
+        kinds.add(row.get("record_type"))
     if not scored:
-        return {"fit": 0.0, "n_considered": 0, "n_in_target": 0, "n_near": 0, "best": None}
+        return {"fit": 0.0, "n_considered": 0, "n_in_target": 0, "n_near": 0, "best": None, "unit": "test"}
     best = max(scored, key=lambda item: item[0])
     mean = sum(item[0] for item in scored) / len(scored)
     return {
@@ -216,6 +227,7 @@ def condition_fit(rows, scenario, tolerance):
         "n_in_target": sum(1 for item in scored if item[1]),
         "n_near": sum(1 for item in scored if item[4] >= 0.6),
         "best": {"o2_mole_fraction": best[2], "pressure_kpa": best[3], "closeness": round(best[0], 4)},
+        "unit": record_unit(kinds),
     }
 
 
@@ -325,9 +337,9 @@ def reasons_for(investigation, fit, phases, pillars, pillar_source, scenario):
     best = fit["best"]
     if best and best["closeness"] >= 0.3:
         where = _percent(best["o2_mole_fraction"]) + (f" at {best['pressure_kpa']:.0f} kPa" if best["pressure_kpa"] is not None else "")
-        reasons.append(f"closest test: {where}")
+        reasons.append(f"closest {fit.get('unit', 'test')}: {where}")
     elif fit["n_considered"]:
-        reasons.append(f"none of its {fit['n_considered']} tests come near this habitat's O2 and pressure")
+        reasons.append(f"none of its {fit['n_considered']} {fit.get('unit', 'test')}s come near this habitat's O2 and pressure")
     else:
         reasons.append("no O2 or pressure data to compare with this habitat")
     if phases:

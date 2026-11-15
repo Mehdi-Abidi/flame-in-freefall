@@ -63,7 +63,7 @@ export default function OverviewPage() {
           on Earth but barely at all in microgravity, while cotton-fiberglass fabric burned its full length in both. Screening materials at 1 g can
           mislead in both directions.
         </SectionHeader>
-        <GravityTable rows={data.gravity} />
+        <GravityTable rows={data.gravity} notes={data.gravityNotes} />
         <PartialGravityNote efield={efield} efieldOnMap={efieldOnMap} />
       </section>
 

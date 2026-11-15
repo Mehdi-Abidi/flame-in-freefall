@@ -12,6 +12,7 @@ const NAV = [
   { href: "/investigations/", label: "Investigations" },
   { href: "/compare/", label: "Compare" },
   { href: "/ask/", label: "Ask" },
+  { href: "/earth/", label: "On Earth" },
   { href: "/method/", label: "Method" },
 ];
 
@@ -32,7 +33,7 @@ export function SiteHeader() {
             <span className="eyebrow block pt-1 text-[11px]">PSI · Combustion</span>
           </span>
         </Link>
-        <nav aria-label="Main" className="hidden flex-1 items-center gap-1 md:flex">
+        <nav aria-label="Main" className="hidden flex-1 items-center gap-1 lg:flex">
           {NAV.map((item) => {
             const active = isActive(pathname, item.href);
             return (
@@ -55,7 +56,7 @@ export function SiteHeader() {
           <ThemeToggle />
         </div>
       </div>
-      <nav aria-label="Main mobile" className="flex gap-1 overflow-x-auto border-t border-rule px-3 py-1.5 [scrollbar-width:none] md:hidden">
+      <nav aria-label="Main mobile" className="flex gap-1 overflow-x-auto border-t border-rule px-3 py-1.5 [scrollbar-width:none] lg:hidden">
         {NAV.map((item) => {
           const active = isActive(pathname, item.href);
           return (
