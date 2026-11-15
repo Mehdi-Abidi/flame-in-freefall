@@ -97,7 +97,7 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 
 | Page | What it does |
 |---|---|
-| Overview | The 22% versus 30% headline, an oxygen ruler of measured oxygen per fuel phase against the lunar band, the gap map (every test by O2 and pressure with habitat boxes) and the SAFFIRE-II gravity comparison |
+| Overview | The 22% versus 30% headline, four data-backed experiments to run next, an oxygen ruler of measured oxygen per fuel phase against the lunar band, the gap map (every test by O2 and pressure with habitat boxes) and the SAFFIRE-II gravity comparison |
 | Rank | Habitat switcher and pillar sliders. The list re-orders live, arrows show movement, each row opens its evidence. State lives in the URL, so a view can be shared |
 | Investigations | Search and filter all 24, then a page per investigation with summary, conditions, its tests on the map and every publication |
 | Compare | Up to four side by side, differences marked |

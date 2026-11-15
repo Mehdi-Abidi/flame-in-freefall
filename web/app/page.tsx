@@ -2,11 +2,13 @@ import Link from "next/link";
 import { BriefCards } from "@/components/BriefCards";
 import { GapMap } from "@/components/GapMap";
 import { GravityTable } from "@/components/GravityTable";
+import { NextTests } from "@/components/NextTests";
 import { OxygenRuler } from "@/components/OxygenRuler";
 import { PartialGravityNote } from "@/components/PartialGravityNote";
 import { SectionHeader } from "@/components/Section";
 import { loadDataset } from "@/lib/data";
 import { compact, pct } from "@/lib/format";
+import { nextTests } from "@/lib/nextTests";
 
 export default function OverviewPage() {
   const data = loadDataset();
@@ -76,6 +78,14 @@ export default function OverviewPage() {
           <BriefCards briefs={data.briefs} names={names} />
         </section>
       )}
+
+      <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
+        <SectionHeader title="What to test next">
+          Four experiments that would close the gaps above, each built on investigations already in PSI. The evidence for each comes
+          straight from the test tables.
+        </SectionHeader>
+        <NextTests tests={nextTests(data)} names={names} />
+      </section>
 
       <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
         <p className="max-w-[62ch] border-t border-rule pt-8 text-[17px] leading-relaxed text-ink-2">

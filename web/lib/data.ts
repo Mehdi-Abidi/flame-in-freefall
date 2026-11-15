@@ -277,6 +277,16 @@ export function loadDataset(): Dataset {
     return r.record_type === "test" && r.o2_source === "measured" && o2 !== null && kpa !== null && o2 >= 0.3 && kpa <= 70.3;
   });
 
+  const flexOut = rows
+    .filter((r) => r.accession === "PSI-69" && r.o2_source === "measured" && (r.outcome ?? "").includes("extinction"))
+    .map((r) => num(r.o2_mole_fraction))
+    .filter((v): v is number => v !== null);
+  const flexExtinction = {
+    count: flexOut.length,
+    lowestO2: flexOut.length ? Math.min(...flexOut) : 0,
+    atLunarO2: flexOut.filter((v) => v >= 0.3).length,
+  };
+
   const measured = rows
     .map((r) => ({ phase: r.fuel_phase as Phase, o2: num(r.o2_mole_fraction), source: r.o2_source }))
     .filter((r): r is { phase: Phase; o2: number; source: string } => r.source === "measured" && r.o2 !== null);
@@ -304,6 +314,7 @@ export function loadDataset(): Dataset {
       solidMaxO2: solid.length ? Math.max(...solid) : 0,
       lunarTests: lunar.length,
       lunarPhases: [...new Set(lunar.map((r) => r.fuel_phase as Phase))],
+      flexExtinction,
       measuredRows: measured.length,
       oxygenByPhase,
     },
