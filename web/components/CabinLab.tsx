@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import * as Slider from "@radix-ui/react-slider";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
-import { motion } from "motion/react";
 import { HABITAT_SHORT_LABEL, PHASE_COLOR } from "@/lib/format";
+import { Flame } from "@/components/Flame";
 import { burnExtent } from "@/lib/gravity";
-import { GRAVITIES, LAB_PHASES, TOLERANCE, breathing, flamePath, presetFor, readCabin, richer, type GravityId, type LabTest, type Reading, type Verdict } from "@/lib/lab";
+import { GRAVITIES, LAB_PHASES, TOLERANCE, breathing, presetFor, readCabin, richer, type GravityId, type LabTest, type Reading, type Verdict } from "@/lib/lab";
 import type { GravityRow, Phase, Scenario } from "@/lib/types";
 
 interface Props {
@@ -27,7 +27,7 @@ const PHASE_COPY: Record<string, { label: string; things: string }> = {
 const VERDICT: Record<Verdict, { word: string; color: string; fill: number }> = {
   flown: { word: "Flown", color: "var(--good)", fill: 0.92 },
   thin: { word: "Barely flown", color: "var(--warn-ink)", fill: 0.5 },
-  never: { word: "Never flown", color: "var(--accent)", fill: 0.1 },
+  never: { word: "Never flown", color: "var(--signal)", fill: 0.1 },
 };
 
 const HABITAT_GRAVITY: Record<string, GravityId> = { lunar_base: "moon", pressurized_rover: "moon", mars_habitat: "mars" };
@@ -94,35 +94,6 @@ function Dial({ id, label, value, display, scale, onChange }: { id: string; labe
   );
 }
 
-function Flame({ g, label, verdict, pulse }: { g: number; label: string; verdict: Verdict; pulse: number }) {
-  const stretch = Math.sqrt(g);
-  const warm = Math.round(stretch * 100);
-  const { fill, word } = VERDICT[verdict];
-  const outer = `color-mix(in oklab, var(--s2) ${warm}%, var(--s1))`;
-  const core = `color-mix(in oklab, var(--s4) ${warm}%, var(--surface))`;
-  const spring = { type: "spring" as const, stiffness: 120, damping: 18 };
-  const arrow = 64 * g;
-  return (
-    <svg viewBox="0 -24 200 264" role="img" aria-label={`Flame drawn for ${label} gravity. ${word}.`} className="mx-auto h-[250px] w-auto max-w-full">
-      <motion.g initial={false} animate={{ y: 10 * stretch }} transition={spring}>
-        <g className={pulse % 2 ? "flame-breathe-a" : "flame-breathe-b"}>
-          <motion.path initial={false} animate={{ d: flamePath(g, 1.2) }} transition={spring} fill={outer} fillOpacity={0.06 + fill * 0.1} />
-          <motion.path initial={false} animate={{ d: flamePath(g) }} transition={spring} fill={outer} fillOpacity={fill} stroke={outer} strokeWidth={1.5} strokeDasharray={verdict === "never" ? "4 5" : undefined} />
-          <motion.path initial={false} animate={{ d: flamePath(g, 0.5) }} transition={spring} fill={core} fillOpacity={Math.min(1, fill + 0.08)} />
-        </g>
-      </motion.g>
-      <path d="M62 210h76" stroke="var(--ink)" strokeWidth="3" strokeLinecap="round" />
-      <path d="M100 210v18" stroke="var(--rule-strong)" strokeWidth="1.5" />
-      <g stroke="var(--muted)" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        {g === 0 ? <circle cx="178" cy="120" r="3.5" /> : <path d={`M178 100v${arrow.toFixed(1)}m-4.5 -6l4.5 6l4.5 -6`} />}
-      </g>
-      <text x="178" y="92" textAnchor="middle" className="mono" fontSize="10" fill="var(--muted)">
-        {g} g
-      </text>
-    </svg>
-  );
-}
-
 function Ruler({ range, o2, color }: { range: [number, number] | null; o2: number; color: string }) {
   const x = (fraction: number) => ((Math.min(1, Math.max(0.1, fraction)) * 100 - O2_SCALE.min) / (O2_SCALE.max - O2_SCALE.min)) * 300;
   return (
@@ -131,7 +102,7 @@ function Ruler({ range, o2, color }: { range: [number, number] | null; o2: numbe
         <path d="M0 13h300" stroke="var(--rule-strong)" strokeWidth="1" />
         {range && <rect x={x(range[0])} y="9" width={Math.max(2, x(range[1]) - x(range[0]))} height="8" rx="2" fill={color} />}
         <path d={`M${x(0.21)} 5v16`} stroke="var(--muted)" strokeWidth="1" strokeDasharray="2 2" />
-        <path d={`M${x(o2)} 1v24`} stroke="var(--accent)" strokeWidth="2.5" />
+        <path d={`M${x(o2)} 1v24`} stroke="var(--signal)" strokeWidth="2.5" />
       </svg>
       <div className="mono mt-1 flex justify-between text-[10.5px] text-muted">
         <span>10% O2</span>
@@ -181,8 +152,7 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow }: Props) {
   return (
     <div>
       <header className="mb-8">
-        <p className="eyebrow mb-3">Cabin lab</p>
-        <h1 className="max-w-[18ch] text-[34px] font-semibold leading-[1.06] tracking-[-0.02em] sm:text-[48px]">Set a cabin. See what NASA burned there.</h1>
+        <h1 className="max-w-[16ch] text-[36px] font-medium leading-[1.04] tracking-[-0.035em] sm:text-[52px]">What NASA has burned in a cabin like yours</h1>
         <p className="mt-4 max-w-[52ch] text-[16px] leading-relaxed text-ink-2">
           Counted live from {tests.length} flight tests with measured oxygen. Nothing here is a prediction.
         </p>
@@ -250,7 +220,7 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow }: Props) {
         <section aria-label="Flame and gravity" className="panel flex flex-col p-5">
           <p className="eyebrow">Flame shape · illustration</p>
           <div className="flex flex-1 items-center py-2">
-            <Flame g={field.g} label={field.label} verdict={reading.verdict} pulse={pulse} />
+            <Flame g={field.g} label={field.label} fill={verdict.fill} dashed={reading.verdict === "never"} note={verdict.word} pulse={pulse} />
           </div>
           <ToggleGroup.Root
             type="single"
