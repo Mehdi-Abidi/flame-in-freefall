@@ -200,8 +200,11 @@ def words(text):
 
 
 def is_grounded(item, haystack_words):
+    """True when any word of the item is in the source. A plural matches its singular: NASA writes
+    "two anemometer", the model writes "anemometers"."""
     item_words = words(item)
-    return not item_words or bool(item_words & haystack_words)
+    forms = item_words | {w[:-1] for w in item_words if w.endswith("s")} | {w + "s" for w in item_words}
+    return not item_words or bool(forms & haystack_words)
 
 
 DETECTION_TERMS = ("smoke", "aerosol", "particle", "particulate", "detector", "detection", "dust")
