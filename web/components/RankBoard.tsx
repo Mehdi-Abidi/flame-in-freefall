@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { BASIS_LABEL, HABITAT_SHORT_LABEL, PILLAR_LABEL, pct } from "@/lib/format";
-import { COMPONENT_ORDER, DEFAULT_WEIGHTS, PILLARS, rankFor, sanitizeWeights } from "@/lib/rank";
+import { COMPONENT_ORDER, DEFAULT_WEIGHTS, MAX_WEIGHT, PILLARS, rankFor, sanitizeWeights } from "@/lib/rank";
 import type { Components, Investigation, Scenario, Weights } from "@/lib/types";
 
 const COMPONENT_META: Record<keyof Components, { label: string; color: string; help: string }> = {
@@ -135,7 +135,7 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
                 <Slider.Root
                   value={[weights[pillar]]}
                   min={0}
-                  max={3}
+                  max={MAX_WEIGHT}
                   step={0.5}
                   onValueChange={([value]) => update({ weights: { ...weights, [pillar]: value } })}
                   aria-labelledby={`w-${pillar}`}
