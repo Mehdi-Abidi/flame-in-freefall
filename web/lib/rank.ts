@@ -12,11 +12,13 @@ export interface RankedRow {
   contributions: Components;
 }
 
+export const MAX_WEIGHT = 3;
+
 export function sanitizeWeights(weights: Partial<Weights>): Weights {
   const clean = { ...DEFAULT_WEIGHTS };
   for (const pillar of PILLARS) {
     const value = Number(weights[pillar]);
-    clean[pillar] = Number.isFinite(value) && value >= 0 ? value : DEFAULT_WEIGHTS[pillar];
+    clean[pillar] = Number.isFinite(value) && value >= 0 ? Math.min(value, MAX_WEIGHT) : DEFAULT_WEIGHTS[pillar];
   }
   return PILLARS.some((p) => clean[p] > 0) ? clean : { ...DEFAULT_WEIGHTS };
 }

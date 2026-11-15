@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { loadDataset } from "./data";
-import { DEFAULT_WEIGHTS, pillarMatch, rankFor, sanitizeWeights } from "./rank";
+import { DEFAULT_WEIGHTS, MAX_WEIGHT, pillarMatch, rankFor, sanitizeWeights } from "./rank";
 
 const data = loadDataset();
 
@@ -41,5 +41,11 @@ describe("weights", () => {
       const total = Object.values(row.contributions).reduce((sum, v) => sum + v, 0);
       expect(total).toBeCloseTo(row.score, 3);
     }
+  });
+});
+
+describe("weights from the URL", () => {
+  it("caps a weight at the slider maximum", () => {
+    expect(sanitizeWeights({ prevention: 9, detection: 1, suppression: 1 }).prevention).toBe(MAX_WEIGHT);
   });
 });

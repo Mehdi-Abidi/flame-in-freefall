@@ -356,7 +356,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
         <figcaption className="mt-3 text-[12px] text-muted">
           Each dot is one test from a NASA PSI experimental table. Filled: oxygen and pressure both measured. Ring with a centre: oxygen measured,
           pressure assumed. Hollow: assumed cabin air or a planned test matrix. Boxes are habitat targets from the challenge text.{" "}
-          {visible.length.toLocaleString()} tests shown.
+          {visible.length.toLocaleString("en-US")} tests shown.
         </figcaption>
       )}
     </figure>

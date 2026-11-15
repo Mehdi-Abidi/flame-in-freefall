@@ -36,7 +36,7 @@ export default function OverviewPage() {
                 <span className="text-ink-2"> or read the gap map below.</span>
               </p>
               <p className="mt-8 max-w-[52ch] text-[13px] leading-relaxed text-muted">
-                Built from {data.stats.records.toLocaleString()} test records. The {compact(data.stats.rawFiles)} raw files, {data.stats.rawTerabytes.toFixed(1)} TB
+                Built from {data.stats.records.toLocaleString("en-US")} test records. The {compact(data.stats.rawFiles)} raw files, {data.stats.rawTerabytes.toFixed(1)} TB
                 of video and sensor data, stay on NASA&apos;s servers and are linked, not copied.
               </p>
             </div>
