@@ -99,8 +99,8 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 |---|---|
 | Mission brief | The home page, told as one scroll. A hero with the headline gap, a scroll scene where NASA's candle flame loses gravity and turns from a teardrop into a blue dome, the 22.2% versus 30% gap, live verdicts for three cabins, the five-step data pipeline with the number each step produced, and a grid of the tools |
 | Evidence | The oxygen ruler, the gap map of every test by oxygen and pressure with habitat boxes, the SAFFIRE-II gravity comparison, the three reviewed briefs, a FLEX comparison of how droplet flames went out by diluent, four data-backed experiments to fly next, and a button that downloads the whole normalized test table as CSV |
-| Cabin lab | Set oxygen, pressure, fuel and gravity for a cabin of your own. It counts the flight tests near that cabin, says how they ended and how far the cabin sits past the record, and draws the flame solid only where tests exist |
-| Orb, the guide | A small companion on every page. Name a habitat and it answers at once with a card counted from the flight tests. Ask about the page and it explains it. Any other question goes to the live `/ask` API and comes back with PSI citations. Questions can be typed or spoken, and answers can be read aloud |
+| Cabin lab | Set oxygen, pressure, fuel and gravity for a cabin of your own, or pick a habitat or one of the two cabin atmospheres NASA's BRE record names for human missions. A map shows every test as a dot and a box around your cabin, so the count of tests near it is visible. It says how those tests ended and how far the cabin sits past the record, and draws the flame solid only where tests exist |
+| Wisp, the guide | A small companion on every page. It answers greetings, explains any word on the screen using what the page shows right now, checks a habitat's cabin with a card counted from the flight tests, and takes the visitor where they ask to go, all from code. Anything else goes to the live `/guide` API, which may use the dashboard's own description, the visitor's screen and retrieved PSI passages, and cites only passages it was given. An off-topic question gets a light joke and a way back. Questions can be typed or spoken, and answers can be read aloud |
 | Rank | Habitat switcher and pillar sliders. The list re-orders live, arrows show movement, each row opens its evidence. State lives in the URL, so a view can be shared |
 | Investigations | Search and filter all 24, then a page per investigation with summary, conditions, its tests on the map and every publication |
 | Compare | Up to four side by side, differences marked |
@@ -259,6 +259,7 @@ python -m unittest tests.test_api -v
 | `GET /rank?scenario=lunar_base&w_prevent=1&w_detect=1&w_suppress=1&limit=` | `si.rank.rank()` output: per investigation `score`, `components`, `pillars`, `pillar_source`, `evidence`, `reasons`, `rank`. Unknown scenario or bad weights give 400, data problems give 500. |
 | `GET /compare?ids=PSI-69,PSI-68` | 2 to 4 investigations. `rows` lists each field with its values and a `differs` flag |
 | `POST /ask` `{"question": "..."}` | `answer`, `covered`, `citations` (accessions), `sources` (the retrieved passages). Returns 503 if the server has no `LLM_API_KEY`. |
+| `POST /guide` `{"question": "...", "page": "...", "screen": "..."}` | Wisp, the conversational guide: `answer` and `citations`. It may use a fixed description of the dashboard, the text of the visitor's screen and retrieved PSI passages. It cites only passages it was given, never predicts fire behaviour, and shares the `/ask` rate limits. Returns 503 if the server has no `LLM_API_KEY`. |
 
 `/rank` loads the ranking inputs once at startup and calls `si/rank.py` (S3).
 
