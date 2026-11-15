@@ -119,19 +119,19 @@
         "score": 0.6702
       },
       "PSI-68": {
-        "text": "FLEX-2 ranks 13th out of 24 because its material relevance stands out among others. Its main caveat is weaker oxygen and pressure fit, with only 24 near-target tests and the oxygen and pressure values assumed from a planned test matrix.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "e7c58fa114b770e3",
+        "text": "FLEX-2 ranks 13th of 24 for the ISS and Earth-normal cabin with a score of 64, mainly on closest planned condition: 21% O2 at 101 kPa. 24 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "9da5c6ffd6e3eb84",
         "problems": [],
         "rank": 13,
         "score": 0.6396
       },
       "PSI-20": {
-        "text": "ACME BRE ranks 14 out of 24 because its computed reasons include a closest test at 21% O2, burned gas fuels, and a fire-safety focus on prevention and suppression. Its main caveat is a weak oxygen and pressure fit for the ISS and Earth-normal cabin environment.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "972d8ce9be62eab0",
+        "text": "ACME BRE ranks 14th of 24 for the ISS and Earth-normal cabin with a score of 58, mainly on closest test day: 21% O2. 11 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "5b665cd42a73bf4e",
         "problems": [],
         "rank": 14,
         "score": 0.5775
@@ -146,49 +146,49 @@
         "score": 0.388
       },
       "PSI-142": {
-        "text": "PSI-142 ranks 17th of 24 because it lacks oxygen and pressure data for this habitat, its fire-safety focus is prevention, and it is only a ground study with no flight tests. Its main caveat is the poor oxygen and pressure fit, which was not recorded for the habitat.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "512861c2e687c722",
+        "text": "PSI-142 ranks 18th of 24 for the ISS and Earth-normal cabin with a score of 31, mainly on fire-safety focus: prevention (from team tags). It has no recorded oxygen and pressure to compare with this habitat.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "9d76a77ec80b7f3b",
         "problems": [],
-        "rank": 17,
+        "rank": 18,
         "score": 0.3062
       },
       "PSI-62": {
-        "text": "PSI-62 ranks 18 of 24 because it lacks O2 or pressure data for this habitat, focuses on prevention, and is only a ground study with no flight tests. Its main caveat is the poor oxygen and pressure fit, as no oxygen or pressure were recorded for the habitat.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "f209f4c76f58f7b7",
+        "text": "PSI-62 ranks 19th of 24 for the ISS and Earth-normal cabin with a score of 28, mainly on fire-safety focus: prevention (from team tags). It has no recorded oxygen and pressure to compare with this habitat.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "dfbbf46c41192154",
         "problems": [],
-        "rank": 18,
+        "rank": 19,
         "score": 0.2817
       },
       "PSI-115": {
-        "text": "PSI-115 ranks 19 out of 24 because it has no O2 or pressure data to compare with this habitat, its fire-safety focus matches prevention and detection, and it is only a ground study with no flight tests of its own. Its main caveat is the weak oxygen and pressure fit, with no oxygen or pressure recorded.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "f8a956185c9d1c0b",
+        "text": "PSI-115 ranks 20th of 24 for the ISS and Earth-normal cabin with a score of 28, mainly on fire-safety focus: prevention, detection (from team tags). It has no recorded oxygen and pressure to compare with this habitat.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "5b60b45680f9cdd3",
         "problems": [],
-        "rank": 19,
+        "rank": 20,
         "score": 0.2804
       },
       "PSI-60": {
-        "text": "PSI-60 ranks 20 out of 24 because no O2 or pressure data to compare with this habitat, fire-safety focus matches prevention and detection, and it is only a ground study with no flight tests. Its main caveat is the lack of oxygen and pressure fit, as no oxygen or pressure was recorded for the habitat.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "8e609867d49bc288",
+        "text": "PSI-60 ranks 21st of 24 for the ISS and Earth-normal cabin with a score of 27, mainly on fire-safety focus: prevention, detection (from team tags). It has no recorded oxygen and pressure to compare with this habitat.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "fd700d71944550e0",
         "problems": [],
-        "rank": 20,
+        "rank": 21,
         "score": 0.2663
       },
       "PSI-23": {
-        "text": "ACME s-Flame ranks 21 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match, with oxygen levels only approximate and pressure only assumed about 1 atm.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "68a7b4766ba02b99",
+        "text": "ACME s-Flame ranks 16th of 24 for the ISS and Earth-normal cabin with a score of 37, mainly on closest test day: 21% O2 at 101 kPa. 10 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "09e4721bf605370c",
         "problems": [],
-        "rank": 21,
-        "score": 0.2259
+        "rank": 16,
+        "score": 0.3728
       },
       "PSI-22": {
         "text": "ACME E-FIELD Flames ranks low because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match and no oxygen or pressure data were recorded for the habitat.",
@@ -218,12 +218,12 @@
         "score": 0.1969
       },
       "PSI-117": {
-        "text": "PSI-117 ranks 16 out of 24 because it lacks O2 or pressure data, focuses on fire-safety prevention, and is a ground study with no flight tests. Its main caveat is the weak oxygen and pressure fit, as no oxygen or pressure were recorded for the habitat.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "f9586f094ef14770",
+        "text": "PSI-117 ranks 17th of 24 for the ISS and Earth-normal cabin with a score of 31, mainly on fire-safety focus: prevention (from team tags). It has no recorded oxygen and pressure to compare with this habitat.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "7ff0235cd24982c3",
         "problems": [],
-        "rank": 16,
+        "rank": 17,
         "score": 0.3092
       }
     },
@@ -256,19 +256,19 @@
         "score": 0.7091
       },
       "PSI-68": {
-        "text": "FLEX-2 ranks fourth out of 24 because its oxygen and pressure fit stands out among others. Its caveat is that tests near the target are limited to 16 and the recorded conditions rely on assumed oxygen and pressure from a planned test matrix.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "e76b8bf54946d734",
+        "text": "FLEX-2 ranks 4th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 63, mainly on closest planned condition: 30% O2 at 51 kPa. 16 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "dc62532f12d1e7dc",
         "problems": [],
         "rank": 4,
         "score": 0.6347
       },
       "PSI-20": {
-        "text": "ACME BRE ranks fifth because its oxygen and pressure fit stands out compared to others. The main caveat is the limited amount of data, and tests only near the target oxygen levels were performed.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "00892700c6ca6389",
+        "text": "ACME BRE ranks 5th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 62, mainly on closest test day: 40% O2. 23 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "e462ee9f3ab29c6f",
         "problems": [],
         "rank": 5,
         "score": 0.6158
@@ -391,22 +391,22 @@
         "score": 0.2804
       },
       "PSI-60": {
-        "text": "PSI-60 ranks 20 out of 24 because no O2 or pressure data to compare with this habitat, fire-safety focus matches prevention and detection, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the record lacks oxygen or pressure data.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "6ee61d89e89c7e85",
+        "text": "PSI-60 ranks 21st of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 27, mainly on fire-safety focus: prevention, detection (from team tags). It has no recorded oxygen and pressure to compare with this habitat.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "cd02932a87165c95",
         "problems": [],
-        "rank": 20,
+        "rank": 21,
         "score": 0.2663
       },
       "PSI-23": {
-        "text": "ACME s-Flame ranks 21 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match, with oxygen only approximate and pressure assumed about 1 atm.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "c22473b40537b29e",
+        "text": "ACME s-Flame ranks 20th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 27, mainly on none of its 18 test days come near this habitat's O2 and pressure. None of its tests came near this habitat's oxygen and pressure.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "6972eee859d6dc46",
         "problems": [],
-        "rank": 21,
-        "score": 0.2259
+        "rank": 20,
+        "score": 0.2668
       },
       "PSI-22": {
         "text": "ACME E-FIELD Flames ranks 22 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match and no oxygen or pressure were recorded.",
@@ -474,19 +474,19 @@
         "score": 0.7091
       },
       "PSI-68": {
-        "text": "FLEX-2 ranks fourth out of 24 because its oxygen and pressure fit stands out among others. Its caveat is that tests near the target are limited to 16 and the recorded conditions rely on assumed oxygen and pressure from a planned test matrix.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "e76b8bf54946d734",
+        "text": "FLEX-2 ranks 4th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 63, mainly on closest planned condition: 30% O2 at 51 kPa. 16 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "dc62532f12d1e7dc",
         "problems": [],
         "rank": 4,
         "score": 0.6347
       },
       "PSI-20": {
-        "text": "ACME BRE ranks fifth because its oxygen and pressure fit stands out compared to others. The main caveat is the limited amount of data, and tests only near the target oxygen levels were performed.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "00892700c6ca6389",
+        "text": "ACME BRE ranks 5th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 62, mainly on closest test day: 40% O2. 23 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "e462ee9f3ab29c6f",
         "problems": [],
         "rank": 5,
         "score": 0.6158
@@ -609,22 +609,22 @@
         "score": 0.2804
       },
       "PSI-60": {
-        "text": "PSI-60 ranks 20 out of 24 because no O2 or pressure data to compare with this habitat, fire-safety focus matches prevention and detection, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the record lacks oxygen or pressure data.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "6ee61d89e89c7e85",
+        "text": "PSI-60 ranks 21st of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 27, mainly on fire-safety focus: prevention, detection (from team tags). It has no recorded oxygen and pressure to compare with this habitat.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "cd02932a87165c95",
         "problems": [],
-        "rank": 20,
+        "rank": 21,
         "score": 0.2663
       },
       "PSI-23": {
-        "text": "ACME s-Flame ranks 21 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match, with oxygen only approximate and pressure assumed about 1 atm.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "c22473b40537b29e",
+        "text": "ACME s-Flame ranks 20th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 27, mainly on none of its 18 test days come near this habitat's O2 and pressure. None of its tests came near this habitat's oxygen and pressure.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "6972eee859d6dc46",
         "problems": [],
-        "rank": 21,
-        "score": 0.2259
+        "rank": 20,
+        "score": 0.2668
       },
       "PSI-22": {
         "text": "ACME E-FIELD Flames ranks 22 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match and no oxygen or pressure were recorded.",
@@ -692,19 +692,19 @@
         "score": 0.7091
       },
       "PSI-68": {
-        "text": "FLEX-2 ranks fourth out of 24 because its oxygen and pressure fit stands out among others. Its caveat is that tests near the target are limited to 16 and the recorded conditions rely on assumed oxygen and pressure from a planned test matrix.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "e76b8bf54946d734",
+        "text": "FLEX-2 ranks 4th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 63, mainly on closest planned condition: 30% O2 at 51 kPa. 16 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "dc62532f12d1e7dc",
         "problems": [],
         "rank": 4,
         "score": 0.6347
       },
       "PSI-20": {
-        "text": "ACME BRE ranks fifth because its oxygen and pressure fit stands out compared to others. The main caveat is the limited amount of data, and tests only near the target oxygen levels were performed.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "00892700c6ca6389",
+        "text": "ACME BRE ranks 5th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 62, mainly on closest test day: 40% O2. 23 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "e462ee9f3ab29c6f",
         "problems": [],
         "rank": 5,
         "score": 0.6158
@@ -827,22 +827,22 @@
         "score": 0.2804
       },
       "PSI-60": {
-        "text": "PSI-60 ranks 20 out of 24 because no O2 or pressure data to compare with this habitat, fire-safety focus matches prevention and detection, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the record lacks oxygen or pressure data.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "6ee61d89e89c7e85",
+        "text": "PSI-60 ranks 21st of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 27, mainly on fire-safety focus: prevention, detection (from team tags). It has no recorded oxygen and pressure to compare with this habitat.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "cd02932a87165c95",
         "problems": [],
-        "rank": 20,
+        "rank": 21,
         "score": 0.2663
       },
       "PSI-23": {
-        "text": "ACME s-Flame ranks 21 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match, with oxygen only approximate and pressure assumed about 1 atm.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "c22473b40537b29e",
+        "text": "ACME s-Flame ranks 20th of 24 for the Lunar base / Pressurized rover / Mars habitat with a score of 27, mainly on none of its 18 test days come near this habitat's O2 and pressure. None of its tests came near this habitat's oxygen and pressure.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "6972eee859d6dc46",
         "problems": [],
-        "rank": 21,
-        "score": 0.2259
+        "rank": 20,
+        "score": 0.2668
       },
       "PSI-22": {
         "text": "ACME E-FIELD Flames ranks 22 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match and no oxygen or pressure were recorded.",
@@ -973,10 +973,10 @@
         "score": 0.5198
       },
       "PSI-68": {
-        "text": "FLEX-2 ranks 11 out of 24 because its material relevance stands out among others. Its main caveat is that none of its 160 tests were inside or near the habitat’s target conditions, and the oxygen and pressure values are assumed from a planned test matrix.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "3af5e5d496756ff9",
+        "text": "FLEX-2 ranks 11th of 24 for the Spacesuit with a score of 52, mainly on none of its 160 planned conditions come near this habitat's O2 and pressure. None of its tests came near this habitat's oxygen and pressure.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "0573dbfda771eb90",
         "problems": [],
         "rank": 11,
         "score": 0.5171
@@ -1000,13 +1000,11 @@
         "score": 0.4952
       },
       "PSI-20": {
-        "text": "ACME BRE ranks 14th of 24 for the Spacesuit with a score of 45, mainly on none of its 43 tests come near this habitat's O2 and pressure. None of its tests came near this habitat's oxygen and pressure.",
+        "text": "ACME BRE ranks 14th of 24 for the Spacesuit with a score of 45, mainly on none of its 43 test days come near this habitat's O2 and pressure. None of its tests came near this habitat's oxygen and pressure.",
         "source": "template",
         "model": "template",
-        "fingerprint": "eca486407772915c",
-        "problems": [
-          "model error: openai/gpt-oss-20b: HTTP 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n"
-        ],
+        "fingerprint": "bd7f912d6f6d3dfa",
+        "problems": [],
         "rank": 14,
         "score": 0.4498
       },
@@ -1058,10 +1056,10 @@
         "score": 0.2663
       },
       "PSI-23": {
-        "text": "ACME s-Flame ranks 21 out of 24 because its amount of data stands out among others. Its main caveat is a weak fire-safety focus match, with oxygen only approximate and pressure assumed about 1 atm.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "79284fb96b7ca211",
+        "text": "ACME s-Flame ranks 21st of 24 for the Spacesuit with a score of 23, mainly on none of its 18 test days come near this habitat's O2 and pressure. None of its tests came near this habitat's oxygen and pressure.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "4e2e4c53fd6745d7",
         "problems": [],
         "rank": 21,
         "score": 0.2259
