@@ -1,17 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 export function useSize<T extends HTMLElement>(fallbackWidth = 800) {
   const ref = useRef<T | null>(null);
   const [width, setWidth] = useState(fallbackWidth);
   const [measured, setMeasured] = useState(false);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const element = ref.current;
-    if (!element || typeof ResizeObserver === "undefined") {
-      setMeasured(true);
-      return;
-    }
+    const initial = element ? Math.round(element.getBoundingClientRect().width) : 0;
+    if (initial > 0) setWidth(initial);
+    setMeasured(true);
+    if (!element || typeof ResizeObserver === "undefined") return;
     const observer = new ResizeObserver(([entry]) => {
       const next = Math.round(entry.contentRect.width);
       if (next > 0) {
