@@ -30,7 +30,7 @@
     ],
     "o2_range": [
       0.198,
-      0.85
+      0.4
     ],
     "o2_basis": "measured",
     "pressure_kpa_range": [
@@ -2352,8 +2352,8 @@
       "gas"
     ],
     "o2_range": [
-      0.12,
-      0.85
+      0.18,
+      0.4
     ],
     "o2_basis": "measured",
     "pressure_kpa_range": [
