@@ -32,7 +32,7 @@ NASA has flown dozens of fire experiments on the International Space Station. Th
 Three findings stand out in the data:
 
 - No solid-material fire test in PSI ran above 22.2% oxygen. That covers 140 tests across BASS-II, SAFFIRE-I and SAFFIRE-II.
-- Only 66 tests sit at lunar-base conditions (30% oxygen or more at 70 kPa or less), and all of them are gas flames.
+- Only 20 tests sit at lunar-base conditions (30% oxygen or more at 70 kPa or less), and all of them are gas flames from ACME CFI-G.
 - Gravity changes which material is worse. In SAFFIRE-II, thin silicone sheets burned completely at 1 g but barely burned in microgravity, while a cotton-fiberglass fabric burned its full 29 cm length in both.
 
 ### How it works
