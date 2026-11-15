@@ -195,7 +195,7 @@ class AskTests(unittest.TestCase):
         self.assertEqual(response.status_code, 503)
 
     def test_non_breaking_hyphen_citation_counts(self):
-        with mock.patch.object(main, "llm_chat", return_value=fake_chat("Helium did [PSI‑69].")):
+        with mock.patch.object(main, "llm_chat", return_value=fake_chat("Helium did [PSI\u201169].")):
             body = client.post("/ask", json={"question": self.QUESTION}).json()
         self.assertTrue(body["covered"])
         self.assertEqual(body["citations"], ["PSI-69"])
@@ -254,6 +254,81 @@ class AskTests(unittest.TestCase):
 
     def test_prompt_treats_a_zero_count_as_an_answer(self):
         self.assertIn("A count of zero in a source is an answer", ask_module.SYSTEM_PROMPT)
+
+    def test_oxygen_guard_covers_single_level_investigations_only(self):
+        single = {accession for accession, fact in main.oxygen_levels.items() if fact[3]}
+        self.assertTrue({"PSI-26", "PSI-107", "PSI-99"} <= single)
+        self.assertFalse({"PSI-25", "PSI-69"} & single)
+
+    def test_a_range_borrowed_from_another_investigation_is_flagged(self):
+        text = "SAFFIRE-II ran tests with ambient oxygen ranging from 14% to 22% O2 [PSI-99]."
+        problems = ask_module.oxygen_problems(text, main.oxygen_levels)
+        self.assertEqual(len(problems), 1)
+        self.assertIn("PSI-99 SAFFIRE-II ran from 21.5% to 22.1% oxygen, not 14% to 22%", problems[0])
+
+    def test_a_true_range_is_not_flagged(self):
+        text = "BASS-II measured oxygen from 14% to 22% O2 [PSI-25]. FLEX droplets went out at 13%\u201324% O2 [PSI-69]."
+        self.assertEqual(ask_module.oxygen_problems(text, main.oxygen_levels), [])
+
+    def test_a_habitat_comparison_is_not_read_as_a_test_range(self):
+        text = "BASS-II never reached the lunar band of 30% to 40% oxygen [PSI-25]."
+        self.assertEqual(ask_module.oxygen_problems(text, main.oxygen_levels), [])
+
+    def test_overview_gives_each_investigation_its_own_range(self):
+        overview = next(c["text"] for c in main.retriever.chunks if c["field"] == "dataset overview")
+        self.assertIn("140 have measured oxygen: BASS-II (PSI-25) 14% to 22% O2; SAFFIRE-I (PSI-98) 22% O2; SAFFIRE-II (PSI-99) 22% O2.", overview)
+
+    def test_merged_bass_claim_is_flagged_for_bass_only(self):
+        text = "This is consistent with BASS and BASS-II, which examined solid fuels with varied oxygen concentrations [PSI-26, PSI-25]."
+        problems = ask_module.oxygen_problems(text, main.oxygen_levels)
+        self.assertEqual([p.split(" ")[0] for p in problems], ["PSI-26"])
+
+    def test_correct_contrast_is_not_flagged(self):
+        text = "BASS-II varied oxygen from 14% to 22%, while BASS ran in cabin air [PSI-25, PSI-26]."
+        self.assertEqual(ask_module.oxygen_problems(text, main.oxygen_levels), [])
+
+    def test_names_match_whatever_hyphen_the_model_writes(self):
+        text = "SAFFIRE\u2011II varied oxygen concentration [PSI-99]."
+        self.assertEqual([p.split(" ")[0] for p in ask_module.oxygen_problems(text, main.oxygen_levels)], ["PSI-99"])
+        self.assertFalse(ask_module._mentions("BASS\u2011II burned PMMA", "BASS"))
+
+    def test_other_variables_held_constant_do_not_excuse_the_claim(self):
+        text = "SAFFIRE-II varied oxygen concentration while keeping flow velocity and diluent constant [PSI-99]."
+        self.assertEqual([p.split(" ")[0] for p in ask_module.oxygen_problems(text, main.oxygen_levels)], ["PSI-99"])
+
+    def test_a_true_narrow_range_is_not_flagged(self):
+        text = "SAFFIRE-II measured oxygen ranging from 21.5% to 22.1% [PSI-99]."
+        self.assertEqual(ask_module.oxygen_problems(text, main.oxygen_levels), [])
+
+    def test_oxygen_held_constant_is_a_true_contrast(self):
+        text = "SAFFIRE-II varied sample size while oxygen was held constant [PSI-99]."
+        self.assertEqual(ask_module.oxygen_problems(text, main.oxygen_levels), [])
+
+    def test_true_single_level_sentence_is_not_flagged(self):
+        text = "SPICE tested several fuels at 21% oxygen [PSI-107]."
+        self.assertEqual(ask_module.oxygen_problems(text, main.oxygen_levels), [])
+
+    def test_wrong_oxygen_claim_is_retried_with_the_problem_named(self):
+        bad = "No solid tests reached 30% oxygen. BASS and BASS-II tested varied oxygen concentrations [PSI-26, PSI-25]."
+        good = "No solid tests reached 30% oxygen. BASS-II measured 14% to 22% [PSI-25]."
+        prompts = []
+        replies = iter([bad, good])
+
+        def chat(system, prompt):
+            prompts.append(prompt)
+            return next(replies)
+
+        with mock.patch.object(main, "llm_chat", return_value=chat):
+            body = client.post("/ask", json={"question": "Were any solid materials tested at 30% oxygen?"}).json()
+        self.assertEqual(body["answer"], good)
+        self.assertIn("PSI-26 BASS ran at about 21% oxygen", prompts[1])
+
+    def test_claim_that_survives_the_retry_is_dropped(self):
+        bad = "No solid tests reached 30% oxygen [PSI-25]. BASS tested several oxygen levels [PSI-26]."
+        with mock.patch.object(main, "llm_chat", return_value=fake_chat(bad)):
+            body = client.post("/ask", json={"question": "Were any solid materials tested at 30% oxygen?"}).json()
+        self.assertEqual(body["answer"], "No solid tests reached 30% oxygen [PSI-25].")
+        self.assertTrue(body["covered"])
 
     def test_question_validation(self):
         self.assertEqual(client.post("/ask", json={"question": "x" * 501}).status_code, 422)

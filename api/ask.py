@@ -4,11 +4,14 @@ BM25 search over passages built from the data: each investigation's objective, a
 publication titles and a plain-text digest of its tests.csv rows, plus the SAFFIRE-II gravity comparison and one
 cross-investigation overview. The top 5 go to the LLM, which must answer only from them and cite accession numbers.
 An answer without a valid citation gets one retry, then becomes "Not covered in PSI data."
+An answer that says an investigation varied oxygen, when its test table shows one oxygen level, gets one retry with the
+problem named, and any sentence still making that claim is dropped. The same goes for an oxygen range given for one named
+investigation that falls outside its table.
 """
 
 import re
 from collections import Counter, defaultdict
-from typing import Callable, Dict, List, Optional
+from typing import Callable, Dict, List, Optional, Tuple
 
 from rank_bm25 import BM25Okapi
 
@@ -39,6 +42,8 @@ Keep the answer under 150 words, in plain language for a habitat designer.
 Report numbers as the sources give them. If a difference is small or the data cannot settle the question, say so.
 Do not judge which option is better, safer or more effective unless a source says so in words. Report what was observed,
 for example the lowest oxygen at which a flame went out, and note that this alone does not rank the options.
+Give each fact only to the investigation whose source states it. Never merge investigations with similar names, such as
+BASS and BASS-II or SAME and SAME-R, into one claim.
 A count of zero in a source is an answer. If the overview says 0 rows meet a condition, say that no PSI test met it,
 give the highest value it reports instead, and cite the investigations it names for that value.
 If the sources do not answer the question, reply with exactly: {NOT_COVERED}"""
@@ -159,7 +164,11 @@ def overview_summary(tests: List[dict]) -> str:
             o2 = [row["o2_mole_fraction"] for row in measured]
             top = [row for row in measured if row["o2_mole_fraction"] == max(o2)]
             high = [row for row in measured if row["o2_mole_fraction"] >= 0.30]
-            line += (f" {len(measured)} have measured oxygen, from {_pct_range(o2)}, in {_names(measured)}."
+            per_investigation = defaultdict(list)
+            for row in measured:
+                per_investigation[_label(row)].append(row["o2_mole_fraction"])
+            ranges = "; ".join(f"{label} {_pct_range(values)}" for label, values in sorted(per_investigation.items()))
+            line += (f" {len(measured)} have measured oxygen: {ranges}."
                      f" Highest measured oxygen for a {phase} fuel: {max(o2) * 100:.1f}% O2, in {_names(top)},"
                      f" burning {', '.join(sorted({r['fuel'] for r in top if r.get('fuel')}))}."
                      f" {len(high)} {phase}-fuel rows have measured O2 of 30% or more" + (f", in {_names(high)}." if high else "."))
@@ -237,7 +246,11 @@ def normalize_citations(text: str) -> str:
     return CITATION_VARIANTS.sub(lambda match: "PSI-" + match.group(1), text)
 
 
+ANY_DASH = re.compile("[" + DASHES + "]")
+
+
 def _mentions(text: str, name: str) -> bool:
+    text, name = ANY_DASH.sub("-", text), ANY_DASH.sub("-", name)
     return re.search(r"(?<![\w-])" + re.escape(name) + r"(?![\w-])", text, re.I) is not None
 
 
@@ -276,7 +289,72 @@ It did not cite its sources correctly. Rewrite it with the same facts, citing ev
 in square brackets taken from the sources, for example [PSI-69]. Never cite [{overview}]."""
 
 
-def answer(question: str, retriever: Retriever, chat: Optional[Callable[[str, str], str]]) -> dict:
+OXYGEN_WORD = re.compile(r"\b(oxygen|o2|o\u2082)\b", re.I)
+VARIATION_WORD = re.compile(r"\b(vary|varies|varied|varying|variation|variations|different|several|multiple)\b", re.I)
+CONTRAST_WORD = re.compile(r"cabin air|assumed|did not vary|didn't vary|not varied|without varying|one oxygen|single oxygen|"
+                           r"oxygen(?: \w+){0,3} (?:constant|fixed|unchanged)|(?:constant|fixed) oxygen|"
+                           r"\bat (?:about |around |roughly )?2[01](?:\.\d+)?\s?%", re.I)
+PERCENT_RANGE = re.compile(r"(\d+(?:\.\d+)?)\s?%?\s?(?:to|and|[" + DASHES + r"])\s?(\d+(?:\.\d+)?)\s?%")
+TARGET_WORD = re.compile(r"\b(lunar|moon|mars|martian|habitat|band|target|spacesuit)\b", re.I)
+RANGE_TOLERANCE = 1.0
+
+OXYGEN_RETRY = """
+
+Your previous answer was:
+{answer}
+
+Its oxygen claims disagree with the test tables:
+{problems}
+Rewrite the answer with the same facts, giving each investigation only its own oxygen values. Keep the citations."""
+
+
+def oxygen_facts(investigations: List[dict]) -> Dict[str, Tuple[str, float, float, bool]]:
+    """Accession to (acronym, lowest O2, highest O2, ran at one level) from each investigation's test table."""
+    facts = {}
+    for item in investigations:
+        low_high = item.get("o2_range")
+        if not low_high or not item.get("acronym"):
+            continue
+        varied = "oxygen concentration" in (item.get("variables_varied") or [])
+        facts[item["accession"]] = (item["acronym"], low_high[0], low_high[1], not varied and low_high[1] - low_high[0] < 0.01)
+    return facts
+
+
+def _sentences(text: str) -> List[str]:
+    return [part for part in re.split(r"(?<=[.!?])\s+|\n+", text) if part.strip()]
+
+
+def _sentence_problems(sentence: str, facts: Dict[str, Tuple[str, float, float, bool]]) -> List[str]:
+    if not OXYGEN_WORD.search(sentence):
+        return []
+    named = [(accession, fact) for accession, fact in facts.items() if _mentions(sentence, fact[0])]
+    problems = []
+    if VARIATION_WORD.search(sentence) and not CONTRAST_WORD.search(sentence):
+        for accession, (acronym, low, _, single) in named:
+            if single:
+                problems.append(f"{accession} {acronym} ran at about {low * 100:.0f}% oxygen")
+    if len(named) == 1 and not TARGET_WORD.search(sentence):
+        accession, (acronym, low, high, _) = named[0]
+        for start, end in PERCENT_RANGE.findall(sentence):
+            if float(start) < low * 100 - RANGE_TOLERANCE or float(end) > high * 100 + RANGE_TOLERANCE:
+                problems.append(f"{accession} {acronym} ran from {low * 100:.1f}% to {high * 100:.1f}% oxygen, not {start}% to {end}%")
+                break
+    return problems
+
+
+def oxygen_problems(text: str, facts: Dict[str, Tuple[str, float, float, bool]]) -> List[str]:
+    problems = []
+    for sentence in _sentences(text):
+        problems.extend(p for p in _sentence_problems(sentence, facts) if p not in problems)
+    return problems
+
+
+def drop_oxygen_claims(text: str, facts: Dict[str, Tuple[str, float, float, bool]]) -> str:
+    return " ".join(sentence for sentence in _sentences(text) if not _sentence_problems(sentence, facts)).strip()
+
+
+def answer(question: str, retriever: Retriever, chat: Optional[Callable[[str, str], str]],
+           oxygen_levels: Optional[Dict[str, Tuple[str, float, float, bool]]] = None) -> dict:
     """chat(system, prompt) returns the model's text. None means no LLM is configured."""
     sources = retriever.search(question)
     if not sources:
@@ -290,6 +368,13 @@ def answer(question: str, retriever: Retriever, chat: Optional[Callable[[str, st
     if not _refused(text) and not _valid_citations(text, allowed):
         retry = prompt + CITE_RETRY.format(answer=text, overview=OVERVIEW)
         text = expand_overview(normalize_citations(chat(SYSTEM_PROMPT, retry).strip()), sources, acronyms)
+    if oxygen_levels and not _refused(text):
+        problems = oxygen_problems(text, oxygen_levels)
+        if problems:
+            retry = prompt + OXYGEN_RETRY.format(answer=text, problems="\n".join(problems))
+            text = expand_overview(normalize_citations(chat(SYSTEM_PROMPT, retry).strip()), sources, acronyms)
+            if oxygen_problems(text, oxygen_levels):
+                text = drop_oxygen_claims(text, oxygen_levels)
     cited = _valid_citations(text, allowed)
     covered = not _refused(text) and bool(cited)
     if not covered:
