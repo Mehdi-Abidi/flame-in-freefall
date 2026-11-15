@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Host_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Guide } from "@/components/Guide";
 import { Providers } from "@/components/Providers";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { themeInitScript } from "@/components/ThemeToggle";
+import { loadGuideData } from "@/lib/guideData";
 import "./globals.css";
 
 const sans = Host_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-sans-face", display: "swap" });
@@ -37,6 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             {children}
           </main>
           <SiteFooter />
+          <Guide data={loadGuideData()} />
         </Providers>
       </body>
     </html>

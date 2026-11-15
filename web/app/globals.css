@@ -191,6 +191,29 @@ h3 {
   animation: hero-enter 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both;
 }
 
+@keyframes orb-blink {
+  0%,
+  78%,
+  100% {
+    transform: scaleY(1);
+  }
+  88% {
+    transform: scaleY(0.12);
+  }
+}
+
+/* Orb blinks only while it is fetching an answer. */
+.orb-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: orb-blink 1.4s ease-in-out infinite;
+}
+
+.orb-launcher:hover svg {
+  transform: rotate(-6deg);
+  transition: transform 0.25s ease;
+}
+
 @keyframes flame-breathe-a {
   50% {
     transform: scale(1.03, 1.06);
