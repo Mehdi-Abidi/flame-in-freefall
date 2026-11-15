@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { localReply, offTopicReply, suggestionsFor } from "./guide";
+import { fallbackReply, isAboutTheRecord, localReply, suggestionsFor } from "./guide";
 import { loadGuideData } from "./guideData";
 
 const data = loadGuideData();
@@ -36,23 +36,41 @@ describe("the guide's own answers", () => {
   it("answers a greeting, however short, and small talk", () => {
     expect(localReply("hi", "/", data)?.text).toContain("Wisp");
     expect(localReply("hello hello hello hello", "/", data)?.text).toContain("Wisp");
-    expect(localReply("Hi, how are you?", "/", data)?.text).toContain("steady");
-    expect(localReply("who are you", "/", data)?.text).toContain("guide");
+    expect(localReply("Hi, how are you?", "/", data)?.text).toContain("floating");
+    expect(localReply("who are you", "/", data)?.text).toContain("flame");
   });
 
   it("explains the words on the screen and adds what the screen shows", () => {
-    const shown = "Cabin lab is set to 35% oxygen at 50 kPa, solid fuels. It reads Never flown: 0 solid tests near this cabin.";
-    const reply = localReply("why does it say never flown?", "/lab/", data, shown)?.text ?? "";
-    expect(reply.startsWith(shown)).toBe(true);
+    const live = "The cabin lab is set to 35% oxygen at 50 kPa, solid fuels. It reads Never flown: 0 solid tests near this cabin.";
+    const reply = localReply("why does it say never flown?", "/lab/", data, { live })?.text ?? "";
+    expect(reply.startsWith(live)).toBe(true);
     expect(reply).toContain("10 or more tests");
     expect(localReply("what does to breathe mean", "/lab/", data)?.text).toContain("lungs");
     expect(localReply("sliders", "/lab/", data)?.text).toContain("box on the map");
-    expect(localReply("What is this page showing?", "/lab/", data, shown)?.text).toContain(shown);
   });
 
-  it("jokes its way back when a question is outside the record", () => {
-    expect(offTopicReply("what is the capital of France?")).toMatch(/flame|gravity|record/);
+  it("answers a question that only says 'this' from the part of the page in view", () => {
+    const section = "This is the gap, the main finding.";
+    for (const question of ["What does this mean? Explain in simple terms:", "Yeah what is this about?", "I'm confused, explain that", "what am I looking at"]) {
+      expect(localReply(question, "/", data, { section })?.text, question).toBe(section);
+    }
+    const live = "The cabin lab is set to 30% oxygen.";
+    expect(localReply("what is this?", "/lab/", data, { section, live })?.text).toBe(`${section} ${live}`);
+    expect(localReply("what is this?", "/rank/", data)?.text).toContain("sliders");
+  });
+
+  it("never sends a vague question to the record search, and jokes its way back when off topic", () => {
+    expect(isAboutTheRecord("What does this mean? Explain in simple terms:")).toBe(false);
+    expect(isAboutTheRecord("what is the capital of France?")).toBe(false);
+    expect(isAboutTheRecord("CO2 or helium: which put out flames at lower oxygen?")).toBe(true);
+    expect(isAboutTheRecord("what did BASS find?")).toBe(true);
     expect(localReply("what is the capital of France?", "/", data)).toBeNull();
+    expect(fallbackReply("what is the capital of France?", "/", {})).toMatch(/flame|fire|orbit/);
+    expect(fallbackReply("explain it simply", "/", { section: "This is the gap." })).toBe("This is the gap.");
+    for (const question of ["what's the weather like today?", "what is it like outside", "help me with my homework", "how do I bake a cake"]) {
+      expect(localReply(question, "/", data, { section: "This is the gap." }), question).toBeNull();
+      expect(fallbackReply(question, "/", { section: "This is the gap." }), question).not.toContain("gap");
+    }
   });
 
   it("leaves science questions to NASA's records", () => {

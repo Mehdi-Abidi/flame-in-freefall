@@ -61,14 +61,14 @@ function pageFor(pathname: string) {
 const share = (fraction: number) => `${Number((fraction * 100).toFixed(1))}%`;
 
 const NAMES_AN_EXPERIMENT = /\b(bass|saffire|flex|same|acme|cfi|spice|slice|daft|bre|psi-\d+)\b/;
-const ASKS_MEANING = /\b(what|whats|what's|why|how|mean|means|meaning|explain|define|confus\w*|understand|tell me|help me)\b/;
+const ASKS_MEANING = /\b(what|whats|what's|why|how|mean|means|meaning|explain|define|confus\w*|understand|tell me|help me|simple|simpler|simply|eli5|lost)\b/;
 
 const SMALL_TALK: [RegExp, string][] = [
-  [/\bhow (are|r) (you|u)\b|\bhow's it going\b|\bwhat'?s up\b/, "Burning small and steady, thanks. Nothing rises up here, so I stay nice and round. Want me to explain this page?"],
-  [/\b(who|what) (are|r) (you|u)\b|\byour name\b/, "I am Wisp, a small flame in freefall and the guide to this site. I know every fire test in NASA's record here and what each word on your screen means."],
-  [/\b(thanks|thank you|thx|shukriya)\b/, "Any time. I will be floating right here."],
-  [/\b(bye|goodbye|see you)\b/, "Fly safe. I will keep the flame going."],
-  [/^(hi+|hey+|hello+|yo|hola|salam|assalam\w*|good (morning|afternoon|evening))\b/, "Hi, I am Wisp, a small flame in freefall. Ask me what anything on this page means, or name a habitat and I will check its cabin."],
+  [/\bhow (are|r) (you|u)\b|\bhow's it going\b|\bwhat'?s up\b/, "Doing great, thanks for asking! Just floating around up here, nice and round. Anything on this page I can explain for you?"],
+  [/\b(who|what) (are|r) (you|u)\b|\byour name\b/, "I'm Wisp! I'm a little blue flame, the kind you only get in space. I know my way around this site and NASA's fire experiments, so ask me anything about either."],
+  [/\b(thanks|thank you|thx|shukriya)\b/, "Happy to help! I'm right here if anything else comes up."],
+  [/\b(bye|goodbye|see you)\b/, "See you! Fly safe out there."],
+  [/^(hi+|hey+|hello+|yo|hola|salam|assalam\w*|good (morning|afternoon|evening))\b/, "Hey there! I'm Wisp, your guide. Point me at anything on this page that's confusing, or ask me about NASA's fire experiments in space."],
 ];
 
 /** Words a visitor meets on the site. The first entry whose words appear in the question answers it. */
@@ -95,14 +95,54 @@ const GLOSSARY: { words: RegExp; text: string; live?: boolean }[] = [
 ];
 
 const OFF_TOPIC = [
-  "That one is above my flame grade. I only know fire in freefall. Ask me what a word on this page means, or which experiments matter for a Moon base.",
-  "I would need gravity for that one, and I gave it up. Try me on NASA's fire tests, or ask what you are looking at.",
-  "No test in NASA's record covers that, and I am made of the record. I can explain this page or check a cabin for you.",
+  "Ha, I wish I knew! I'm just a tiny flame floating in space, so fire and this site are pretty much my whole world. Ask me about either and I'm all yours.",
+  "Honestly, no idea. I spend all day around NASA's fire experiments, so that's the one thing I'm good at. Want to know why flames turn into little blue balls up here?",
+  "You've got me there! That one's way outside my orbit. But if it's about fire in space, the Moon base, or anything on this page, try me.",
 ];
 
-/** What Wisp says when a question is outside the site and NASA's record, or when the record cannot be reached. */
+/** What Wisp says when a question has nothing to do with the site or NASA's record. */
 export function offTopicReply(message: string): string {
   return OFF_TOPIC[message.trim().length % OFF_TOPIC.length];
+}
+
+const RECORD_WORDS =
+  /\b(fire|fires|flames?|burn\w*|oxygen|o2|pressure|gravity|microgravity|freefall|space\w*|nasa|iss|station|moon|lunar|mars|rover|habitats?|cabins?|fuels?|solids?|liquids?|gas|gases|droplets?|smoke|soot|detect\w*|suppress\w*|prevent\w*|extinguish\w*|extinction|diluents?|co2|helium|nitrogen|tests?|tested|experiments?|investigations?|stud(y|ies)|materials?|fabrics?|plastics?|cotton|silicone|pmma|nomex|astronauts?|psi|combustion|flammab\w*|candles?|sensors?)\b/;
+
+/** True when a question is worth sending to NASA's record: it names an experiment or uses a word from the subject. */
+export function isAboutTheRecord(message: string): boolean {
+  const text = message.toLowerCase();
+  return NAMES_AN_EXPERIMENT.test(text) || RECORD_WORDS.test(text);
+}
+
+/** What the visitor has in front of them: the note of the part of the page in view, and for pages that change, what they show now. */
+export interface ScreenContext {
+  section?: string;
+  live?: string;
+}
+
+function describeScreen(pathname: string, context: ScreenContext): string {
+  return [context.section || pageFor(pathname).tour, context.live].filter(Boolean).join(" ");
+}
+
+const NO_SUBJECT_WORDS = new Set(
+  `what whats why how does do is are am i im me my can you please mean means meaning explain define confused confusing understand
+   tell help simple simpler simply terms words in a an the to so yeah ok okay hmm more again lost eli5 dont not get about looking
+   at on of for screen page section part thing stuff this that these those here it work works guide where use going whats up with
+   and just really still bit little show showing say saying says`.split(/\s+/),
+);
+
+/** True for "what does this mean?", "explain it simply", "I'm confused": a question with no subject of its own, so
+ * the subject is whatever is on the screen. "What's the weather like?" has one, and is not about the screen. */
+export function asksAboutTheScreen(message: string): boolean {
+  const text = message.toLowerCase().replace(/[^a-z0-9\s]/g, "");
+  const words = text.split(/\s+/).filter(Boolean);
+  if (!words.length || !(ASKS_MEANING.test(text) || HELP_QUESTION.test(text))) return false;
+  return words.every((word) => NO_SUBJECT_WORDS.has(word));
+}
+
+/** The answer when no record search will help: explain the screen if that is what was asked, otherwise a friendly way back. */
+export function fallbackReply(message: string, pathname: string, context: ScreenContext = {}): string {
+  return asksAboutTheScreen(message) ? describeScreen(pathname, context) : offTopicReply(message);
 }
 
 export function pageName(pathname: string): string {
@@ -113,9 +153,9 @@ export function tourFor(pathname: string): string {
   return pageFor(pathname).tour;
 }
 
-/** Answer at once, with no model, when the question is small talk, about a habitat's cabin, about this page, a place
- * to go, the size of the record or a word on the screen. `screenText` is what the page shows right now. */
-export function localReply(message: string, pathname: string, data: GuideData, screenText = ""): LocalReply | null {
+/** Answer at once, with no model, when the question is small talk, about a habitat's cabin, a word on the screen,
+ * "what is this?", a place to go or the size of the record. */
+export function localReply(message: string, pathname: string, data: GuideData, context: ScreenContext = {}): LocalReply | null {
   const text = message.toLowerCase().trim();
 
   const chat = SMALL_TALK.find(([words]) => words.test(text));
@@ -136,10 +176,11 @@ export function localReply(message: string, pathname: string, data: GuideData, s
     if (page) return { text: page.tour, link: { href: page.path, label: page.label } };
   }
 
-  if (HELP_QUESTION.test(text)) {
-    const page = pageFor(pathname);
-    const next = page.path === "/lab/" ? PAGES.find((p) => p.path === "/evidence/")! : PAGES[0];
-    return { text: screenText ? `${page.tour} ${screenText}` : page.tour, link: { href: next.path, label: next.label } };
+  const names = NAMES_AN_EXPERIMENT.test(text);
+  const short = text.split(/\s+/).length <= 4;
+  if ((ASKS_MEANING.test(text) || short) && !names) {
+    const entry = GLOSSARY.find((item) => item.words.test(text));
+    if (entry) return { text: entry.live && context.live ? `${context.live} ${entry.text}` : entry.text };
   }
 
   if (SIZE_QUESTION.test(text)) {
@@ -150,10 +191,11 @@ export function localReply(message: string, pathname: string, data: GuideData, s
     };
   }
 
-  const short = text.split(/\s+/).length <= 4;
-  if ((ASKS_MEANING.test(text) || short) && !NAMES_AN_EXPERIMENT.test(text)) {
-    const entry = GLOSSARY.find((item) => item.words.test(text));
-    if (entry) return { text: entry.live && screenText ? `${screenText} ${entry.text}` : entry.text };
+  // "What is this?", "explain that in simple terms", "I'm confused": answer from what is on the screen, never from a record search.
+  if (asksAboutTheScreen(text)) {
+    const page = pageFor(pathname);
+    const next = page.path === "/lab/" ? PAGES.find((p) => p.path === "/evidence/")! : PAGES[0];
+    return { text: describeScreen(pathname, context), link: page.path === next.path ? undefined : { href: next.path, label: next.label } };
   }
 
   return null;

@@ -238,7 +238,7 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
       </ol>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,4fr)_minmax(0,3fr)_minmax(0,5fr)]">
-        <section aria-label="Cabin settings" className="panel flex flex-col gap-7 p-5">
+        <section aria-label="Cabin settings" data-wisp="This is where you describe a cabin: how much oxygen is in the air, how strong the air pressure is, and what kind of thing is burning. Pick a ready-made habitat, or drag the sliders to make your own." className="panel flex flex-col gap-7 p-5">
           <div>
             <p className="eyebrow mb-3">Habitat</p>
             <ToggleGroup.Root type="single" value={habitat ?? ""} onValueChange={(value) => value && chooseHabitat(value)} aria-label="Habitat" className="grid grid-cols-3 gap-1.5">
@@ -329,7 +329,7 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
           </div>
         </section>
 
-        <section aria-label="Flame and gravity" className="panel flex flex-col p-5">
+        <section aria-label="Flame and gravity" data-wisp="This drawing shows how gravity changes the shape of a flame: pointed on Earth, round in space. It is only a drawing, not a result. The words under it tell you what real evidence NASA has for the gravity you picked." className="panel flex flex-col p-5">
           <p className="eyebrow">Flame shape · illustration</p>
           <div className="flex flex-1 items-center py-2">
             <Flame g={field.g} label={field.label} fill={verdict.fill} dashed={reading.verdict === "never"} note={verdict.word} pulse={pulse} />
@@ -354,7 +354,7 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
           <p className="mt-3 min-h-[5.5em] text-[13px] leading-relaxed text-ink-2">{gravityLine(gravity, groundRow)}</p>
         </section>
 
-        <section aria-label="Flight record for this cabin" aria-live="polite" className="panel flex flex-col p-5">
+        <section aria-label="Flight record for this cabin" aria-live="polite" data-wisp="This is the answer for your cabin. The big word says whether NASA has ever run fire tests in air like yours. On the map, every dot is a real NASA test, and the orange box means close to your cabin. Dots inside the box are the tests that count. No dots inside means nobody has tested it." className="panel flex flex-col p-5">
           <p className="eyebrow">NASA flight record</p>
           <p className="display mt-3 text-[64px] sm:text-[88px]" style={{ color: verdict.color }}>
             {verdict.word}
@@ -386,7 +386,7 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
         </section>
       </div>
 
-      <section className="mt-12">
+      <section className="mt-12" data-wisp="These are three plain facts about your cabin, one for each part of fire safety: stopping a fire from starting, noticing it early, and putting it out.">
         <h2 className="display text-[36px] sm:text-[46px]">What the record says here</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {(
@@ -413,7 +413,7 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
         </div>
       </section>
 
-      <section className="mt-12">
+      <section className="mt-12" data-wisp="These are the real NASA tests whose air was most like your cabin's. Each row says which experiment it was, what burned, how much oxygen and pressure it had, and how it ended.">
         <h2 className="display text-[36px] sm:text-[46px]">Closest tests NASA flew</h2>
         <ol className="mt-5 divide-y divide-rule border-y border-rule">
           {reading.nearest.map((test) => (

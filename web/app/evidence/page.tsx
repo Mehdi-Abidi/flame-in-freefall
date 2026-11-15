@@ -42,7 +42,7 @@ export default function EvidencePage() {
         ))}
       </nav>
 
-      <section id="gap" className="scroll-mt-32">
+      <section id="gap" data-wisp="This map shows every NASA fire test as a dot, placed by how much oxygen and how much air pressure it had. The boxes mark the air that crews will live in. The Moon base box has no dots for solid materials, and that empty space is the gap." className="scroll-mt-32">
         <SectionHeader step="01 · The gap" title="Where the tests stop">
           Oxygen in every test, then every test by oxygen and pressure. No point in the lunar box is a solid.
         </SectionHeader>
@@ -64,7 +64,7 @@ export default function EvidencePage() {
         </div>
       </section>
 
-      <section id="gravity" className="scroll-mt-32 pt-20">
+      <section id="gravity" data-wisp="Here the same materials were burned twice: once in orbit and once on the ground. Some burned completely on Earth but hardly at all in orbit. So a test done on Earth can give the wrong idea about what happens in space." className="scroll-mt-32 pt-20">
         <SectionHeader step="02 · Gravity" title="Gravity changes the answer">
           SAFFIRE-II burned the same samples in orbit and on the ground. Thin silicone burned completely on Earth and barely in orbit.
         </SectionHeader>
@@ -73,7 +73,7 @@ export default function EvidencePage() {
       </section>
 
       {data.briefs.length > 0 && (
-        <section id="findings" className="scroll-mt-32 pt-20">
+        <section id="findings" data-wisp="These are three short summaries, one each for preventing fires, noticing them and putting them out. Every point links to the NASA study it comes from. The chart under them compares three gases NASA mixed into the air to see when burning fuel drops went out." className="scroll-mt-32 pt-20">
           <SectionHeader step="03 · Findings" title="What the record says">
             One brief per fire-safety pillar. Every finding cites its NASA record.
           </SectionHeader>
@@ -84,7 +84,7 @@ export default function EvidencePage() {
         </section>
       )}
 
-      <section id="next" className="scroll-mt-32 pt-20">
+      <section id="next" data-wisp="These are four experiments that would fill the holes in the data, such as burning solid materials in Moon-base air. Each one says what evidence it is based on." className="scroll-mt-32 pt-20">
         <SectionHeader step="04 · Next flights" title="What to fly next">
           Four experiments that would close these gaps, each backed by the test tables.
         </SectionHeader>

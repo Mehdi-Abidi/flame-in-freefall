@@ -6,8 +6,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 import { ask, askGuide, splitCitations, type AskAnswer } from "@/lib/ask";
 import { PHASE_LABEL } from "@/lib/format";
-import { localReply, offTopicReply, pageName, suggestionsFor, tourFor, type GuideData, type GuideLink, type HabitatReading } from "@/lib/guide";
-import { screen } from "@/lib/screen";
+import { fallbackReply, isAboutTheRecord, localReply, pageName, suggestionsFor, tourFor, type GuideData, type GuideLink, type HabitatReading } from "@/lib/guide";
+import { screen, sectionInView } from "@/lib/screen";
 import type { Verdict } from "@/lib/lab";
 
 type Message =
@@ -29,7 +29,7 @@ const VERDICT: Record<Verdict, { word: string; color: string }> = {
   thin: { word: "Barely flown", color: "var(--warn-ink)" },
   never: { word: "Never flown", color: "var(--signal)" },
 };
-const HELLO = "I am Wisp, your guide. Ask me what anything on this page means, ask about NASA's fire tests, or name a habitat and I will check its cabin.";
+const HELLO = "Hey, I'm Wisp, your guide. Confused by something on this page? Just ask \"what does this mean?\" and I'll explain what you're looking at. I can also answer questions about NASA's fire experiments in space.";
 const ICON = "inline-flex h-8 w-8 items-center justify-center rounded-[4px] border border-rule text-ink-2 transition-[color,border-color,transform] hover:border-rule-strong hover:text-ink active:translate-y-px";
 const noSubscription = () => () => {};
 
@@ -143,8 +143,8 @@ export function Guide({ data }: { data: GuideData }) {
     if (busy || !text) return;
     setDraft("");
     setMessages((list) => [...list, { id: nextId.current++, from: "you", text }]);
-    const shown = screen.get();
-    const local = localReply(text, pathname, data, shown);
+    const context = { section: sectionInView(), live: screen.get() };
+    const local = localReply(text, pathname, data, context);
     if (local) {
       add(local);
       say(local.text);
@@ -152,19 +152,22 @@ export function Guide({ data }: { data: GuideData }) {
     }
     setBusy(true);
     try {
-      // Wisp's own endpoint knows the page. An older API has only the strict record search, which needs three characters.
-      const guided = await askGuide(text, pageName(pathname), shown || tourFor(pathname));
-      const answer: AskAnswer | null = guided ? { answer: guided.answer, covered: true, citations: guided.citations, sources: [] } : text.length >= 3 ? await ask(text) : null;
+      // Wisp's own endpoint is told what is on the screen. An older API has only the strict record search, which is
+      // sent a question only when it is about the subject: a vague one would match some unrelated study.
+      const shown = [context.section || tourFor(pathname), context.live].filter(Boolean).join(" ");
+      const guided = await askGuide(text, pageName(pathname), shown);
+      const searchable = text.length >= 3 && isAboutTheRecord(text);
+      const answer: AskAnswer | null = guided ? { answer: guided.answer, covered: true, citations: guided.citations, sources: [] } : searchable ? await ask(text) : null;
       if (answer?.covered) {
         add({ answer });
         say(answer.answer);
       } else {
-        const fallback = offTopicReply(text);
+        const fallback = fallbackReply(text, pathname, context);
         add({ text: fallback });
         say(fallback);
       }
     } catch (error) {
-      add({ error: (error as Error).message, text: "I cannot reach NASA's records right now. I can still explain anything on this page: ask what a word means." });
+      add({ error: (error as Error).message, text: "I can't reach NASA's records right now, sorry. I can still explain anything on this page, so ask away." });
     }
     setBusy(false);
   }

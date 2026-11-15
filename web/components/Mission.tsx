@@ -40,7 +40,7 @@ function Hero({ data }: { data: MissionData }) {
     [String(data.lunarTests), "tests at lunar conditions"],
   ];
   return (
-    <section className="relative isolate flex min-h-[calc(100svh-57px)] items-center overflow-hidden border-b border-rule">
+    <section data-wisp={`This is the front page, and here is the big idea. Astronauts on a Moon base will breathe air with about 30% oxygen. But when NASA burned solid things like fabric and plastic in orbit, the air never had more than ${share(data.solid.max)} oxygen. So nobody has tested how those things burn in the air a Moon base will have. This site shows what was tested and what was not.`} className="relative isolate flex min-h-[calc(100svh-57px)] items-center overflow-hidden border-b border-rule">
       <div className="absolute inset-y-0 left-0 -z-20 w-[220%] lg:w-[135%]">
         <Image src={earthset} alt="Earth setting behind the Moon's horizon, photographed from Orion on Artemis II" fill priority sizes="135vw" className="object-cover object-bottom" />
       </div>
@@ -88,7 +88,7 @@ function Freefall() {
   const earth = useTransform(orbit, (v) => 1 - v);
   const gravity = useTransform(orbit, (v) => (1 - v).toFixed(2));
   return (
-    <section id="freefall" ref={scene} className="relative h-[230vh]">
+    <section id="freefall" ref={scene} data-wisp="This shows what happens to a candle flame when you take gravity away. On Earth, hot air rises, so the flame is tall and pointed. In space nothing rises, so the same flame shrinks into a small blue ball. Fire behaves differently up there, and that is why NASA tests it in orbit. Both pictures are real NASA photos." className="relative h-[230vh]">
       <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden pt-14">
         <div className="mx-auto grid w-full max-w-[1240px] items-center gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-16">
           <div>
@@ -137,7 +137,10 @@ function Gap({ solid }: { solid: MissionData["solid"] }) {
   const x = (fraction: number) => `${((fraction - 0.1) / 0.3) * 100}%`;
   const span = (from: number, to: number) => `${((to - from) / 0.3) * 100}%`;
   return (
-    <section className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6">
+    <section
+      data-wisp={`This is the gap, the main finding. The blue number, ${share(solid.max)}, is the most oxygen NASA ever had in the air when it burned solid things like fabric and plastic in orbit. The red number, 30%, is the oxygen a Moon base is expected to have. More oxygen makes things catch fire and burn more easily, and nobody has tested solids at that level yet. The picture is a real fabric sample burning in a NASA experiment.`}
+      className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6"
+    >
       <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
         <Reveal>
           <p className="eyebrow text-accent">Chapter 2 · The gap</p>
@@ -181,7 +184,7 @@ function Gap({ solid }: { solid: MissionData["solid"] }) {
 
 function Cabin({ habitats }: { habitats: HabitatReading[] }) {
   return (
-    <section className="relative isolate overflow-hidden border-y border-rule">
+    <section data-wisp="These are three places astronauts could live. For each one we counted how many of NASA's tests on solid materials used air like that cabin's. Flown means NASA ran plenty of tests in air like that. Never flown means it ran none, so nobody knows how a fire would behave there. Click one to try it in the cabin lab." className="relative isolate overflow-hidden border-y border-rule">
       <Image src={earthrise} alt="Earth rising over the Moon's horizon, photographed from Apollo 8" fill sizes="100vw" className="-z-20 object-cover object-[60%_70%]" />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(5,7,11,0.94)_0%,rgba(5,7,11,0.7)_55%,rgba(5,7,11,0.45)_100%)]" />
       <div className="mx-auto grid max-w-[1240px] items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-2">
@@ -237,7 +240,7 @@ function Pipeline({ data }: { data: MissionData }) {
     { name: "Explain", figure: String(pipeline.modelReasons), unit: "checked reasons", text: "Model text is checked against the numbers before it is shown. Answers cite a NASA record or say the data does not cover it." },
   ];
   return (
-    <section className="mx-auto max-w-[1240px] px-4 pt-24 sm:px-6">
+    <section data-wisp="This shows how the site was built, in five steps. First we collected NASA's records. Then we put every number into the same units so they can be compared. An AI read each study and wrote a short summary. A simple formula, with no AI in it, scored each study. Last, every sentence the AI wrote was checked against the real numbers before it was shown." className="mx-auto max-w-[1240px] px-4 pt-24 sm:px-6">
       <Reveal>
         <p className="eyebrow text-accent">Chapter 4 · How it thinks</p>
         <h2 className="display mt-3 max-w-[14ch] text-[48px] sm:text-[84px]">From raw records to cited answers</h2>
@@ -271,7 +274,7 @@ function Pipeline({ data }: { data: MissionData }) {
 
 function Tools({ data }: { data: MissionData }) {
   return (
-    <section className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6">
+    <section data-wisp="These cards are the tools on this site. Each one opens a page. You can rank NASA's studies for a place like a Moon base, ask me a question, read each study in plain words, compare studies side by side, see how the site was built, or see how this research helps people on Earth." className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6">
       <Reveal>
         <p className="eyebrow text-accent">Chapter 5 · Mission tools</p>
         <h2 className="display mt-3 text-[48px] sm:text-[84px]">Go deeper</h2>
