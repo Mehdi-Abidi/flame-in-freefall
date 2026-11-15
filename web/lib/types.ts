@@ -126,6 +126,7 @@ export interface Stats {
   solidMaxO2: number;
   lunarTests: number;
   lunarPhases: Phase[];
+  flexExtinction: { count: number; lowestO2: number; atLunarO2: number };
   measuredRows: number;
   oxygenByPhase: PhaseOxygen[];
 }
