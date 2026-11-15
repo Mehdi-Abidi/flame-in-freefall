@@ -405,6 +405,16 @@ class AskTests(unittest.TestCase):
         self.assertEqual(client.get("/tests", params={"record_type": "xyz"}).status_code, 422)
         self.assertEqual(client.get("/tests", params={"accession": "PSI-69", "record_type": "Test"}).status_code, 200)
 
+    def test_guide_uses_its_own_key_when_set(self):
+        with mock.patch.dict("os.environ", {"GUIDE_LLM_API_KEY": "guide-key"}), mock.patch.object(main, "_guide_llm", None), mock.patch.object(main, "LLM") as client_class:
+            main.guide_chat()
+        client_class.assert_called_once_with(api_key="guide-key", max_retries=0, timeout=main.ASK_MODEL_TIMEOUT)
+
+    def test_guide_falls_back_to_the_ask_client_without_its_own_key(self):
+        sentinel = object()
+        with mock.patch.dict("os.environ", {"GUIDE_LLM_API_KEY": ""}), mock.patch.object(main, "llm_chat", return_value=sentinel):
+            self.assertIs(main.guide_chat(), sentinel)
+
     def test_question_validation(self):
         self.assertEqual(client.post("/ask", json={"question": "x" * 501}).status_code, 422)
 
