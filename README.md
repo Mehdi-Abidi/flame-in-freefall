@@ -79,16 +79,16 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | D1 to D4 Units, `normalize.py`, `tests.csv`, `qa.py` | Mufeed | Done |
 | D5 Merge extraction and hand-checked tags into `investigations.json` | Mufeed | Done |
 | S1 to S3 LLM client, AI extraction, habitat ranking engine | Mehdi | Done |
-| S4 to S5 Rank explanations and insight briefs | Mehdi | Done. Template entries get a model rerun on Sunday after T1 and T4 |
+| S4 to S5 Rank explanations and insight briefs | Mehdi | Done. The three briefs were redrafted and reviewed in T4 |
 | S6 Merges, deploy checks, submission | Mehdi | Sunday |
 | A1 to A5 FastAPI service, live on Render, see [API](#api) | Moiz | Done |
 | F1 to F4, V1 to V4 Dashboard (`web/`), live on GitHub Pages | Mehdi | Done |
 | F5 Ask page against `/ask` | Ali Soban | Done |
 | F6 Submission text draft | Ali Soban | Done |
 | V2 and V4 Gap map label tuning, partial-gravity note | Ahsan | Done |
-| T1 Hand-checked pillar tags | Taha | Draft merged, 7 entries marked REVIEW for Taha |
+| T1 Hand-checked pillar tags | Taha | Done. All 24 signed off, Saffire platforms corrected to Cygnus |
 | T2 Habitat scenarios | Taha | Done |
-| T4 Review of the extraction and the briefs | Taha | Sunday morning |
+| T4 Review of the extraction and the briefs | Taha | Done. Briefs reviewed, a false sensor warning cleared |
 | T5 Demo video and slides, polish of the submission text | Taha | Sunday afternoon |
 
 ## Dashboard (`web/`)
