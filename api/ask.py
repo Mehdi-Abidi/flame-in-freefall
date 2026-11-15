@@ -184,6 +184,38 @@ def overview_summary(tests: List[dict]) -> str:
     return "\n".join(lines)
 
 
+BASIS_WORDS = {"measured": "measured", "planned": "planned", "nominal_cabin_air": "assumed cabin air",
+               "test_day_list": "per test day", "approximate": "approximate"}
+
+
+def _span(low_high: List[float], scale: float, percent: bool) -> str:
+    low, high = low_high[0] * scale, low_high[1] * scale
+    mark, unit = ("%", " O2") if percent else ("", " kPa")
+    return f"{low:.0f}{mark}{unit}" if round(low) == round(high) else f"{low:.0f}{mark} to {high:.0f}{mark}{unit}"
+
+
+def variation_summary(investigations: List[dict]) -> str:
+    """Complete lists, from the test tables, of which investigations varied oxygen or pressure and which ran at one level."""
+    oxygen, pressure, single = [], [], []
+    for item in sorted(investigations, key=lambda i: int(i["accession"].split("-")[1])):
+        label = f"{item.get('acronym') or item['accession']} ({item['accession']})"
+        varied = item.get("variables_varied") or []
+        o2 = item.get("o2_range")
+        basis = BASIS_WORDS.get(item.get("o2_basis"), item.get("o2_basis") or "")
+        if "oxygen concentration" in varied and o2:
+            oxygen.append(f"{label} {_span(o2, 100, True)}" + (f" ({basis})" if basis else ""))
+        elif o2 and o2[1] - o2[0] < 0.01:
+            single.append(f"{label} about {o2[0] * 100:.0f}% O2" + (f" ({basis})" if basis else ""))
+        if "pressure" in varied and item.get("pressure_kpa_range"):
+            pressure.append(f"{label} {_span(item['pressure_kpa_range'], 1, False)}")
+    lines = [f"Varied-oxygen: the test tables vary oxygen concentration in {len(oxygen)} investigations: {'; '.join(oxygen)}."]
+    if pressure:
+        lines.append(f"Varied-pressure: the test tables vary pressure in {len(pressure)} investigations: {'; '.join(pressure)}.")
+    if single:
+        lines.append(f"Single-oxygen: these ran at one oxygen level and did not vary it: {'; '.join(single)}.")
+    return "\n".join(lines)
+
+
 def build_chunks(investigations: List[dict], raw: Dict[str, dict], extracted: Optional[Dict[str, dict]] = None,
                  tests: Optional[List[dict]] = None, gravity: Optional[List[dict]] = None) -> List[dict]:
     """Searchable passages. The summary comes from investigations.json once D5 merges it, else from extracted.json (S2)."""
@@ -192,7 +224,7 @@ def build_chunks(investigations: List[dict], raw: Dict[str, dict], extracted: Op
         rows_by_accession[row["accession"]].append(row)
     chunks = []
     if tests:
-        text = overview_summary(tests)
+        text = overview_summary(tests) + "\n" + variation_summary(investigations)
         chunks.append({"accession": OVERVIEW, "acronym": "All investigations", "field": "dataset overview",
                        "text": text, "tokens": tokenize(f"dataset overview all investigations tested {text}")})
     for item in investigations:
