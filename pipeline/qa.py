@@ -342,10 +342,12 @@ def main():
         and (not number(r[5]) or close(number(o["pressure_kpa"]), float(r[5]) * mmhg, 0.01))
         and (not r[6] or close(number(o["o2_mole_fraction"]), float(r[6]), 1e-6))
         and (not re.fullmatch(r"[\d.]+", r[10]) or close(number(o["size_mm"]), float(r[10]), 1e-6))))
-    report.check("CFI-G inverse pressure and O2", compare(
+    report.check("CFI-G inverse pressure, and no ambient O2 from the burner's oxidizer stream", compare(
         tests, args.raw, "PSI-159_Experimental table_CFI-G_Inverse Flames.csv", lambda r: r[3].strip(),
         lambda r, o: o["test_id"] == r[3].strip() and close(number(o["pressure_kpa"]), float(r[6]) * 100, 0.01)
-        and close(number(o["o2_mole_fraction"]), float(r[7]), 1e-4)))
+        and number(o["o2_mole_fraction"]) is None and o["o2_source"] == "" and "inverse flame" in o["notes"]))
+    report.check("no inverse-flame row carries an ambient O2 value",
+                 [t["row_id"] for t in tests if "inverse" in t["geometry"] and t["o2_mole_fraction"]])
     report.check("CFI-G normal pressure and O2", compare(
         tests, args.raw, "PSI-159_Experimental table_CFI-G_Normal Flames.csv", lambda r: r[3].strip(),
         lambda r, o: o["test_id"] == r[3].strip() and close(number(o["pressure_kpa"]), float(r[7]) * 100, 0.01)
