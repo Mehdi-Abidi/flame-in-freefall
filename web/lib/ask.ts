@@ -19,6 +19,8 @@ export function splitCitations(text: string): string[] {
   return text.replace(/\*\*/g, "").replace(/^\* /gm, "• ").split(/(PSI-\d+)/);
 }
 
+const TIMEOUT_MS = 90_000;
+
 export async function ask(question: string, fetcher: typeof fetch = fetch): Promise<AskAnswer> {
   let res: Response;
   try {
@@ -26,11 +28,19 @@ export async function ask(question: string, fetcher: typeof fetch = fetch): Prom
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question }),
+      signal: AbortSignal.timeout(TIMEOUT_MS),
     });
-  } catch {
+  } catch (error) {
+    if ((error as Error)?.name === "TimeoutError") throw new Error("The API took too long to answer. Try again in a minute.");
     throw new Error("Could not reach the API. Check your connection and try again.");
   }
-  if (res.ok) return res.json();
+  if (res.ok) {
+    try {
+      return await res.json();
+    } catch {
+      throw new Error("The API sent an answer that could not be read. Try again.");
+    }
+  }
   const body = await res.json().catch(() => null);
   const detail = typeof body?.detail === "string" ? body.detail : null;
   throw new Error(detail ?? (res.status === 422 ? "Questions must be 3 to 500 characters." : `The API answered ${res.status}. Try again.`));

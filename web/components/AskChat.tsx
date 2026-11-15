@@ -51,6 +51,7 @@ export function AskChat({ names }: { names: Record<string, string> }) {
       done = { question: q, result: await ask(q) };
     } catch (error) {
       done = { question: q, error: (error as Error).message };
+      setQuestion((current) => current || q);
     }
     setTurns((t) => [done, ...t.slice(1)]);
     setBusy(false);
