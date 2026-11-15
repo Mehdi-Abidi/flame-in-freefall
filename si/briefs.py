@@ -220,11 +220,32 @@ def _percent_tokens(values):
     return tokens
 
 
+DILUENT_CLAIM = re.compile(r"\b(\d+)\s+(?:[\w-]+\s+){0,3}rows with (N2\+CO2|N2\+He|[A-Za-z0-9]+(?:\+[A-Za-z0-9]+)*)", re.I)
+OBSERVATION_DILUENT = re.compile(r"rows with ([^,]+),")
+WHOLE_COUNT = re.compile(r"(?<![\d.])(\d+)(?![\d.%])")
+
+
+def _diluent_problems(label, text, cited):
+    known = {}
+    for inv in cited:
+        for obs in inv.get("observations") or []:
+            match = OBSERVATION_DILUENT.search(obs)
+            if match:
+                known.setdefault(match.group(1).strip().lower(), set()).update(WHOLE_COUNT.findall(obs))
+    problems = []
+    for count, diluent in DILUENT_CLAIM.findall(text):
+        counts = known.get(diluent.lower())
+        if counts is not None and count not in counts:
+            problems.append(f"{label} gives {count} rows with {diluent}, but that count belongs to a different group in the facts")
+    return problems
+
+
 def _evidence_problems(label, finding, by_accession):
     problems = []
     text = finding.get("text") or ""
     lowered = text.lower()
     cited = [by_accession[c] for c in finding.get("citations") or [] if c in by_accession]
+    problems += _diluent_problems(label, text, cited)
     unnamed = [inv["name"] for inv in cited if inv["name"].lower() not in lowered]
     if unnamed:
         problems.append(f"{label} cites {', '.join(unnamed)} but does not name it, so the citation may not support the claim")
@@ -288,6 +309,28 @@ def clean_brief(raw):
     }
 
 
+ABSENCE = re.compile(r"\b(no|lacks?|lacking|without|absent|missing|none|nor)\b", re.I)
+EXTINCTION_WORD = re.compile(r"\b(extinction|extinguish\w*|self-extinguish\w*|went out|go out)\b", re.I)
+LUNAR_OXYGEN = re.compile(r"\b(lunar|moon|30\s?%|30\.0\s?%|higher oxygen|high oxygen)\b", re.I)
+SOLID_WORD = re.compile(r"\b(solids?|fabrics?|cabin materials?)\b", re.I)
+OXYGEN_QUALIFIER = re.compile(r"\b(oxygen|o2|lunar|30\s?%|atmosphere)\b", re.I)
+
+
+def _absence_problems(key, text, facts):
+    problems = []
+    observations = [obs for inv in facts.get("investigations") or [] for obs in inv.get("observations") or []]
+    rich_extinctions = [obs for obs in observations
+                        if ("extinction" in obs or "self-extinguished" in obs) and "at 30.0% oxygen or more" in obs]
+    for sentence in re.split(r"(?<=[.!?])\s+", text):
+        if not ABSENCE.search(sentence):
+            continue
+        if rich_extinctions and EXTINCTION_WORD.search(sentence) and LUNAR_OXYGEN.search(sentence):
+            problems.append(f"{key} says nothing went out at lunar oxygen, but the facts record extinctions at 30% oxygen or more")
+        if SOLID_WORD.search(sentence) and not OXYGEN_QUALIFIER.search(sentence):
+            problems.append(f"{key} says solids have no data, but PSI has solid tests; say which oxygen level is missing")
+    return problems
+
+
 def validate_brief(brief, facts):
     """Return a list of problems; an empty list means the brief is safe to publish."""
     allowed_accessions = {inv["accession"] for inv in facts["investigations"]}
@@ -318,6 +361,7 @@ def validate_brief(brief, facts):
         match = OVERCONFIDENT.search(text)
         if match:
             problems.append(f"{key} uses overconfident safety language ({match.group(0)})")
+        problems += _absence_problems(key, text, facts)
     return problems
 
 
@@ -420,7 +464,8 @@ def generate(all_facts, writer, existing=None, only=None, model_id="template", f
         key = fingerprint(facts)
         previous = output.get(pillar) or {}
         reusable = (not force and previous.get("fingerprint") == key
-                    and (previous.get("source") == "model" or model_id == "template"))
+                    and (previous.get("source") == "model" or model_id == "template")
+                    and not (previous.get("source") == "model" and validate_brief(clean_brief(previous), facts)))
         if reusable:
             stats["kept"] += 1
             record = previous

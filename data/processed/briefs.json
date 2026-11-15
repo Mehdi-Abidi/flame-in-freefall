@@ -1,7 +1,7 @@
 {
   "version": 1,
   "prompt_version": "s5-v3",
-  "model": "template",
+  "model": "openai/gpt-oss-120b",
   "briefs": {
     "prevention": {
       "title": "What NASA PSI records show on prevention",
@@ -49,7 +49,9 @@
         "PSI-60"
       ],
       "fingerprint": "e923d2c3e3bf1742",
-      "problems": [],
+      "problems": [
+        "gap says nothing went out at lunar oxygen, but the facts record extinctions at 30% oxygen or more"
+      ],
       "review": "awaiting expert review"
     },
     "detection": {
@@ -86,7 +88,12 @@
         "PSI-60"
       ],
       "fingerprint": "2ff7b4cfc240e35c",
-      "problems": [],
+      "problems": [
+        "finding 1 spells out numbers (five), write digits",
+        "finding 1 presents SAME-R's assumed or planned oxygen as measured",
+        "finding 2 spells out numbers (five), write digits",
+        "finding 2 presents SAME's assumed or planned oxygen as measured"
+      ],
       "review": "awaiting expert review"
     },
     "suppression": {
@@ -123,7 +130,10 @@
         "PSI-26"
       ],
       "fingerprint": "1e7230f80e207166",
-      "problems": [],
+      "problems": [
+        "finding 2 claims flames went out, but no extinction outcome is recorded for what it cites",
+        "finding 3 claims flames went out, but no extinction outcome is recorded for what it cites"
+      ],
       "review": "awaiting expert review"
     }
   }
