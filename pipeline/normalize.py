@@ -256,6 +256,13 @@ def cfi(path, name):
     return rows
 
 
+def chamber_pressure(mean, initial, final):
+    values = [first_number(mean)]
+    if values[0] is None:
+        values = [v for v in (first_number(initial), first_number(final)) if v is not None]
+    return round(sum(values) / len(values), 6) if values else None
+
+
 def inverse_note(jet_o2):
     value = first_number(jet_o2)
     jet = f"{value * 100:.0f}% O2" if value is not None else "oxygen"
@@ -295,7 +302,7 @@ def flame_design(path, name):
     inverse = "inverse" in name.lower()
     for r in read_table(path):
         o2 = None if inverse else first_number(col(r, "xo2 (init)"))
-        pressure = first_number(col(r, "pmean"))
+        pressure = chamber_pressure(col(r, "pmean"), col(r, "pinit"), col(r, "pfinal"))
         notes = [f"ACME test day {col(r, 'day')}"] if col(r, "day") else []
         if inverse:
             notes.append(inverse_note(col(r, "xo2")))
