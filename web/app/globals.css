@@ -166,6 +166,30 @@ h3 {
   background-size: 100% 1px;
 }
 
+@keyframes flame-breathe-a {
+  50% {
+    transform: scale(1.03, 1.06);
+  }
+}
+
+@keyframes flame-breathe-b {
+  50% {
+    transform: scale(1.03, 1.06);
+  }
+}
+
+/* Two names so a change of class restarts the two breaths without remounting the flame. */
+.flame-breathe-a,
+.flame-breathe-b {
+  transform-box: view-box;
+  transform-origin: 100px 196px;
+  animation: flame-breathe-a 1.6s ease-in-out 2;
+}
+
+.flame-breathe-b {
+  animation-name: flame-breathe-b;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

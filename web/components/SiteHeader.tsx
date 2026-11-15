@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
+import { AmbientSound } from "./AmbientSound";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 
 const NAV = [
   { href: "/", label: "Overview" },
+  { href: "/lab/", label: "Cabin lab" },
   { href: "/rank/", label: "Rank" },
   { href: "/investigations/", label: "Investigations" },
   { href: "/compare/", label: "Compare" },
@@ -51,8 +53,9 @@ export function SiteHeader() {
             );
           })}
         </nav>
-        <div className="ml-auto flex items-center gap-3">
-          <span className="mono hidden text-[11px] text-muted lg:inline">NASA SPACE APPS 2026</span>
+        <div className="ml-auto flex items-center gap-2">
+          <span className="mono hidden text-[11px] text-muted xl:inline">NASA SPACE APPS 2026</span>
+          <AmbientSound />
           <ThemeToggle />
         </div>
       </div>
