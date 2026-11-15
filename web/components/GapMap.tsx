@@ -3,8 +3,9 @@
 import { Delaunay } from "d3-delaunay";
 import { scaleLinear, scaleLog } from "d3-scale";
 import { AnimatePresence, motion } from "motion/react";
-import { useMemo, useState } from "react";
-import { PHASE_COLOR, PHASE_LABEL, PLOTTED_PHASES, pct } from "@/lib/format";
+import { Fragment, useMemo, useState } from "react";
+import { HABITAT_SHORT_LABEL, PHASE_COLOR, PHASE_LABEL, PLOTTED_PHASES, pct } from "@/lib/format";
+import { basisLines, oxygenMeasured, pointBasis } from "@/lib/points";
 import type { Phase, Point, Scenario } from "@/lib/types";
 import { useSize } from "./useSize";
 
@@ -21,6 +22,9 @@ interface Props {
 
 const MARGIN = { top: 16, right: 18, bottom: 44, left: 56 };
 const HIT_RADIUS = 24;
+const TIP_WIDTH = 236;
+// The busiest row of dots sits on the ISS box and just above it, so that label goes underneath.
+const LABEL_BELOW = new Set(["iss"]);
 
 interface Box {
   key: string;
@@ -34,11 +38,12 @@ function mergeBoxes(scenarios: Scenario[]): Box[] {
   const boxes = new Map<string, Box>();
   for (const s of scenarios) {
     const key = `${s.o2.join()}|${s.kpa.join()}`;
+    const label = HABITAT_SHORT_LABEL[s.id] ?? s.label;
     const existing = boxes.get(key);
     if (existing) {
       existing.ids.push(s.id);
-      existing.label += ` · ${s.label}`;
-    } else boxes.set(key, { key, ids: [s.id], label: s.label, o2: s.o2, kpa: s.kpa });
+      existing.label += ` · ${label}`;
+    } else boxes.set(key, { key, ids: [s.id], label, o2: s.o2, kpa: s.kpa });
   }
   return [...boxes.values()];
 }
@@ -51,9 +56,11 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
   const [hover, setHover] = useState<Point | null>(null);
 
   const visible = useMemo(
-    () => points.filter((p) => phases.has(p.ph) && (!measuredOnly || p.measured)),
+    () => points.filter((p) => phases.has(p.ph) && (!measuredOnly || oxygenMeasured(p))),
     [points, phases, measuredOnly],
   );
+  // A tap keeps its tooltip open, so drop it once a filter hides that test.
+  const active = hover && phases.has(hover.ph) && (!measuredOnly || oxygenMeasured(hover)) ? hover : null;
   const counts = useMemo(() => {
     const c: Record<string, number> = {};
     for (const p of points) c[p.ph] = (c[p.ph] ?? 0) + 1;
@@ -69,7 +76,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
 
   const delaunay = useMemo(() => Delaunay.from(visible, (p) => x(p.o2), (p) => y(p.kpa)), [visible, x, y]);
 
-  function onMove(event: React.PointerEvent<SVGRectElement>) {
+  function onPoint(event: React.PointerEvent<SVGRectElement>) {
     if (!visible.length) return;
     const rect = event.currentTarget.getBoundingClientRect();
     const mx = event.clientX - rect.left;
@@ -98,13 +105,31 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
     for (const p of visible) {
       const row = rows.get(p.a) ?? { a: p.a, n: 0, o2: [p.o2, p.o2], kpa: [p.kpa, p.kpa], measured: 0 };
       row.n += 1;
-      row.measured += p.measured ? 1 : 0;
+      row.measured += oxygenMeasured(p) ? 1 : 0;
       row.o2 = [Math.min(row.o2[0], p.o2), Math.max(row.o2[1], p.o2)];
       row.kpa = [Math.min(row.kpa[0], p.kpa), Math.max(row.kpa[1], p.kpa)];
       rows.set(p.a, row);
     }
     return [...rows.values()].sort((a, b) => b.o2[1] - a.o2[1]);
   }, [visible]);
+
+  const boxLayout = boxes.map((box) => {
+    const bx = x(box.o2[0]);
+    const bw = Math.max(x(box.o2[1]) - bx, 6);
+    const by = y(box.kpa[1]);
+    const bh = Math.max(y(box.kpa[0]) - by, 6);
+    // Mono 12px is about 7.2px a character. Shorten a merged label that cannot fit from its box's left edge, then keep the label inside the plot.
+    const full = box.label.toUpperCase();
+    const label = bx + 4 + full.length * 7.2 > innerW && box.ids.length > 1 ? `${full.split(" · ")[0]} +${box.ids.length - 1}` : full;
+    const textW = label.length * 7.2;
+    const below = box.ids.some((id) => LABEL_BELOW.has(id));
+    const lx = Math.max(0, Math.min(below ? bx + bw / 2 - textW / 2 : bx + 4, innerW - textW));
+    const ly = below ? by + bh + 14 : by - 9;
+    return { box, selected: selectedScenario ? box.ids.includes(selectedScenario) : false, bx, by, bw, bh, label, lx, ly };
+  });
+
+  const tipX = active ? MARGIN.left + x(active.o2) : 0;
+  const tipY = active ? MARGIN.top + y(active.kpa) : 0;
 
   return (
     <figure className="m-0">
@@ -134,9 +159,12 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
         >
           <span aria-hidden="true" className="inline-flex gap-0.5">
             <span className="h-2.5 w-2.5 rounded-full bg-ink-2" />
+            <span className="grid h-2.5 w-2.5 place-items-center rounded-full border-[1.5px] border-ink-2">
+              <span className="h-[3px] w-[3px] rounded-full bg-ink-2" />
+            </span>
             {!measuredOnly && <span className="h-2.5 w-2.5 rounded-full border-[1.5px] border-ink-2" />}
           </span>
-          {measuredOnly ? "Measured only" : "Measured and assumed"}
+          {measuredOnly ? "Measured oxygen only" : "Measured and assumed"}
         </button>
         <div className="ml-auto inline-flex rounded-[4px] border border-rule p-0.5" role="group" aria-label="View">
           {(["chart", "table"] as const).map((v) => (
@@ -144,7 +172,10 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
               key={v}
               type="button"
               aria-pressed={view === v}
-              onClick={() => setView(v)}
+              onClick={() => {
+                setView(v);
+                setHover(null);
+              }}
               className={`mono rounded-[3px] px-2.5 py-1 text-[12px] uppercase tracking-[0.1em] ${view === v ? "bg-ink text-paper" : "text-ink-2"}`}
             >
               {v}
@@ -175,86 +206,98 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
               ))}
               <line y1={innerH} y2={innerH} x2={innerW} stroke="var(--rule-strong)" />
               <text x={innerW} y={innerH + 36} textAnchor="end" fontSize={12} fill="var(--ink-2)">
-                Oxygen in the atmosphere (mole fraction)
+                Oxygen in the atmosphere (% by volume)
               </text>
               <text transform={`translate(${-44},${innerH / 2}) rotate(-90)`} textAnchor="middle" fontSize={12} fill="var(--ink-2)">
                 Pressure (kPa, log scale)
               </text>
 
-              {boxes.map((box) => {
-                const selected = selectedScenario ? box.ids.includes(selectedScenario) : false;
-                const bx = x(box.o2[0]);
-                const bw = Math.max(x(box.o2[1]) - bx, 6);
-                const by = y(box.kpa[1]);
-                const bh = Math.max(y(box.kpa[0]) - by, 6);
-                // Mono 12px is about 7.2px a character. Shorten merged labels that cannot fit, then keep the label inside the plot.
-                const full = box.label.toUpperCase();
-                const label = full.length * 7.2 > innerW && box.ids.length > 1 ? `${full.split(" · ")[0]} +${box.ids.length - 1}` : full;
-                const lx = Math.max(0, Math.min(bx + 4, innerW - label.length * 7.2));
-                return (
-                  <g key={box.key}>
-                    <motion.rect
-                      initial={false}
-                      animate={{ x: bx, y: by, width: bw, height: bh }}
-                      transition={{ type: "spring", stiffness: 220, damping: 30 }}
-                      fill={selected ? "var(--accent-wash)" : "var(--target-wash)"}
-                      stroke={selected ? "var(--accent)" : "var(--ink-2)"}
-                      strokeWidth={selected ? 1.5 : 1}
-                      rx={2}
-                    />
-                    {!compact && (
-                      <text x={lx} y={by - 6} fontSize={12} className="mono" fill={selected ? "var(--accent)" : "var(--ink-2)"} stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
-                        {label}
-                      </text>
-                    )}
-                  </g>
-                );
-              })}
+              {boxLayout.map(({ box, selected, bx, by, bw, bh }) => (
+                <motion.rect
+                  key={box.key}
+                  initial={false}
+                  animate={{ x: bx, y: by, width: bw, height: bh }}
+                  transition={{ type: "spring", stiffness: 220, damping: 30 }}
+                  fill={selected ? "var(--accent-wash)" : "var(--target-wash)"}
+                  stroke={selected ? "var(--accent)" : "var(--ink-2)"}
+                  strokeWidth={selected ? 1.5 : 1}
+                  rx={2}
+                />
+              ))}
 
               {solidMaxO2 !== undefined && phases.has("solid") && (
-                <g>
-                  <line x1={x(solidMaxO2)} x2={x(solidMaxO2)} y1={0} y2={innerH} stroke="var(--s1)" strokeWidth={1} opacity={0.7} />
-                  {!compact && (
-                    <text x={x(solidMaxO2) + 6} y={14} fontSize={12} fill="var(--ink)" stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
-                      <tspan fontWeight={600}>Solid materials stop here</tspan>
-                      <tspan x={x(solidMaxO2) + 6} dy={14} fill="var(--ink-2)">
-                        highest measured: {pct(solidMaxO2, 1)} O₂
-                      </tspan>
-                    </text>
-                  )}
-                </g>
+                <line x1={x(solidMaxO2)} x2={x(solidMaxO2)} y1={0} y2={innerH} stroke="var(--s1)" strokeWidth={1} opacity={0.7} />
               )}
 
               <g>
                 {visible.map((p, index) => {
-                  const dim = highlight && p.a !== highlight;
+                  const opacity = highlight && p.a !== highlight ? 0.12 : 0.88;
+                  const transition = { duration: 0.4, delay: Math.min(index * 0.0006, 0.5) };
+                  const basis = pointBasis(p);
                   return (
-                    <motion.circle
-                      key={p.id}
-                      cx={x(p.o2)}
-                      cy={y(p.kpa)}
-                      r={4}
-                      initial={{ opacity: 0, scale: 0.4 }}
-                      animate={{ opacity: dim ? 0.12 : 0.88, scale: 1 }}
-                      transition={{ duration: 0.4, delay: Math.min(index * 0.0006, 0.5) }}
-                      fill={p.measured ? PHASE_COLOR[p.ph] : "var(--surface)"}
-                      stroke={p.measured ? "var(--surface)" : PHASE_COLOR[p.ph]}
-                      strokeWidth={p.measured ? 1.5 : 1.5}
-                    />
+                    <Fragment key={p.id}>
+                      <motion.circle
+                        cx={x(p.o2)}
+                        cy={y(p.kpa)}
+                        r={4}
+                        initial={{ opacity: 0, scale: 0.4 }}
+                        animate={{ opacity, scale: 1 }}
+                        transition={transition}
+                        fill={basis === "measured" ? PHASE_COLOR[p.ph] : "var(--surface)"}
+                        stroke={basis === "measured" ? "var(--surface)" : PHASE_COLOR[p.ph]}
+                        strokeWidth={1.5}
+                      />
+                      {/* Oxygen measured, pressure assumed: a ring with a centre, between filled and hollow. */}
+                      {basis === "oxygen" && (
+                        <motion.circle
+                          cx={x(p.o2)}
+                          cy={y(p.kpa)}
+                          r={1.6}
+                          initial={{ opacity: 0, scale: 0.4 }}
+                          animate={{ opacity, scale: 1 }}
+                          transition={transition}
+                          fill={PHASE_COLOR[p.ph]}
+                        />
+                      )}
+                    </Fragment>
                   );
                 })}
               </g>
 
-              {hover && (
-                <circle cx={x(hover.o2)} cy={y(hover.kpa)} r={8} fill="none" stroke="var(--ink)" strokeWidth={1.5} pointerEvents="none" />
+              {/* Labels go on top of the dots so the dots cannot strike through them. */}
+              {!compact &&
+                boxLayout.map(({ box, selected, label, lx, ly }) => (
+                  <text key={box.key} x={lx} y={ly} fontSize={12} className="mono" fill={selected ? "var(--accent)" : "var(--ink-2)"} stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
+                    {label}
+                  </text>
+                ))}
+              {!compact && solidMaxO2 !== undefined && phases.has("solid") && (
+                <text x={x(solidMaxO2) + 6} y={14} fontSize={12} fill="var(--ink)" stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
+                  <tspan fontWeight={600}>Solid materials stop here</tspan>
+                  <tspan x={x(solidMaxO2) + 6} dy={14} fill="var(--ink-2)">
+                    highest measured: {pct(solidMaxO2, 1)} O₂
+                  </tspan>
+                </text>
               )}
 
+              {active && (
+                <circle cx={x(active.o2)} cy={y(active.kpa)} r={8} fill="none" stroke="var(--ink)" strokeWidth={1.5} pointerEvents="none" />
+              )}
+
+              {/* A mouse shows the nearest test on hover. A finger shows it on tap and keeps it until the next tap, because a phone has no hover. */}
               <rect
                 width={innerW}
                 height={innerH}
                 fill="transparent"
-                onPointerMove={onMove}
-                onPointerLeave={() => setHover(null)}
+                onPointerMove={(event) => {
+                  if (event.pointerType === "mouse") onPoint(event);
+                }}
+                onPointerUp={(event) => {
+                  if (event.pointerType !== "mouse") onPoint(event);
+                }}
+                onPointerLeave={(event) => {
+                  if (event.pointerType === "mouse") setHover(null);
+                }}
               />
             </g>
           </svg>
@@ -266,7 +309,7 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                 <tr className="eyebrow">
                   <th className="px-3 py-2 font-normal">Investigation</th>
                   <th className="px-3 py-2 text-right font-normal">Tests</th>
-                  <th className="px-3 py-2 text-right font-normal">Measured</th>
+                  <th className="px-3 py-2 text-right font-normal">O₂ measured</th>
                   <th className="px-3 py-2 text-right font-normal">O₂ range</th>
                   <th className="px-3 py-2 text-right font-normal">Pressure range</th>
                 </tr>
@@ -287,35 +330,42 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
         )}
 
         <AnimatePresence>
-          {view === "chart" && hover && (
+          {view === "chart" && active && (
             <motion.div
               key="tip"
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.12 }}
-              className="pointer-events-none absolute z-10 rounded-[4px] border border-rule bg-surface px-3 py-2 text-[12px] shadow-lg"
+              className="pointer-events-none absolute z-10 w-max rounded-[4px] border border-rule bg-surface px-3 py-2 text-[12px] shadow-lg"
+              // Sits above the test and stays inside the chart. Near the top edge it drops below instead.
               style={{
-                left: Math.min(MARGIN.left + x(hover.o2) + 14, width - 200),
-                top: Math.max(MARGIN.top + y(hover.kpa) - 64, 0),
+                maxWidth: TIP_WIDTH,
+                left: Math.max(4, Math.min(tipX + 14, width - TIP_WIDTH - 4)),
+                ...(tipY > 108 ? { bottom: height - tipY + 12 } : { top: tipY + 14 }),
               }}
             >
               <div className="mono text-[13px] font-medium text-ink">
-                {pct(hover.o2, 1)} O₂ · {Math.round(hover.kpa)} kPa
+                {pct(active.o2, 1)} O₂ · {Math.round(active.kpa)} kPa
               </div>
               <div className="mt-0.5 flex items-center gap-1.5 text-ink-2">
-                <span className="inline-block h-[2px] w-3" style={{ background: PHASE_COLOR[hover.ph] }} />
-                {names[hover.a] ?? hover.a} · {hover.fuel}
+                <span className="inline-block h-[2px] w-3 shrink-0" style={{ background: PHASE_COLOR[active.ph] }} />
+                {names[active.a] ?? active.a} · {active.fuel}
               </div>
-              <div className="mt-0.5 text-[12px] text-muted">{hover.measured ? "measured" : "assumed or planned value"}</div>
+              {basisLines(active).map((line) => (
+                <div key={line} className="mt-0.5 text-[12px] text-muted">
+                  {line}
+                </div>
+              ))}
             </motion.div>
           )}
         </AnimatePresence>
       </div>
       {!compact && (
         <figcaption className="mt-3 text-[12px] text-muted">
-          Each dot is one test from a NASA PSI experimental table. Filled dots were measured. Hollow dots use assumed cabin air or a planned test matrix.
-          Boxes are habitat targets from the challenge text. {visible.length.toLocaleString()} tests shown.
+          Each dot is one test from a NASA PSI experimental table. Filled: oxygen and pressure both measured. Ring with a centre: oxygen measured,
+          pressure assumed. Hollow: assumed cabin air or a planned test matrix. Boxes are habitat targets from the challenge text.{" "}
+          {visible.length.toLocaleString()} tests shown.
         </figcaption>
       )}
     </figure>

@@ -88,7 +88,8 @@ export interface Point {
   ph: Phase;
   o2: number;
   kpa: number;
-  measured: boolean;
+  o2Source: string;
+  kpaSource: string;
   fuel: string;
   id: string;
 }

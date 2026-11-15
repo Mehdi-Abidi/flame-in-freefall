@@ -6,7 +6,7 @@ import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
-import { BASIS_LABEL, PILLAR_LABEL, pct } from "@/lib/format";
+import { BASIS_LABEL, HABITAT_SHORT_LABEL, PILLAR_LABEL, pct } from "@/lib/format";
 import { COMPONENT_ORDER, DEFAULT_WEIGHTS, PILLARS, rankFor, sanitizeWeights } from "@/lib/rank";
 import type { Components, Investigation, Scenario, Weights } from "@/lib/types";
 
@@ -23,14 +23,6 @@ const PRESETS: { label: string; weights: Weights }[] = [
   { label: "Detection first", weights: { prevention: 0.5, detection: 3, suppression: 0.5 } },
   { label: "Suppression first", weights: { prevention: 0.5, detection: 0.5, suppression: 3 } },
 ];
-
-const SHORT_LABEL: Record<string, string> = {
-  iss: "ISS",
-  lunar_base: "Lunar base",
-  pressurized_rover: "Rover",
-  mars_habitat: "Mars",
-  spacesuit: "Spacesuit",
-};
 
 function parseWeights(text: string | null): Weights {
   if (!text) return { ...DEFAULT_WEIGHTS };
@@ -96,7 +88,7 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
                 value={s.id}
                 className="rounded-[4px] border border-rule px-2 py-2 text-[12.5px] text-ink-2 transition-colors hover:border-rule-strong hover:text-ink data-[state=on]:border-ink data-[state=on]:bg-ink data-[state=on]:text-paper"
               >
-                {SHORT_LABEL[s.id] ?? s.label}
+                {HABITAT_SHORT_LABEL[s.id] ?? s.label}
               </ToggleGroup.Item>
             ))}
           </ToggleGroup.Root>
