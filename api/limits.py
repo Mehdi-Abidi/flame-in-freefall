@@ -71,6 +71,14 @@ class RateLimiter:
             self.everyone.append(now)
             return True, 0, ""
 
+    def charge_global(self, extra_calls: int) -> None:
+        """Count model calls beyond the first against the shared limit, which guards the LLM quota."""
+        if extra_calls <= 0:
+            return
+        with self.lock:
+            now = self.clock()
+            self.everyone.extend([now] * extra_calls)
+
     def _forget_idle(self, now: float) -> None:
         for key in [k for k, q in self.visitors.items() if not q or now - q[-1] >= MINUTE]:
             del self.visitors[key]

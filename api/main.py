@@ -98,7 +98,14 @@ def get_investigation(accession: str):
     return item
 
 
+RECORD_TYPES = {"test", "test_day", "test_day_condition", "condition_matrix", "session"}
+
+
 def _filtered_tests(accession, o2_min, o2_max, p_min, p_max, measured_only, record_type):
+    if record_type is not None:
+        record_type = record_type.strip().lower()
+        if record_type not in RECORD_TYPES:
+            raise HTTPException(status_code=422, detail=f"record_type must be one of: {', '.join(sorted(RECORD_TYPES))}")
     accessions = parse_accessions(accession)
     unknown = [a for a in accessions if a not in store.by_accession]
     if unknown:
@@ -213,6 +220,15 @@ def ask(request: AskRequest, http_request: Request):
         raise HTTPException(status_code=429, detail=f"Too many questions {who}. Try again in {retry_after} s.",
                             headers={"Retry-After": str(retry_after)})
     try:
-        return ask_module.answer(request.question, retriever, llm_chat(), oxygen_levels)
+        chat = llm_chat()
+        calls = []
+
+        def counted(system, prompt):
+            calls.append(1)
+            return chat(system, prompt)
+
+        result = ask_module.answer(request.question, retriever, counted if chat else None, oxygen_levels)
+        ask_limiter.charge_global(len(calls) - 1)
+        return result
     except (ask_module.ChatUnavailable, LLMError) as error:
         raise HTTPException(status_code=503, detail=f"Chat is unavailable right now: {error}") from error
