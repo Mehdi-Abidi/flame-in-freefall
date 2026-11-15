@@ -111,12 +111,16 @@ export function richer(cabin: Pick<Cabin, "o2">): number {
   return cabin.o2 / EARTH.o2 - 1;
 }
 
-/** The point a habitat button sets: the lean, high-pressure corner the challenge quotes, or the middle of a narrow box. */
+/** The point a habitat button sets: the middle of the habitat's box, so "near this cabin" means inside the box
+ * the rest of the site draws. The spacesuit is context only and sits at its stated 100% oxygen. */
 export function presetFor(scenario: Scenario): { o2: number; kpa: number } {
   const middle = (r: Range) => (r[0] + r[1]) / 2;
-  if (scenario.o2[1] < 0.25) return { o2: Math.round(middle(scenario.o2) * 100) / 100, kpa: Math.round(middle(scenario.kpa)) };
-  if (scenario.contextOnly) return { o2: scenario.o2[1], kpa: Math.round(middle(scenario.kpa)) };
-  return { o2: scenario.o2[0], kpa: Math.round(scenario.kpa[1]) };
+  return { o2: scenario.contextOnly ? scenario.o2[1] : Math.round(middle(scenario.o2) * 100) / 100, kpa: Math.round(middle(scenario.kpa)) };
+}
+
+/** True when the challenge text gives no atmosphere for a habitat, so its box is the team's assumption. */
+export function isAssumed(scenario: Scenario): boolean {
+  return /^no atmosphere is given/i.test(scenario.source);
 }
 
 /** Outline of the drawn flame: a sphere with no gravity, a teardrop at 1 g. An illustration of buoyancy, not a simulation. */

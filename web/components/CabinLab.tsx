@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import * as Slider from "@radix-ui/react-slider";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { HABITAT_SHORT_LABEL, PHASE_COLOR } from "@/lib/format";
 import { Flame } from "@/components/Flame";
 import { burnExtent } from "@/lib/gravity";
-import { GRAVITIES, LAB_PHASES, TOLERANCE, breathing, presetFor, readCabin, richer, type GravityId, type LabTest, type Reading, type Verdict } from "@/lib/lab";
+import { GRAVITIES, LAB_PHASES, TOLERANCE, breathing, isAssumed, presetFor, readCabin, richer, type GravityId, type LabTest, type Reading, type Verdict } from "@/lib/lab";
 import type { GravityRow, Phase, Scenario } from "@/lib/types";
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
   scenarios: Scenario[];
   names: Record<string, string>;
   groundRow: GravityRow | null;
+  startHabitat?: string;
 }
 
 const PHASE_COPY: Record<string, { label: string; things: string }> = {
@@ -113,8 +115,15 @@ function Ruler({ range, o2, color }: { range: [number, number] | null; o2: numbe
   );
 }
 
-export function CabinLab({ tests, smoke, scenarios, names, groundRow }: Props) {
-  const first = scenarios.find((s) => s.id === "lunar_base") ?? scenarios[0];
+/** Opens on the habitat named in the address, for example /lab/?habitat=mars_habitat. */
+export function CabinLabFromUrl(props: Props) {
+  const requested = useSearchParams().get("habitat");
+  const known = props.scenarios.some((s) => s.id === requested) ? (requested as string) : undefined;
+  return <CabinLab key={known ?? "default"} {...props} startHabitat={known} />;
+}
+
+export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabitat }: Props) {
+  const first = scenarios.find((s) => s.id === (startHabitat ?? "lunar_base")) ?? scenarios[0];
   const start = first ? presetFor(first) : { o2: 0.3, kpa: 70 };
   const [o2Pct, setO2Pct] = useState(Math.round(start.o2 * 100));
   const [kpa, setKpa] = useState(start.kpa);
@@ -169,6 +178,9 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow }: Props) {
                 </ToggleGroup.Item>
               ))}
             </ToggleGroup.Root>
+            {scenarios.some((s) => s.id === habitat && isAssumed(s)) && (
+              <p className="mt-2 text-[12px] leading-relaxed text-muted">Assumed. The challenge gives no atmosphere for this habitat, so it uses the lunar base&apos;s.</p>
+            )}
           </div>
           <Dial
             id="lab-o2"

@@ -47,10 +47,17 @@ describe("the flight record", () => {
     const lunar = presetFor(data.scenarios.find((s) => s.id === "lunar_base")!);
     const iss = presetFor(data.scenarios.find((s) => s.id === "iss")!);
     const onMoon = readCabin(tests, { ...lunar, phase: "solid" });
-    expect(lunar).toEqual({ o2: 0.3, kpa: 70 });
+    expect(lunar).toEqual({ o2: 0.35, kpa: 50 });
     expect(onMoon.verdict).toBe("never");
-    expect(onMoon.beyond).toBeCloseTo(0.3 - data.stats.solidMaxO2);
+    expect(onMoon.beyond).toBeCloseTo(0.35 - data.stats.solidMaxO2);
     expect(readCabin(tests, { ...iss, phase: "solid" }).verdict).toBe("flown");
+  });
+
+  it("counts the same lunar-condition tests as the overview headline, all of them gas", () => {
+    const lunar = presetFor(data.scenarios.find((s) => s.id === "lunar_base")!);
+    const near = (phase: "solid" | "liquid" | "gas") => readCabin(tests, { ...lunar, phase }).close;
+    expect([near("solid"), near("liquid"), near("gas")]).toEqual([0, 0, data.stats.lunarTests]);
+    expect(data.stats.lunarPhases).toEqual(["gas"]);
   });
 });
 
