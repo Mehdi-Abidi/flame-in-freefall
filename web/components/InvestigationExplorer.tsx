@@ -42,6 +42,12 @@ export function InvestigationExplorer({ investigations }: { investigations: Inve
   }, [investigations, query, pillar, phase, platform]);
 
   const anyFilter = query || pillar || phase || platform;
+  const clear = () => {
+    setQuery("");
+    setPillar(null);
+    setPhase(null);
+    setPlatform(null);
+  };
 
   return (
     <div>
@@ -82,12 +88,7 @@ export function InvestigationExplorer({ investigations }: { investigations: Inve
             <button
               type="button"
               className="ml-3 text-ink-2 underline underline-offset-2 hover:text-ink"
-              onClick={() => {
-                setQuery("");
-                setPillar(null);
-                setPhase(null);
-                setPlatform(null);
-              }}
+              onClick={clear}
             >
               clear
             </button>
@@ -127,11 +128,11 @@ export function InvestigationExplorer({ investigations }: { investigations: Inve
                   </div>
                   <div>
                     <dt className="text-muted">O₂</dt>
-                    <dd className="mt-0.5 text-[13px] text-ink">{inv.o2Range ? rangeText(inv.o2Range, (v) => pct(v)) : "n/a"}</dd>
+                    <dd className="mt-0.5 text-[13px] text-ink">{rangeText(inv.o2Range, (v) => pct(v))}</dd>
                   </div>
                   <div>
                     <dt className="text-muted">basis</dt>
-                    <dd className="mt-0.5 truncate text-[12px] text-ink-2">{inv.o2Basis ? BASIS_LABEL[inv.o2Basis] ?? inv.o2Basis : "n/a"}</dd>
+                    <dd className="mt-0.5 truncate text-[12px] text-ink-2">{inv.o2Basis ? BASIS_LABEL[inv.o2Basis] ?? inv.o2Basis : "none"}</dd>
                   </div>
                 </dl>
                 <div className="mt-3 flex flex-wrap gap-1">
@@ -147,7 +148,17 @@ export function InvestigationExplorer({ investigations }: { investigations: Inve
           ))}
         </AnimatePresence>
       </motion.ul>
-      {!filtered.length && <p className="py-16 text-center text-ink-2">No investigation matches these filters.</p>}
+      {!filtered.length && (
+        <div className="py-16 text-center">
+          <p className="text-ink-2">{query.trim()
+              ? `No investigation mentions “${query.trim()}”${pillar || phase || platform ? " with these filters" : ""}.`
+              : "No investigation matches all of these filters."}</p>
+          <p className="mt-1 text-[13px] text-muted">Search covers names, accession numbers, titles, summaries, fuels and sensors.</p>
+          <button type="button" onClick={clear} className="mt-4 rounded-[4px] border border-rule-strong px-3 py-1.5 text-[13px] hover:border-ink">
+            Clear filters
+          </button>
+        </div>
+      )}
     </div>
   );
 }
