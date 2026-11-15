@@ -14,6 +14,7 @@ from fastapi.responses import RedirectResponse, Response
 from pydantic import BaseModel, Field
 
 from api import ask as ask_module
+from api import guide as guide_module
 from api.data import Store, parse_accessions
 from api.limits import RateLimiter, visitor_key
 from si import rank as si_rank
@@ -204,6 +205,16 @@ def compare(ids: str = Query(..., description="2 to 4 accessions, comma separate
     return {"ids": accessions, "rows": rows, "investigations": items}
 
 
+def _spend_one_question(http_request: Request) -> None:
+    """Counts one question against the visitor and overall limits, or answers 429 with Retry-After."""
+    visitor = visitor_key(http_request.headers.get("x-forwarded-for"), http_request.client.host if http_request.client else None)
+    allowed, retry_after, scope = ask_limiter.check(visitor)
+    if not allowed:
+        who = "from you" if scope == "visitor" else "from everyone right now"
+        raise HTTPException(status_code=429, detail=f"Too many questions {who}. Try again in {retry_after} s.",
+                            headers={"Retry-After": str(retry_after)})
+
+
 class AskRequest(BaseModel):
     question: str = Field(..., min_length=3, max_length=500,
                           examples=["Which diluent put out droplet flames at lower oxygen, CO2 or helium?"])
@@ -213,12 +224,7 @@ class AskRequest(BaseModel):
 def ask(request: AskRequest, http_request: Request):
     """Answers only from PSI metadata and test data, citing accession numbers. Otherwise 'Not covered in PSI data.'
     Rate limited per visitor and overall; over the limit answers 429 with Retry-After."""
-    visitor = visitor_key(http_request.headers.get("x-forwarded-for"), http_request.client.host if http_request.client else None)
-    allowed, retry_after, scope = ask_limiter.check(visitor)
-    if not allowed:
-        who = "from you" if scope == "visitor" else "from everyone right now"
-        raise HTTPException(status_code=429, detail=f"Too many questions {who}. Try again in {retry_after} s.",
-                            headers={"Retry-After": str(retry_after)})
+    _spend_one_question(http_request)
     try:
         chat = llm_chat()
         calls = []
@@ -230,5 +236,22 @@ def ask(request: AskRequest, http_request: Request):
         result = ask_module.answer(request.question, retriever, counted if chat else None, oxygen_levels)
         ask_limiter.charge_global(len(calls) - 1)
         return result
+    except (ask_module.ChatUnavailable, LLMError) as error:
+        raise HTTPException(status_code=503, detail=f"Chat is unavailable right now: {error}") from error
+
+
+class GuideRequest(BaseModel):
+    question: str = Field(..., min_length=1, max_length=500, examples=["What does Never flown mean?"])
+    page: str = Field("", max_length=80, description="The page the visitor is on, for example Cabin lab")
+    screen: str = Field("", max_length=2000, description="What that page is showing right now, as plain text")
+
+
+@app.post("/guide")
+def guide(request: GuideRequest, http_request: Request):
+    """Wisp, the conversational guide. It may use the dashboard's own description, the visitor's screen and retrieved
+    PSI passages, and cites only passages it was given. Shares the /ask rate limits."""
+    _spend_one_question(http_request)
+    try:
+        return guide_module.reply(request.question, request.page, request.screen, retriever, llm_chat(), oxygen_levels)
     except (ask_module.ChatUnavailable, LLMError) as error:
         raise HTTPException(status_code=503, detail=f"Chat is unavailable right now: {error}") from error
