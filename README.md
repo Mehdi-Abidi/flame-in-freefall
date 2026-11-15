@@ -89,7 +89,7 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | T1 Hand-checked pillar tags | Taha | Done. All 24 signed off, Saffire platforms corrected to Cygnus |
 | T2 Habitat scenarios | Taha | Done |
 | T4 Review of the extraction and the briefs | Taha | Done. Briefs reviewed, a false sensor warning cleared |
-| T5 Demo video and slides, polish of the submission text | Taha | Slides done (`docs/submission/flame-in-freefall-slides.pptx`). Video and text polish: Sunday afternoon |
+| T5 Demo slides, polish of the submission text | Taha | Slides done (`docs/submission/flame-in-freefall-slides.pptx`), submitted instead of a video. Text polish: Sunday afternoon |
 
 ## Dashboard (`web/`)
 

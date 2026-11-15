@@ -12,8 +12,7 @@ Lunar habitats are expected to run at 30% oxygen or more, yet no solid-material 
 
 ## Link to Project Demo
 
-- 30-second video: add the link once it is uploaded. It must open in a private window with no sign-in.
-- Slide deck (7 slides, title and introduction included): [`docs/submission/flame-in-freefall-slides.pptx`](flame-in-freefall-slides.pptx). Upload it, or export it to PDF, if the form asks for slides.
+- Slide deck (7 slides, title and introduction included): [`docs/submission/flame-in-freefall-slides.pptx`](flame-in-freefall-slides.pptx). We submit slides instead of a video, because the form takes one or the other. Upload the file where the form asks for the demo.
 
 ## Link to Final Project
 
@@ -144,14 +143,13 @@ Data courtesy of NASA's Physical Sciences Informatics system. This project is no
 - **GPT-OSS 20B, with 120B as fallback**, answers questions on the Ask page and for Wisp, the guide, only from retrieved NASA passages and with required citations. Wisp's greetings, explanations of on-screen words, habitat cards, page help and record counts come from code, not from a model. Its other answers come from the model, limited to the dashboard's description, the visitor's screen and retrieved NASA passages.
 - **Claude Code** (Anthropic) was the coding assistant for the whole team. It helped write and review the software, and team members reviewed and tested all of it.
 - **No SI** is used in the ranking scores, the unit conversions or the charts. Those are deterministic code with tests.
-- **No SI-generated images, video or audio** are in the project. The music is a human composer's recording, credited under References. The flame in the cabin lab and the guide's character are drawn in code, and the flame is labelled as an illustration. Spoken questions and read-aloud answers use the visitor's own browser speech features, with no recorded or generated voice files. The demo is a screen recording of the live site with a team member's voice.
+- **No SI-generated images, video or audio** are in the project. The music is a human composer's recording, credited under References. The flame in the cabin lab and the guide's character are drawn in code, and the flame is labelled as an illustration. Spoken questions and read-aloud answers use the visitor's own browser speech features, with no recorded or generated voice files. The demo is a slide deck with screenshots of the live site.
 - **How it is marked.** The ranking reasons and briefs carry their source and model name in the data files, and the dashboard prints a label under every model-written text. Fact-only templates are labelled as such.
 
 ## Before pressing Submit for Judging
 
-- Add the demo link, then open it and the dashboard in a private window.
-- The slide deck has 7 slides. Check the form's own limit and file type before uploading.
-- The video must be 30 seconds or less. A longer one is not eligible for Global Judging.
+- Upload the slide deck as the demo, then open the dashboard in a private window.
+- The deck has 7 slides. Check the form's own limit and file type before uploading.
 - The deadline is Sunday 15 November, 23:59 local time. Only the last saved submission is judged.
 - Tick both boxes: the terms and conditions, and that all work is original.
 - Optional, and the guide recommends it for new sites: ask FortiGuard to classify the dashboard address so judges' networks do not block it.
