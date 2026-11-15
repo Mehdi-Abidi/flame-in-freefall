@@ -97,7 +97,8 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 
 | Page | What it does |
 |---|---|
-| Overview | The 22% versus 30% headline, four data-backed experiments to run next, an oxygen ruler of measured oxygen per fuel phase against the lunar band, the gap map (every test by O2 and pressure with habitat boxes) and the SAFFIRE-II gravity comparison |
+| Mission brief | The home page, told in four screens. A hero with the headline gap, a scroll scene where NASA's candle flame loses gravity and turns from a teardrop into a blue dome, the 22.2% versus 30% gap, live verdicts for three cabins, and a grid of the tools |
+| Evidence | The oxygen ruler, the gap map of every test by oxygen and pressure with habitat boxes, the SAFFIRE-II gravity comparison, the three reviewed briefs, a FLEX comparison of how droplet flames went out by diluent, and four data-backed experiments to fly next |
 | Cabin lab | Set oxygen, pressure, fuel and gravity for a cabin of your own. It counts the flight tests near that cabin, says how they ended and how far the cabin sits past the record, and draws the flame solid only where tests exist |
 | Orb, the guide | A small companion on every page. Name a habitat and it answers at once with a card counted from the flight tests. Ask about the page and it explains it. Any other question goes to the live `/ask` API and comes back with PSI citations. Questions can be typed or spoken, and answers can be read aloud |
 | Rank | Habitat switcher and pillar sliders. The list re-orders live, arrows show movement, each row opens its evidence. State lives in the URL, so a view can be shared |
@@ -107,7 +108,7 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 | Method | Pipeline, score parts, habitat sources, honesty rules, limits, AI-use disclosure |
 | Back on Earth | A short history of spacecraft fires, and the uses on Earth that 21 investigations name in their own NASA records, grouped into smoke detection, confined spaces and cleaner engines |
 
-Design: night and paper themes, Host Grotesk and JetBrains Mono type, a cobalt accent with orange kept for the lunar gap, hand-built SVG charts and an optional ambient score made in the browser. Chart colours come from a colourblind-validated palette, text never uses data colours, every chart has a table view, and motion respects reduced-motion settings. Ranking runs in the browser with the same formula as `si/rank.py`, and a test checks all 120 scores match.
+Design: one dark mission-console theme. Barlow Condensed capitals for headings, Host Grotesk for text, JetBrains Mono for data, flame orange for every action, ice blue for freefall and red for the gap. NASA photographs carry the hero and chapters, charts are hand-built SVG, every page ends with its next stage, and an ambient score made in the browser plays after the first click unless muted. Chart colours come from a colourblind-validated palette, text never uses data colours, every chart has a table view, and motion respects reduced-motion settings. Ranking runs in the browser with the same formula as `si/rank.py`, and a test checks all 120 scores match.
 
 ```bash
 cd web

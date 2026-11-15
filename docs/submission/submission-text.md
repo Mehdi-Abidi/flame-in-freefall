@@ -27,9 +27,10 @@ The form takes one link. Put these two in the detailed description:
 
 ### What it does
 
-NASA has flown dozens of fire experiments on the International Space Station. Their results sit in PSI as 24 investigations, 21 experimental tables and more than 82,000 raw files. That is hard to search when you are designing a habitat and need to know how a fabric burns at 30% oxygen. The dashboard answers that in seven views:
+NASA has flown dozens of fire experiments on the International Space Station. Their results sit in PSI as 24 investigations, 21 experimental tables and more than 82,000 raw files. That is hard to search when you are designing a habitat and need to know how a fabric burns at 30% oxygen. The dashboard answers that in eight views, with a guide on every page:
 
-- **Overview** shows the headline gap. An oxygen ruler compares the oxygen measured for each fuel phase with the lunar band. A gap map plots every test by oxygen and pressure against the habitat boxes. A SAFFIRE-II panel compares the same materials burned in microgravity and at 1 g. A "What to test next" section proposes four experiments that would close the gaps, each with its evidence from the tables: solids at lunar-base oxygen and pressure, extinction of solids, smoke at lunar oxygen, and partial gravity.
+- **Mission brief** is the home page, told in four screens: the headline gap, a scroll scene where NASA's candle flame loses gravity and turns from a teardrop into a blue dome, the 22.2% versus 30% gap, and live verdicts for three cabins.
+- **Evidence** holds the detail. An oxygen ruler compares the oxygen measured for each fuel phase with the lunar band. A gap map plots every test by oxygen and pressure against the habitat boxes. A SAFFIRE-II panel compares the same materials burned in microgravity and at 1 g. Three reviewed briefs, one per pillar, sit beside a FLEX comparison of how droplet flames went out by diluent. A "What to fly next" section proposes four experiments, each with its evidence from the tables.
 - **Cabin lab** lets you set the oxygen, pressure, fuel and gravity of a cabin of your own. It counts the flight tests NASA ran near that cabin, shows how they ended and how far the cabin sits past the record, and lists the closest tests. The flame on screen is drawn solid only where tests exist. Nothing in it is a prediction.
 - **Orb, the guide** sits on every page. Name a habitat and it answers at once with a card counted from the flight tests. Ask what a page does and it explains it. Any other question goes to the same cited question service as the Ask page. You can type or speak, and it can read its answers aloud.
 - **Rank** scores all 24 investigations for the chosen habitat. Sliders weight the three fire-safety pillars (prevention, detection, suppression), and the list re-orders live. Each row shows its score parts and a two-sentence reason. The view lives in the URL, so it can be shared.
@@ -127,19 +128,21 @@ We used no Space Agency Partner data. PSI's combustion records are NASA's.
 - Groq API: https://console.groq.com
 - rank-bm25: https://github.com/dorianbrown/rank_bm25
 - Open-source code the project is built with: Next.js, React, Tailwind CSS, Motion, Radix UI, d3-scale and d3-delaunay for the dashboard, FastAPI, Uvicorn, pandas and python-dotenv for the API and pipeline
-- Type: Host Grotesk and JetBrains Mono (SIL Open Font License)
-- The architecture diagram was drawn by the team in Excalidraw. The site uses no NASA logos or mission imagery.
+- Type: Barlow Condensed, Host Grotesk and JetBrains Mono (SIL Open Font License)
+- The architecture diagram was drawn by the team in Excalidraw. The site uses no NASA logos.
+- Photographs, all from the NASA Image and Video Library (https://images.nasa.gov): a candle flame in normal gravity and in microgravity (GRC-1998-C-00485, cropped to the two flames), Earthset from Orion on Artemis II (art002e021278), Earthrise from Apollo 8 (AS08-14-2383), and fabric and plexiglass burning in Saffire-IV (jsc2023e046375, jsc2023e046631).
 
 Data courtesy of NASA's Physical Sciences Informatics system. This project is not endorsed by NASA.
 
 ## Use of Super Intelligence (SI)
 
 - **GPT-OSS 20B** (open-weight, via Groq) drafted the plain-language summary of each investigation and extracted fuels, sample geometry, sensors and suggested fire-safety pillars from NASA's text. Facts the tables prove were given to it as ground truth, and anything not in the source is flagged. A team member hand-checks the pillar tags, and the hand-checked tags take priority over the model's.
-- **GPT-OSS 120B and 20B** (open-weight, via Groq) wrote the two-sentence ranking reasons and the three insight briefs from facts computed by code. Code checks every number, rank and citation, and replaces failures with a labelled fact-only template.
+- **GPT-OSS 120B and 20B** (open-weight, via Groq) wrote the two-sentence ranking reasons from facts computed by code. Code checks every number, rank and citation, and replaces failures with a labelled fact-only template.
+- **Claude** (Anthropic) drafted the three insight briefs from facts computed by code. They passed the same automatic checks and were reviewed by a team member, and the site labels them that way.
 - **GPT-OSS 20B, with 120B as fallback**, answers questions on the Ask page and for Orb, the guide, only from retrieved NASA passages and with required citations. Orb's habitat cards, page help and record counts come from code, not from a model.
 - **Claude Code** (Anthropic) was the coding assistant for the whole team. It helped write and review the software, and team members reviewed and tested all of it.
 - **No SI** is used in the ranking scores, the unit conversions or the charts. Those are deterministic code with tests.
-- **No SI-generated images, video or recorded audio** are in the project. The optional ambient sound is synthesized live in the browser by code, with no sample or recording. The flame in the cabin lab and the guide's character are drawn in code, and the flame is labelled as an illustration. Spoken questions and read-aloud answers use the visitor's own browser speech features, with no recorded or generated voice files. The demo is a screen recording of the live site with a team member's voice.
+- **No SI-generated images, video or recorded audio** are in the project. The ambient sound, which plays after a visitor's first click and can be muted, is synthesized live in the browser by code, with no sample or recording. The flame in the cabin lab and the guide's character are drawn in code, and the flame is labelled as an illustration. Spoken questions and read-aloud answers use the visitor's own browser speech features, with no recorded or generated voice files. The demo is a screen recording of the live site with a team member's voice.
 - **How it is marked.** The ranking reasons and briefs carry their source and model name in the data files, and the dashboard prints a label under every model-written text. Fact-only templates are labelled as such.
 
 ## Before pressing Submit for Judging
