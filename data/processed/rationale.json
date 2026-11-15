@@ -176,13 +176,11 @@
         "score": 0.2663
       },
       "PSI-23": {
-        "text": "ACME s-Flame ranks 16th of 24 for the ISS and Earth-normal cabin with a score of 37, mainly on closest test day: 21% O2 at 101 kPa. 10 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
-        "source": "template",
-        "model": "template",
+        "text": "ACME s-Flame ranks 16 out of 24 because its amount of data is a standout strength compared to others. Its main caveat is that its fire-safety focus match is weak, and tests did not cover fire-safety focus beyond fundamentals, with oxygen approximate and pressure assumed about 1 atm.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
         "fingerprint": "09e4721bf605370c",
-        "problems": [
-          "spells out numbers (ten), write digits"
-        ],
+        "problems": [],
         "rank": 16,
         "score": 0.3728
       },
@@ -234,13 +232,13 @@
         "score": 0.7816
       },
       "PSI-10": {
-        "text": "ACME/Flame Design ranks third because its oxygen and pressure fit stands out compared to others. Its main caveat is that only 20 tests were near the habitat target, and oxygen and pressure were measured but not tested inside the target.",
+        "text": "ACME/Flame Design ranks 3 out of 24 because its oxygen and pressure fit stands out among others. The caveat is that no tests were conducted inside or near the habitat target, though oxygen and pressure were measured.",
         "source": "model",
-        "model": "openai/gpt-oss-20b",
-        "fingerprint": "a6ebb0925d684681",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "275741fea1d3e7f4",
         "problems": [],
         "rank": 3,
-        "score": 0.6873
+        "score": 0.6361
       },
       "PSI-159": {
         "text": "ACME CFI-G ranks second because its oxygen and pressure fit stands out compared to others. Its main caveat is that only 20 tests were inside the habitat target, though oxygen and pressure were measured.",
@@ -452,13 +450,13 @@
         "score": 0.7816
       },
       "PSI-10": {
-        "text": "ACME/Flame Design ranks third because its oxygen and pressure fit stands out compared to others. Its main caveat is that only 20 tests were near the habitat target, and oxygen and pressure were measured but not tested inside the target.",
+        "text": "ACME/Flame Design ranks 3 out of 24 because its oxygen and pressure fit stands out among others. The caveat is that no tests were conducted inside or near the habitat target, though oxygen and pressure were measured.",
         "source": "model",
-        "model": "openai/gpt-oss-20b",
-        "fingerprint": "a6ebb0925d684681",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "275741fea1d3e7f4",
         "problems": [],
         "rank": 3,
-        "score": 0.6873
+        "score": 0.6361
       },
       "PSI-159": {
         "text": "ACME CFI-G ranks second because its oxygen and pressure fit stands out compared to others. Its main caveat is that only 20 tests were inside the habitat target, though oxygen and pressure were measured.",
@@ -670,13 +668,13 @@
         "score": 0.7816
       },
       "PSI-10": {
-        "text": "ACME/Flame Design ranks third because its oxygen and pressure fit stands out compared to others. Its main caveat is that only 20 tests were near the habitat target, and oxygen and pressure were measured but not tested inside the target.",
+        "text": "ACME/Flame Design ranks 3 out of 24 because its oxygen and pressure fit stands out among others. The caveat is that no tests were conducted inside or near the habitat target, though oxygen and pressure were measured.",
         "source": "model",
-        "model": "openai/gpt-oss-20b",
-        "fingerprint": "a6ebb0925d684681",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "275741fea1d3e7f4",
         "problems": [],
         "rank": 3,
-        "score": 0.6873
+        "score": 0.6361
       },
       "PSI-159": {
         "text": "ACME CFI-G ranks second because its oxygen and pressure fit stands out compared to others. Its main caveat is that only 20 tests were inside the habitat target, though oxygen and pressure were measured.",
@@ -924,10 +922,10 @@
         "score": 0.5668
       },
       "PSI-10": {
-        "text": "ACME/Flame Design ranks 9 out of 24 because its amount of data stands out among others. Its main caveat is that none of its 207 tests approach this habitat’s oxygen and pressure, which were measured but not represented in the test set.",
+        "text": "ACME/Flame Design ranks 9 out of 24 because its amount of data stands out among others. Its main caveat is that none of its 207 tests approach the habitat’s 95-100 % oxygen and 28-31 kPa pressure, though those conditions were measured.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "8e7cc88f0462eabb",
+        "fingerprint": "279f8819d9470318",
         "problems": [],
         "rank": 9,
         "score": 0.5277
