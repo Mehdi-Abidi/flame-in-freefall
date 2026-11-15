@@ -99,6 +99,7 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 |---|---|
 | Overview | The 22% versus 30% headline, four data-backed experiments to run next, an oxygen ruler of measured oxygen per fuel phase against the lunar band, the gap map (every test by O2 and pressure with habitat boxes) and the SAFFIRE-II gravity comparison |
 | Cabin lab | Set oxygen, pressure, fuel and gravity for a cabin of your own. It counts the flight tests near that cabin, says how they ended and how far the cabin sits past the record, and draws the flame solid only where tests exist |
+| Orb, the guide | A small companion on every page. Name a habitat and it answers at once with a card counted from the flight tests. Ask about the page and it explains it. Any other question goes to the live `/ask` API and comes back with PSI citations. Questions can be typed or spoken, and answers can be read aloud |
 | Rank | Habitat switcher and pillar sliders. The list re-orders live, arrows show movement, each row opens its evidence. State lives in the URL, so a view can be shared |
 | Investigations | Search and filter all 24, then a page per investigation with summary, conditions, its tests on the map and every publication |
 | Compare | Up to four side by side, differences marked |
