@@ -1,22 +1,29 @@
-# Submission text (draft, F6)
+# Submission text
 
-Draft for the Space Apps 2026 project page. Taha polishes it in T5. Check every field against the 2026 Project Submission Guide before pasting it in. Facts come from the README, the Method page and `data/processed/`.
+Text for the Space Apps 2026 project page. The headings below are the form's own field names, in the form's order, from the [2026 Project Submission Guide](https://www.spaceappschallenge.org/resources/project-submission-guide/) (checked 15 November). Facts come from the README, the Method page and `data/processed/`.
 
-## Project title
+## Project Name
 
 Flame in Freefall: fire safety answers from NASA's microgravity combustion data
 
-## Short summary
+## High-Level Project Summary
 
-Lunar habitats are expected to run at 30% oxygen or more, yet no solid-material fire test in NASA's Physical Sciences Informatics (PSI) repository ran above 22.2%. Flame in Freefall turns PSI's 24 combustion investigations into a fire safety dashboard. You pick a habitat (ISS, lunar base, pressurized rover, Mars habitat or spacesuit) and see which experiments matter for it, which conditions were actually tested and where the data runs out. You can also ask questions in plain English and get answers that cite NASA's records.
+Lunar habitats are expected to run at 30% oxygen or more, yet no solid-material fire test in NASA's Physical Sciences Informatics (PSI) repository ran above 22.2%. Flame in Freefall turns PSI's 24 combustion investigations into a fire safety dashboard. You pick a habitat (ISS, lunar base, pressurized rover, Mars habitat or spacesuit) and see which experiments matter for it, which conditions were actually tested and where the data runs out. You can also ask questions in plain English and get answers that cite NASA's records. Flammability rises steeply with oxygen, so knowing what has never been tested matters before crews live on the Moon.
 
-## Project links
+## Link to Project Demo
+
+- 30-second video: add the link once it is uploaded. It must open in a private window with no sign-in.
+
+## Link to Final Project
 
 - Live dashboard: https://mehdi-abidi.github.io/flame-in-freefall/
+
+The form takes one link. Put these two in the detailed description:
+
 - Source code: https://github.com/Mehdi-Abidi/flame-in-freefall
 - Public API: https://flame-in-freefall-api.onrender.com (docs at `/docs`)
 
-## Detailed description
+## Detailed Project Description
 
 ### What it does
 
@@ -53,6 +60,10 @@ All checks run automatically on every change, in GitHub Actions.
 - **Researchers and planners** see where data is missing, such as solids above 22% oxygen and partial gravity, to guide the next flight experiments.
 - **Everyone** can check every claim, because each number, ranking and answer links back to its NASA record.
 
+### What we hope to achieve
+
+We want a habitat designer to learn in a minute what took us two days of reading: which fire questions NASA's orbital data can answer for the Moon, and which it cannot yet. The four recommended experiments are our handover to the teams planning the next flights. NASA expects partial-gravity results from the Lunar-g Combustion Investigation (LUCI) and Flammability of Materials on the Moon (FM2) to reach PSI. When they do, the same pipeline can place them on the map, and the gap will start to close.
+
 ### Tools used
 
 - Data pipeline and AI layer: Python, the PSI public API, an OpenAI-compatible client for Groq
@@ -65,7 +76,7 @@ All checks run automatically on every change, in GitHub Actions.
 
 PSI holds no partial-gravity combustion data yet. Microgravity and 1 g results bound what may happen on the Moon or Mars, and E-FIELD's electric-field flames serve only as a proxy. The Mars habitat atmosphere is not given in the challenge, so that target is labelled as assumed.
 
-## NASA data used
+## NASA Data
 
 All data comes from NASA's Physical Sciences Informatics (PSI) system, through its public API. No login is needed.
 
@@ -104,26 +115,35 @@ The 24 combustion investigations used:
 
 "Metadata only" means PSI has no experimental table we could normalize for it, so it is ranked on its text, publications and files.
 
-## References and other sources
+## Space Agency Partner Data and Other References
+
+We used no Space Agency Partner data. PSI's combustion records are NASA's.
 
 - NASA Space Apps Challenge 2026, Flame in Freefall: https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/
 - Habitat oxygen and pressure targets are quoted from the challenge text. Each one, with any assumption we made, is listed on the dashboard's Method page.
 - Publications for each investigation are listed on its page in the dashboard and in `data/processed/investigations.json`, as given by PSI.
 - Groq API: https://console.groq.com
 - rank-bm25: https://github.com/dorianbrown/rank_bm25
+- Open-source code the project is built with: Next.js, React, Tailwind CSS, Motion, Radix UI, d3-scale and d3-delaunay for the dashboard, FastAPI, Uvicorn, pandas and python-dotenv for the API and pipeline
+- Type: IBM Plex Sans and IBM Plex Mono (SIL Open Font License)
+- The architecture diagram was drawn by the team in Excalidraw. The site uses no NASA logos or mission imagery.
 
 Data courtesy of NASA's Physical Sciences Informatics system. This project is not endorsed by NASA.
 
-## Use of AI
+## Use of Super Intelligence (SI)
 
 - **GPT-OSS 20B** (open-weight, via Groq) drafted the plain-language summary of each investigation and extracted fuels, sample geometry, sensors and suggested fire-safety pillars from NASA's text. Facts the tables prove were given to it as ground truth, and anything not in the source is flagged. A team member hand-checks the pillar tags, and the hand-checked tags take priority over the model's.
 - **GPT-OSS 120B and 20B** (open-weight, via Groq) wrote the two-sentence ranking reasons and the three insight briefs from facts computed by code. Code checks every number, rank and citation, and replaces failures with a labelled fact-only template.
 - **GPT-OSS 20B, with 120B as fallback**, answers questions on the Ask page, only from retrieved NASA passages and with required citations.
 - **Claude Code** (Anthropic) was the coding assistant for the whole team. It helped write and review the software, and team members reviewed and tested all of it.
-- **No AI** is used in the ranking scores, the unit conversions or the charts. Those are deterministic code with tests.
+- **No SI** is used in the ranking scores, the unit conversions or the charts. Those are deterministic code with tests.
+- **No SI-generated images, video or audio** are in the project. The demo is a screen recording of the live site with a team member's voice.
+- **How it is marked.** The ranking reasons and briefs carry their source and model name in the data files, and the dashboard prints a label under every model-written text. Fact-only templates are labelled as such.
 
-## Open for T5
+## Before pressing Submit for Judging
 
-- Confirm the 2026 field names and length limits, and trim the short summary if needed.
-- Check that the challenge link opens. It could not be loaded from the laptop that drafted this.
-- Add the demo video link once it is uploaded. The script is in `video-script.md`.
+- Add the demo link, then open it and the dashboard in a private window.
+- The video must be 30 seconds or less. A longer one is not eligible for Global Judging.
+- The deadline is Sunday 15 November, 23:59 local time. Only the last saved submission is judged.
+- Tick both boxes: the terms and conditions, and that all work is original.
+- Optional, and the guide recommends it for new sites: ask FortiGuard to classify the dashboard address so judges' networks do not block it.
