@@ -7,6 +7,7 @@ import * as Slider from "@radix-ui/react-slider";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { HABITAT_SHORT_LABEL, PHASE_COLOR } from "@/lib/format";
 import { Flame } from "@/components/Flame";
+import { HabitatScene } from "@/components/HabitatScene";
 import { burnExtent } from "@/lib/gravity";
 import { GRAVITIES, LAB_PHASES, TOLERANCE, breathing, isAssumed, isClose, presetFor, readCabin, richer, type Cabin, type GravityId, type LabTest, type Reading, type Verdict } from "@/lib/lab";
 import { screen } from "@/lib/screen";
@@ -223,6 +224,14 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
           Counted live from {tests.length} flight tests with measured oxygen. Nothing here is a prediction.
         </p>
       </header>
+
+      <HabitatScene
+        id={habitat}
+        label={habitat ? (HABITAT_SHORT_LABEL[habitat] ?? habitat) : "Your own cabin"}
+        air={`${o2Pct}% oxygen · ${kpa} kPa`}
+        gravity={field.g === 0 ? "Freefall · 0 g" : `${field.label} gravity · ${field.g} g`}
+        note={scenarios.some((s) => s.id === habitat && isAssumed(s)) ? "assumed air" : undefined}
+      />
 
       <ol className="mb-4 grid gap-4 md:grid-cols-3">
         {[

@@ -4,6 +4,7 @@ import * as Slider from "@radix-ui/react-slider";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import Link from "next/link";
+import { HabitatScene } from "@/components/HabitatScene";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { BASIS_LABEL, HABITAT_SHORT_LABEL, PILLAR_LABEL, pct } from "@/lib/format";
@@ -71,6 +72,13 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
   const sharePercent = (key: keyof Components) => Math.round(componentWeights[key] * 100);
 
   return (
+    <>
+      <HabitatScene
+        id={scenario.id}
+        label={HABITAT_SHORT_LABEL[scenario.id] ?? scenario.label}
+        air={`${pct(scenario.o2[0])} to ${pct(scenario.o2[1])} oxygen · ${scenario.kpa[0]} to ${scenario.kpa[1]} kPa`}
+        note={scenario.assumptions.length && /^no atmosphere is given/i.test(scenario.source) ? "assumed air" : undefined}
+      />
     <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
       <aside className="lg:sticky lg:top-24 lg:self-start">
         <div className="panel p-5">
@@ -339,5 +347,6 @@ export function RankBoard({ investigations, scenarios, componentWeights }: Props
         )}
       </section>
     </div>
+    </>
   );
 }
