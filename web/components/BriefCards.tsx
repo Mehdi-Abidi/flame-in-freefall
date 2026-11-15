@@ -42,7 +42,7 @@ export function BriefCards({ briefs, names }: { briefs: Brief[]; names: Record<s
             <p className="text-[13px] leading-relaxed text-ink-2">{brief.gap}</p>
           </div>
           <p className="mono mt-auto pt-5 text-[12px] text-muted">
-            {brief.source === "model" ? `Drafted by ${brief.model.split("/").pop()} from NASA PSI data` : "Fact-only brief"} · {brief.review}
+            {brief.source === "model" ? `Drafted by ${brief.model.split("/").pop()} from NASA PSI data` : brief.source === "reviewed" ? "Drafted with Claude from NASA PSI data" : "Fact-only brief"} · {brief.review}
           </p>
         </article>
       ))}

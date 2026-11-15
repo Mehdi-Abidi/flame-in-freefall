@@ -179,7 +179,7 @@ def check_briefs(report, processed_dir):
                 citations.append(f"{pillar}: {cited}")
         if brief.get("members") != members.get(pillar):
             stale.append(pillar)
-        if brief.get("source") not in {"model", "template"} or not brief.get("review"):
+        if brief.get("source") not in {"model", "template", "reviewed"} or not brief.get("review"):
             source.append(pillar)
     report.check("briefs have a title, 3 findings, an implication and a gap", shape)
     report.check("every finding cites investigations from its own pillar", citations)

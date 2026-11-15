@@ -4,31 +4,31 @@
   "model": "template",
   "briefs": {
     "prevention": {
-      "title": "What NASA PSI records show on prevention",
+      "title": "Solid-material data stops short of lunar oxygen",
       "findings": [
         {
-          "text": "SPICE recorded 435 tests with gas fuels at 21% oxygen (assumed cabin air).",
+          "text": "BASS-II tested PMMA, cotton-fiberglass, Nomex and wax samples in 129 tests with measured oxygen from 13.6% to 22.2%. That 22.2% is the highest oxygen any solid-material test in PSI reached.",
           "citations": [
-            "PSI-107"
+            "PSI-25"
           ]
         },
         {
-          "text": "ACME CFI-G recorded 333 tests with gas fuels, 179 of them with an oxygen value from 18% to 40% (measured).",
+          "text": "SAFFIRE-II shows gravity changes which material is worse. Thin silicone sheets burned completely at 1 g but barely in microgravity, while cotton-fiberglass fabric burned its full 29 cm in both.",
+          "citations": [
+            "PSI-99"
+          ]
+        },
+        {
+          "text": "ACME CFI-G holds all 20 tests at lunar-base conditions, and every one is a gas flame. Its measured oxygen runs from 18% to 40%.",
           "citations": [
             "PSI-159"
           ]
-        },
-        {
-          "text": "ACME/Flame Design recorded 327 tests with gas fuels, 207 of them with an oxygen value from 19.8% to 40% (measured).",
-          "citations": [
-            "PSI-10"
-          ]
         }
       ],
-      "implication": "Solid-material tests in PSI stop below the 30% oxygen expected in a lunar base, so prevention findings need checking at lunar conditions.",
-      "gap": "No partial-gravity combustion data is in PSI yet.",
-      "source": "template",
-      "model": "template",
+      "implication": "A lunar base at 30% oxygen or more sits above every solid-material test in PSI. Material choices for it rest on burns at 22.2% oxygen or less.",
+      "gap": "No flammability test on a solid above 22.2% oxygen is in PSI yet, and no combustion test in partial gravity.",
+      "source": "reviewed",
+      "model": "claude",
       "members": [
         "PSI-69",
         "PSI-159",
@@ -50,34 +50,34 @@
       ],
       "fingerprint": "5ea20716770a33b0",
       "problems": [],
-      "review": "awaiting expert review"
+      "review": "reviewed by Taha"
     },
     "detection": {
-      "title": "What NASA PSI records show on detection",
+      "title": "Smoke was measured only in Earth-like cabin air",
       "findings": [
         {
-          "text": "SAME-R recorded 109 tests with solid fuels at 21% oxygen (assumed cabin air).",
+          "text": "SAME-R measured smoke from Kapton, silicone, lampwick, Pyrell and Teflon in 109 tests, all in cabin air at an assumed 21% oxygen.",
           "citations": [
             "PSI-101"
           ]
         },
         {
-          "text": "SAME recorded 20 tests with solid fuels at 21% oxygen (assumed cabin air).",
+          "text": "SAME ran 20 smoke tests on Teflon, Kapton, silicone rubber, lampwick and dibutyl phthalate, also in cabin air at an assumed 21% oxygen.",
           "citations": [
             "PSI-102"
           ]
         },
         {
-          "text": "DAFT / DAFT-2 recorded no individual tests with dust fuels.",
+          "text": "DAFT / DAFT-2 flew a particle counter on Arizona road dust to check its readings in microgravity. PSI holds no individual test rows for it.",
           "citations": [
             "PSI-47"
           ]
         }
       ],
-      "implication": "Solid-material tests in PSI stop below the 30% oxygen expected in a lunar base, so detection findings need checking at lunar conditions.",
-      "gap": "No partial-gravity combustion data is in PSI yet.",
-      "source": "template",
-      "model": "template",
+      "implication": "Every smoke measurement in PSI comes from cabin air at an assumed 21% oxygen. A lunar base at 30% oxygen or more has no smoke data of its own.",
+      "gap": "No smoke or aerosol test above an assumed 21% oxygen is in PSI yet.",
+      "source": "reviewed",
+      "model": "claude",
       "members": [
         "PSI-101",
         "PSI-102",
@@ -86,40 +86,36 @@
         "PSI-60"
       ],
       "fingerprint": "2ff7b4cfc240e35c",
-      "problems": [
-        "finding 1 spells out numbers (five), write digits",
-        "finding 1 presents SAME-R's assumed or planned oxygen as measured",
-        "finding 2 spells out numbers (five), write digits",
-        "finding 2 presents SAME's assumed or planned oxygen as measured"
-      ],
-      "review": "awaiting expert review"
+      "problems": [],
+      "review": "reviewed by Taha"
     },
     "suppression": {
-      "title": "What NASA PSI records show on suppression",
+      "title": "Droplet flames went out up to 30% oxygen",
       "findings": [
         {
-          "text": "FLEX recorded 274 tests with liquid fuels at 12% to 34% oxygen (measured).",
+          "text": "FLEX recorded extinction in 88 of 123 droplet tests diluted with carbon dioxide, at 14% to 24% oxygen, and in 40 of 50 diluted with helium, at 13% to 24% oxygen.",
           "citations": [
             "PSI-69"
           ]
         },
         {
-          "text": "BASS-II recorded 129 tests with solid fuels at 13.6% to 22.2% oxygen (measured).",
+          "text": "In nitrogen alone, FLEX recorded extinction in 58 of 101 droplet tests, from 12% to 30% oxygen. Only 2 of those were at 30% oxygen or more.",
           "citations": [
-            "PSI-25"
+            "PSI-69"
           ]
         },
         {
-          "text": "BASS recorded 121 tests with solid fuels at 21% oxygen (assumed cabin air).",
+          "text": "BASS-II burned solid samples in 129 tests at 13.6% to 22.2% measured oxygen, and BASS in 121 tests in cabin air at an assumed 21% oxygen. Their tables do not record how each flame ended.",
           "citations": [
+            "PSI-25",
             "PSI-26"
           ]
         }
       ],
-      "implication": "Solid-material tests in PSI stop below the 30% oxygen expected in a lunar base, so suppression findings need checking at lunar conditions.",
-      "gap": "No partial-gravity combustion data is in PSI yet.",
-      "source": "template",
-      "model": "template",
+      "implication": "FLEX recorded only 2 extinctions at 30% oxygen or more, the level expected in a lunar base. How to put out a burning solid at that oxygen is untested in PSI.",
+      "gap": "No suppression test on a solid above 22.2% oxygen is in PSI yet. FLEX-2 lists 160 planned droplet conditions without test results in its table.",
+      "source": "reviewed",
+      "model": "claude",
       "members": [
         "PSI-69",
         "PSI-68",
@@ -128,11 +124,8 @@
         "PSI-26"
       ],
       "fingerprint": "1e7230f80e207166",
-      "problems": [
-        "finding 2 claims flames went out, but no extinction outcome is recorded for what it cites",
-        "finding 3 claims flames went out, but no extinction outcome is recorded for what it cites"
-      ],
-      "review": "awaiting expert review"
+      "problems": [],
+      "review": "reviewed by Taha"
     }
   }
 }

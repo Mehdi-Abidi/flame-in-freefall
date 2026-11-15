@@ -216,6 +216,19 @@ class GenerateTests(unittest.TestCase):
         self.assertEqual(again["kept"], 1)
         self.assertEqual(output["suppression"]["review"], "reviewed by Taha")
 
+    def test_a_reviewed_brief_survives_a_model_rerun(self):
+        output, _ = generate({"suppression": FACTS}, lambda f: (GOOD, "model", []), model_id="m")
+        output["suppression"].update(source="reviewed", model="claude", review="reviewed by Taha")
+        kept, stats = generate({"suppression": FACTS}, lambda f: (template_brief(f), "template", []), existing=output, model_id="other")
+        self.assertEqual(stats["kept"], 1)
+        self.assertEqual((kept["suppression"]["source"], kept["suppression"]["review"]), ("reviewed", "reviewed by Taha"))
+
+    def test_the_committed_briefs_pass_the_current_checks(self):
+        document = json.loads((Path(__file__).resolve().parent.parent / "data/processed/briefs.json").read_text(encoding="utf-8"))
+        facts = collect_facts()
+        for pillar, brief in document["briefs"].items():
+            self.assertEqual(validate_brief(clean_brief(brief), facts[pillar]), [], pillar)
+
     def test_changed_facts_reset_the_review(self):
         output, _ = generate({"suppression": FACTS}, lambda f: (GOOD, "model", []), model_id="m")
         output["suppression"]["review"] = "reviewed by Taha"

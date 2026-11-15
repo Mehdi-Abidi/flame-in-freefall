@@ -437,6 +437,8 @@ def write_one(llm, facts):
 
 
 PENDING_REVIEW = "awaiting expert review"
+# A brief a person has signed off ("reviewed") is kept on rerun like model text, as long as it still passes the checks.
+KEPT_SOURCES = ("model", "reviewed")
 
 
 def fingerprint(facts):
@@ -463,9 +465,10 @@ def generate(all_facts, writer, existing=None, only=None, model_id="template", f
             continue
         key = fingerprint(facts)
         previous = output.get(pillar) or {}
+        written = previous.get("source") in KEPT_SOURCES
         reusable = (not force and previous.get("fingerprint") == key
-                    and (previous.get("source") == "model" or model_id == "template")
-                    and not (previous.get("source") == "model" and validate_brief(clean_brief(previous), facts)))
+                    and (written or model_id == "template")
+                    and not (written and validate_brief(clean_brief(previous), facts)))
         if reusable:
             stats["kept"] += 1
             record = previous
