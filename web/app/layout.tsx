@@ -1,13 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { Barlow_Condensed, Host_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Guide } from "@/components/Guide";
+import { JourneyNav } from "@/components/JourneyNav";
 import { Providers } from "@/components/Providers";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { themeInitScript } from "@/components/ThemeToggle";
+import { loadGuideData } from "@/lib/guideData";
 import "./globals.css";
 
-const plexSans = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-plex-sans", display: "swap" });
-const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono", display: "swap" });
+const sans = Host_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-sans-face", display: "swap" });
+const display = Barlow_Condensed({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-display-face", display: "swap" });
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono-face", display: "swap" });
 
 export const metadata: Metadata = {
   title: { default: "Flame in Freefall", template: "%s · Flame in Freefall" },
@@ -16,14 +20,14 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f2efe7" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f0f0e" },
+    { media: "(prefers-color-scheme: light)", color: "#05070b" },
+    { media: "(prefers-color-scheme: dark)", color: "#05070b" },
   ],
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${plexSans.variable} ${plexMono.variable} antialiased`}>
+    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${mono.variable} ${display.variable} antialiased`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
@@ -36,7 +40,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main id="main" className="flex-1">
             {children}
           </main>
+          <JourneyNav />
           <SiteFooter />
+          <Guide data={loadGuideData()} />
         </Providers>
       </body>
     </html>

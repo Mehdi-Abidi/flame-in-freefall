@@ -27,12 +27,12 @@ export function OxygenRuler({
     <figure className="m-0">
       <div className="relative pl-[64px] sm:pl-[76px]">
         <div className="relative h-[34px]">
-          <span className="mono absolute bottom-2 whitespace-nowrap text-[11px] text-accent" style={{ left: at(lo) }}>
+          <span className="mono absolute bottom-2 whitespace-nowrap text-[11px] text-signal" style={{ left: at(lo) }}>
             Lunar base {pct(lo)} to {pct(hi)}
           </span>
         </div>
         <div className="relative">
-          <div aria-hidden="true" className="absolute inset-y-0 border-x border-dashed border-accent bg-accent-wash" style={{ left: at(lo), width: at(hi - lo) }} />
+          <div aria-hidden="true" className="absolute inset-y-0 border-x border-dashed border-signal bg-signal-wash" style={{ left: at(lo), width: at(hi - lo) }} />
           <div aria-hidden="true" className="absolute inset-y-0 border-l border-ink-2" style={{ left: at(earthAir) }} />
           <div aria-hidden="true" className="absolute inset-y-0 border-r border-ink-2" style={{ right: 0 }} />
           {phases.map((p) => {
@@ -43,7 +43,7 @@ export function OxygenRuler({
                 {short && (
                   <div
                     aria-hidden="true"
-                    className="absolute top-[16px] h-[10px] rounded-r-[4px] border border-dashed border-accent"
+                    className="absolute top-[16px] h-[10px] rounded-r-[4px] border border-dashed border-signal"
                     style={{ left: at(p.max), width: at(hi - p.max) }}
                   />
                 )}
@@ -54,7 +54,7 @@ export function OxygenRuler({
                 />
                 <span className="mono absolute top-[31px] -ml-1 whitespace-nowrap bg-paper px-1 text-[12px] text-ink-2" style={{ left: at(p.min) }}>
                   {range(p)} · {p.count} tests
-                  {short && <span className="block text-accent sm:inline"><span className="hidden sm:inline" aria-hidden="true"> · </span>none at lunar oxygen</span>}
+                  {short && <span className="block text-signal sm:inline"><span className="hidden sm:inline" aria-hidden="true"> · </span>none at lunar oxygen</span>}
                 </span>
               </div>
             );

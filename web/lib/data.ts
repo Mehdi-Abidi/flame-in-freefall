@@ -138,7 +138,7 @@ function loadBriefs(knownAccessions: Set<string>): Brief[] {
         findings: (raw.findings ?? []).map((f) => ({ text: f.text, citations: (f.citations ?? []).filter((c) => knownAccessions.has(c)) })),
         implication: raw.implication,
         gap: raw.gap,
-        source: raw.source === "model" ? "model" : "template",
+        source: raw.source === "model" || raw.source === "reviewed" ? raw.source : "template",
         model: raw.model,
         review: raw.review,
       };

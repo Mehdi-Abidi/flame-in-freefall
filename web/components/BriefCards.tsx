@@ -5,11 +5,11 @@ import type { Brief } from "@/lib/types";
 export function BriefCards({ briefs, names }: { briefs: Brief[]; names: Record<string, string> }) {
   if (!briefs.length) return null;
   return (
-    <div className="grid gap-x-10 gap-y-12 lg:grid-cols-3">
+    <div className="grid gap-4 lg:grid-cols-3">
       {briefs.map((brief) => (
-        <article key={brief.pillar} className="flex flex-col border-t-2 border-ink pt-4" aria-labelledby={`brief-${brief.pillar}`}>
-          <p className="text-[13px] font-medium text-ink-2">{PILLAR_LABEL[brief.pillar]}</p>
-          <h3 id={`brief-${brief.pillar}`} className="mt-2 text-[19px] font-semibold leading-snug">
+        <article key={brief.pillar} className="panel flex flex-col p-5" aria-labelledby={`brief-${brief.pillar}`}>
+          <p className="eyebrow text-accent">{PILLAR_LABEL[brief.pillar]}</p>
+          <h3 id={`brief-${brief.pillar}`} className="display mt-2 text-[28px]">
             {brief.title}
           </h3>
           <ol className="mt-4 space-y-3">
@@ -42,7 +42,7 @@ export function BriefCards({ briefs, names }: { briefs: Brief[]; names: Record<s
             <p className="text-[13px] leading-relaxed text-ink-2">{brief.gap}</p>
           </div>
           <p className="mono mt-auto pt-5 text-[12px] text-muted">
-            {brief.source === "model" ? `Drafted by ${brief.model.split("/").pop()} from NASA PSI data` : "Fact-only brief"} · {brief.review}
+            {brief.source === "model" ? `Drafted by ${brief.model.split("/").pop()} from NASA PSI data` : brief.source === "reviewed" ? "Drafted with Claude from NASA PSI data" : "Fact-only brief"} · {brief.review}
           </p>
         </article>
       ))}

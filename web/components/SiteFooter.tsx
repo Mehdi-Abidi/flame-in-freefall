@@ -10,7 +10,17 @@ export function SiteFooter() {
           <p className="eyebrow mb-3">Data</p>
           <p className="max-w-md leading-relaxed">
             All measurements come from NASA&apos;s Physical Sciences Informatics repository. Raw videos and sensor files stay on NASA&apos;s
-            servers and are linked from each investigation. This project is not endorsed by NASA.
+            servers and are linked from each investigation. Photographs are NASA&apos;s, from the NASA Image and Video Library. This project is not endorsed by NASA.
+          </p>
+          <p className="mt-3 max-w-md leading-relaxed">
+            Music: &apos;Signal to Noise&apos; by Scott Buckley, released under{" "}
+            <a className="link-underline" href="https://creativecommons.org/licenses/by/4.0/">
+              CC-BY 4.0
+            </a>
+            .{" "}
+            <a className="link-underline" href="https://www.scottbuckley.com.au">
+              www.scottbuckley.com.au
+            </a>
           </p>
         </div>
         <div>
@@ -27,6 +37,11 @@ export function SiteFooter() {
             <li>
               <Link className="link-underline" href="/earth/">
                 Back on Earth
+              </Link>
+            </li>
+            <li>
+              <Link className="link-underline" href="/method/">
+                Method
               </Link>
             </li>
             <li>

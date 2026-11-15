@@ -2283,7 +2283,7 @@
       "context_only": false,
       "source": "No atmosphere is given for Mars in the challenge.",
       "assumptions": [
-        "Our assumption: a Mars habitat uses the same reduced-pressure, oxygen-enriched atmosphere as the lunar base. Label this in the UI."
+        "Our assumption: a Mars habitat uses the same reduced-pressure, oxygen-enriched atmosphere as the lunar base."
       ],
       "ranking": [
         {

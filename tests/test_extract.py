@@ -147,6 +147,13 @@ class GroundingTests(unittest.TestCase):
         warnings = grounding_warnings(record, text_context(METADATA), data_facts(INVESTIGATION, ROWS))
         self.assertEqual(warnings, ["fuels not found in source: kerosene", "sensors not found in source: lidar"])
 
+    def test_a_plural_matches_the_singular_in_the_source(self):
+        from si.extract import is_grounded, words
+        source = words("two anemometer tracked flow velocity")
+        self.assertTrue(is_grounded("anemometers", source))
+        self.assertTrue(is_grounded("anemometer", words("anemometers tracked flow")))
+        self.assertFalse(is_grounded("lidars", source))
+
     def test_missing_pillar_and_summary_are_flagged(self):
         warnings = grounding_warnings(clean_record({}, {}), {}, {})
         self.assertEqual(warnings, ["no fire-safety pillar assigned", "no summary"])

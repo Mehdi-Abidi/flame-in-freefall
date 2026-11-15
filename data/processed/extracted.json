@@ -677,9 +677,7 @@
     "fuel_phase": [
       "solid"
     ],
-    "warnings": [
-      "sensors not found in source: anemometers"
-    ],
+    "warnings": [],
     "model": "openai/gpt-oss-20b",
     "prompt_version": "s2-v4"
   },
@@ -733,9 +731,7 @@
     "fuel_phase": [
       "solid"
     ],
-    "warnings": [
-      "sensors not found in source: anemometers"
-    ],
+    "warnings": [],
     "model": "openai/gpt-oss-20b",
     "prompt_version": "s2-v4"
   },

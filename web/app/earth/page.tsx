@@ -1,3 +1,4 @@
+import { stageLabel } from "@/lib/journey";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro, SectionHeader } from "@/components/Section";
@@ -26,9 +27,8 @@ export default function EarthPage() {
 
   return (
     <div className="mx-auto max-w-[1240px] px-4 pt-12 sm:px-6">
-      <PageIntro title="Back on Earth">
-        Fire research in orbit is not only for astronauts. {total} of the {data.investigations.length} investigations name uses on Earth in
-        their own NASA records. Here they are, grouped by where they help.
+      <PageIntro kicker={`${stageLabel("/earth/")} · On Earth`} title="Back on Earth">
+        {total} of the {data.investigations.length} investigations name uses on Earth in their own NASA records.
       </PageIntro>
 
       <section className="mb-16">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { GapMap } from "@/components/GapMap";
+import { API_URL } from "@/lib/ask";
 import { loadDataset } from "@/lib/data";
 import { BASIS_LABEL, PHASE_COLOR, PHASE_LABEL, pct, rangeText } from "@/lib/format";
 
@@ -84,9 +85,14 @@ export default async function InvestigationPage({ params }: PageProps<"/investig
           </div>
         </div>
         <div className="flex flex-col items-start gap-2 md:items-end">
-          <a href={inv.psiUrl} className="inline-flex items-center gap-2 rounded-[4px] bg-accent px-4 py-2.5 text-[14px] font-medium text-accent-ink">
+          <a href={inv.psiUrl} className="btn btn-primary">
             Open on NASA PSI <span aria-hidden="true">↗</span>
           </a>
+          {inv.nRecords > 0 && (
+            <a href={`${API_URL}/export?accession=${inv.accession}`} className="btn btn-ghost">
+              Download its test rows
+            </a>
+          )}
           <Link href={`/compare/?ids=${inv.accession}`} className="text-[13px] text-ink-2 underline-offset-2 hover:text-ink hover:underline">
             Compare with others
           </Link>

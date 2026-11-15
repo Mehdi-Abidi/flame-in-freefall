@@ -27,8 +27,8 @@ Model pillars are suggestions. The final pillars come from the hand-checked doma
 | PSI-68 | FLEX-2 | prevention, suppression | suppression | partial |  |
 | PSI-69 | FLEX | prevention, suppression | suppression | partial |  |
 | PSI-98 | SAFFIRE-I | prevention | prevention, detection | partial |  |
-| PSI-99 | SAFFIRE-II | prevention, suppression | prevention | partial | sensors not found in source: anemometers |
-| PSI-100 | SAFFIRE-III | prevention, suppression | prevention, detection | partial | sensors not found in source: anemometers |
+| PSI-99 | SAFFIRE-II | prevention, suppression | prevention | partial |  |
+| PSI-100 | SAFFIRE-III | prevention, suppression | prevention, detection | partial |  |
 | PSI-101 | SAME-R | detection | detection | agree |  |
 | PSI-102 | SAME | detection | detection | agree |  |
 | PSI-106 | SLICE | prevention, detection | none (fundamentals) | seed has no pillar |  |

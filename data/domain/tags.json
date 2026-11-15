@@ -1,5 +1,5 @@
 {
-  "source": "Hand-checked pillar tags for task T1, read directly against each investigation's own NASA objective, hypothesis and research-impact text (data/raw/investigations/PSI-*.json), not just its title. First pass drafted by Claude at Mufeed's request so Taha reviews rather than starts from a blank file. Entries whose note starts with REVIEW disagree with the seed tags in docs/EXECUTION_PLAN.md section 8 and should get a second pair of eyes before judging day; everything else either matches the seed tags or corrects the model's extraction where the actual NASA text didn't support it. Taha: once you've checked these, feel free to edit this file directly and drop the REVIEW notes you've confirmed. Second pass on 15 Nov resolved the seven REVIEW entries against the same NASA objective and research-impact text, with the reason in each note. Taha has not reviewed them yet.",
+  "source": "Hand-checked pillar tags for task T1, read directly against each investigation's own NASA objective, hypothesis and research-impact text (data/raw/investigations/PSI-*.json), not just its title. First pass drafted by Claude at Mufeed's request so Taha reviews rather than starts from a blank file. Entries whose note starts with REVIEW disagree with the seed tags in docs/EXECUTION_PLAN.md section 8 and should get a second pair of eyes before judging day; everything else either matches the seed tags or corrects the model's extraction where the actual NASA text didn't support it. Taha: once you've checked these, feel free to edit this file directly and drop the REVIEW notes you've confirmed. Second pass on 15 Nov resolved the seven REVIEW entries against the same NASA objective and research-impact text, with the reason in each note. Third pass on 15 Nov: all 24 entries were checked again against the NASA text with Claude and signed off by Taha, and the two Saffire platforms were corrected to Cygnus.",
   "investigations": [
     {
       "accession": "PSI-10",
@@ -151,9 +151,9 @@
         "prevention"
       ],
       "role": null,
-      "platform": "ISS",
+      "platform": "Cygnus",
       "hardware": "Saffire unit in Cygnus",
-      "note": "Second pass 15 Nov: prevention only. The objective is fire growth and low-g flammability limits. The O2 and CO2 sensors observe the fire; detection is not studied."
+      "note": "Second pass 15 Nov: prevention only. The objective is fire growth and low-g flammability limits. The O2 and CO2 sensors observe the fire; detection is not studied. Platform set to Cygnus: PSI's catalog lists ISS, but NASA's approach text says the burn ran on the Cygnus resupply vehicle after it left the station, the same as SAFFIRE-II."
     },
     {
       "accession": "PSI-99",
@@ -173,9 +173,9 @@
         "prevention"
       ],
       "role": null,
-      "platform": "ISS",
+      "platform": "Cygnus",
       "hardware": "Saffire unit in Cygnus",
-      "note": "Second pass 15 Nov: prevention only, same objective text and instruments as SAFFIRE-I."
+      "note": "Second pass 15 Nov: prevention only, same objective text and instruments as SAFFIRE-I. Platform set to Cygnus: PSI's catalog lists ISS, but NASA's approach text says the burn ran on the Cygnus resupply vehicle after it left the station, the same as SAFFIRE-II."
     },
     {
       "accession": "PSI-101",

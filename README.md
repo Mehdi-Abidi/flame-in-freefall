@@ -21,7 +21,7 @@ Data flows left to right:
 2. **Ingest and normalize.** `pipeline/fetch_psi.py` pulls metadata and tables (under 1 MB). `normalize.py` converts mmHg, atm and bar to kPa, percent to mole fraction, and tags fuel phase and outcome.
 3. **SI layer.** An LLM extracts structured attributes from each investigation (fuel, sample geometry, variables varied and held fixed, sensors). A transparent scoring formula ranks investigations per habitat, and the LLM writes the explanation. All of this is precomputed and committed.
 4. **API.** FastAPI serves investigations, tests, rankings, comparisons, CSV export and a cited Q&A endpoint.
-5. **Dashboard.** React with Plotly. Pages: Explorer, Flammability Map, Habitat Ranking, Compare, Ask the SI, Gravity Bounds, Earth Spinoffs.
+5. **Dashboard.** A Next.js static site with hand-built SVG charts. Pages: Overview (oxygen ruler, gap map, gravity table), Rank, Investigations, Compare, Ask, Back on Earth, Method.
 
 ## What it answers
 
@@ -79,16 +79,16 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | D1 to D4 Units, `normalize.py`, `tests.csv`, `qa.py` | Mufeed | Done |
 | D5 Merge extraction and hand-checked tags into `investigations.json` | Mufeed | Done |
 | S1 to S3 LLM client, AI extraction, habitat ranking engine | Mehdi | Done |
-| S4 to S5 Rank explanations and insight briefs | Mehdi | Done. Template entries get a model rerun on Sunday after T1 and T4 |
+| S4 to S5 Rank explanations and insight briefs | Mehdi | Done. The three briefs were redrafted and reviewed in T4 |
 | S6 Merges, deploy checks, submission | Mehdi | Sunday |
 | A1 to A5 FastAPI service, live on Render, see [API](#api) | Moiz | Done |
 | F1 to F4, V1 to V4 Dashboard (`web/`), live on GitHub Pages | Mehdi | Done |
-| F5 Ask page against `/ask` | Ali Soban | Next |
-| F6 Submission text draft | Ali Soban | Next |
-| V2 and V4 Gap map label tuning, partial-gravity note | Ahsan | Next |
-| T1 Hand-checked pillar tags | Taha | Draft merged, 7 entries marked REVIEW for Taha |
+| F5 Ask page against `/ask` | Ali Soban | Done |
+| F6 Submission text draft | Ali Soban | Done |
+| V2 and V4 Gap map label tuning, partial-gravity note | Ahsan | Done |
+| T1 Hand-checked pillar tags | Taha | Done. All 24 signed off, Saffire platforms corrected to Cygnus |
 | T2 Habitat scenarios | Taha | Done |
-| T4 Review of the extraction and the briefs | Taha | Sunday morning |
+| T4 Review of the extraction and the briefs | Taha | Done. Briefs reviewed, a false sensor warning cleared |
 | T5 Demo video and slides, polish of the submission text | Taha | Sunday afternoon |
 
 ## Dashboard (`web/`)
@@ -97,14 +97,18 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 
 | Page | What it does |
 |---|---|
-| Overview | The 22% versus 30% headline, four data-backed experiments to run next, an oxygen ruler of measured oxygen per fuel phase against the lunar band, the gap map (every test by O2 and pressure with habitat boxes) and the SAFFIRE-II gravity comparison |
+| Mission brief | The home page, told as one scroll. A hero with the headline gap, a scroll scene where NASA's candle flame loses gravity and turns from a teardrop into a blue dome, the 22.2% versus 30% gap, live verdicts for three cabins, the five-step data pipeline with the number each step produced, and a grid of the tools |
+| Evidence | The oxygen ruler, the gap map of every test by oxygen and pressure with habitat boxes, the SAFFIRE-II gravity comparison, the three reviewed briefs, a FLEX comparison of how droplet flames went out by diluent, four data-backed experiments to fly next, and a button that downloads the whole normalized test table as CSV |
+| Cabin lab | Set oxygen, pressure, fuel and gravity for a cabin of your own, or pick a habitat or one of the two cabin atmospheres NASA's BRE record names for human missions. A banner shows a NASA photograph of the place you picked and cross-fades when the habitat changes, here and on the Rank page. A map shows every test as a dot and a box around your cabin, so the count of tests near it is visible. It says how those tests ended and how far the cabin sits past the record, and draws the flame solid only where tests exist |
+| Wisp, the guide | A small companion on every page. It answers greetings, explains any word on the screen using what the page shows right now, checks a habitat's cabin with a card counted from the flight tests, and takes the visitor where they ask to go, all from code. Anything else goes to the live `/guide` API, which may use the dashboard's own description, the visitor's screen and retrieved PSI passages, and cites only passages it was given. An off-topic question gets a light joke and a way back. Questions can be typed or spoken, and answers can be read aloud |
 | Rank | Habitat switcher and pillar sliders. The list re-orders live, arrows show movement, each row opens its evidence. State lives in the URL, so a view can be shared |
 | Investigations | Search and filter all 24, then a page per investigation with summary, conditions, its tests on the map and every publication |
 | Compare | Up to four side by side, differences marked |
+| Ask | Plain-English questions answered from NASA's records by the live API, each answer with its PSI citations |
 | Method | Pipeline, score parts, habitat sources, honesty rules, limits, AI-use disclosure |
 | Back on Earth | A short history of spacecraft fires, and the uses on Earth that 21 investigations name in their own NASA records, grouped into smoke detection, confined spaces and cleaner engines |
 
-Design: paper and night themes, IBM Plex type, hand-built SVG charts. Chart colours come from a colourblind-validated palette, text never uses data colours, every chart has a table view, and motion respects reduced-motion settings. Ranking runs in the browser with the same formula as `si/rank.py`, and a test checks all 120 scores match.
+Design: one dark mission-console theme. Barlow Condensed capitals for headings, Host Grotesk for text, JetBrains Mono for data, flame orange for every action, ice blue for freefall and red for the gap. NASA photographs carry the hero and chapters, charts are hand-built SVG, every page ends with its next stage, and an excerpt of Scott Buckley's 'Signal to Noise' (CC-BY 4.0) plays after the first click, loops, and pauses and resumes from the header button. Chart colours come from a colourblind-validated palette, text never uses data colours, every chart has a table view, and motion respects reduced-motion settings. Ranking runs in the browser with the same formula as `si/rank.py`, and a test checks all 120 scores match.
 
 ```bash
 cd web
@@ -255,6 +259,7 @@ python -m unittest tests.test_api -v
 | `GET /rank?scenario=lunar_base&w_prevent=1&w_detect=1&w_suppress=1&limit=` | `si.rank.rank()` output: per investigation `score`, `components`, `pillars`, `pillar_source`, `evidence`, `reasons`, `rank`. Unknown scenario or bad weights give 400, data problems give 500. |
 | `GET /compare?ids=PSI-69,PSI-68` | 2 to 4 investigations. `rows` lists each field with its values and a `differs` flag |
 | `POST /ask` `{"question": "..."}` | `answer`, `covered`, `citations` (accessions), `sources` (the retrieved passages). Returns 503 if the server has no `LLM_API_KEY`. |
+| `POST /guide` `{"question": "...", "page": "...", "screen": "..."}` | Wisp, the conversational guide: `answer` and `citations`. It may use a fixed description of the dashboard, the text of the visitor's screen and retrieved PSI passages. It cites only passages it was given, never predicts fire behaviour, and shares the `/ask` rate limits. Returns 503 if the server has no `LLM_API_KEY`. |
 
 `/rank` loads the ranking inputs once at startup and calls `si/rank.py` (S3).
 

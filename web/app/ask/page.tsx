@@ -1,3 +1,4 @@
+import { stageLabel } from "@/lib/journey";
 import type { Metadata } from "next";
 import { AskChat } from "@/components/AskChat";
 import { PageIntro } from "@/components/Section";
@@ -10,9 +11,8 @@ export default function AskPage() {
   const names = Object.fromEntries(data.investigations.map((i) => [i.accession, i.name]));
   return (
     <div className="mx-auto max-w-[1240px] px-4 pt-12 sm:px-6">
-      <PageIntro title="Ask the PSI data">
-        Ask a question in plain English. Answers come only from NASA PSI investigation records and test data, and every claim cites the
-        investigation it came from. If the data does not cover it, the answer says so.
+      <PageIntro kicker={`${stageLabel("/ask/")} · Ask`} title="Ask the record">
+        Plain-English questions, answered only from NASA&apos;s PSI records, with citations.
       </PageIntro>
       <AskChat names={names} />
     </div>

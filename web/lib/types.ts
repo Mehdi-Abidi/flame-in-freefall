@@ -142,7 +142,7 @@ export interface Brief {
   findings: BriefFinding[];
   implication: string;
   gap: string;
-  source: "model" | "template";
+  source: "model" | "template" | "reviewed";
   model: string;
   review: string;
 }
