@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const TEAM = ["Mehdi Abidi", "Syed Mufeed Haider", "Moiz Ul Haq", "Ali Soban", "Ahsan Ali", "Syed Taha Zaidi"];
 
 export function SiteFooter() {
@@ -22,6 +24,11 @@ export function SiteFooter() {
         <div>
           <p className="eyebrow mb-3">Links</p>
           <ul className="space-y-1">
+            <li>
+              <Link className="link-underline" href="/earth/">
+                Back on Earth
+              </Link>
+            </li>
             <li>
               <a className="link-underline" href="https://github.com/Mehdi-Abidi/flame-in-freefall">Source on GitHub</a>
             </li>
