@@ -436,6 +436,15 @@ def saffire2_gravity(path):
     return out
 
 
+def saffire2_notes(path):
+    notes = []
+    for r in read_table(path):
+        match = re.match(r"^note\s+(\d+)\s+(.*)$", col(r, "sample number"), re.I)
+        if match:
+            notes.append({"note": match.group(1), "text": match.group(2).strip()})
+    return notes
+
+
 def same(path, name):
     rows = []
     records = read_table(path)
@@ -514,6 +523,7 @@ def main():
             write_csv(os.path.join(args.out, "saffire2_gravity.csv"), saffire2_gravity(path),
                       ["sample", "material", "thickness", "flow_direction", "micro_g_burn_length",
                        "micro_g_spread_length", "one_g_burn_length", "one_g_spread_rate"])
+            write_csv(os.path.join(args.out, "saffire2_notes.csv"), saffire2_notes(path), ["note", "text"])
 
     finalize(all_rows)
     write_csv(os.path.join(args.out, "tests.csv"), all_rows, COLUMNS)
