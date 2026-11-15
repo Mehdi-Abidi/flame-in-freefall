@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { loadDataset } from "./data";
-import { burnExtent, referencedNotes } from "./gravity";
+import { burnExtent, referencedNotes, thicknessLabel } from "./gravity";
 
 describe("burnExtent", () => {
   it("reads the cells NASA's SAFFIRE-II table uses", () => {
@@ -71,5 +71,13 @@ describe("SAFFIRE-II table notes", () => {
     const shown = referencedNotes(data.gravity, data.gravityNotes);
     expect(shown.map((n) => n.note)).toEqual(["2", "3", "4"]);
     expect(shown[0].text).toContain("Nomex was not ignited");
+  });
+});
+
+describe("thickness labels", () => {
+  it("marks NASA's leading-zero cells instead of guessing a value", () => {
+    expect(thicknessLabel("037 mm")).toBe("037 mm (as written in NASA's table)");
+    expect(thicknessLabel("0.27 mm")).toBe("0.27 mm");
+    expect(thicknessLabel("See Fig. 5")).toBe("See Fig. 5");
   });
 });

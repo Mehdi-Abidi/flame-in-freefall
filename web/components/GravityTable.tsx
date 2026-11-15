@@ -1,4 +1,4 @@
-import { burnExtent, referencedNotes, type BurnExtent } from "@/lib/gravity";
+import { burnExtent, referencedNotes, thicknessLabel, type BurnExtent } from "@/lib/gravity";
 import type { GravityNote, GravityRow } from "@/lib/types";
 
 const CAPTION = "SAFFIRE-II samples burned in microgravity compared with the same samples in 1 g ground tests";
@@ -32,7 +32,7 @@ export function GravityTable({ rows, notes = [] }: { rows: GravityRow[]; notes?:
               {row.material}
             </p>
             <p className="mono mt-0.5 text-[12px] text-muted">
-              {row.thickness} · {row.flowDirection.toLowerCase()} flow
+              {thicknessLabel(row.thickness)} · {row.flowDirection.toLowerCase()} flow
             </p>
             <dl className="mt-3 grid grid-cols-2 gap-3">
               <div>
@@ -70,7 +70,7 @@ export function GravityTable({ rows, notes = [] }: { rows: GravityRow[]; notes?:
                 <td className="mono px-4 py-3 text-ink-2">{row.sample}</td>
                 <td className="px-4 py-3">
                   {row.material}
-                  <span className="mono block text-[12px] text-muted">{row.thickness}</span>
+                  <span className="mono block text-[12px] text-muted">{thicknessLabel(row.thickness)}</span>
                 </td>
                 <td className="px-4 py-3 text-ink-2">{row.flowDirection.toLowerCase()}</td>
                 <td className="px-4 py-3">
