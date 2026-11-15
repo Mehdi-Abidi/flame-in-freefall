@@ -24,3 +24,7 @@ export function referencedNotes(rows: GravityRow[], notes: GravityNote[]): Gravi
   }
   return notes.filter((note) => cited.has(note.note));
 }
+
+export function thicknessLabel(thickness: string): string {
+  return /^0\d/.test(thickness.trim()) ? `${thickness} (as written in NASA's table)` : thickness;
+}

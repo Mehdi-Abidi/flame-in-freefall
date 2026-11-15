@@ -341,6 +341,7 @@ NUMBER = r"(\d+(?:\.\d+)?)"
 JOIN = r"\s?%?\s?(?:to|and|[" + DASHES + r"])\s?"
 OXYGEN_RANGE = re.compile(NUMBER + JOIN + NUMBER + r"\s?%\s?(?:O2|O\u2082|oxygen)\b"
                           r"|\b(?:oxygen|O2|O\u2082)\b(?:\W+\w+){0,4}?\W+" + NUMBER + JOIN + NUMBER + r"\s?%", re.I)
+CITED_ACCESSION = re.compile(r"PSI-\d+")
 TARGET_WORD = re.compile(r"\b(lunar|moon|mars|martian|band|target|spacesuit)\b", re.I)
 RANGE_TOLERANCE = 1.0
 
@@ -383,6 +384,10 @@ def _sentence_problems(sentence: str, facts: Dict[str, Tuple[str, float, float, 
     if not OXYGEN_WORD.search(sentence):
         return []
     named = [(accession, fact) for accession, fact in facts.items() if _mentions(sentence, fact[0])]
+    if not named:
+        cited = list(dict.fromkeys(a for a in CITED_ACCESSION.findall(sentence) if a in facts))
+        if len(cited) == 1:
+            named = [(cited[0], facts[cited[0]])]
     problems = []
     if VARIED_CLAIM.search(sentence) and not CONTRAST_WORD.search(sentence):
         for accession, (acronym, low, _, single) in named:

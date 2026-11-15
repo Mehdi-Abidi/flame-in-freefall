@@ -357,7 +357,7 @@ def main():
         lambda r, o: not r[11] or close(number(o["o2_mole_fraction"]), float(r[11]) / 100, 1e-6)))
     report.check("Flame Design normal pressure", compare(
         tests, args.raw, "PSI-10_Experimental table_Flame Design_Normal Flame.csv", lambda r: True,
-        lambda r, o: o["test_id"] == r[3] and (not number(o["pressure_kpa"]) or close(number(o["pressure_kpa"]), float(r[12]) * 101.325, 0.01))))
+        lambda r, o: o["test_id"] == r[3] and (not number(o["pressure_kpa"]) or close(number(o["pressure_kpa"]), float(r[12] or r[10]) * 101.325, 0.01))))
 
     check_investigations(report, args.raw, args.processed, tests)
     check_extracted(report, args.processed)

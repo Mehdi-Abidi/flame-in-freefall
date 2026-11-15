@@ -31,10 +31,10 @@ jobs:
             echo "::notice::RENDER_DEPLOY_HOOK is not set, so the live API was not redeployed. Add it under Settings > Secrets > Actions."
             exit 0
           fi
-          code=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$HOOK")
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 --retry 2 -X POST "$HOOK" || true)
           echo "Render answered HTTP $code"
-          if [ "$code" -ge 400 ]; then
-            echo "::error::Render rejected the deploy hook (HTTP $code). Check the hook URL secret."
+          if [ "${code:-000}" -lt 200 ] || [ "${code:-000}" -ge 300 ]; then
+            echo "::error::The deploy hook did not succeed (HTTP $code). Check the hook URL secret and the network."
             exit 1
           fi
 

@@ -20,7 +20,7 @@ FLOAT_COLUMNS = ("size_mm", "o2_mole_fraction", "pressure_kpa", "flow_cm_s", "bu
 def normalize_accession(value: str) -> str:
     """'psi-69', 'PSI69' and '69' all become 'PSI-69'."""
     match = re.fullmatch(r"\s*(?:psi)?-?\s*(\d+)\s*", value or "", re.I)
-    return f"PSI-{match.group(1)}" if match else (value or "").strip().upper()
+    return f"PSI-{int(match.group(1))}" if match else (value or "").strip().upper()
 
 
 def _to_float(text: str) -> Optional[float]:

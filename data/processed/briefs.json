@@ -1,7 +1,7 @@
 {
   "version": 1,
   "prompt_version": "s5-v3",
-  "model": "openai/gpt-oss-120b",
+  "model": "template",
   "briefs": {
     "prevention": {
       "title": "What NASA PSI records show on prevention",
@@ -48,10 +48,8 @@
         "PSI-115",
         "PSI-60"
       ],
-      "fingerprint": "e923d2c3e3bf1742",
-      "problems": [
-        "gap says nothing went out at lunar oxygen, but the facts record extinctions at 30% oxygen or more"
-      ],
+      "fingerprint": "5ea20716770a33b0",
+      "problems": [],
       "review": "awaiting expert review"
     },
     "detection": {
