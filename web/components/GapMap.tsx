@@ -48,7 +48,7 @@ function mergeBoxes(scenarios: Scenario[]): Box[] {
 }
 
 export function GapMap({ points, scenarios, names, selectedScenario, highlight, solidMaxO2, height = 460, compact = false }: Props) {
-  const { ref, width } = useSize<HTMLDivElement>();
+  const { ref, width, measured } = useSize<HTMLDivElement>();
   const [phases, setPhases] = useState<Set<Phase>>(new Set(PLOTTED_PHASES));
   const [measuredOnly, setMeasuredOnly] = useState(false);
   const [view, setView] = useState<"chart" | "table">("chart");
@@ -180,7 +180,9 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
       </div>
 
       <div ref={ref} className="relative w-full min-w-0 overflow-hidden">
-        {view === "chart" ? (
+        {view === "chart" && !measured ? (
+          <div style={{ height }} aria-hidden="true" />
+        ) : view === "chart" ? (
           <svg width={width} height={height} role="img" aria-label={`Scatter of ${visible.length} tests: oxygen fraction against pressure, with habitat target boxes`} className="block select-none">
             <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
               {yTicks.map((t) => (
