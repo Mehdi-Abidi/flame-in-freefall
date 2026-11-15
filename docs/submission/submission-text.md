@@ -125,4 +125,5 @@ Data courtesy of NASA's Physical Sciences Informatics system. This project is no
 
 - Confirm the 2026 field names and length limits, and trim the short summary if needed.
 - Check that the challenge link opens. It could not be loaded from the laptop that drafted this.
+- Ask Moiz to confirm the Render service does not override `LLM_MODEL`. The Use of AI section assumes 20B with 120B as fallback for Ask.
 - Add the demo video link once it is uploaded. The script is in `video-script.md`.
