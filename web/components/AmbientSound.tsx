@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 // An original score, made in the browser from oscillators. No recording and no sample is loaded.
 const CHORD_HZ = [73.42, 110, 146.83, 185, 220];
-const LEVEL = 0.55;
+const LEVEL = 0.4;
 
 interface Score {
   stop: () => void;
@@ -59,32 +59,70 @@ function startScore(): Score | null {
   };
 }
 
+const KEY = "flame-sound";
+
+function remember(state: "on" | "off") {
+  try {
+    localStorage.setItem(KEY, state);
+  } catch {}
+}
+
+/** On by default. Browsers allow no sound before a first click or key press, so the score starts at that moment
+ * unless the visitor has switched it off before. */
 export function AmbientSound() {
   const score = useRef<Score | null>(null);
+  const button = useRef<HTMLButtonElement>(null);
   const [on, setOn] = useState(false);
 
-  useEffect(() => () => score.current?.stop(), []);
+  useEffect(() => {
+    let stored: string | null = null;
+    try {
+      stored = localStorage.getItem(KEY);
+    } catch {}
+    const forget = () => {
+      window.removeEventListener("click", begin);
+      window.removeEventListener("keydown", begin);
+    };
+    function begin(event: Event) {
+      if (button.current?.contains(event.target as Node)) return;
+      forget();
+      if (score.current) return;
+      score.current = startScore();
+      setOn(score.current !== null);
+    }
+    if (stored !== "off") {
+      window.addEventListener("click", begin);
+      window.addEventListener("keydown", begin);
+    }
+    return () => {
+      forget();
+      score.current?.stop();
+    };
+  }, []);
 
   function toggle() {
     if (score.current) {
       score.current.stop();
       score.current = null;
       setOn(false);
+      remember("off");
       return;
     }
     score.current = startScore();
     setOn(score.current !== null);
+    remember("on");
   }
 
   const label = on ? "Turn the ambient score off" : "Play the ambient score";
   return (
     <button
+      ref={button}
       type="button"
       onClick={toggle}
       aria-pressed={on}
       aria-label={label}
       title={label}
-      className={`inline-flex h-8 w-8 items-center justify-center rounded-[4px] border transition-[color,border-color,transform] hover:border-rule-strong hover:text-ink active:translate-y-px ${on ? "border-accent text-accent" : "border-rule text-ink-2"}`}
+      className={`inline-flex h-8 w-8 items-center justify-center rounded-[2px] border transition-[color,border-color,transform] hover:border-rule-strong hover:text-ink active:translate-y-px ${on ? "border-accent text-accent" : "border-rule text-ink-2"}`}
     >
       <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
         <path d="M3 6.5v3M6.3 4v8M9.7 5.5v5M13 7v2" />

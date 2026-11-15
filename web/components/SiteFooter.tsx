@@ -10,7 +10,7 @@ export function SiteFooter() {
           <p className="eyebrow mb-3">Data</p>
           <p className="max-w-md leading-relaxed">
             All measurements come from NASA&apos;s Physical Sciences Informatics repository. Raw videos and sensor files stay on NASA&apos;s
-            servers and are linked from each investigation. This project is not endorsed by NASA.
+            servers and are linked from each investigation. Photographs are NASA&apos;s, from the NASA Image and Video Library. This project is not endorsed by NASA.
           </p>
         </div>
         <div>
@@ -27,6 +27,11 @@ export function SiteFooter() {
             <li>
               <Link className="link-underline" href="/earth/">
                 Back on Earth
+              </Link>
+            </li>
+            <li>
+              <Link className="link-underline" href="/method/">
+                Method
               </Link>
             </li>
             <li>
