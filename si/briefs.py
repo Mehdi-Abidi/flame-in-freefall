@@ -156,6 +156,8 @@ def build_facts(pillar, members, investigations, extracted, rows_by_accession, a
             "pressure_kpa_range": [round(v) for v in kpa_range] if kpa_range else None,
             "pressure_basis": inv.get("pressure_basis"),
             "tests": inv.get("n_tests", 0),
+            "tests_with_oxygen": sum(1 for row in rows_by_accession.get(accession, [])
+                                     if row.get("record_type") == "test" and number(row.get("o2_mole_fraction")) is not None),
             "lunar_base_rank": entry["rank"],
             "closest_lunar_test": (f"{pct(best['o2_mole_fraction'])}% oxygen at {round(best['pressure_kpa'])} kPa"
                                    if best.get("o2_mole_fraction") is not None and best.get("pressure_kpa") is not None else None),
@@ -347,7 +349,12 @@ def template_brief(facts):
             parts.append(f"with {' and '.join(inv['fuel_phase'])} fuels")
         oxygen = _range_text(inv.get("oxygen_percent_range"))
         if oxygen:
-            parts.append(f"at {oxygen} oxygen ({BASIS_SHORT.get(inv.get('oxygen_basis'), 'basis not stated')})")
+            basis = BASIS_SHORT.get(inv.get("oxygen_basis"), "basis not stated")
+            with_oxygen = inv.get("tests_with_oxygen")
+            if inv.get("tests") and with_oxygen is not None and with_oxygen < inv["tests"]:
+                parts[-1] += f", {with_oxygen} of them with an oxygen value from {oxygen} ({basis})"
+            else:
+                parts.append(f"at {oxygen} oxygen ({basis})")
         findings.append({"text": " ".join(parts) + ".", "citations": [inv["accession"]]})
     solid_fact = next((f for f in facts["dataset_facts"] if f.startswith("The highest measured oxygen")), None)
     implication = ("Solid-material tests in PSI stop below the 30% oxygen expected in a lunar base, "
