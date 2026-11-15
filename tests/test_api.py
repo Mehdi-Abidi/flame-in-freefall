@@ -252,6 +252,9 @@ class AskTests(unittest.TestCase):
         self.assertFalse(ask_module._mentions("BASS-II burned PMMA", "BASS"))
         self.assertTrue(ask_module._mentions("BASS and BASS-II", "BASS"))
 
+    def test_prompt_treats_a_zero_count_as_an_answer(self):
+        self.assertIn("A count of zero in a source is an answer", ask_module.SYSTEM_PROMPT)
+
     def test_question_validation(self):
         self.assertEqual(client.post("/ask", json={"question": "x" * 501}).status_code, 422)
 

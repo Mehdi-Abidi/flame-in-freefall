@@ -39,6 +39,8 @@ Keep the answer under 150 words, in plain language for a habitat designer.
 Report numbers as the sources give them. If a difference is small or the data cannot settle the question, say so.
 Do not judge which option is better, safer or more effective unless a source says so in words. Report what was observed,
 for example the lowest oxygen at which a flame went out, and note that this alone does not rank the options.
+A count of zero in a source is an answer. If the overview says 0 rows meet a condition, say that no PSI test met it,
+give the highest value it reports instead, and cite the investigations it names for that value.
 If the sources do not answer the question, reply with exactly: {NOT_COVERED}"""
 
 
