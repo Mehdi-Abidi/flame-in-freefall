@@ -71,8 +71,8 @@ export function OxygenRuler({
         </div>
       </div>
       <figcaption className="mt-5 max-w-[60ch] text-[13px] leading-relaxed text-ink-2">
-        Measured oxygen in every test that recorded it, by what was burning. The dashed band is a lunar base. {lunarTests} tests ran at {pct(lo)}
-        oxygen or more and {Math.round(lunarMaxKpa)} kPa or less, all {lunarPhases.join(" and ")} flames.
+        Measured oxygen in every test that recorded it, by what was burning. The dashed band is a lunar base. {lunarTests} tests ran at {pct(lo)} oxygen or
+        more and {Math.round(lunarMaxKpa)} kPa or less, all {lunarPhases.join(" and ")} flames.
       </figcaption>
     </figure>
   );
