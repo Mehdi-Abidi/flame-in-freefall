@@ -1,5 +1,5 @@
 {
-  "source": "Hand-checked pillar tags for task T1, read directly against each investigation's own NASA objective, hypothesis and research-impact text (data/raw/investigations/PSI-*.json), not just its title. First pass drafted by Claude at Mufeed's request so Taha reviews rather than starts from a blank file. Entries whose note starts with REVIEW disagree with the seed tags in docs/EXECUTION_PLAN.md section 8 and should get a second pair of eyes before judging day; everything else either matches the seed tags or corrects the model's extraction where the actual NASA text didn't support it. Taha: once you've checked these, feel free to edit this file directly and drop the REVIEW notes you've confirmed.",
+  "source": "Hand-checked pillar tags for task T1, read directly against each investigation's own NASA objective, hypothesis and research-impact text (data/raw/investigations/PSI-*.json), not just its title. First pass drafted by Claude at Mufeed's request so Taha reviews rather than starts from a blank file. Entries whose note starts with REVIEW disagree with the seed tags in docs/EXECUTION_PLAN.md section 8 and should get a second pair of eyes before judging day; everything else either matches the seed tags or corrects the model's extraction where the actual NASA text didn't support it. Taha: once you've checked these, feel free to edit this file directly and drop the REVIEW notes you've confirmed. Second pass on 15 Nov resolved the seven REVIEW entries against the same NASA objective and research-impact text, with the reason in each note. Taha has not reviewed them yet.",
   "investigations": [
     {
       "accession": "PSI-10",
@@ -101,12 +101,13 @@
       "accession": "PSI-60",
       "acronym": "ground: SPICE analysis",
       "pillars": [
-        "prevention"
+        "prevention",
+        "detection"
       ],
       "role": null,
       "platform": "ground",
       "hardware": "ground",
-      "note": "REVIEW: changed from seed's detection. This is a computational re-analysis of SPICE's soot/flame-structure images. 'Smoke point' here is a fuel sootiness property used in combustion science, not a smoke-detector technology. Recommend prevention (soot/material understanding) over detection; please confirm."
+      "note": "Second pass 15 Nov: detection restored. The investigation's own research-impact text says the results support safer fire detection, and soot is what smoke detectors sense. Prevention kept for soot-formation understanding. Suppression not added: the same sentence names it, but no suppressant is studied."
     },
     {
       "accession": "PSI-62",
@@ -129,7 +130,7 @@
       "role": null,
       "platform": "ISS",
       "hardware": "CIR, MDCA",
-      "note": "REVIEW: upgraded from seed's suppression only. FLEX-2 is a direct continuation of FLEX on the same hardware, studying extinction mechanisms and boundaries; treated consistently with FLEX. Note the visible objective text itself is framed around terrestrial fuel efficiency, so please confirm this against the full PSI page."
+      "note": "Second pass 15 Nov: kept prevention and suppression, consistent with FLEX on the same hardware. Its extinction boundaries over 10 to 40% oxygen bear on both."
     },
     {
       "accession": "PSI-69",
@@ -152,7 +153,7 @@
       "role": null,
       "platform": "ISS",
       "hardware": "Saffire unit in Cygnus",
-      "note": "REVIEW: removed detection, harmonized with SAFFIRE-II and III which share essentially the same objective text (fire growth rate and flammability limits vs the normal-gravity standard test). The onboard cameras and gas sensors are experiment instrumentation for observing the fire, not a detector-technology study like SAME or DAFT. Please confirm, and apply the same call to SAFFIRE-II/III below."
+      "note": "Second pass 15 Nov: prevention only. The objective is fire growth and low-g flammability limits. The O2 and CO2 sensors observe the fire; detection is not studied."
     },
     {
       "accession": "PSI-99",
@@ -174,7 +175,7 @@
       "role": null,
       "platform": "ISS",
       "hardware": "Saffire unit in Cygnus",
-      "note": "REVIEW: removed detection, same reasoning and harmonization as SAFFIRE-I. Please confirm."
+      "note": "Second pass 15 Nov: prevention only, same objective text and instruments as SAFFIRE-I."
     },
     {
       "accession": "PSI-101",
@@ -216,7 +217,7 @@
       "role": "smoke point",
       "platform": "ISS",
       "hardware": "MSG, SPICE flow duct",
-      "note": "REVIEW: changed from seed's detection. 'Smoke point' is the sootiness threshold of a fuel, a combustion-science property, not a smoke-detector study. Recommend prevention (fuel/material sootiness understanding) over detection; please confirm against the PSI page."
+      "note": "Second pass 15 Nov: prevention only. Its impact text is about soot formation and safer spacecraft environments and does not mention detection. Smoke point is a fuel sootiness property."
     },
     {
       "accession": "PSI-115",
@@ -228,7 +229,7 @@
       "role": null,
       "platform": "ground",
       "hardware": "ground",
-      "note": "REVIEW: added prevention. The investigation's own impact text says models of smoke generation would directly lead to better smoke detection devices AND prevent fires, both are explicitly stated. Please confirm."
+      "note": "Second pass 15 Nov: kept both. Its impact text says the models would lead to better smoke detection devices and prevent fires."
     },
     {
       "accession": "PSI-117",
@@ -239,7 +240,7 @@
       "role": null,
       "platform": "ground",
       "hardware": "ground",
-      "note": "REVIEW: changed from seed's fundamentals (no pillar). This is a CFD re-analysis of FLEX data, but its own stated space benefit is explicitly to define safer operating envelopes by resolving cool-flame extinction behavior. Borderline between fundamentals and applied; recommend prevention, but please confirm, rejected the model's added suppression since no suppressant agent is tested."
+      "note": "Second pass 15 Nov: prevention. Its stated space benefit is defining safer operating envelopes from cool-flame extinction behaviour."
     },
     {
       "accession": "PSI-142",
