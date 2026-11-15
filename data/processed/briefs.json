@@ -1,7 +1,7 @@
 {
   "version": 1,
   "prompt_version": "s5-v3",
-  "model": "openai/gpt-oss-120b",
+  "model": "openai/gpt-oss-20b",
   "briefs": {
     "prevention": {
       "title": "Extinction limits at sub-lunar oxygen",
@@ -82,13 +82,13 @@
         "PSI-101",
         "PSI-102",
         "PSI-47",
-        "PSI-115"
+        "PSI-115",
+        "PSI-60"
       ],
-      "fingerprint": "82221b7f26a75bf1",
+      "fingerprint": "991179ec88b22091",
       "problems": [
-        "finding 1 spells out numbers (five), write digits",
-        "finding 2 spells out numbers (five), write digits",
-        "implication uses overconfident safety language (rely on)"
+        "finding 1 presents SAME-R's assumed or planned oxygen as measured",
+        "finding 2 presents SAME's assumed or planned oxygen as measured"
       ],
       "review": "awaiting expert review"
     },
