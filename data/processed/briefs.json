@@ -13,13 +13,13 @@
           ]
         },
         {
-          "text": "ACME CFI-G recorded 333 tests with gas fuels at 18% to 40% oxygen (measured).",
+          "text": "ACME CFI-G recorded 333 tests with gas fuels, 179 of them with an oxygen value from 18% to 40% (measured).",
           "citations": [
             "PSI-159"
           ]
         },
         {
-          "text": "ACME/Flame Design recorded 327 tests with gas fuels at 19.8% to 40% oxygen (measured).",
+          "text": "ACME/Flame Design recorded 327 tests with gas fuels, 207 of them with an oxygen value from 19.8% to 40% (measured).",
           "citations": [
             "PSI-10"
           ]
@@ -48,7 +48,7 @@
         "PSI-115",
         "PSI-60"
       ],
-      "fingerprint": "d78b89b7332ec9ce",
+      "fingerprint": "e923d2c3e3bf1742",
       "problems": [],
       "review": "awaiting expert review"
     },
@@ -85,7 +85,7 @@
         "PSI-115",
         "PSI-60"
       ],
-      "fingerprint": "8cc1c1d9e7b48d9f",
+      "fingerprint": "2ff7b4cfc240e35c",
       "problems": [],
       "review": "awaiting expert review"
     },
@@ -122,7 +122,7 @@
         "PSI-25",
         "PSI-26"
       ],
-      "fingerprint": "40227aafc15b5a85",
+      "fingerprint": "1e7230f80e207166",
       "problems": [],
       "review": "awaiting expert review"
     }

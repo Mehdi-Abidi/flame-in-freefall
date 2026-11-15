@@ -145,6 +145,13 @@ class TemplateTests(unittest.TestCase):
         self.assertIn("from 14.0% to 39.0% oxygen", line)
         self.assertIn("1 of them at 30.0% oxygen or more", line)
 
+    def test_template_says_how_many_tests_have_an_oxygen_value(self):
+        facts = collect_facts()["prevention"]
+        cfi_g = next(inv for inv in facts["investigations"] if inv["accession"] == "PSI-159")
+        self.assertEqual((cfi_g["tests"], cfi_g["tests_with_oxygen"]), (333, 179))
+        text = next(f["text"] for f in template_brief(facts)["findings"] if f["citations"] == ["PSI-159"])
+        self.assertIn("333 tests with gas fuels, 179 of them with an oxygen value from 18% to 40%", text)
+
     def test_outcomes_read_naturally(self):
         rows = [{"record_type": "test", "fuel_phase": "liquid", "diluent": "N2", "o2_source": "measured",
                  "o2_mole_fraction": "0.2", "outcome": "burned to completion"}]
