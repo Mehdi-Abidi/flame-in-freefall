@@ -235,7 +235,11 @@ def normalize_citations(text: str) -> str:
     return CITATION_VARIANTS.sub(lambda match: "PSI-" + match.group(1), text)
 
 
-def expand_overview(text: str, sources: List[dict]) -> str:
+def _mentions(text: str, name: str) -> bool:
+    return re.search(r"(?<![\w-])" + re.escape(name) + r"(?![\w-])", text, re.I) is not None
+
+
+def expand_overview(text: str, sources: List[dict], acronyms: Optional[Dict[str, str]] = None) -> str:
     """Replace an [OVERVIEW] citation with the accessions from the overview lines the answer is about.
 
     The model often cites the overview label itself. Each overview line covers one fuel phase, so an answer that
@@ -248,6 +252,8 @@ def expand_overview(text: str, sources: List[dict]) -> str:
     phase_lines = {line.split()[0].lower(): line for line in overview.split("\n")[1:] if line.strip()}
     named = [line for phase, line in phase_lines.items() if phase in text.lower()] or list(phase_lines.values())
     accessions = list(dict.fromkeys(a for line in named for a in re.findall(r"PSI-\d+", line)))
+    mentioned = [a for a in accessions if (acronyms or {}).get(a) and _mentions(text, acronyms[a])]
+    accessions = mentioned or accessions
     return pattern.sub("[" + ", ".join(accessions) + "]", text) if accessions else text
 
 
@@ -277,10 +283,11 @@ def answer(question: str, retriever: Retriever, chat: Optional[Callable[[str, st
         raise ChatUnavailable("no LLM_API_KEY is configured on the server")
     prompt = build_prompt(question, sources)
     allowed = {s["accession"] for s in sources} | {a for s in sources for a in re.findall(r"PSI-\d+", s["text"])}
-    text = expand_overview(normalize_citations(chat(SYSTEM_PROMPT, prompt).strip()), sources)
+    acronyms = {c["accession"]: c["acronym"] for c in retriever.chunks if c["accession"] != OVERVIEW}
+    text = expand_overview(normalize_citations(chat(SYSTEM_PROMPT, prompt).strip()), sources, acronyms)
     if not _refused(text) and not _valid_citations(text, allowed):
         retry = prompt + CITE_RETRY.format(answer=text, overview=OVERVIEW)
-        text = expand_overview(normalize_citations(chat(SYSTEM_PROMPT, retry).strip()), sources)
+        text = expand_overview(normalize_citations(chat(SYSTEM_PROMPT, retry).strip()), sources, acronyms)
     cited = _valid_citations(text, allowed)
     covered = not _refused(text) and bool(cited)
     if not covered:
