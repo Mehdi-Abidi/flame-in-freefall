@@ -98,6 +98,7 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 | Page | What it does |
 |---|---|
 | Overview | The 22% versus 30% headline, four data-backed experiments to run next, an oxygen ruler of measured oxygen per fuel phase against the lunar band, the gap map (every test by O2 and pressure with habitat boxes) and the SAFFIRE-II gravity comparison |
+| Cabin lab | Set oxygen, pressure, fuel and gravity for a cabin of your own. It counts the flight tests near that cabin, says how they ended and how far the cabin sits past the record, and draws the flame solid only where tests exist |
 | Rank | Habitat switcher and pillar sliders. The list re-orders live, arrows show movement, each row opens its evidence. State lives in the URL, so a view can be shared |
 | Investigations | Search and filter all 24, then a page per investigation with summary, conditions, its tests on the map and every publication |
 | Compare | Up to four side by side, differences marked |
@@ -105,7 +106,7 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 | Method | Pipeline, score parts, habitat sources, honesty rules, limits, AI-use disclosure |
 | Back on Earth | A short history of spacecraft fires, and the uses on Earth that 21 investigations name in their own NASA records, grouped into smoke detection, confined spaces and cleaner engines |
 
-Design: paper and night themes, IBM Plex type, hand-built SVG charts. Chart colours come from a colourblind-validated palette, text never uses data colours, every chart has a table view, and motion respects reduced-motion settings. Ranking runs in the browser with the same formula as `si/rank.py`, and a test checks all 120 scores match.
+Design: night and paper themes, Host Grotesk and JetBrains Mono type, a cobalt accent with orange kept for the lunar gap, hand-built SVG charts and an optional ambient score made in the browser. Chart colours come from a colourblind-validated palette, text never uses data colours, every chart has a table view, and motion respects reduced-motion settings. Ranking runs in the browser with the same formula as `si/rank.py`, and a test checks all 120 scores match.
 
 ```bash
 cd web

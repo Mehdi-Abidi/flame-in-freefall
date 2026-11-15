@@ -27,9 +27,10 @@ The form takes one link. Put these two in the detailed description:
 
 ### What it does
 
-NASA has flown dozens of fire experiments on the International Space Station. Their results sit in PSI as 24 investigations, 21 experimental tables and more than 82,000 raw files. That is hard to search when you are designing a habitat and need to know how a fabric burns at 30% oxygen. The dashboard answers that in six views:
+NASA has flown dozens of fire experiments on the International Space Station. Their results sit in PSI as 24 investigations, 21 experimental tables and more than 82,000 raw files. That is hard to search when you are designing a habitat and need to know how a fabric burns at 30% oxygen. The dashboard answers that in seven views:
 
 - **Overview** shows the headline gap. An oxygen ruler compares the oxygen measured for each fuel phase with the lunar band. A gap map plots every test by oxygen and pressure against the habitat boxes. A SAFFIRE-II panel compares the same materials burned in microgravity and at 1 g. A "What to test next" section proposes four experiments that would close the gaps, each with its evidence from the tables: solids at lunar-base oxygen and pressure, extinction of solids, smoke at lunar oxygen, and partial gravity.
+- **Cabin lab** lets you set the oxygen, pressure, fuel and gravity of a cabin of your own. It counts the flight tests NASA ran near that cabin, shows how they ended and how far the cabin sits past the record, and lists the closest tests. The flame on screen is drawn solid only where tests exist. Nothing in it is a prediction.
 - **Rank** scores all 24 investigations for the chosen habitat. Sliders weight the three fire-safety pillars (prevention, detection, suppression), and the list re-orders live. Each row shows its score parts and a two-sentence reason. The view lives in the URL, so it can be shared.
 - **Investigations** lets you search and filter all 24. Each one has its own page with a plain summary, the conditions tested, its tests on the map and every publication, all linked to the NASA record.
 - **Compare** puts up to four investigations side by side and marks what differs, for example how FLEX-2 changed the FLEX recipe.
@@ -125,7 +126,7 @@ We used no Space Agency Partner data. PSI's combustion records are NASA's.
 - Groq API: https://console.groq.com
 - rank-bm25: https://github.com/dorianbrown/rank_bm25
 - Open-source code the project is built with: Next.js, React, Tailwind CSS, Motion, Radix UI, d3-scale and d3-delaunay for the dashboard, FastAPI, Uvicorn, pandas and python-dotenv for the API and pipeline
-- Type: IBM Plex Sans and IBM Plex Mono (SIL Open Font License)
+- Type: Host Grotesk and JetBrains Mono (SIL Open Font License)
 - The architecture diagram was drawn by the team in Excalidraw. The site uses no NASA logos or mission imagery.
 
 Data courtesy of NASA's Physical Sciences Informatics system. This project is not endorsed by NASA.
@@ -137,7 +138,7 @@ Data courtesy of NASA's Physical Sciences Informatics system. This project is no
 - **GPT-OSS 20B, with 120B as fallback**, answers questions on the Ask page, only from retrieved NASA passages and with required citations.
 - **Claude Code** (Anthropic) was the coding assistant for the whole team. It helped write and review the software, and team members reviewed and tested all of it.
 - **No SI** is used in the ranking scores, the unit conversions or the charts. Those are deterministic code with tests.
-- **No SI-generated images, video or audio** are in the project. The demo is a screen recording of the live site with a team member's voice.
+- **No SI-generated images, video or recorded audio** are in the project. The optional ambient sound is synthesized live in the browser by code, with no sample or recording. The flame in the cabin lab is a drawn illustration of buoyancy, labelled as such. The demo is a screen recording of the live site with a team member's voice.
 - **How it is marked.** The ranking reasons and briefs carry their source and model name in the data files, and the dashboard prints a label under every model-written text. Fact-only templates are labelled as such.
 
 ## Before pressing Submit for Judging
