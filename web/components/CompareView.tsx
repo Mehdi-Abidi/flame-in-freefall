@@ -21,7 +21,7 @@ const basis = (b: string | null) => (b ? ` (${BASIS_LABEL[b] ?? b})` : "");
 const ROWS: Row[] = [
   { label: "Platform", value: (i) => i.platform ?? "not stated" },
   { label: "Hardware", value: (i) => i.hardware ?? "not stated" },
-  { label: "Fire-safety pillars", value: (i) => join(i.pillars) || "fundamentals" },
+  { label: "Fire-safety pillars", value: (i) => (i.pillars.length ? i.pillars.join(", ") : "fundamentals") },
   { label: "Fuel phase", value: (i) => join(i.phases.map((p) => PHASE_LABEL[p])) },
   { label: "Fuels and materials", value: (i) => join(i.fuels) },
   { label: "Sample geometry", value: (i) => join(i.geometry) },
@@ -44,8 +44,9 @@ export function CompareView({ investigations }: { investigations: Investigation[
   const [onlyDiff, setOnlyDiff] = useState(false);
   const byId = useMemo(() => new Map(investigations.map((i) => [i.accession, i])), [investigations]);
 
-  const requested = (params.get("ids") ?? "").split(",").filter((id) => byId.has(id));
-  const ids = (requested.length ? requested : DEFAULT_IDS).slice(0, MAX);
+  const raw = params.get("ids");
+  const requested = [...new Set((raw ?? "").split(",").map((id) => id.trim().toUpperCase()).filter((id) => byId.has(id)))];
+  const ids = (raw === null ? DEFAULT_IDS : requested).slice(0, MAX);
   const selected = ids.map((id) => byId.get(id)).filter((i): i is Investigation => Boolean(i));
 
   function setIds(next: string[]) {
