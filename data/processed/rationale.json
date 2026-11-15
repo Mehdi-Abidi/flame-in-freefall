@@ -1,7 +1,7 @@
 {
   "version": 1,
   "prompt_version": "s4-v2",
-  "model": "openai/gpt-oss-120b",
+  "model": "openai/gpt-oss-20b",
   "rationales": {
     "iss": {
       "PSI-69": {
@@ -122,13 +122,11 @@
         "score": 0.6396
       },
       "PSI-20": {
-        "text": "ACME BRE ranks 14th of 24 for the ISS and Earth-normal cabin with a score of 58, mainly on closest test: 21% O2. 11 of its tests ran near this habitat's conditions, but none had both oxygen and pressure measured inside the target.",
-        "source": "template",
-        "model": "template",
+        "text": "ACME BRE ranks 14 out of 24 because its computed reasons include a closest test at 21% O2, burned gas fuels, and a fire-safety focus on prevention and suppression. Its main caveat is a weak oxygen and pressure fit for the ISS and Earth-normal cabin environment.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
         "fingerprint": "972d8ce9be62eab0",
-        "problems": [
-          "model error: openai/gpt-oss-20b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid docu"
-        ],
+        "problems": [],
         "rank": 14,
         "score": 0.5775
       },
@@ -169,13 +167,11 @@
         "score": 0.2804
       },
       "PSI-60": {
-        "text": "PSI-60 ranks 20th of 24 for the ISS and Earth-normal cabin with a score of 27, mainly on fire-safety focus: prevention (from team tags). It has no recorded oxygen and pressure to compare with this habitat.",
-        "source": "template",
-        "model": "template",
-        "fingerprint": "bbb3d54a122ebb9c",
-        "problems": [
-          "model error: openai/gpt-oss-20b: HTTP 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n"
-        ],
+        "text": "PSI-60 ranks 20 out of 24 because no O2 or pressure data to compare with this habitat, fire-safety focus matches prevention and detection, and it is only a ground study with no flight tests. Its main caveat is the lack of oxygen and pressure fit, as no oxygen or pressure was recorded for the habitat.",
+        "source": "model",
+        "model": "openai/gpt-oss-120b",
+        "fingerprint": "8e609867d49bc288",
+        "problems": [],
         "rank": 20,
         "score": 0.2663
       },
@@ -389,10 +385,10 @@
         "score": 0.2804
       },
       "PSI-60": {
-        "text": "PSI-60 ranks 20th of 24 because it lacks oxygen and pressure data for this habitat, its fire-safety focus is prevention, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the study provides no tests inside or near the target habitat, with no oxygen or pressure recorded.",
+        "text": "PSI-60 ranks 20 out of 24 because no O2 or pressure data to compare with this habitat, fire-safety focus matches prevention and detection, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the record lacks oxygen or pressure data.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "4ca983cf121b8c47",
+        "fingerprint": "6ee61d89e89c7e85",
         "problems": [],
         "rank": 20,
         "score": 0.2663
@@ -607,10 +603,10 @@
         "score": 0.2804
       },
       "PSI-60": {
-        "text": "PSI-60 ranks 20th of 24 because it lacks oxygen and pressure data for this habitat, its fire-safety focus is prevention, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the study provides no tests inside or near the target habitat, with no oxygen or pressure recorded.",
+        "text": "PSI-60 ranks 20 out of 24 because no O2 or pressure data to compare with this habitat, fire-safety focus matches prevention and detection, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the record lacks oxygen or pressure data.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "4ca983cf121b8c47",
+        "fingerprint": "6ee61d89e89c7e85",
         "problems": [],
         "rank": 20,
         "score": 0.2663
@@ -825,10 +821,10 @@
         "score": 0.2804
       },
       "PSI-60": {
-        "text": "PSI-60 ranks 20th of 24 because it lacks oxygen and pressure data for this habitat, its fire-safety focus is prevention, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the study provides no tests inside or near the target habitat, with no oxygen or pressure recorded.",
+        "text": "PSI-60 ranks 20 out of 24 because no O2 or pressure data to compare with this habitat, fire-safety focus matches prevention and detection, and it is only a ground study with no flight tests. Its main caveat is weak material relevance and the record lacks oxygen or pressure data.",
         "source": "model",
         "model": "openai/gpt-oss-120b",
-        "fingerprint": "4ca983cf121b8c47",
+        "fingerprint": "6ee61d89e89c7e85",
         "problems": [],
         "rank": 20,
         "score": 0.2663
@@ -926,13 +922,11 @@
         "score": 0.5668
       },
       "PSI-10": {
-        "text": "ACME/Flame Design ranks 6th of 24 for the Spacesuit with a score of 55, mainly on none of its 316 tests come near this habitat's O2 and pressure. None of its tests came near this habitat's oxygen and pressure.",
-        "source": "template",
-        "model": "template",
+        "text": "ACME/Flame Design ranks 6 out of 24 because its amount of data stands out among others. Its main caveat is that none of its 316 tests covered the habitat’s oxygen and pressure conditions, though oxygen and pressure were measured.",
+        "source": "model",
+        "model": "openai/gpt-oss-20b",
         "fingerprint": "0cf36a0304186300",
-        "problems": [
-          "model error: openai/gpt-oss-20b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid docu"
-        ],
+        "problems": [],
         "rank": 6,
         "score": 0.5479
       },
@@ -1005,7 +999,7 @@
         "model": "template",
         "fingerprint": "eca486407772915c",
         "problems": [
-          "model error: openai/gpt-oss-20b: HTTP 400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid docu"
+          "model error: openai/gpt-oss-20b: HTTP 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n"
         ],
         "rank": 14,
         "score": 0.4498
@@ -1047,11 +1041,13 @@
         "score": 0.2804
       },
       "PSI-60": {
-        "text": "PSI-60 ranks 20th out of 24 because it lacks O2 or pressure data for this habitat, its fire-safety focus is only prevention, and it is a ground study with no flight tests. Its main caveat is weak material relevance and the fact that no oxygen or pressure were recorded for the spacesuit environment.",
-        "source": "model",
-        "model": "openai/gpt-oss-120b",
-        "fingerprint": "538943ae1d74e2dd",
-        "problems": [],
+        "text": "PSI-60 ranks 20th of 24 for the Spacesuit with a score of 27, mainly on fire-safety focus: prevention, detection (from team tags). It has no recorded oxygen and pressure to compare with this habitat.",
+        "source": "template",
+        "model": "template",
+        "fingerprint": "559eed2e9e5f582c",
+        "problems": [
+          "model error: openai/gpt-oss-20b: HTTP 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n"
+        ],
         "rank": 20,
         "score": 0.2663
       },
