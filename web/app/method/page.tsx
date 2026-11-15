@@ -10,7 +10,7 @@ const STEPS = [
   { code: "B", title: "Normalize", body: "21 tables in different units (mmHg, atm, bar, percent, mole fraction) become one table of 2,127 rows. Every oxygen and pressure value carries a tag saying whether it was measured, planned or assumed." },
   { code: "C", title: "Extract", body: "An open model (GPT-OSS 20B on Groq) reads NASA's text for each investigation. Facts the tables already prove are handed to it as ground truth, and anything it names that is not in the source is flagged." },
   { code: "D", title: "Rank", body: "A deterministic score, no AI involved, rates every investigation for each habitat. The same code runs in Python for the data files and in your browser for the sliders, and a test proves they agree." },
-  { code: "E", title: "Explain", body: "The same open model writes a short reason for each ranking and one brief per fire-safety pillar, using only facts the code hands it. Code checks every number and citation, and anything that fails falls back to a fact-only template." },
+  { code: "E", title: "Explain", body: "Open models (GPT-OSS 120B or 20B on Groq) write a short reason for each ranking and one brief per fire-safety pillar, using only facts the code hands it. Each one names the model that wrote it. Code checks every number and citation, and anything that fails falls back to a fact-only template." },
 ];
 
 const RULES = [
@@ -109,8 +109,8 @@ export default function MethodPage() {
       <SectionHeader title="Limits and AI use">
         No partial-gravity combustion data is in PSI yet. Microgravity and 1 g results bound what may happen on the Moon or Mars, and future data
         from the Lunar-g Combustion Investigation and Flammability of Materials on the Moon will fill that gap. The E-FIELD experiment mimicked
-        partial gravity with electric fields. AI use: GPT-OSS 20B (via Groq) drafted the investigation summaries from NASA&apos;s text, and an AI
-        coding assistant helped write the software. All scores are deterministic and every claim links to its NASA source.
+        partial gravity with electric fields. AI use: GPT-OSS 20B (via Groq) drafted the investigation summaries from NASA&apos;s text and answers Ask questions. GPT-OSS
+        120B and 20B wrote the ranking reasons and briefs from facts the code computed. An AI coding assistant helped write the software. All scores are deterministic and every claim links to its NASA source.
       </SectionHeader>
     </div>
   );
