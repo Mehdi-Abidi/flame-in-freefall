@@ -383,6 +383,28 @@ class AskTests(unittest.TestCase):
             main.llm_chat()
         client.assert_called_once_with(max_retries=0, timeout=main.ASK_MODEL_TIMEOUT)
 
+    def test_guard_uses_a_single_citation_when_no_name_is_given(self):
+        facts = main.oxygen_levels
+        self.assertEqual([p.split(" ")[0] for p in ask_module.oxygen_problems("Oxygen ran from 5% to 40% [PSI-25].", facts)], ["PSI-25"])
+        self.assertEqual([p.split(" ")[0] for p in ask_module.oxygen_problems("The study varied oxygen concentration [PSI-99].", facts)], ["PSI-99"])
+        self.assertEqual(ask_module.oxygen_problems("Solid tests varied oxygen from 14% to 22% [PSI-25, PSI-98, PSI-99].", facts), [])
+        self.assertEqual(ask_module.oxygen_problems("Oxygen ranged from 14% to 22% O2 [PSI-25].", facts), [])
+
+    def test_retries_count_against_the_shared_limit_only(self):
+        limiter = RateLimiter(per_minute=6, per_day=60, global_per_minute=20, global_per_day=400, clock=lambda: 100.0)
+        bad = "BASS and BASS-II tested varied oxygen concentrations [PSI-26, PSI-25]."
+        good = "BASS-II measured 14% to 22% O2 [PSI-25]."
+        replies = iter([bad, good])
+        with mock.patch.object(main, "ask_limiter", limiter), mock.patch.object(main, "llm_chat", return_value=lambda system, prompt: next(replies)):
+            client.post("/ask", json={"question": "What oxygen levels did BASS-II test?"})
+        self.assertEqual(len(limiter.everyone), 2)
+        self.assertEqual(sum(len(q) for q in limiter.visitors.values()), 1)
+
+    def test_leading_zero_accessions_and_bad_record_types(self):
+        self.assertEqual(client.get("/investigations/PSI-069").status_code, 200)
+        self.assertEqual(client.get("/tests", params={"record_type": "xyz"}).status_code, 422)
+        self.assertEqual(client.get("/tests", params={"accession": "PSI-69", "record_type": "Test"}).status_code, 200)
+
     def test_question_validation(self):
         self.assertEqual(client.post("/ask", json={"question": "x" * 501}).status_code, 422)
 
