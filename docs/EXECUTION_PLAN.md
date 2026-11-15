@@ -138,7 +138,7 @@ Every LLM output is precomputed and committed. The live site calls an LLM only f
 |---|---|---|---|
 | T1 | S1 | **Draft done 14 Nov** (Mufeed, PR #9). Taha confirms the 7 entries marked REVIEW, starting with SPICE and SAFFIRE-I/III, which lost detection. Hand-check the seed tags in section 8 against the PSI pages and the 2015 Researcher's Guide. Write `data/domain/tags.json`. | All 24 tagged with pillar, hardware and platform. |
 | T2 | S1 | **Done 14 Nov.** Write `data/domain/scenarios.json` with the habitat targets in section 7, each with its source sentence. | Reviewed by Mehdi. |
-| T3 | S2 | Earth spinoffs page content: water mist extinguishers, the shuttle-era smoke detector that tells dust from smoke (link to SAME and DAFT), firefighter clothing, air tanks. Plus a short history strip: Apollo 1, Apollo 13, Mir, Artemis II alarm. | Text in `web/src/content/`. |
+| T3 | S2 | **Done 15 Nov** as the Back on Earth page (`web/app/earth/`): the uses on Earth each investigation's NASA record names, grouped in `web/lib/earth.ts`, plus Apollo 1 and Mir. Spinoffs not in the PSI data (water mist, firefighter clothing, air tanks) were left out because they could not be checked against a source here. | Live at `/earth/`. |
 | T4 | S3 | Review the LLM output: `docs/extraction-review.md` (rows not `agree` and warnings) and the three briefs in `data/processed/briefs.json`. Set each brief's `review` to "reviewed by Taha" once checked. | Corrections merged. |
 | T5 | S4 | Demo video and slides (section 10). Polish Ali's submission text draft (F6). | Files in `docs/submission/`. |
 
