@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as Slider from "@radix-ui/react-slider";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import { HABITAT_SHORT_LABEL, PHASE_COLOR } from "@/lib/format";
 import { Flame } from "@/components/Flame";
 import { burnExtent } from "@/lib/gravity";
-import { GRAVITIES, LAB_PHASES, TOLERANCE, breathing, isAssumed, presetFor, readCabin, richer, type GravityId, type LabTest, type Reading, type Verdict } from "@/lib/lab";
+import { GRAVITIES, LAB_PHASES, TOLERANCE, breathing, isAssumed, isClose, presetFor, readCabin, richer, type Cabin, type GravityId, type LabTest, type Reading, type Verdict } from "@/lib/lab";
+import { screen } from "@/lib/screen";
 import type { GravityRow, Phase, Scenario } from "@/lib/types";
 
 interface Props {
@@ -33,6 +34,11 @@ const VERDICT: Record<Verdict, { word: string; color: string; fill: number }> = 
 };
 
 const HABITAT_GRAVITY: Record<string, GravityId> = { lunar_base: "moon", pressurized_rover: "moon", mars_habitat: "mars" };
+// Named in NASA's BRE record (PSI-20): "14.7 psia, 21 % oxygen: 10.2 psia, 26.5 %; and 8.2 psia, 34 % oxygen."
+const CANDIDATES = [
+  { label: "10.2 psi · 26.5% O2", o2: 26.5, kpa: 70 },
+  { label: "8.2 psi · 34% O2", o2: 34, kpa: 57 },
+];
 const O2_SCALE = { min: 10, max: 100 };
 const KPA_SCALE = { min: 20, max: 105 };
 const CHIP =
@@ -77,7 +83,7 @@ function pillarLines(reading: Reading, o2: number, noun: string, smoke: Props["s
   return { prevent, detect, suppress };
 }
 
-function Dial({ id, label, value, display, scale, onChange }: { id: string; label: string; value: number; display: string; scale: { min: number; max: number }; onChange: (value: number) => void }) {
+function Dial({ id, label, value, display, scale, step = 1, onChange }: { id: string; label: string; value: number; display: string; scale: { min: number; max: number }; step?: number; onChange: (value: number) => void }) {
   return (
     <div>
       <div className="mb-2 flex items-baseline justify-between">
@@ -86,7 +92,7 @@ function Dial({ id, label, value, display, scale, onChange }: { id: string; labe
         </span>
         <span className="mono text-[22px] font-medium leading-none">{display}</span>
       </div>
-      <Slider.Root value={[value]} min={scale.min} max={scale.max} step={1} onValueChange={([next]) => onChange(next)} aria-labelledby={id} className="relative flex h-6 touch-none select-none items-center">
+      <Slider.Root value={[value]} min={scale.min} max={scale.max} step={step} onValueChange={([next]) => onChange(next)} aria-labelledby={id} className="relative flex h-6 touch-none select-none items-center">
         <Slider.Track className="relative h-[3px] grow rounded-full bg-rule">
           <Slider.Range className="absolute h-full rounded-full bg-ink" />
         </Slider.Track>
@@ -96,22 +102,66 @@ function Dial({ id, label, value, display, scale, onChange }: { id: string; labe
   );
 }
 
-function Ruler({ range, o2, color }: { range: [number, number] | null; o2: number; color: string }) {
-  const x = (fraction: number) => ((Math.min(1, Math.max(0.1, fraction)) * 100 - O2_SCALE.min) / (O2_SCALE.max - O2_SCALE.min)) * 300;
+const MAP = { o2: [0.1, 0.45], kpa: [20, 125], w: 320, h: 190, left: 30, right: 8, top: 8, bottom: 22 };
+
+/** Every NASA test as a dot by oxygen and pressure, with a box around the cabin. Dots inside the box are the tests
+ * the big word counts. */
+function CabinMap({ tests, cabin }: { tests: LabTest[]; cabin: Cabin }) {
+  const dots = useMemo(() => {
+    const seen = new Map<string, LabTest>();
+    for (const test of tests) {
+      if (test.kpa === null || test.kpa > MAP.kpa[1] || test.o2 > MAP.o2[1]) continue;
+      const key = `${test.ph}|${Math.round(test.o2 * 200)}|${Math.round(test.kpa / 2)}`;
+      if (!seen.has(key)) seen.set(key, test);
+    }
+    return [...seen.values()];
+  }, [tests]);
+  const clamp = (value: number, [low, high]: number[]) => Math.min(high, Math.max(low, value));
+  const x = (o2: number) => MAP.left + ((clamp(o2, MAP.o2) - MAP.o2[0]) / (MAP.o2[1] - MAP.o2[0])) * (MAP.w - MAP.left - MAP.right);
+  const y = (kpa: number) => MAP.h - MAP.bottom - ((clamp(kpa, MAP.kpa) - MAP.kpa[0]) / (MAP.kpa[1] - MAP.kpa[0])) * (MAP.h - MAP.top - MAP.bottom);
+  const offChart = cabin.o2 > MAP.o2[1];
+  const box = { x: x(cabin.o2 - TOLERANCE.o2), y: y(cabin.kpa + TOLERANCE.kpa), w: x(cabin.o2 + TOLERANCE.o2) - x(cabin.o2 - TOLERANCE.o2), h: y(cabin.kpa - TOLERANCE.kpa) - y(cabin.kpa + TOLERANCE.kpa) };
   return (
-    <div aria-hidden="true">
-      <svg viewBox="0 0 300 26" preserveAspectRatio="none" className="block h-[26px] w-full">
-        <path d="M0 13h300" stroke="var(--rule-strong)" strokeWidth="1" />
-        {range && <rect x={x(range[0])} y="9" width={Math.max(2, x(range[1]) - x(range[0]))} height="8" rx="2" fill={color} />}
-        <path d={`M${x(0.21)} 5v16`} stroke="var(--muted)" strokeWidth="1" strokeDasharray="2 2" />
-        <path d={`M${x(o2)} 1v24`} stroke="var(--signal)" strokeWidth="2.5" />
+    <figure className="m-0">
+      <svg viewBox={`0 0 ${MAP.w} ${MAP.h}`} role="img" aria-label="NASA's tests by oxygen and pressure, with a box around this cabin" className="block w-full">
+        {[0.1, 0.2, 0.3, 0.4].map((o2) => (
+          <g key={o2}>
+            <path d={`M${x(o2)} ${MAP.top}V${MAP.h - MAP.bottom}`} stroke="var(--rule)" strokeWidth="1" />
+            <text x={x(o2)} y={MAP.h - 8} textAnchor="middle" className="mono" fontSize="8.5" fill="var(--muted)">
+              {o2 * 100}%
+            </text>
+          </g>
+        ))}
+        {[30, 50, 70, 101].map((kpa) => (
+          <g key={kpa}>
+            <path d={`M${MAP.left} ${y(kpa)}H${MAP.w - MAP.right}`} stroke="var(--rule)" strokeWidth="1" />
+            <text x={MAP.left - 5} y={y(kpa) + 3} textAnchor="end" className="mono" fontSize="8.5" fill="var(--muted)">
+              {kpa}
+            </text>
+          </g>
+        ))}
+        {dots
+          .filter((dot) => dot.ph !== cabin.phase)
+          .map((dot, index) => (
+            <circle key={`o${index}`} cx={x(dot.o2)} cy={y(dot.kpa ?? 0)} r="1.5" fill="var(--rule-strong)" />
+          ))}
+        {!offChart && <rect x={box.x} y={box.y} width={box.w} height={box.h} fill="var(--accent-wash)" stroke="var(--accent)" strokeWidth="1.5" />}
+        {dots
+          .filter((dot) => dot.ph === cabin.phase)
+          .map((dot, index) => {
+            const inside = isClose(dot, cabin);
+            return <circle key={`s${index}`} cx={x(dot.o2)} cy={y(dot.kpa ?? 0)} r={inside ? 3.2 : 2.2} fill={PHASE_COLOR[cabin.phase]} stroke={inside ? "var(--ink)" : "none"} strokeWidth="1" />;
+          })}
+        {offChart ? (
+          <text x={MAP.w - MAP.right - 4} y={MAP.top + 12} textAnchor="end" className="mono" fontSize="9" fill="var(--signal)">
+            your cabin is past this chart →
+          </text>
+        ) : (
+          <path d={`M${x(cabin.o2) - 5} ${y(cabin.kpa)}h10M${x(cabin.o2)} ${y(cabin.kpa) - 5}v10`} stroke="var(--accent)" strokeWidth="1.5" />
+        )}
       </svg>
-      <div className="mono mt-1 flex justify-between text-[10.5px] text-muted">
-        <span>10% O2</span>
-        <span>flown · cabin</span>
-        <span>100%</span>
-      </div>
-    </div>
+      <figcaption className="mono mt-1 text-[10.5px] leading-relaxed text-muted">Oxygen across, pressure in kPa up. Each dot is a NASA test, coloured when it burned your fuel type. The box is near your cabin.</figcaption>
+    </figure>
   );
 }
 
@@ -139,6 +189,12 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
   const verdict = VERDICT[reading.verdict];
   const field = GRAVITIES.find((item) => item.id === gravity) ?? GRAVITIES[0];
   const touch = () => setPulse((n) => n + 1);
+
+  // Tell the guide what this screen shows, so "why does it say that?" can be answered about these exact settings.
+  useEffect(() => {
+    screen.set(`The cabin lab is set to ${o2Pct}% oxygen at ${kpa} kPa, ${phase} fuels, ${field.label} gravity. It reads ${verdict.word}: ${reading.close} ${phase} ${plural(reading.close, "test", "tests")} near this cabin.`);
+    return () => screen.set("");
+  }, [o2Pct, kpa, phase, field.label, verdict.word, reading.close]);
 
   function chooseHabitat(id: string) {
     const scenario = scenarios.find((s) => s.id === id);
@@ -168,6 +224,19 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
         </p>
       </header>
 
+      <ol className="mb-4 grid gap-4 md:grid-cols-3">
+        {[
+          ["1 · Set the air", "Pick a habitat or drag oxygen and pressure."],
+          ["2 · Watch the box", "It moves across NASA's tests. Dots inside it are tests near your cabin."],
+          ["3 · Read the word", "Flown is 10 or more tests inside. Barely flown is 1 to 9. Never flown is none, so nobody knows."],
+        ].map(([step, line]) => (
+          <li key={step} className="border-l-2 border-accent pl-3">
+            <span className="display block text-[20px]">{step}</span>
+            <span className="mt-1 block text-[13.5px] leading-relaxed text-ink-2">{line}</span>
+          </li>
+        ))}
+      </ol>
+
       <div className="grid gap-4 lg:grid-cols-[minmax(0,4fr)_minmax(0,3fr)_minmax(0,5fr)]">
         <section aria-label="Cabin settings" className="panel flex flex-col gap-7 p-5">
           <div>
@@ -179,6 +248,35 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
                 </ToggleGroup.Item>
               ))}
             </ToggleGroup.Root>
+            <p className="eyebrow mb-2 mt-5">NASA&apos;s candidate cabins</p>
+            <div className="grid grid-cols-2 gap-1.5">
+              {CANDIDATES.map((candidate) => {
+                const on = habitat === null && o2Pct === candidate.o2 && kpa === candidate.kpa;
+                return (
+                  <button
+                    key={candidate.label}
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => {
+                      setO2Pct(candidate.o2);
+                      setKpa(candidate.kpa);
+                      setHabitat(null);
+                      touch();
+                    }}
+                    className={`mono rounded-[4px] border px-2 py-2 text-[11.5px] transition-[color,border-color,transform] active:translate-y-px ${on ? "border-accent bg-accent text-accent-ink" : "border-rule text-ink-2 hover:border-rule-strong hover:text-ink"}`}
+                  >
+                    {candidate.label}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="mt-2 text-[12px] leading-relaxed text-muted">
+              Named for human missions in NASA&apos;s{" "}
+              <Link href="/investigations/PSI-20/" className="link-underline text-ink-2">
+                BRE record
+              </Link>
+              .
+            </p>
             {scenarios.some((s) => s.id === habitat && isAssumed(s)) && (
               <p className="mt-2 text-[12px] leading-relaxed text-muted">Assumed. The challenge gives no atmosphere for this habitat, so it uses the lunar base&apos;s.</p>
             )}
@@ -189,6 +287,7 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
             value={o2Pct}
             display={`${o2Pct}%`}
             scale={O2_SCALE}
+            step={0.5}
             onChange={(value) => {
               setO2Pct(value);
               setHabitat(null);
@@ -282,7 +381,7 @@ export function CabinLab({ tests, smoke, scenarios, names, groundRow, startHabit
             </div>
           </dl>
           <div className="mt-auto pt-6">
-            <Ruler range={reading.range} o2={o2} color={PHASE_COLOR[phase]} />
+            <CabinMap tests={tests} cabin={{ o2, kpa, phase }} />
           </div>
         </section>
       </div>
