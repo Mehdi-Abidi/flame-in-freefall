@@ -338,7 +338,7 @@ class AskTests(unittest.TestCase):
         with mock.patch.object(main, "llm_chat", return_value=chat):
             body = client.post("/ask", json={"question": "Were any solid materials tested at 30% oxygen?"}).json()
         self.assertEqual(body["answer"], good)
-        self.assertIn("PSI-26 BASS ran at about 21% oxygen", prompts[1])
+        self.assertIn("PSI-26 BASS ran at one oxygen level, about 21.0%", prompts[1])
 
     def test_claim_that_survives_the_retry_is_dropped(self):
         bad = "No solid tests reached 30% oxygen [PSI-25]. BASS tested several oxygen levels [PSI-26]."
@@ -346,6 +346,37 @@ class AskTests(unittest.TestCase):
             body = client.post("/ask", json={"question": "Were any solid materials tested at 30% oxygen?"}).json()
         self.assertEqual(body["answer"], "No solid tests reached 30% oxygen [PSI-25].")
         self.assertTrue(body["covered"])
+
+    def test_guard_leaves_true_sentences_alone(self):
+        true_sentences = [
+            "Droplet flames went out between 12% and 15% oxygen in the same test series [PSI-69].",
+            "FLEX burned droplets at several oxygen levels, from 12% to 34%, using the same fuels [PSI-69].",
+            "SAFFIRE-II burned several different materials in 21.5% oxygen [PSI-99].",
+            "BASS tested different solid fuels in 21% oxygen [PSI-26].",
+            "SAFFIRE-II burned several materials at about 22% oxygen [PSI-99].",
+            "In SAFFIRE-II, spread was 50 to 80% slower than in 1 g at 21.5% oxygen [PSI-99].",
+        ]
+        for sentence in true_sentences:
+            with self.subTest(sentence):
+                self.assertEqual(ask_module.oxygen_problems(sentence, main.oxygen_levels), [])
+
+    def test_guard_still_catches_the_word_habitat_case(self):
+        text = "For a habitat designer: BASS-II ran oxygen from 5% to 40% [PSI-25]."
+        self.assertEqual([p.split(" ")[0] for p in ask_module.oxygen_problems(text, main.oxygen_levels)], ["PSI-25"])
+
+    def test_dropping_a_sentence_keeps_headings_and_bullets(self):
+        text = ("**Solid fuels**\n- BASS tested several oxygen levels [PSI-26].\n- BASS-II ran 14% to 22% O2 [PSI-25].\n\n"
+                "**Liquid fuels**\n- FLEX ran 12% to 34% O2 [PSI-69].")
+        self.assertEqual(ask_module.drop_oxygen_claims(text, main.oxygen_levels),
+                         "**Solid fuels**\n- BASS-II ran 14% to 22% O2 [PSI-25].\n\n**Liquid fuels**\n- FLEX ran 12% to 34% O2 [PSI-69].")
+
+    def test_the_word_same_is_not_the_same_investigation(self):
+        sources = [{"accession": "OVERVIEW", "text": "x\nSolid fuels: BASS-II (PSI-25), SAME (PSI-102)"}]
+        expanded = ask_module.expand_overview("BASS-II and CFI used the same lower range [OVERVIEW]", sources,
+                                              {"PSI-25": "BASS-II", "PSI-102": "SAME"})
+        self.assertEqual(expanded, "BASS-II and CFI used the same lower range [PSI-25]")
+        self.assertTrue(ask_module._mentions("SAME measured smoke", "SAME"))
+        self.assertTrue(ask_module._mentions("the ACME Flame Design tests", "ACME/Flame Design"))
 
     def test_question_validation(self):
         self.assertEqual(client.post("/ask", json={"question": "x" * 501}).status_code, 422)
