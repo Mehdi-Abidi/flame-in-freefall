@@ -102,6 +102,7 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 | Investigations | Search and filter all 24, then a page per investigation with summary, conditions, its tests on the map and every publication |
 | Compare | Up to four side by side, differences marked |
 | Method | Pipeline, score parts, habitat sources, honesty rules, limits, AI-use disclosure |
+| Back on Earth | A short history of spacecraft fires, and the uses on Earth that 21 investigations name in their own NASA records, grouped into smoke detection, confined spaces and cleaner engines |
 
 Design: paper and night themes, IBM Plex type, hand-built SVG charts. Chart colours come from a colourblind-validated palette, text never uses data colours, every chart has a table view, and motion respects reduced-motion settings. Ranking runs in the browser with the same formula as `si/rank.py`, and a test checks all 120 scores match.
 
