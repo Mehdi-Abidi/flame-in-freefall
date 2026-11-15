@@ -21,7 +21,7 @@ Data flows left to right:
 2. **Ingest and normalize.** `pipeline/fetch_psi.py` pulls metadata and tables (under 1 MB). `normalize.py` converts mmHg, atm and bar to kPa, percent to mole fraction, and tags fuel phase and outcome.
 3. **SI layer.** An LLM extracts structured attributes from each investigation (fuel, sample geometry, variables varied and held fixed, sensors). A transparent scoring formula ranks investigations per habitat, and the LLM writes the explanation. All of this is precomputed and committed.
 4. **API.** FastAPI serves investigations, tests, rankings, comparisons, CSV export and a cited Q&A endpoint.
-5. **Dashboard.** React with Plotly. Pages: Explorer, Flammability Map, Habitat Ranking, Compare, Ask the SI, Gravity Bounds, Earth Spinoffs.
+5. **Dashboard.** A Next.js static site with hand-built SVG charts. Pages: Overview (oxygen ruler, gap map, gravity table), Rank, Investigations, Compare, Ask, Back on Earth, Method.
 
 ## What it answers
 
@@ -83,9 +83,9 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 | S6 Merges, deploy checks, submission | Mehdi | Sunday |
 | A1 to A5 FastAPI service, live on Render, see [API](#api) | Moiz | Done |
 | F1 to F4, V1 to V4 Dashboard (`web/`), live on GitHub Pages | Mehdi | Done |
-| F5 Ask page against `/ask` | Ali Soban | Next |
-| F6 Submission text draft | Ali Soban | Next |
-| V2 and V4 Gap map label tuning, partial-gravity note | Ahsan | Next |
+| F5 Ask page against `/ask` | Ali Soban | Done |
+| F6 Submission text draft | Ali Soban | Done |
+| V2 and V4 Gap map label tuning, partial-gravity note | Ahsan | Done |
 | T1 Hand-checked pillar tags | Taha | Draft merged, 7 entries marked REVIEW for Taha |
 | T2 Habitat scenarios | Taha | Done |
 | T4 Review of the extraction and the briefs | Taha | Sunday morning |
@@ -101,6 +101,7 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 | Rank | Habitat switcher and pillar sliders. The list re-orders live, arrows show movement, each row opens its evidence. State lives in the URL, so a view can be shared |
 | Investigations | Search and filter all 24, then a page per investigation with summary, conditions, its tests on the map and every publication |
 | Compare | Up to four side by side, differences marked |
+| Ask | Plain-English questions answered from NASA's records by the live API, each answer with its PSI citations |
 | Method | Pipeline, score parts, habitat sources, honesty rules, limits, AI-use disclosure |
 | Back on Earth | A short history of spacecraft fires, and the uses on Earth that 21 investigations name in their own NASA records, grouped into smoke detection, confined spaces and cleaner engines |
 
