@@ -31,9 +31,9 @@ describe("gap map points", () => {
     }
   });
 
-  it("splits the 1,705 plotted tests by what was measured", () => {
-    expect(data.points).toHaveLength(1705);
-    expect(count("measured")).toBe(718);
+  it("splits the 1,725 plotted tests by what was measured", () => {
+    expect(data.points).toHaveLength(1725);
+    expect(count("measured")).toBe(738);
     expect(count("oxygen")).toBe(140);
     expect(count("assumed")).toBe(847);
   });
