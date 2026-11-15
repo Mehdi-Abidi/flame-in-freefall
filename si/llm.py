@@ -4,7 +4,7 @@ Configuration comes from environment variables or the project .env file:
     LLM_API_KEY          required
     LLM_BASE_URL         default https://api.groq.com/openai/v1
     LLM_MODEL            default openai/gpt-oss-20b
-    LLM_FALLBACK_MODEL   optional, used when the main model keeps failing
+    LLM_FALLBACK_MODEL   default openai/gpt-oss-120b, used when the main model keeps failing
     LLM_CACHE_DIR        default .cache/llm, set to an empty string to disable caching
 
 Usage:
@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DEFAULTS = {
     "LLM_BASE_URL": "https://api.groq.com/openai/v1",
     "LLM_MODEL": "openai/gpt-oss-20b",
-    "LLM_FALLBACK_MODEL": "",
+    "LLM_FALLBACK_MODEL": "openai/gpt-oss-120b",
     "LLM_CACHE_DIR": str(ROOT / ".cache" / "llm"),
 }
 RETRYABLE = {408, 409, 425, 429, 500, 502, 503, 504}
