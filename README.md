@@ -108,7 +108,7 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 | Method | Pipeline, score parts, habitat sources, honesty rules, limits, AI-use disclosure |
 | Back on Earth | A short history of spacecraft fires, and the uses on Earth that 21 investigations name in their own NASA records, grouped into smoke detection, confined spaces and cleaner engines |
 
-Design: one dark mission-console theme. Barlow Condensed capitals for headings, Host Grotesk for text, JetBrains Mono for data, flame orange for every action, ice blue for freefall and red for the gap. NASA photographs carry the hero and chapters, charts are hand-built SVG, every page ends with its next stage, and an ambient score made in the browser plays after the first click unless muted. Chart colours come from a colourblind-validated palette, text never uses data colours, every chart has a table view, and motion respects reduced-motion settings. Ranking runs in the browser with the same formula as `si/rank.py`, and a test checks all 120 scores match.
+Design: one dark mission-console theme. Barlow Condensed capitals for headings, Host Grotesk for text, JetBrains Mono for data, flame orange for every action, ice blue for freefall and red for the gap. NASA photographs carry the hero and chapters, charts are hand-built SVG, every page ends with its next stage, and Scott Buckley's 'The Distant Sun' (CC-BY 4.0) plays after the first click, loops, and pauses and resumes from the header button. Chart colours come from a colourblind-validated palette, text never uses data colours, every chart has a table view, and motion respects reduced-motion settings. Ranking runs in the browser with the same formula as `si/rank.py`, and a test checks all 120 scores match.
 
 ```bash
 cd web

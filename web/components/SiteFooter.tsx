@@ -12,6 +12,16 @@ export function SiteFooter() {
             All measurements come from NASA&apos;s Physical Sciences Informatics repository. Raw videos and sensor files stay on NASA&apos;s
             servers and are linked from each investigation. Photographs are NASA&apos;s, from the NASA Image and Video Library. This project is not endorsed by NASA.
           </p>
+          <p className="mt-3 max-w-md leading-relaxed">
+            Music: &apos;The Distant Sun&apos; by Scott Buckley, released under{" "}
+            <a className="link-underline" href="https://creativecommons.org/licenses/by/4.0/">
+              CC-BY 4.0
+            </a>
+            .{" "}
+            <a className="link-underline" href="https://www.scottbuckley.com.au">
+              www.scottbuckley.com.au
+            </a>
+          </p>
         </div>
         <div>
           <p className="eyebrow mb-3">Team</p>

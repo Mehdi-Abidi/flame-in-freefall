@@ -130,6 +130,7 @@ We used no Space Agency Partner data. PSI's combustion records are NASA's.
 - Open-source code the project is built with: Next.js, React, Tailwind CSS, Motion, Radix UI, d3-scale and d3-delaunay for the dashboard, FastAPI, Uvicorn, pandas and python-dotenv for the API and pipeline
 - Type: Barlow Condensed, Host Grotesk and JetBrains Mono (SIL Open Font License)
 - The architecture diagram was drawn by the team in Excalidraw. The site uses no NASA logos.
+- Music: 'The Distant Sun' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au. Used whole, re-encoded at 96 kbps. It plays after a visitor's first click, loops, and can be paused from the header.
 - Photographs, all from the NASA Image and Video Library (https://images.nasa.gov): a candle flame in normal gravity and in microgravity (GRC-1998-C-00485, cropped to the two flames), Earthset from Orion on Artemis II (art002e021278), Earthrise from Apollo 8 (AS08-14-2383), and fabric and plexiglass burning in Saffire-IV (jsc2023e046375, jsc2023e046631).
 
 Data courtesy of NASA's Physical Sciences Informatics system. This project is not endorsed by NASA.
@@ -142,7 +143,7 @@ Data courtesy of NASA's Physical Sciences Informatics system. This project is no
 - **GPT-OSS 20B, with 120B as fallback**, answers questions on the Ask page and for Wisp, the guide, only from retrieved NASA passages and with required citations. Wisp's greetings, explanations of on-screen words, habitat cards, page help and record counts come from code, not from a model. Its other answers come from the model, limited to the dashboard's description, the visitor's screen and retrieved NASA passages.
 - **Claude Code** (Anthropic) was the coding assistant for the whole team. It helped write and review the software, and team members reviewed and tested all of it.
 - **No SI** is used in the ranking scores, the unit conversions or the charts. Those are deterministic code with tests.
-- **No SI-generated images, video or recorded audio** are in the project. The ambient sound, which plays after a visitor's first click and can be muted, is synthesized live in the browser by code, with no sample or recording. The flame in the cabin lab and the guide's character are drawn in code, and the flame is labelled as an illustration. Spoken questions and read-aloud answers use the visitor's own browser speech features, with no recorded or generated voice files. The demo is a screen recording of the live site with a team member's voice.
+- **No SI-generated images, video or audio** are in the project. The music is a human composer's recording, credited under References. The flame in the cabin lab and the guide's character are drawn in code, and the flame is labelled as an illustration. Spoken questions and read-aloud answers use the visitor's own browser speech features, with no recorded or generated voice files. The demo is a screen recording of the live site with a team member's voice.
 - **How it is marked.** The ranking reasons and briefs carry their source and model name in the data files, and the dashboard prints a label under every model-written text. Fact-only templates are labelled as such.
 
 ## Before pressing Submit for Judging

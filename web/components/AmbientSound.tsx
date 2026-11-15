@@ -2,64 +2,59 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// An original score, made in the browser from oscillators. No recording and no sample is loaded.
-const CHORD_HZ = [73.42, 110, 146.83, 185, 220];
-const LEVEL = 0.4;
-
-interface Score {
-  stop: () => void;
-}
-
-function startScore(): Score | null {
-  const Context = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-  if (!Context) return null;
-  const audio = new Context();
-  const master = audio.createGain();
-  master.gain.value = 0;
-  const filter = audio.createBiquadFilter();
-  filter.type = "lowpass";
-  filter.frequency.value = 700;
-  const sweep = audio.createOscillator();
-  const sweepDepth = audio.createGain();
-  sweep.frequency.value = 0.04;
-  sweepDepth.gain.value = 320;
-  sweep.connect(sweepDepth).connect(filter.frequency);
-  sweep.start();
-
-  CHORD_HZ.forEach((hz, index) => {
-    const level = 0.05 / (1 + index * 0.35);
-    for (const detune of [-6, 6]) {
-      const voice = audio.createOscillator();
-      voice.type = index < 2 ? "sine" : "triangle";
-      voice.frequency.value = hz;
-      voice.detune.value = detune;
-      const gain = audio.createGain();
-      gain.gain.value = level;
-      const swell = audio.createOscillator();
-      const swellDepth = audio.createGain();
-      swell.frequency.value = 0.03 + index * 0.011 + (detune > 0 ? 0.004 : 0);
-      swellDepth.gain.value = level * 0.6;
-      swell.connect(swellDepth).connect(gain.gain);
-      swell.start();
-      voice.connect(gain).connect(filter);
-      voice.start();
-    }
-  });
-
-  filter.connect(master).connect(audio.destination);
-  master.gain.linearRampToValueAtTime(LEVEL, audio.currentTime + 3);
-
-  return {
-    stop: () => {
-      master.gain.cancelScheduledValues(audio.currentTime);
-      master.gain.setValueAtTime(master.gain.value, audio.currentTime);
-      master.gain.linearRampToValueAtTime(0, audio.currentTime + 1);
-      window.setTimeout(() => void audio.close().catch(() => undefined), 1100);
-    },
-  };
-}
-
+// 'The Distant Sun' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au
+// The file in public/music is his recording re-encoded at 96 kbps, with nothing cut.
+const TRACK = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/music/the-distant-sun.mp3`;
 const KEY = "flame-sound";
+const LEVEL = 0.45;
+const STEP = 0.03;
+const MAX_STEPS = 40;
+
+let player: HTMLAudioElement | null = null;
+let fading: number | null = null;
+
+/** Moves the volume to a target in small steps, then runs `done`. Some phones ignore volume changes, so it
+ * also stops after a fixed number of steps. */
+function fadeTo(target: number, done?: () => void) {
+  const track = player;
+  if (!track) return;
+  if (fading !== null) window.clearInterval(fading);
+  let steps = 0;
+  fading = window.setInterval(() => {
+    steps += 1;
+    const gap = target - track.volume;
+    if (Math.abs(gap) <= STEP || steps >= MAX_STEPS) {
+      try {
+        track.volume = target;
+      } catch {}
+      if (fading !== null) window.clearInterval(fading);
+      fading = null;
+      done?.();
+      return;
+    }
+    track.volume = Math.min(1, Math.max(0, track.volume + Math.sign(gap) * STEP));
+  }, 50);
+}
+
+/** Starts or resumes the track where it was paused. Resolves false when the browser refuses or the file is missing. */
+function playTrack(): Promise<boolean> {
+  if (!player) {
+    player = new Audio(TRACK);
+    player.loop = true;
+    player.volume = 0;
+  }
+  return player
+    .play()
+    .then(() => {
+      fadeTo(LEVEL);
+      return true;
+    })
+    .catch(() => false);
+}
+
+function pauseTrack() {
+  fadeTo(0, () => player?.pause());
+}
 
 function remember(state: "on" | "off") {
   try {
@@ -67,10 +62,9 @@ function remember(state: "on" | "off") {
   } catch {}
 }
 
-/** On by default. Browsers allow no sound before a first click or key press, so the score starts at that moment
- * unless the visitor has switched it off before. */
+/** The score is on by default. Browsers allow no sound before a first click or key press, so it starts at that
+ * moment, loops, pauses when muted and resumes from the same place. A visitor who muted it stays muted. */
 export function AmbientSound() {
-  const score = useRef<Score | null>(null);
   const button = useRef<HTMLButtonElement>(null);
   const [on, setOn] = useState(false);
 
@@ -86,9 +80,7 @@ export function AmbientSound() {
     function begin(event: Event) {
       if (button.current?.contains(event.target as Node)) return;
       forget();
-      if (score.current) return;
-      score.current = startScore();
-      setOn(score.current !== null);
+      void playTrack().then(setOn);
     }
     if (stored !== "off") {
       window.addEventListener("click", begin);
@@ -96,24 +88,22 @@ export function AmbientSound() {
     }
     return () => {
       forget();
-      score.current?.stop();
+      pauseTrack();
     };
   }, []);
 
   function toggle() {
-    if (score.current) {
-      score.current.stop();
-      score.current = null;
+    if (on) {
+      pauseTrack();
       setOn(false);
       remember("off");
       return;
     }
-    score.current = startScore();
-    setOn(score.current !== null);
+    void playTrack().then(setOn);
     remember("on");
   }
 
-  const label = on ? "Turn the ambient score off" : "Play the ambient score";
+  const label = on ? "Pause the music" : "Play the music";
   return (
     <button
       ref={button}

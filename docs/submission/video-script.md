@@ -21,6 +21,7 @@ Live site: https://mehdi-abidi.github.io/flame-in-freefall/
 
 - English only. If any speech is in another language, add English subtitles.
 - No NASA logos, flags or mission identifiers, and no music you do not have rights to.
+- The site's music is 'The Distant Sun' by Scott Buckley (CC-BY 4.0). If it can be heard in the video, his licence needs this line in the YouTube description: 'The Distant Sun' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au. Pausing the music before recording avoids the question.
 - Nobody under 18 on screen or in the audio.
 - Anything SI-generated in a video needs a visible watermark. A real screen recording with your own voice needs none, so keep it that way.
 - The link must open with no sign-in. Test it in a private window.
@@ -28,7 +29,7 @@ Live site: https://mehdi-abidi.github.io/flame-in-freefall/
 ## Before recording
 
 1. Open the Ask page once and ask any question, then wait for the answer. The API sleeps when idle and the first answer can take up to a minute. After that, answers come in a few seconds. Ask the example question once too, so the recorded take is fast.
-2. Use browser zoom at 100%, window at 1920 x 1080, and close other tabs and notifications. Mute the ambient score with the header button before you start, so it does not fight the voice.
+2. Use browser zoom at 100%, window at 1920 x 1080, and close other tabs and notifications. Pause the music with the header button before you start, so it does not fight the voice.
 3. Pre-load the Rank page so the switch is instant.
 
 ## Recording on a Mac
