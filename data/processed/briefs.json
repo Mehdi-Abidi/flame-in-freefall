@@ -1,38 +1,38 @@
 {
   "version": 1,
   "prompt_version": "s5-v3",
-  "model": "openai/gpt-oss-20b",
+  "model": "template",
   "briefs": {
     "prevention": {
-      "title": "Extinction limits at sub-lunar oxygen",
+      "title": "What NASA PSI records show on prevention",
       "findings": [
         {
-          "text": "FLEX observed 58 liquid-fuel rows ending in extinction, the lowest at 12.0% oxygen measured with N2 diluent.",
+          "text": "SPICE recorded 435 tests with gas fuels at 21% oxygen (assumed cabin air).",
           "citations": [
-            "PSI-69"
+            "PSI-107"
           ]
         },
         {
-          "text": "FLEX observed 40 liquid-fuel rows ending in extinction, the lowest at 13.0% oxygen measured with N2+He diluent.",
-          "citations": [
-            "PSI-69"
-          ]
-        },
-        {
-          "text": "ACME CFI-G recorded 183 self-extinguished gas-fuel rows, the lowest at 13.5% oxygen measured with N2.",
+          "text": "ACME CFI-G recorded 333 tests with gas fuels at 18% to 40% oxygen (measured).",
           "citations": [
             "PSI-159"
           ]
+        },
+        {
+          "text": "ACME/Flame Design recorded 327 tests with gas fuels at 19.8% to 40% oxygen (measured).",
+          "citations": [
+            "PSI-10"
+          ]
         }
       ],
-      "implication": "Designers must test fire-suppression and extinguishment strategies at 30% or higher oxygen and ≤70.3 kPa because extinction was only seen below about 25% oxygen in the data.",
-      "gap": "The dataset lacks extinction or self-extinction results for any fuel at lunar-base oxygen levels (30%+).",
-      "source": "model",
-      "model": "openai/gpt-oss-120b",
+      "implication": "Solid-material tests in PSI stop below the 30% oxygen expected in a lunar base, so prevention findings need checking at lunar conditions.",
+      "gap": "No partial-gravity combustion data is in PSI yet.",
+      "source": "template",
+      "model": "template",
       "members": [
         "PSI-69",
-        "PSI-10",
         "PSI-159",
+        "PSI-10",
         "PSI-68",
         "PSI-20",
         "PSI-25",
@@ -48,7 +48,7 @@
         "PSI-115",
         "PSI-60"
       ],
-      "fingerprint": "25b998ee649ffb04",
+      "fingerprint": "d78b89b7332ec9ce",
       "problems": [],
       "review": "awaiting expert review"
     },
@@ -85,39 +85,36 @@
         "PSI-115",
         "PSI-60"
       ],
-      "fingerprint": "991179ec88b22091",
-      "problems": [
-        "finding 1 presents SAME-R's assumed or planned oxygen as measured",
-        "finding 2 presents SAME's assumed or planned oxygen as measured"
-      ],
+      "fingerprint": "8cc1c1d9e7b48d9f",
+      "problems": [],
       "review": "awaiting expert review"
     },
     "suppression": {
-      "title": "Lunar Habitat Fire Suppression Insights",
+      "title": "What NASA PSI records show on suppression",
       "findings": [
         {
-          "text": "FLEX observed 123 liquid-fuel rows with N2+CO2 at measured oxygen 14.0%-25.0% and 88 extinguishments, the lowest at 14.0% oxygen.",
+          "text": "FLEX recorded 274 tests with liquid fuels at 12% to 34% oxygen (measured).",
           "citations": [
             "PSI-69"
           ]
         },
         {
-          "text": "BASS-II tested solid fuels with measured oxygen 13.6%-22.2% at 101 kPa, covering the highest solid-material oxygen measured in the dataset.",
+          "text": "BASS-II recorded 129 tests with solid fuels at 13.6% to 22.2% oxygen (measured).",
           "citations": [
             "PSI-25"
           ]
         },
         {
-          "text": "BASS examined solid fabrics at nominal cabin air 21.0% oxygen and 101 kPa, providing data at the typical spacecraft atmosphere.",
+          "text": "BASS recorded 121 tests with solid fuels at 21% oxygen (assumed cabin air).",
           "citations": [
             "PSI-26"
           ]
         }
       ],
-      "implication": "Designers must test suppression agents and extinguishment strategies at 30% oxygen or higher because existing microgravity data only cover up to 25% oxygen for liquids and 22.2% for solids.",
-      "gap": "The dataset lacks partial-gravity combustion results and extinction outcomes for gas-fuel or liquid-fuel tests at lunar-base oxygen levels.",
-      "source": "model",
-      "model": "openai/gpt-oss-120b",
+      "implication": "Solid-material tests in PSI stop below the 30% oxygen expected in a lunar base, so suppression findings need checking at lunar conditions.",
+      "gap": "No partial-gravity combustion data is in PSI yet.",
+      "source": "template",
+      "model": "template",
       "members": [
         "PSI-69",
         "PSI-68",
@@ -125,7 +122,7 @@
         "PSI-25",
         "PSI-26"
       ],
-      "fingerprint": "cab358e3b4a423bb",
+      "fingerprint": "40227aafc15b5a85",
       "problems": [],
       "review": "awaiting expert review"
     }
