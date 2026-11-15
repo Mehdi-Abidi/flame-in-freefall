@@ -117,7 +117,7 @@ Data courtesy of NASA's Physical Sciences Informatics system. This project is no
 ## Use of AI
 
 - **GPT-OSS 20B** (open-weight, via Groq) drafted the plain-language summary of each investigation and extracted fuels, sample geometry, sensors and suggested fire-safety pillars from NASA's text. Facts the tables prove were given to it as ground truth, and anything not in the source is flagged. A team member hand-checks the pillar tags, and the hand-checked tags take priority over the model's.
-- **GPT-OSS 120B, with 20B as fallback** (open-weight, via Groq), wrote the two-sentence ranking reasons and the three insight briefs from facts computed by code. Code checks every number, rank and citation, and replaces failures with a labelled fact-only template.
+- **GPT-OSS 120B and 20B** (open-weight, via Groq) wrote the two-sentence ranking reasons and the three insight briefs from facts computed by code. Code checks every number, rank and citation, and replaces failures with a labelled fact-only template.
 - **GPT-OSS 20B, with 120B as fallback**, answers questions on the Ask page, only from retrieved NASA passages and with required citations.
 - **Claude Code** (Anthropic) was the coding assistant for the whole team. It helped write and review the software, and team members reviewed and tested all of it.
 - **No AI** is used in the ranking scores, the unit conversions or the charts. Those are deterministic code with tests.
@@ -126,5 +126,4 @@ Data courtesy of NASA's Physical Sciences Informatics system. This project is no
 
 - Confirm the 2026 field names and length limits, and trim the short summary if needed.
 - Check that the challenge link opens. It could not be loaded from the laptop that drafted this.
-- Ask Moiz to confirm the Render service does not override `LLM_MODEL`. The Use of AI section assumes 20B with 120B as fallback for Ask.
 - Add the demo video link once it is uploaded. The script is in `video-script.md`.
