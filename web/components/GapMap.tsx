@@ -63,7 +63,8 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
   const innerW = Math.max(width - MARGIN.left - MARGIN.right, 120);
   const innerH = height - MARGIN.top - MARGIN.bottom;
   const x = useMemo(() => scaleLinear().domain([0.1, 1]).range([0, innerW]), [innerW]);
-  const y = useMemo(() => scaleLog().domain([20, 600]).range([innerH, 0]).clamp(true), [innerH]);
+  // Whole pixels: Node and the browser disagree on log() in the last digits, which breaks hydration.
+  const y = useMemo(() => scaleLog().domain([20, 600]).rangeRound([innerH, 0]).clamp(true), [innerH]);
   const boxes = useMemo(() => mergeBoxes(scenarios), [scenarios]);
 
   const delaunay = useMemo(() => Delaunay.from(visible, (p) => x(p.o2), (p) => y(p.kpa)), [visible, x, y]);
@@ -88,7 +89,8 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
     });
   }
 
-  const xTicks = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
+  // Every other label on phones, where "100%" and "90%" otherwise run together.
+  const xTicks = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1].filter((_, i) => innerW >= 420 || i % 2 === 1);
   const yTicks = compact ? [30, 100, 300] : [20, 30, 50, 70, 100, 200, 300, 500];
 
   const table = useMemo(() => {
@@ -185,6 +187,10 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                 const bw = Math.max(x(box.o2[1]) - bx, 6);
                 const by = y(box.kpa[1]);
                 const bh = Math.max(y(box.kpa[0]) - by, 6);
+                // Mono 12px is about 7.2px a character. Shorten merged labels that cannot fit, then keep the label inside the plot.
+                const full = box.label.toUpperCase();
+                const label = full.length * 7.2 > innerW && box.ids.length > 1 ? `${full.split(" · ")[0]} +${box.ids.length - 1}` : full;
+                const lx = Math.max(0, Math.min(bx + 4, innerW - label.length * 7.2));
                 return (
                   <g key={box.key}>
                     <motion.rect
@@ -197,8 +203,8 @@ export function GapMap({ points, scenarios, names, selectedScenario, highlight, 
                       rx={2}
                     />
                     {!compact && (
-                      <text x={Math.min(bx + 4, innerW - 4)} y={by - 6} fontSize={12} textAnchor={bx + 4 > innerW - 140 ? "end" : "start"} className="mono" fill={selected ? "var(--accent)" : "var(--ink-2)"} stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
-                        {box.label.toUpperCase()}
+                      <text x={lx} y={by - 6} fontSize={12} className="mono" fill={selected ? "var(--accent)" : "var(--ink-2)"} stroke="var(--surface)" strokeWidth={4} paintOrder="stroke" strokeLinejoin="round">
+                        {label}
                       </text>
                     )}
                   </g>
