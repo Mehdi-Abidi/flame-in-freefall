@@ -10,6 +10,13 @@ import { loadDataset } from "@/lib/data";
 import { compact, pct } from "@/lib/format";
 import { nextTests } from "@/lib/nextTests";
 
+const WHERE_NEXT = [
+  { href: "/lab/", title: "Cabin lab", line: "Set oxygen, pressure and gravity. See what flew there." },
+  { href: "/rank/", title: "Rank", line: "Order all 24 investigations for one habitat." },
+  { href: "/compare/", title: "Compare", line: "Put up to four side by side." },
+  { href: "/earth/", title: "Back on Earth", line: "Where the same research lands at home." },
+];
+
 export default function OverviewPage() {
   const data = loadDataset();
   const names = Object.fromEntries(data.investigations.map((i) => [i.accession, i.name]));
@@ -26,20 +33,19 @@ export default function OverviewPage() {
           </h1>
           <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
             <div>
-              <p className="max-w-[52ch] text-[17px] leading-relaxed text-ink-2">
-                Every solid-material burn in NASA&apos;s microgravity record ran in air or thinner. Moon habitats will run richer in oxygen to make
-                spacewalks easier, and materials burn faster there. This dashboard ranks each of the {data.stats.investigations} experiments for the
-                habitat you are designing and shows exactly where the data runs out.
+              <p className="max-w-[44ch] text-[17px] leading-relaxed text-ink-2">
+                NASA&apos;s archive holds {data.stats.investigations} fire investigations. Set a cabin of your own and see what was burned there, and what never was.
               </p>
-              <p className="mt-6 text-[15px]">
-                <Link href="/rank/" className="link-underline font-medium text-accent">
-                  Rank them for your habitat
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link href="/lab/" className="inline-flex h-11 items-center rounded-[4px] bg-accent px-5 text-[14px] font-medium text-accent-ink transition-transform hover:-translate-y-px active:translate-y-px">
+                  Open the cabin lab
                 </Link>
-                <span className="text-ink-2"> or read the gap map below.</span>
-              </p>
-              <p className="mt-8 max-w-[52ch] text-[13px] leading-relaxed text-muted">
-                Built from {data.stats.records.toLocaleString("en-US")} test records. The {compact(data.stats.rawFiles)} raw files, {data.stats.rawTerabytes.toFixed(1)} TB
-                of video and sensor data, stay on NASA&apos;s servers and are linked, not copied.
+                <Link href="/rank/" className="inline-flex h-11 items-center rounded-[4px] border border-rule-strong px-5 text-[14px] font-medium transition-[transform,border-color] hover:-translate-y-px hover:border-ink active:translate-y-px">
+                  Rank the experiments
+                </Link>
+              </div>
+              <p className="mono mt-8 text-[12px] leading-relaxed text-muted">
+                {data.stats.records.toLocaleString("en-US")} test records · {compact(data.stats.rawFiles)} raw files linked at NASA, not copied
               </p>
             </div>
             {lunar && (
@@ -50,9 +56,8 @@ export default function OverviewPage() {
       </section>
 
       <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
-        <SectionHeader title="The gap map">
-          Every test with a recorded atmosphere, placed by oxygen and pressure. The shaded boxes are where crews will live. Notice how few points
-          land in the lunar box, and that none of them are solids.
+        <SectionHeader step="01 · The gap" title="The gap map">
+          Every test, placed by oxygen and pressure. The boxes are where crews will live. Few points land in the lunar box, and none are solids.
         </SectionHeader>
         <div className="panel p-4 sm:p-5">
           <GapMap points={data.points} scenarios={data.scenarios} names={names} selectedScenario={lunar?.id} solidMaxO2={data.stats.solidMaxO2} />
@@ -60,10 +65,9 @@ export default function OverviewPage() {
       </section>
 
       <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
-        <SectionHeader title="Gravity changes the answer">
-          SAFFIRE-II burned the same samples in a departing Cygnus cargo ship that were also tested on the ground. Thin silicone burned completely
-          on Earth but barely at all in microgravity, while cotton-fiberglass fabric burned its full length in both. Screening materials at 1 g can
-          mislead in both directions.
+        <SectionHeader step="02 · Gravity" title="Gravity changes the answer">
+          SAFFIRE-II burned the same samples in orbit and on the ground. Thin silicone burned completely on Earth and barely in orbit. Cotton-fiberglass
+          burned its full length in both.
         </SectionHeader>
         <GravityTable rows={data.gravity} notes={data.gravityNotes} />
         <PartialGravityNote efield={efield} efieldOnMap={efieldOnMap} />
@@ -71,42 +75,32 @@ export default function OverviewPage() {
 
       {data.briefs.length > 0 && (
         <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
-          <SectionHeader title="What the data says">
-            One brief per fire-safety pillar. Each finding cites the NASA investigations it comes from, and code checked every number, citation
-            and claim against the data before it was published. A domain review is still pending.
+          <SectionHeader step="03 · The findings" title="What the data says">
+            One brief per fire-safety pillar. Every finding cites its NASA record.
           </SectionHeader>
           <BriefCards briefs={data.briefs} names={names} />
         </section>
       )}
 
       <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
-        <SectionHeader title="What to test next">
-          Four experiments that would close the gaps above, each built on investigations already in PSI. The evidence for each comes
-          straight from the test tables.
+        <SectionHeader step="04 · Next flights" title="What to test next">
+          Four experiments that would close these gaps, each backed by the test tables.
         </SectionHeader>
         <NextTests tests={nextTests(data)} names={names} />
       </section>
 
       <section className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6">
-        <p className="max-w-[62ch] border-t border-rule pt-8 text-[17px] leading-relaxed text-ink-2">
-          From here you can{" "}
-          <Link href="/rank/" className="link-underline font-medium text-ink">
-            rank the investigations for ISS, a lunar base, a rover or Mars
-          </Link>
-          ,{" "}
-          <Link href="/investigations/" className="link-underline font-medium text-ink">
-            read each one in plain language
-          </Link>
-          ,{" "}
-          <Link href="/compare/" className="link-underline font-medium text-ink">
-            compare up to four side by side
-          </Link>
-          , or see how the same research{" "}
-          <Link href="/earth/" className="link-underline font-medium text-ink">
-            helps back on Earth
-          </Link>
-          .
-        </p>
+        <SectionHeader step="05 · Your turn" title="Take it further" />
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {WHERE_NEXT.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} className="panel block h-full p-5 transition-[transform,border-color] hover:-translate-y-0.5 hover:border-rule-strong active:translate-y-0">
+                <span className="block text-[17px] font-semibold leading-snug">{item.title}</span>
+                <span className="mt-2 block text-[14px] leading-relaxed text-ink-2">{item.line}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
     </>
   );

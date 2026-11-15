@@ -9,9 +9,10 @@ export function PageIntro({ title, children }: { title: string; children?: React
   );
 }
 
-export function SectionHeader({ title, children }: { title: string; children?: ReactNode }) {
+export function SectionHeader({ title, step, children }: { title: string; step?: string; children?: ReactNode }) {
   return (
     <div className="mb-6">
+      {step && <p className="eyebrow mb-2">{step}</p>}
       <h2 className="text-[24px] font-semibold leading-tight tracking-[-0.01em]">{title}</h2>
       {children && <div className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-ink-2">{children}</div>}
     </div>
