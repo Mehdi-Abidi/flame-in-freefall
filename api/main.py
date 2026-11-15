@@ -52,6 +52,23 @@ def llm_chat():
     return lambda system, prompt: _llm.chat(prompt, system=system, max_tokens=800)
 
 
+_guide_llm = None
+
+
+def guide_chat():
+    """Wisp's chat. Uses GUIDE_LLM_API_KEY when it is set, so the guide has its own quota; otherwise the /ask client."""
+    global _guide_llm
+    key = os.environ.get("GUIDE_LLM_API_KEY", "").strip()
+    if not key:
+        return llm_chat()
+    if _guide_llm is None:
+        try:
+            _guide_llm = LLM(api_key=key, max_retries=0, timeout=ASK_MODEL_TIMEOUT)
+        except LLMError:
+            return llm_chat()
+    return lambda system, prompt: _guide_llm.chat(prompt, system=system, max_tokens=800)
+
+
 app = FastAPI(
     title="Flame in Freefall API",
     description="NASA PSI microgravity combustion investigations, tests, habitat rankings and cited Q&A.",
@@ -252,6 +269,6 @@ def guide(request: GuideRequest, http_request: Request):
     PSI passages, and cites only passages it was given. Shares the /ask rate limits."""
     _spend_one_question(http_request)
     try:
-        return guide_module.reply(request.question, request.page, request.screen, retriever, llm_chat(), oxygen_levels)
+        return guide_module.reply(request.question, request.page, request.screen, retriever, guide_chat(), oxygen_levels)
     except (ask_module.ChatUnavailable, LLMError) as error:
         raise HTTPException(status_code=503, detail=f"Chat is unavailable right now: {error}") from error
