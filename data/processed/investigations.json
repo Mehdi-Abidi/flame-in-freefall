@@ -30,7 +30,7 @@
     ],
     "o2_range": [
       0.198,
-      0.85
+      0.4
     ],
     "o2_basis": "measured",
     "pressure_kpa_range": [
@@ -65,7 +65,7 @@
       },
       {
         "title": "SPHERICAL DIFFUSION FLAME IN MICROGRAVITY CONDITIONS: FIRST RESULTS OF JOINT RUSSIAN-AMERICAN SPACE EXPERIMENT FLAME DESIGN - ADAMANT",
-        "authors": "undefined undefined, FROLOV S. M."
+        "authors": "FROLOV S. M."
       },
       {
         "title": "Observations of long duration microgravity spherical diffusion flames aboard the International Space Station",
@@ -2312,7 +2312,7 @@
       },
       {
         "title": "SUPPLEMENTARY MATERIAL\nThe radical index and the effect of oxygen concentration on non-premixed cool flame extinction of large n-alkanes",
-        "authors": "Yiguang Ju, Mengni Zhou, Omar R. Yehia, Wenbin Xu, Christopher B. Reuter, Ziyu Wang,  Chao Yan"
+        "authors": "Yiguang Ju, Mengni Zhou, Omar R. Yehia, Wenbin Xu, Christopher B. Reuter, Ziyu Wang, Chao Yan"
       },
       {
         "title": "Pressure and Radiation Effects on the Dynamics of Hot and Cool Diffusion Flames",
@@ -2352,8 +2352,8 @@
       "gas"
     ],
     "o2_range": [
-      0.12,
-      0.85
+      0.18,
+      0.4
     ],
     "o2_basis": "measured",
     "pressure_kpa_range": [

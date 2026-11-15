@@ -27,7 +27,7 @@ describe("loadDataset", () => {
   it("computes the same headline numbers as the Python QA", () => {
     expect(data.stats.solidTests).toBe(140);
     expect(data.stats.solidMaxO2).toBeCloseTo(0.222, 3);
-    expect(data.stats.lunarTests).toBe(66);
+    expect(data.stats.lunarTests).toBe(20);
     expect(data.stats.lunarPhases).toEqual(["gas"]);
     expect(data.stats.records).toBe(2127);
   });
@@ -37,7 +37,7 @@ describe("loadDataset", () => {
     expect(Object.keys(byPhase)).toEqual(["solid", "liquid", "gas"]);
     expect(byPhase.solid.max).toBeCloseTo(0.222, 3);
     expect(byPhase.solid.count).toBe(140);
-    expect(byPhase.gas.max).toBeGreaterThan(0.8);
+    expect(byPhase.gas.max).toBeCloseTo(0.4, 3);
     expect(data.stats.measuredRows).toBe(data.stats.oxygenByPhase.reduce((s, p) => s + p.count, 0));
   });
 

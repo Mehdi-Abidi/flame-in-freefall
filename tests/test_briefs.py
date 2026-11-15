@@ -137,6 +137,14 @@ class TemplateTests(unittest.TestCase):
             with self.subTest(pillar):
                 self.assertEqual(validate_brief(template_brief(facts), facts), [])
 
+    def test_observations_give_the_highest_oxygen_and_the_lunar_count(self):
+        rows = [{"record_type": "test", "fuel_phase": "gas", "diluent": "N2", "o2_source": "measured",
+                 "o2_mole_fraction": value, "outcome": "self-extinguished"} for value in ("0.14", "0.39")]
+        line = group_observations(rows)[0]
+        self.assertTrue(line.startswith("2 gas-fuel rows with N2"))
+        self.assertIn("from 14.0% to 39.0% oxygen", line)
+        self.assertIn("1 of them at 30.0% oxygen or more", line)
+
     def test_outcomes_read_naturally(self):
         rows = [{"record_type": "test", "fuel_phase": "liquid", "diluent": "N2", "o2_source": "measured",
                  "o2_mole_fraction": "0.2", "outcome": "burned to completion"}]

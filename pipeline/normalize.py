@@ -256,6 +256,12 @@ def cfi(path, name):
     return rows
 
 
+def inverse_note(jet_o2):
+    value = first_number(jet_o2)
+    jet = f"{value * 100:.0f}% O2" if value is not None else "oxygen"
+    return f"inverse flame: the burner supplied {jet} into a fuel-filled chamber, so there is no ambient oxygen value"
+
+
 def cfi_g(path, name):
     rows = []
     inverse = "inverse" in name.lower()
@@ -263,11 +269,13 @@ def cfi_g(path, name):
         test = col(r, "test")
         if not test:
             continue
-        o2 = first_number(col(r, "xo2")) if inverse else first_number(col(r, "xo2 before"))
+        o2 = None if inverse else first_number(col(r, "xo2 before"))
         ignited = col(r, "hot ignition").lower()
         termination = OUTCOMES.get(col(r, "self", "ext").lower() or col(r, "self-ext").lower(), "")
         outcome = "no ignition" if ignited == "no" else termination or ("ignited" if ignited == "yes" else "")
         notes = [f"ACME test day {col(r, 'day')}"] if col(r, "day") else []
+        if inverse:
+            notes.append(inverse_note(col(r, "xo2")))
         if not inverse and col(r, "cool flame").lower() == "yes":
             notes.append("cool flame observed")
         if col(r, "comments"):
@@ -275,7 +283,7 @@ def cfi_g(path, name):
         rows.append(base("PSI-159", "ACME CFI-G", name, test_id=test,
                          fuel=col(r, "fuel").lower(), fuel_phase="gas",
                          geometry="spherical burner, inverse flame" if inverse else "spherical burner, normal flame",
-                         o2_mole_fraction=o2, o2_source="measured",
+                         o2_mole_fraction=o2, o2_source="measured" if o2 is not None else "",
                          pressure_kpa=to_kpa(col(r, "approx p"), "bar"), pressure_source="measured",
                          diluent="N2", outcome=outcome, burn_time_s=first_number(col(r, "burn time")),
                          notes="; ".join(notes)))
@@ -286,15 +294,17 @@ def flame_design(path, name):
     rows = []
     inverse = "inverse" in name.lower()
     for r in read_table(path):
-        o2 = first_number(col(r, "xo2")) if inverse else first_number(col(r, "xo2 (init)"))
+        o2 = None if inverse else first_number(col(r, "xo2 (init)"))
         pressure = first_number(col(r, "pmean"))
         notes = [f"ACME test day {col(r, 'day')}"] if col(r, "day") else []
+        if inverse:
+            notes.append(inverse_note(col(r, "xo2")))
         if "ramped" in " ".join(r.values()).lower():
             notes.append("flow ramped during test")
         rows.append(base("PSI-10", "ACME Flame Design", name, test_id=col(r, "test"),
                          fuel="ethylene" if inverse else fuel_label(col(r, "fuel")), fuel_phase="gas",
                          geometry="spherical burner, inverse flame" if inverse else "spherical burner, normal flame",
-                         o2_mole_fraction=o2, o2_source="measured",
+                         o2_mole_fraction=o2, o2_source="measured" if o2 is not None else "",
                          pressure_kpa=round(pressure * KPA_PER["atm"], 2) if pressure else None,
                          pressure_source="measured" if pressure else "", diluent="N2",
                          notes="; ".join(notes)))

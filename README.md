@@ -68,7 +68,7 @@ Every O2 and pressure value carries a source tag (`measured`, `planned`, `nomina
 ### What the data already shows
 
 - **No solid-material fire test in PSI ran above 22.2% oxygen.** That covers 140 tests across BASS-II, SAFFIRE-I and SAFFIRE-II. Lunar habitats are expected to run at 30% or more.
-- **Only 66 tests sit at lunar-base conditions** (30% O2 or more at 70 kPa or less), and all of them are gas flames from ACME CFI-G and Flame Design.
+- **Only 20 tests sit at lunar-base conditions** (30% O2 or more at 70 kPa or less), and all of them are gas flames from ACME CFI-G. Inverse flames are not counted: their oxygen came from the burner into a fuel-filled chamber, so they say nothing about a cabin atmosphere.
 - **Gravity flips the ranking of materials.** In SAFFIRE-II, thin silicone sheets burned completely at 1 g but barely burned in microgravity, while cotton-fiberglass fabric spread its full 29 cm length in both.
 
 ## Progress
@@ -163,7 +163,7 @@ python -m si.briefs --templates-only               # fact-only briefs, no key ne
 python -m si.briefs --pillar suppression --force   # rewrite one
 ```
 
-Each brief has a title, three findings that cite PSI accessions, what it means for a lunar base, and what the data does not cover. Code gathers the facts per pillar (oxygen and pressure ranges with their basis, recorded outcomes such as the lowest oxygen at which droplets went out, the SAFFIRE-II gravity comparison, the 22.2% and 66-test headlines). The model writes. Every brief is checked before it is kept:
+Each brief has a title, three findings that cite PSI accessions, what it means for a lunar base, and what the data does not cover. Code gathers the facts per pillar (oxygen and pressure ranges with their basis, recorded outcomes such as the lowest oxygen at which droplets went out, the SAFFIRE-II gravity comparison, the 22.2% and lunar-condition test headlines). The model writes. Every brief is checked before it is kept:
 
 - each finding names the investigation it cites, and cites only investigations in that pillar
 - flames are only said to go out where an extinction is recorded

@@ -270,7 +270,7 @@ Taha verifies these in T1. Hardware groupings come from the challenge text.
 | PSI-68 | FLEX-2 | suppression | CIR, MDCA |
 | PSI-39 | CFI | prevention (cool flames) | CIR, MDCA |
 | PSI-20 | ACME BRE | prevention | CIR, ACME |
-| PSI-159 | ACME CFI-G | prevention (up to 85% O2) | CIR, ACME |
+| PSI-159 | ACME CFI-G | prevention (ambient O2 up to 40%) | CIR, ACME |
 | PSI-10 | ACME Flame Design | prevention (soot, O2 enriched) | CIR, ACME |
 | PSI-21 | ACME CLD Flame | fundamentals | CIR, ACME |
 | PSI-22 | ACME E-FIELD Flames | partial-gravity proxy | CIR, ACME |

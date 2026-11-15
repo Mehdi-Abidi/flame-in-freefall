@@ -83,7 +83,8 @@ def extract_publications(detail):
     out = []
     for pub in detail.get("publications", []):
         title = (pub.get("title") or "").strip()
-        authors = (pub.get("authorList") or "").strip()
+        authors = ", ".join(name.strip() for name in (pub.get("authorList") or "").split(",")
+                            if name.strip() and "undefined" not in name.lower())
         if title:
             out.append({"title": title, "authors": authors})
     return out
