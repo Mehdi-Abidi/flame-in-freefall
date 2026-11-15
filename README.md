@@ -259,7 +259,7 @@ python -m unittest tests.test_api -v
 | `GET /rank?scenario=lunar_base&w_prevent=1&w_detect=1&w_suppress=1&limit=` | `si.rank.rank()` output: per investigation `score`, `components`, `pillars`, `pillar_source`, `evidence`, `reasons`, `rank`. Unknown scenario or bad weights give 400, data problems give 500. |
 | `GET /compare?ids=PSI-69,PSI-68` | 2 to 4 investigations. `rows` lists each field with its values and a `differs` flag |
 | `POST /ask` `{"question": "..."}` | `answer`, `covered`, `citations` (accessions), `sources` (the retrieved passages). Returns 503 if the server has no `LLM_API_KEY`. |
-| `POST /guide` `{"question": "...", "page": "...", "screen": "..."}` | Wisp, the conversational guide: `answer` and `citations`. It may use a fixed description of the dashboard, the text of the visitor's screen and retrieved PSI passages. It cites only passages it was given, never predicts fire behaviour, and shares the `/ask` rate limits. Returns 503 if the server has no `LLM_API_KEY`. |
+| `POST /guide` `{"question": "...", "page": "...", "screen": "..."}` | Wisp, the conversational guide: `answer` and `citations`. It may use a fixed description of the dashboard, the text of the visitor's screen and retrieved PSI passages. It cites only passages it was given, never predicts fire behaviour, and shares the `/ask` rate limits. Uses `GUIDE_LLM_API_KEY` when the server has one, so Wisp has its own Groq quota, and falls back to `LLM_API_KEY`. Returns 503 if neither is set. |
 
 `/rank` loads the ranking inputs once at startup and calls `si/rank.py` (S3).
 
