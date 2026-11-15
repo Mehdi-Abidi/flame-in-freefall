@@ -241,6 +241,17 @@ class AskTests(unittest.TestCase):
         self.assertIn("PSI-25", body["citations"])
         self.assertNotIn("PSI-69", body["citations"])
 
+    def test_overview_citation_keeps_only_the_investigations_the_answer_names(self):
+        reply = "BASS-II tested solid fuels from 13.6% to 22.2% oxygen [OVERVIEW]."
+        with mock.patch.object(main, "llm_chat", return_value=fake_chat(reply)):
+            body = client.post("/ask", json={"question": "What oxygen levels did BASS-II test with solid fuels?"}).json()
+        self.assertEqual(body["citations"], ["PSI-25"])
+        self.assertIn("[PSI-25]", body["answer"])
+
+    def test_bass_is_not_matched_inside_bass_ii(self):
+        self.assertFalse(ask_module._mentions("BASS-II burned PMMA", "BASS"))
+        self.assertTrue(ask_module._mentions("BASS and BASS-II", "BASS"))
+
     def test_question_validation(self):
         self.assertEqual(client.post("/ask", json={"question": "x" * 501}).status_code, 422)
 
