@@ -37,12 +37,15 @@ except si_rank.RankError as error:
     rank_inputs, rank_load_error = None, str(error)
 
 
+ASK_MODEL_TIMEOUT = 35
+
+
 def llm_chat():
     """Returns chat(system, prompt) backed by si/llm.py, or None when no LLM_API_KEY is set."""
     global _llm
     if _llm is None:
         try:
-            _llm = LLM()
+            _llm = LLM(max_retries=0, timeout=ASK_MODEL_TIMEOUT)
         except LLMError:
             return None
     return lambda system, prompt: _llm.chat(prompt, system=system, max_tokens=800)
