@@ -130,7 +130,7 @@ We used no Space Agency Partner data. PSI's combustion records are NASA's.
 - Open-source code the project is built with: Next.js, React, Tailwind CSS, Motion, Radix UI, d3-scale and d3-delaunay for the dashboard, FastAPI, Uvicorn, pandas and python-dotenv for the API and pipeline
 - Type: Barlow Condensed, Host Grotesk and JetBrains Mono (SIL Open Font License)
 - The architecture diagram was drawn by the team in Excalidraw. The site uses no NASA logos.
-- Music: 'The Distant Sun' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au. Used whole, re-encoded at 96 kbps. It plays after a visitor's first click, loops, and can be paused from the header.
+- Music: 'Signal to Noise' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au. We use an excerpt, 1:00 to 2:46, made louder and faded at both ends so it loops. It plays after a visitor's first click, loops, and can be paused from the header.
 - Photographs, all from the NASA Image and Video Library (https://images.nasa.gov): a candle flame in normal gravity and in microgravity (GRC-1998-C-00485, cropped to the two flames), Earthset from Orion on Artemis II (art002e021278), Earthrise from Apollo 8 (AS08-14-2383), and fabric and plexiglass burning in Saffire-IV (jsc2023e046375, jsc2023e046631).
 
 Data courtesy of NASA's Physical Sciences Informatics system. This project is not endorsed by NASA.

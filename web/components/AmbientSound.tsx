@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// 'The Distant Sun' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au
-// The file in public/music is his recording re-encoded at 96 kbps, with nothing cut.
-const TRACK = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/music/the-distant-sun.mp3`;
+// 'Signal to Noise' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au
+// The file in public/music is an excerpt of his recording, 1:00 to 2:46, made louder and faded at both ends so it loops.
+const TRACK = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/music/signal-to-noise.mp3`;
 const KEY = "flame-sound";
-const LEVEL = 0.45;
-const STEP = 0.03;
+const LEVEL = 0.85;
+const STEP = 0.05;
 const MAX_STEPS = 40;
 
 let player: HTMLAudioElement | null = null;
@@ -58,12 +58,13 @@ function pauseTrack() {
 
 function remember(state: "on" | "off") {
   try {
-    localStorage.setItem(KEY, state);
+    sessionStorage.setItem(KEY, state);
   } catch {}
 }
 
-/** The score is on by default. Browsers allow no sound before a first click or key press, so it starts at that
- * moment, loops, pauses when muted and resumes from the same place. A visitor who muted it stays muted. */
+/** The music is on by default. Browsers allow no sound before a first click or key press, so it starts at that
+ * moment, loops, pauses from the button and resumes from the same place. A pause lasts for that visit only, so
+ * every new visit starts with music. */
 export function AmbientSound() {
   const button = useRef<HTMLButtonElement>(null);
   const [on, setOn] = useState(false);
@@ -71,7 +72,7 @@ export function AmbientSound() {
   useEffect(() => {
     let stored: string | null = null;
     try {
-      stored = localStorage.getItem(KEY);
+      stored = sessionStorage.getItem(KEY);
     } catch {}
     const forget = () => {
       window.removeEventListener("click", begin);

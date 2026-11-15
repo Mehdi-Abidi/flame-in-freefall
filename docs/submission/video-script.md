@@ -21,7 +21,7 @@ Live site: https://mehdi-abidi.github.io/flame-in-freefall/
 
 - English only. If any speech is in another language, add English subtitles.
 - No NASA logos, flags or mission identifiers, and no music you do not have rights to.
-- The site's music is 'The Distant Sun' by Scott Buckley (CC-BY 4.0). If it can be heard in the video, his licence needs this line in the YouTube description: 'The Distant Sun' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au. Pausing the music before recording avoids the question.
+- The site's music is 'Signal to Noise' by Scott Buckley (CC-BY 4.0). If it can be heard in the video, his licence needs this line in the YouTube description: 'Signal to Noise' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au. Pausing the music before recording avoids the question.
 - Nobody under 18 on screen or in the audio.
 - Anything SI-generated in a video needs a visible watermark. A real screen recording with your own voice needs none, so keep it that way.
 - The link must open with no sign-in. Test it in a private window.
