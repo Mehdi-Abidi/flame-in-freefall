@@ -29,7 +29,7 @@ The form takes one link. Put these two in the detailed description:
 
 NASA has flown dozens of fire experiments on the International Space Station. Their results sit in PSI as 24 investigations, 21 experimental tables and more than 82,000 raw files. That is hard to search when you are designing a habitat and need to know how a fabric burns at 30% oxygen. The dashboard answers that in eight views, with a guide on every page:
 
-- **Mission brief** is the home page, told in four screens: the headline gap, a scroll scene where NASA's candle flame loses gravity and turns from a teardrop into a blue dome, the 22.2% versus 30% gap, and live verdicts for three cabins.
+- **Mission brief** is the home page, told as one scroll: the headline gap, a scroll scene where NASA's candle flame loses gravity and turns from a teardrop into a blue dome, the 22.2% versus 30% gap, live verdicts for three cabins, and the five-step data pipeline with the number each step produced.
 - **Evidence** holds the detail. An oxygen ruler compares the oxygen measured for each fuel phase with the lunar band. A gap map plots every test by oxygen and pressure against the habitat boxes. A SAFFIRE-II panel compares the same materials burned in microgravity and at 1 g. Three reviewed briefs, one per pillar, sit beside a FLEX comparison of how droplet flames went out by diluent. A "What to fly next" section proposes four experiments, each with its evidence from the tables.
 - **Cabin lab** lets you set the oxygen, pressure, fuel and gravity of a cabin of your own. It counts the flight tests NASA ran near that cabin, shows how they ended and how far the cabin sits past the record, and lists the closest tests. The flame on screen is drawn solid only where tests exist. Nothing in it is a prediction.
 - **Orb, the guide** sits on every page. Name a habitat and it answers at once with a card counted from the flight tests. Ask what a page does and it explains it. Any other question goes to the same cited question service as the Ask page. You can type or speak, and it can read its answers aloud.
@@ -59,7 +59,7 @@ All checks run automatically on every change, in GitHub Actions.
 ### Benefits
 
 - **Habitat designers** see in seconds which experiments come closest to their cabin's oxygen and pressure, and how far the evidence falls short.
-- **Fire modelers** get one clean test table in common units, filterable by oxygen, pressure and investigation, and downloadable as CSV from the API.
+- **Fire modelers** get one clean test table in common units, filterable by oxygen, pressure and investigation, and downloadable as CSV from the home page, the Evidence page, each investigation's page or the API.
 - **Researchers and planners** see where data is missing, such as solids above 22% oxygen and partial gravity, to guide the next flight experiments.
 - **Everyone** can check every claim, because each number, ranking and answer links back to its NASA record.
 

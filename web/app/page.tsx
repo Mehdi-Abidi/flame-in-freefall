@@ -1,12 +1,14 @@
 import { Mission } from "@/components/Mission";
 import { loadDataset } from "@/lib/data";
 import { loadGuideData } from "@/lib/guideData";
+import { loadLabData } from "@/lib/labData";
 
 const SHOWN_HABITATS = ["iss", "lunar_base", "mars_habitat"];
 
 export default function MissionPage() {
   const data = loadDataset();
   const guide = loadGuideData();
+  const scores = data.investigations.flatMap((investigation) => Object.values(investigation.scores));
   const solid = data.stats.oxygenByPhase.find((phase) => phase.phase === "solid");
   const top = data.investigations
     .filter((investigation) => investigation.scores.lunar_base)
@@ -22,6 +24,14 @@ export default function MissionPage() {
         solid: { min: solid?.min ?? 0, max: data.stats.solidMaxO2, count: solid?.count ?? data.stats.solidTests },
         habitats: guide.habitats.filter((habitat) => SHOWN_HABITATS.includes(habitat.id)),
         top,
+        pipeline: {
+          tables: loadLabData().tables,
+          rawTerabytes: Math.round(data.stats.rawTerabytes),
+          summaries: data.investigations.filter((investigation) => investigation.summary).length,
+          habitats: data.scenarios.length,
+          scores: scores.length,
+          modelReasons: scores.filter((score) => score.rationale?.source === "model").length,
+        },
       }}
     />
   );

@@ -12,6 +12,7 @@ import saffireFabric from "@/assets/nasa/saffire-fabric.jpg";
 import saffireBand from "@/assets/nasa/saffire-plexiglass.jpg";
 import { Orb } from "@/components/Guide";
 import { Reveal } from "@/components/Reveal";
+import { API_URL } from "@/lib/ask";
 import type { HabitatReading } from "@/lib/guide";
 import type { Verdict } from "@/lib/lab";
 
@@ -22,6 +23,7 @@ export interface MissionData {
   solid: { min: number; max: number; count: number };
   habitats: HabitatReading[];
   top: { accession: string; name: string; score: number }[];
+  pipeline: { tables: number; rawTerabytes: number; summaries: number; habitats: number; scores: number; modelReasons: number };
 }
 
 const VERDICT: Record<Verdict, { word: string; color: string }> = {
@@ -45,7 +47,7 @@ function Hero({ data }: { data: MissionData }) {
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(5,7,11,0.96)_0%,rgba(5,7,11,0.74)_38%,rgba(5,7,11,0.12)_70%,rgba(5,7,11,0)_100%)]" />
       <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-[linear-gradient(180deg,rgba(5,7,11,0),#05070b)]" />
       <div className="mx-auto w-full max-w-[1240px] px-4 py-16 sm:px-6">
-        <p className="eyebrow hero-enter text-ice">Mission brief · NASA PSI combustion record</p>
+        <p className="eyebrow hero-enter text-ice">SI-powered fire safety insights · NASA PSI combustion data</p>
         <h1 className="display hero-enter mt-5 max-w-[11ch] text-[64px] sm:text-[96px] lg:text-[124px]">
           A Moon base will breathe <span className="text-accent">30% oxygen</span>
         </h1>
@@ -224,11 +226,54 @@ function Cabin({ habitats }: { habitats: HabitatReading[] }) {
   );
 }
 
+/** The data science in five steps, each with the number it produced. */
+function Pipeline({ data }: { data: MissionData }) {
+  const { pipeline } = data;
+  const steps = [
+    { name: "Ingest", figure: String(data.investigations), unit: "investigations", text: `${pipeline.tables} test tables and every record, pulled from NASA's PSI API. ${pipeline.rawTerabytes} TB of raw video stays at NASA, linked.` },
+    { name: "Normalize", figure: data.records.toLocaleString("en-US"), unit: "test rows", text: "mmHg, atm and bar become kPa, in one table. Every value is tagged measured, planned or assumed." },
+    { name: "Read", figure: String(pipeline.summaries), unit: "plain summaries", text: "An open model reads NASA's text. Facts the tables prove go in as ground truth, and anything it adds is flagged." },
+    { name: "Rank", figure: String(pipeline.scores), unit: "scores", text: `A four-part formula with no model in it, for ${pipeline.habitats} habitats. Python and the browser agree on every score.` },
+    { name: "Explain", figure: String(pipeline.modelReasons), unit: "checked reasons", text: "Model text is checked against the numbers before it is shown. Answers cite a NASA record or say the data does not cover it." },
+  ];
+  return (
+    <section className="mx-auto max-w-[1240px] px-4 pt-24 sm:px-6">
+      <Reveal>
+        <p className="eyebrow text-accent">Chapter 4 · How it thinks</p>
+        <h2 className="display mt-3 max-w-[14ch] text-[48px] sm:text-[84px]">From raw records to cited answers</h2>
+      </Reveal>
+      <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        {steps.map((step, index) => (
+          <li key={step.name}>
+            <Reveal delay={index * 0.06} className="h-full">
+              <div className="panel flex h-full flex-col p-5">
+                <span className="mono text-[12px] text-muted">0{index + 1}</span>
+                <span className="display mt-1 text-[26px] text-accent">{step.name}</span>
+                <span className="display mt-5 text-[56px] text-ice">{step.figure}</span>
+                <span className="eyebrow mt-1">{step.unit}</span>
+                <span className="mt-4 text-[14px] leading-relaxed text-ink-2">{step.text}</span>
+              </div>
+            </Reveal>
+          </li>
+        ))}
+      </ol>
+      <Reveal className="mt-8 flex flex-wrap gap-3">
+        <Link href="/method/" className="btn btn-primary">
+          Read the method
+        </Link>
+        <a href={`${API_URL}/export`} className="btn btn-ghost">
+          Download the test table
+        </a>
+      </Reveal>
+    </section>
+  );
+}
+
 function Tools({ data }: { data: MissionData }) {
   return (
     <section className="mx-auto max-w-[1240px] px-4 py-24 sm:px-6">
       <Reveal>
-        <p className="eyebrow text-accent">Chapter 4 · Mission tools</p>
+        <p className="eyebrow text-accent">Chapter 5 · Mission tools</p>
         <h2 className="display mt-3 text-[48px] sm:text-[84px]">Go deeper</h2>
       </Reveal>
       <div className="mt-10 grid gap-4 md:grid-cols-6">
@@ -354,6 +399,7 @@ export function Mission({ data }: { data: MissionData }) {
       <Freefall />
       <Gap solid={data.solid} />
       <Cabin habitats={data.habitats} />
+      <Pipeline data={data} />
       <Tools data={data} />
       <Close />
     </>

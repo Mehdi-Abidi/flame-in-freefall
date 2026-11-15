@@ -1,6 +1,6 @@
 /** The order a visitor is led through the site. The header, the footer links and every page's next step read from this. */
 export const JOURNEY = [
-  { path: "/", nav: "Mission", label: "Mission brief", line: "The gap, in four screens" },
+  { path: "/", nav: "Mission", label: "Mission brief", line: "The gap, the pipeline and the tools" },
   { path: "/lab/", nav: "Cabin lab", label: "Cabin lab", line: "Set a cabin and see what flew there" },
   { path: "/evidence/", nav: "Evidence", label: "Evidence", line: "Every test on one map, and what it shows" },
   { path: "/rank/", nav: "Rank", label: "Rank", line: "Order the 24 investigations for a habitat" },

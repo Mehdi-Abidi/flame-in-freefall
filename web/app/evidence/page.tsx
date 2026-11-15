@@ -7,6 +7,7 @@ import { NextTests } from "@/components/NextTests";
 import { OxygenRuler } from "@/components/OxygenRuler";
 import { PartialGravityNote } from "@/components/PartialGravityNote";
 import { PageIntro, SectionHeader } from "@/components/Section";
+import { API_URL } from "@/lib/ask";
 import { loadDataset } from "@/lib/data";
 import { flexByDiluent } from "@/lib/flex";
 import { stageLabel } from "@/lib/journey";
@@ -52,6 +53,14 @@ export default function EvidencePage() {
         )}
         <div className="panel p-4 sm:p-5">
           <GapMap points={data.points} scenarios={data.scenarios} names={names} selectedScenario={lunar?.id} solidMaxO2={data.stats.solidMaxO2} />
+        </div>
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+          <a href={`${API_URL}/export`} className="btn btn-ghost">
+            Download all {data.stats.records.toLocaleString("en-US")} rows as CSV
+          </a>
+          <p className="max-w-[58ch] text-[13px] leading-relaxed text-muted">
+            For flammability models: one table in common units, every oxygen and pressure value tagged measured, planned or assumed. The file comes from the live API, which can take a minute to wake.
+          </p>
         </div>
       </section>
 

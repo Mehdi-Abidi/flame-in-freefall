@@ -97,8 +97,8 @@ Next.js 16 static export, deployed to GitHub Pages by `.github/workflows/dashboa
 
 | Page | What it does |
 |---|---|
-| Mission brief | The home page, told in four screens. A hero with the headline gap, a scroll scene where NASA's candle flame loses gravity and turns from a teardrop into a blue dome, the 22.2% versus 30% gap, live verdicts for three cabins, and a grid of the tools |
-| Evidence | The oxygen ruler, the gap map of every test by oxygen and pressure with habitat boxes, the SAFFIRE-II gravity comparison, the three reviewed briefs, a FLEX comparison of how droplet flames went out by diluent, and four data-backed experiments to fly next |
+| Mission brief | The home page, told as one scroll. A hero with the headline gap, a scroll scene where NASA's candle flame loses gravity and turns from a teardrop into a blue dome, the 22.2% versus 30% gap, live verdicts for three cabins, the five-step data pipeline with the number each step produced, and a grid of the tools |
+| Evidence | The oxygen ruler, the gap map of every test by oxygen and pressure with habitat boxes, the SAFFIRE-II gravity comparison, the three reviewed briefs, a FLEX comparison of how droplet flames went out by diluent, four data-backed experiments to fly next, and a button that downloads the whole normalized test table as CSV |
 | Cabin lab | Set oxygen, pressure, fuel and gravity for a cabin of your own. It counts the flight tests near that cabin, says how they ended and how far the cabin sits past the record, and draws the flame solid only where tests exist |
 | Orb, the guide | A small companion on every page. Name a habitat and it answers at once with a card counted from the flight tests. Ask about the page and it explains it. Any other question goes to the live `/ask` API and comes back with PSI citations. Questions can be typed or spoken, and answers can be read aloud |
 | Rank | Habitat switcher and pillar sliders. The list re-orders live, arrows show movement, each row opens its evidence. State lives in the URL, so a view can be shared |

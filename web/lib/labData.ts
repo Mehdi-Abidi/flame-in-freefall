@@ -9,12 +9,15 @@ const SMOKE_INVESTIGATIONS = ["PSI-101", "PSI-102"];
 
 export interface LabData {
   tests: LabTest[];
+  /** How many of NASA's experimental tables feed the normalized test table. */
+  tables: number;
   smoke: { tests: number; o2: number; accessions: string[] };
 }
 
 /** Flight tests with a measured oxygen value, plus the smoke tests, which ran in assumed cabin air. */
 export function loadLabData(): LabData {
-  const rows = parseCsv(readFileSync(path.join(DATA_DIR, "processed/tests.csv"), "utf-8")).filter((r) => r.record_type === "test");
+  const all = parseCsv(readFileSync(path.join(DATA_DIR, "processed/tests.csv"), "utf-8"));
+  const rows = all.filter((r) => r.record_type === "test");
   const number = (value: string | undefined) => (value === undefined || value.trim() === "" || !Number.isFinite(Number(value)) ? null : Number(value));
 
   const tests: LabTest[] = [];
@@ -27,6 +30,7 @@ export function loadLabData(): LabData {
   const smokeRows = rows.filter((r) => SMOKE_INVESTIGATIONS.includes(r.accession));
   return {
     tests,
+    tables: new Set(all.map((r) => r.source_file)).size,
     smoke: { tests: smokeRows.length, o2: number(smokeRows[0]?.o2_mole_fraction) ?? 0.21, accessions: SMOKE_INVESTIGATIONS },
   };
 }

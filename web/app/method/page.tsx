@@ -110,7 +110,7 @@ export default function MethodPage() {
       <SectionHeader title="Limits and AI use">
         No partial-gravity combustion data is in PSI yet. Microgravity and 1 g results bound what may happen on the Moon or Mars, and future data
         from the Lunar-g Combustion Investigation and Flammability of Materials on the Moon will fill that gap. The E-FIELD experiment mimicked
-        partial gravity with electric fields. AI use: GPT-OSS 20B (via Groq) drafted the investigation summaries from NASA&apos;s text and answers Ask questions. GPT-OSS
+        partial gravity with electric fields. Use of SI: GPT-OSS 20B (via Groq) drafted the investigation summaries from NASA&apos;s text and answers Ask questions. GPT-OSS
         120B and 20B wrote the ranking reasons from facts the code computed. The three briefs were drafted with Claude from those facts, passed the same checks and were reviewed by a team member. An AI coding assistant helped write the software. All scores are deterministic and every claim links to its NASA source.
       </SectionHeader>
     </div>
