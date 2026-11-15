@@ -151,9 +151,9 @@
         "prevention"
       ],
       "role": null,
-      "platform": "ISS",
+      "platform": "Cygnus",
       "hardware": "Saffire unit in Cygnus",
-      "note": "Second pass 15 Nov: prevention only. The objective is fire growth and low-g flammability limits. The O2 and CO2 sensors observe the fire; detection is not studied."
+      "note": "Second pass 15 Nov: prevention only. The objective is fire growth and low-g flammability limits. The O2 and CO2 sensors observe the fire; detection is not studied. Platform set to Cygnus: PSI's catalog lists ISS, but NASA's approach text says the burn ran on the Cygnus resupply vehicle after it left the station, the same as SAFFIRE-II."
     },
     {
       "accession": "PSI-99",
@@ -173,9 +173,9 @@
         "prevention"
       ],
       "role": null,
-      "platform": "ISS",
+      "platform": "Cygnus",
       "hardware": "Saffire unit in Cygnus",
-      "note": "Second pass 15 Nov: prevention only, same objective text and instruments as SAFFIRE-I."
+      "note": "Second pass 15 Nov: prevention only, same objective text and instruments as SAFFIRE-I. Platform set to Cygnus: PSI's catalog lists ISS, but NASA's approach text says the burn ran on the Cygnus resupply vehicle after it left the station, the same as SAFFIRE-II."
     },
     {
       "accession": "PSI-101",

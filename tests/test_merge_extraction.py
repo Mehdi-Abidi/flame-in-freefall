@@ -42,6 +42,14 @@ class MergeTests(unittest.TestCase):
         self.assertEqual(merged[0]["pillars"], ["prevention"])
         self.assertEqual((merged[0]["summary"], merged[0]["sensors"]), ("S", ["cam"]))
 
+    def test_a_hand_checked_platform_replaces_the_catalog_value(self):
+        merged, _, _ = self.run_merge(
+            [{"accession": "PSI-1", "platform": "ISS"}, {"accession": "PSI-2", "platform": "ISS"}],
+            [{"accession": "PSI-1"}, {"accession": "PSI-2"}],
+            tags=[{"accession": "PSI-1", "pillars": [], "platform": "Cygnus"}, {"accession": "PSI-2", "pillars": []}],
+        )
+        self.assertEqual([m["platform"] for m in merged], ["Cygnus", "ISS"])
+
     def test_model_pillars_are_the_fallback_without_tags(self):
         merged, out, _ = self.run_merge(
             [{"accession": "PSI-1"}],
@@ -71,6 +79,10 @@ class RealDataTests(unittest.TestCase):
         rankings = json.loads((ROOT / "data/processed/rankings.json").read_text(encoding="utf-8"))
         ranked = {e["accession"]: e["pillars"] for e in rankings["scenarios"]["lunar_base"]["ranking"]}
         self.assertEqual({i["accession"]: i["pillars"] for i in investigations}, ranked)
+
+    def test_all_three_saffire_flights_are_on_cygnus(self):
+        records = {i["accession"]: i for i in json.loads((ROOT / "data/processed/investigations.json").read_text(encoding="utf-8"))}
+        self.assertEqual({records[a]["platform"] for a in ("PSI-98", "PSI-99", "PSI-100")}, {"Cygnus"})
 
     def test_every_investigation_has_a_hand_checked_tag(self):
         tags = json.loads((ROOT / "data/domain/tags.json").read_text(encoding="utf-8"))["investigations"]

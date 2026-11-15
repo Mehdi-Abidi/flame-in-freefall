@@ -84,6 +84,11 @@ def main():
         inv["pillars"] = pillars
         pillar_sources[source] += 1
 
+        # A hand-checked platform beats PSI's catalog field, which lists two Saffire flights as ISS.
+        checked_platform = (tags_by_accession.get(accession) or {}).get("platform")
+        if checked_platform:
+            inv["platform"] = checked_platform
+
     if missing_extraction:
         print(f"WARNING: no extracted.json record for {', '.join(missing_extraction)}; "
               f"those investigations were left as they were (pillars/summary/etc. still null).")
