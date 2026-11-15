@@ -1,5 +1,5 @@
-import { burnExtent, type BurnExtent } from "@/lib/gravity";
-import type { GravityRow } from "@/lib/types";
+import { burnExtent, referencedNotes, type BurnExtent } from "@/lib/gravity";
+import type { GravityNote, GravityRow } from "@/lib/types";
 
 const CAPTION = "SAFFIRE-II samples burned in microgravity compared with the same samples in 1 g ground tests";
 
@@ -20,7 +20,8 @@ function Outcome({ text }: { text: string }) {
   );
 }
 
-export function GravityTable({ rows }: { rows: GravityRow[] }) {
+export function GravityTable({ rows, notes = [] }: { rows: GravityRow[]; notes?: GravityNote[] }) {
+  const shown = referencedNotes(rows, notes);
   return (
     <>
       <ul aria-label={CAPTION} className="divide-y divide-[color:var(--rule)] rounded-[6px] border border-rule bg-surface md:hidden">
@@ -83,6 +84,15 @@ export function GravityTable({ rows }: { rows: GravityRow[] }) {
           </tbody>
         </table>
       </div>
+      {shown.length > 0 && (
+        <ol className="mt-3 space-y-1 text-[12px] leading-relaxed text-muted">
+          {shown.map((note) => (
+            <li key={note.note}>
+              Note {note.note}: {note.text}
+            </li>
+          ))}
+        </ol>
+      )}
     </>
   );
 }

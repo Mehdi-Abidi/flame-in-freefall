@@ -94,6 +94,11 @@ export interface Point {
   id: string;
 }
 
+export interface GravityNote {
+  note: string;
+  text: string;
+}
+
 export interface GravityRow {
   sample: string;
   material: string;
@@ -147,6 +152,7 @@ export interface Dataset {
   scenarios: Scenario[];
   componentWeights: Components;
   gravity: GravityRow[];
+  gravityNotes: GravityNote[];
   briefs: Brief[];
   stats: Stats;
 }

@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { parseCsv } from "./csv";
-import type { Brief, Components, Dataset, GravityRow, Investigation, Phase, PhaseOxygen, Pillar, Point, Range, Rationale, Scenario, ScenarioScore } from "./types";
+import type { Brief, Components, Dataset, GravityNote, GravityRow, Investigation, Phase, PhaseOxygen, Pillar, Point, Range, Rationale, Scenario, ScenarioScore } from "./types";
 
 const DATA_DIR = process.env.FLAME_DATA_DIR ?? path.join(process.cwd(), "..", "data");
 const PHASES: Phase[] = ["solid", "liquid", "gas", "dust"];
@@ -150,6 +150,14 @@ function shortTitle(title: string): string {
   return cleaned.length > 42 ? `${cleaned.slice(0, 40).trimEnd()}...` : cleaned;
 }
 
+function loadGravityNotes(): GravityNote[] {
+  try {
+    return parseCsv(read("processed/saffire2_notes.csv")).map((r) => ({ note: r.note, text: r.text }));
+  } catch {
+    return [];
+  }
+}
+
 function loadGravity(): GravityRow[] {
   return parseCsv(read("processed/saffire2_gravity.csv")).map((r) => ({
     sample: r.sample,
@@ -285,6 +293,7 @@ export function loadDataset(): Dataset {
     scenarios,
     componentWeights: rankings.component_weights,
     gravity: loadGravity(),
+    gravityNotes: loadGravityNotes(),
     briefs: loadBriefs(new Set(merged.map((i) => i.accession))),
     stats: {
       investigations: merged.length,
