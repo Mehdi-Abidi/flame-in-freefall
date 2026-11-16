@@ -12,7 +12,7 @@ Lunar habitats are expected to run at 30% oxygen or more, yet no solid-material 
 
 ## Link to Project Demo
 
-- Slide deck (7 slides, title and introduction included): [`docs/submission/flame-in-freefall-slides.pptx`](flame-in-freefall-slides.pptx). We submit slides instead of a video, because the form takes one or the other. Upload the file where the form asks for the demo.
+- Slide deck (7 slides, title and introduction included): [`docs/submission/JComit_Flame-in-Freefall_NASA-Space-Apps-2026.pptx`](JComit_Flame-in-Freefall_NASA-Space-Apps-2026.pptx). We submit slides instead of a video, because the form takes one or the other. Upload the file where the form asks for the demo.
 
 ## Link to Final Project
 
